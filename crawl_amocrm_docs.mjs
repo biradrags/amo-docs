@@ -197,7 +197,7 @@ function cleanMarkdown(markdown) {
   let inCodeBlock = false;
   
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
+    let line = lines[i];
     
     if (line.trim().startsWith("```")) {
       inCodeBlock = !inCodeBlock;
@@ -215,17 +215,47 @@ function cleanMarkdown(markdown) {
       continue;
     }
     
+    line = escapeProblematicHtml(line);
+    
     result.push(line);
   }
   
-  let cleanedMarkdown = result.join("\n");
+  return result.join("\n");
+}
+
+function escapeProblematicHtml(line) {
+  const htmlTagPattern = /<([a-z][a-z0-9]*)\b[^>]*>.*?<\/\1>|<[a-z][a-z0-9]*\b[^>]*>/gi;
   
-  cleanedMarkdown = cleanedMarkdown.replace(/<a\s+href="([^"]*\([^)]*\)[^"]*)"/g, (match, url) => {
-    const cleanedUrl = url.replace(/[()]/g, '');
-    return `<a href="${cleanedUrl}"`;
+  const hasProblematicHtml = (text) => {
+    const matches = text.match(htmlTagPattern);
+    if (!matches) return false;
+    
+    for (const match of matches) {
+      if (match.includes('[') && match.includes(']')) return true;
+      if (match.includes('](') && match.includes(')')) return true;
+      
+      const hrefMatch = match.match(/href="([^"]*)"/);
+      if (hrefMatch) {
+        const href = hrefMatch[1];
+        if (href.includes('[') || href.includes(']') || href.includes('](')) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+  
+  if (!hasProblematicHtml(line)) {
+    return line;
+  }
+  
+  return line.replace(htmlTagPattern, (match) => {
+    if (match.startsWith('</')) {
+      return match;
+    }
+    
+    return '`' + match.replace(/`/g, '') + '`';
   });
-  
-  return cleanedMarkdown;
 }
 
 function htmlToMarkdown(url, html) {
