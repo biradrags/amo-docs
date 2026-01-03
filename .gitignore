@@ -1,0 +1,20 @@
+node_modules/
+
+# VuePress build output and cache
+.vuepress/.temp/
+.vuepress/.cache/
+.vuepress/dist/
+amocrm_docs_md/.vuepress/.temp/
+amocrm_docs_md/.vuepress/.cache/
+amocrm_docs_md/.vuepress/dist/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022"
+  },
+  "include": [
+    "amocrm_docs_md/.vuepress/**/*.ts",
+    "amocrm_docs_md/.vuepress/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+
+

@@ -1,0 +1,23 @@
+{
+  "name": "amo-docs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vuepress-vite dev amocrm_docs_md --host 0.0.0.0 --port 8080",
+    "docs:build": "vuepress-vite build amocrm_docs_md",
+    "docs:clean-dev": "vuepress-vite dev amocrm_docs_md --clean-cache",
+    "crawl:docs": "node crawl_amocrm_docs.mjs"
+  },
+  "devDependencies": {
+    "@vuepress/bundler-vite": "2.0.0-rc.26",
+    "cheerio": "^1.0.0-rc.12",
+    "sass-embedded": "^1.93.2",
+    "turndown": "^7.1.2",
+    "vue": "^3.5.22",
+    "vuepress": "2.0.0-rc.26",
+    "vuepress-theme-hope": "2.0.0-rc.95"
+  }
+}
+
+
