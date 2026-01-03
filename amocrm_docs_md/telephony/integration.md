@@ -1,8 +1,6 @@
 <!-- https://www.amocrm.ru/developers/content/telephony/integration -->
 
-# https://www.amocrm.ru/developers/content/telephony/integration
-
-Пример интеграции
+# Пример интеграции
 
 Если перед вами стоит задача познакомиться с функциональностью системы телефонии или изучить на наглядном полноценном примере реализацию возможностей телефонии, вы можете скачать готовый пример виджета телефонии.
 
@@ -15,12 +13,12 @@
 *   Добавление клиентов в список обзвона из списка контактов, компаний или сделок.
 *   Совершение звонков прямо из браузера, без использования сторонних программ для совершения звонков.
 
-Подробнее о перечисленных возможностях, читайте [здесь](/developers/content/telephony/capabilities-2)
+Подробнее о перечисленных возможностях, читайте [здесь](/telephony/capabilities-2.html)
 
 #### Скачать пример виджета телефонии
 
 [Скачать](https://www.amocrm.ru/static/assets/developers/files/examples/example_phone_widget.zip)
 
-Подробное описание о работе с виджетами, [здесь](/developers/content/integrations/intro).
+Подробное описание о работе с виджетами, [здесь](/integrations/intro.html).
 
-Инструкция по загрузке виджета в amoCRM, [здесь](/developers/content/integrations/upload).
+Инструкция по загрузке виджета в amoCRM, [здесь](/integrations/upload.html).

@@ -1,8 +1,6 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/sources-api -->
 
-# Оглавление
-
-Источники
+# Источники
 
 В данном разделе описываются доступные методы для работы с API источников.
 
@@ -20,38 +18,40 @@ API источников позволяет интеграции сообщит�
 *   при настройке действия "Написать сообщение" в боте в .com аккаунтах (Если источник не создан, то его не будет в настройках этого действия)
 *   при работе функционала "Написать первым" (у пользователя будет возможность выбирать через какой именно источник написать первым клиенту в карточке сделки)
 *   отображаются в сделке в разделе статистика
-*   источник может быть указан при создании сделки через [API](https://www.amocrm.ru/developers/content/crm_platform/leads-api) в `_embedded[source][external_id]`
+*   источник может быть указан при создании сделки через [API](/crm_platform/leads-api.html) в `_embedded[source][external_id]`
 
 Также через API источников интеграция может добавить варианты выбора номеров WhatsApp,  
 которые используются при настройке кнопки на сайт – [СRM Plugin](https://www.amocrm.ru/support/incoming_leads/dp_button)
 
-Источнику можно указать свойство waba если интеграция работает с белым WhatsApp и настроено временное окно. Параметр даёт возможность управления шаблонами WhatsApp и использовании их в новом шаге "Отправить сообщение" в Salesbot. После указания данного параметра следует [подписаться](https://www.amocrm.ru/developers/content/crm_platform/webhooks-api#webhook-subscribe) на события отправки шаблона на утверждение. Получив такое событие интеграция может передать шаблон на одобрение в WhatsApp и в зависимости от результата изменить статус шаблона WhatsApp через [API](https://www.amocrm.ru/developers/content/crm_platform/chat-templates-api#Редактирование-статуса-шаблона-WhatsApp)
+Источнику можно указать свойство waba если интеграция работает с белым WhatsApp и настроено временное окно. Параметр даёт возможность управления шаблонами WhatsApp и использовании их в новом шаге "Отправить сообщение" в Salesbot. После указания данного параметра следует [подписаться](/crm_platform/webhooks-api#webhook-subscribe.html) на события отправки шаблона на утверждение. Получив такое событие интеграция может передать шаблон на одобрение в WhatsApp и в зависимости от результата изменить статус шаблона WhatsApp через [API](/crm_platform/chat-templates-api#%D0%A0%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D1%81%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%B0-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD%D0%B0-WhatsApp.html)
 
-*   [Требования к интеграции для работы с API источников](#Требования-к-интеграции-для-работы-с-API-источников)
-*   [Получение списка источников](#Получение-списка-источников)
-*   [Получение источника по ID](#Получение-источника-по-ID)
-*   [Добавление источников](#Добавление-источников)
-*   [Редактирование источников](#Редактирование-источников)
-*   [Удаление источников](#Удаление-источников)
-*   [Создание CRM Plugin](#Создание-CRM-Plugin)
-*   [Подключение онлайн-чата к CRM Plugin](#Подключение-онлайн-чата-к-CRM-Plugin)
-*   [Изменение CRM Plugin](#Изменение-CRM-Plugin)
-*   [Получение одного CRM Plugin](#Получение-одного-CRM-Plugin)
-*   [Получение списка CRM Plugin](#Получение-списка-CRM-Plugin)
+### Оглавление
+
+*   [Требования к интеграции для работы с API источников](/crm_platform/sources-api#%D0%A2%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B8%D0%BD%D1%82%D0%B5%D0%B3%D1%80%D0%B0%D1%86%D0%B8%D0%B8-%D0%B4%D0%BB%D1%8F-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B-%D1%81-API-%D0%B8%D1%81%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2.html)
+*   [Получение списка источников](/crm_platform/sources-api#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D1%81%D0%BF%D0%B8%D1%81%D0%BA%D0%B0-%D0%B8%D1%81%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2.html)
+*   [Получение источника по ID](/crm_platform/sources-api#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B8%D1%81%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D0%BA%D0%B0-%D0%BF%D0%BE-ID.html)
+*   [Добавление источников](/crm_platform/sources-api#%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B8%D1%81%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2.html)
+*   [Редактирование источников](/crm_platform/sources-api#%D0%A0%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B8%D1%81%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2.html)
+*   [Удаление источников](/crm_platform/sources-api#%D0%A3%D0%B4%D0%B0%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B8%D1%81%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2.html)
+*   [Создание CRM Plugin](/crm_platform/sources-api#%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-CRM-Plugin.html)
+*   [Подключение онлайн-чата к CRM Plugin](/crm_platform/sources-api#%D0%9F%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BE%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD-%D1%87%D0%B0%D1%82%D0%B0-%D0%BA-CRM-Plugin.html)
+*   [Изменение CRM Plugin](/crm_platform/sources-api#%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-CRM-Plugin.html)
+*   [Получение одного CRM Plugin](/crm_platform/sources-api#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BE%D0%B4%D0%BD%D0%BE%D0%B3%D0%BE-CRM-Plugin.html)
+*   [Получение списка CRM Plugin](/crm_platform/sources-api#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D1%81%D0%BF%D0%B8%D1%81%D0%BA%D0%B0-CRM-Plugin.html)
 
 ### Требования к интеграции для работы с API источников
 
 Источники, создаваемые интеграцией отображаются в разделе настроек Digital Pipeline.  
 Пользователь может взаимодействовать с источником и интеграцией через интерфейс,  
 поэтому интеграции для работы с источниками требуется загруженный архив.  
-Таким образом с API источников могут взаимодействовать все интеграции за исключением типа ["Внешняя интеграция"](https://www.amocrm.ru/developers/content/crm_platform/platform-abilities).
+Таким образом с API источников могут взаимодействовать все интеграции за исключением типа ["Внешняя интеграция"](/crm_platform/platform-abilities.html).
 
 Перед началом работы с API источников нужно удостоверится что интеграция соответствует следующим критериям:
 
 1.  Интеграция обладает загруженным архивом (виджетом) и в файле manifest.json виджета указана возможность  
     отображения виджета в интерфейсе добавления нового источника `"locations":["lead_sources"]`
 2.  Для интеграций, которые работают с чатами: в канале чата должен быть прописан код виджета и ID интеграции.  
-    Подробности по работе с каналами указаны в блоке [регистрация канала](https://www.amocrm.ru/developers/content/chats/chat-start) раздела API чатов.
+    Подробности по работе с каналами указаны в блоке [регистрация канала](/chats/chat-start.html) раздела API чатов.
 
 Также у интеграции появляется новое свойство – "Поддерживается ли работа с множественными источниками".  
 Данный флаг стоит включить, когда интеграция полностью управляет источниками через API со своего бэкенда и создание источника со стороны amoCRM больше не требуется.  
@@ -118,46 +118,48 @@ null | Код основного канала источника. Данный �
 
 #### Пример ответа
 
-    {
-        "_total_items": 2,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/sources"
-            }
-        },
-        "_embedded": {
-            "sources": [
-                {
-                    "id": 9619,
-                    "name": "Номер отдела продаж",
-                    "pipeline_id": 1300,
-                    "external_id": "+17 912 100 00 00",
-                    "default": true,
-                    "origin_code": null,
-                    "services": [],
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/sources/9619"
-                        }
-                    }
-                },
-                {
-                    "id": 4460,
-                    "name": "Лендинг",
-                    "pipeline_id": 1301,
-                    "external_id": "65bd500b-fd52-4599-ab58-943ce3dd058c",
-                    "default": false,
-                    "origin_code": "amo.ext.30490163_v2",
-                    "services": [],
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/sources/4460"
-                        }
+```json
+{
+    "_total_items": 2,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/sources"
+        }
+    },
+    "_embedded": {
+        "sources": [
+            {
+                "id": 9619,
+                "name": "Номер отдела продаж",
+                "pipeline_id": 1300,
+                "external_id": "+17 912 100 00 00",
+                "default": true,
+                "origin_code": null,
+                "services": [],
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/sources/9619"
                     }
                 }
-            ]
-        }
+            },
+            {
+                "id": 4460,
+                "name": "Лендинг",
+                "pipeline_id": 1301,
+                "external_id": "65bd500b-fd52-4599-ab58-943ce3dd058c",
+                "default": false,
+                "origin_code": "amo.ext.30490163_v2",
+                "services": [],
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/sources/4460"
+                    }
+                }
+            }
+        ]
     }
+}
+```
 
 ### Получение источника по ID
 
@@ -214,20 +216,22 @@ null | Код основного канала источника. Данный �
 
 #### Пример ответа
 
-    {
-        "id": 9619,
-        "name": "Номер отдела продаж",
-        "pipeline_id": 1300,
-        "external_id": "+17 912 100 00 00",
-        "default": true,
-        "origin_code": null,
-        "services": [],
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/sources/9619"
-            }
+```json
+{
+    "id": 9619,
+    "name": "Номер отдела продаж",
+    "pipeline_id": 1300,
+    "external_id": "+17 912 100 00 00",
+    "default": true,
+    "origin_code": null,
+    "services": [],
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/sources/9619"
         }
     }
+}
+```
 
 ### Добавление источников
 
@@ -270,35 +274,37 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    [
-        {
-            "name": "Номер отдела продаж",
-            "pipeline_id": 1300,
-            "external_id": "+17 912 100 00 00",
-            "default": true,
-            "services": [
-                {
-                    "type": "whatsapp",
-                    "params": {
-                        "waba": true,
-                        "is_supports_list_message": true
-                    },
-                    "pages": [
-                        {
-                            "id": "9121234565",
-                            "name": "WhatsApp +9121234567",
-                            "link": "+9121234567"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "Лендинг",
-            "external_id": "65bd500b-fd52-4599-ab58-943ce3dd058c",
-            "origin_code": "amo.ext.30490163_v2"
-        }
-    ]
+```json
+[
+    {
+        "name": "Номер отдела продаж",
+        "pipeline_id": 1300,
+        "external_id": "+17 912 100 00 00",
+        "default": true,
+        "services": [
+            {
+                "type": "whatsapp",
+                "params": {
+                    "waba": true,
+                    "is_supports_list_message": true
+                },
+                "pages": [
+                    {
+                        "id": "9121234565",
+                        "name": "WhatsApp +9121234567",
+                        "link": "+9121234567"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Лендинг",
+        "external_id": "65bd500b-fd52-4599-ab58-943ce3dd058c",
+        "origin_code": "amo.ext.30490163_v2"
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -341,61 +347,63 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_total_items": 2,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/sources"
-            }
-        },
-        "_embedded": {
-            "sources": [
-                {
-                    "id": 9619,
-                    "name": "Номер отдела продаж",
-                    "pipeline_id": 1300,
-                    "external_id": "+17 912 100 00 00",
-                    "default": true,
-                    "origin_code": null,
-                    "services": [
-                        {
-                            "type": "whatsapp",
-                            "params": {
-                                "waba": true,
-                                "is_supports_list_message": true
-                            },
-                            "pages": [
-                                {
-                                    "id": "9121234565",
-                                    "name": "WhatsApp +9121234567",
-                                    "link": "+9121234567"
-                                }
-                            ]
-                        }
-                    ],
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/sources/9619"
-                        }
+```json
+{
+    "_total_items": 2,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/sources"
+        }
+    },
+    "_embedded": {
+        "sources": [
+            {
+                "id": 9619,
+                "name": "Номер отдела продаж",
+                "pipeline_id": 1300,
+                "external_id": "+17 912 100 00 00",
+                "default": true,
+                "origin_code": null,
+                "services": [
+                    {
+                        "type": "whatsapp",
+                        "params": {
+                            "waba": true,
+                            "is_supports_list_message": true
+                        },
+                        "pages": [
+                            {
+                                "id": "9121234565",
+                                "name": "WhatsApp +9121234567",
+                                "link": "+9121234567"
+                            }
+                        ]
                     }
-                },
-                {
-                    "id": 4460,
-                    "name": "Лендинг",
-                    "pipeline_id": 1307,
-                    "external_id": "65bd500b-fd52-4599-ab58-943ce3dd058c",
-                    "default": false,
-                    "origin_code": "amo.ext.30490163_v2",
-                    "services": [],
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/sources/4460"
-                        }
+                ],
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/sources/9619"
                     }
                 }
-            ]
-        }
+            },
+            {
+                "id": 4460,
+                "name": "Лендинг",
+                "pipeline_id": 1307,
+                "external_id": "65bd500b-fd52-4599-ab58-943ce3dd058c",
+                "default": false,
+                "origin_code": "amo.ext.30490163_v2",
+                "services": [],
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/sources/4460"
+                    }
+                }
+            }
+        ]
     }
+}
+```
 
 ### Редактирование источников
 
@@ -443,18 +451,20 @@ _Content-Type: application/json_
 В данном примере мы обновим 2 источника.  
 У одного изменим имя, у другого сменим воронку
 
-    [
-        {
-            "id": 9619,
-            "name": "Номер отдела продаж"
-    
-        },
-        {
-            "id": 4460,
-            "name": "Лендинг",
-            "pipeline_id": 1307
-        }
-    ]
+```json
+[
+    {
+        "id": 9619,
+        "name": "Номер отдела продаж"
+
+    },
+    {
+        "id": 4460,
+        "name": "Лендинг",
+        "pipeline_id": 1307
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -497,46 +507,48 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_total_items": 2,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/sources"
-            }
-        },
-        "_embedded": {
-            "sources": [
-                {
-                    "id": 9619,
-                    "name": "Номер отдела продаж",
-                    "pipeline_id": 1300,
-                    "external_id": "+17 912 100 00 00",
-                    "default": true,
-                    "origin_code": null,
-                    "services": [],
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/sources/9619"
-                        }
-                    }
-                },
-                {
-                    "id": 4460,
-                    "name": "Лендинг",
-                    "pipeline_id": 1307,
-                    "external_id": "65bd500b-fd52-4599-ab58-943ce3dd058c",
-                    "origin_code": "amo.ext.30490163_v2",
-                    "default": false,
-                    "services": [],
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/sources/4460"
-                        }
+```json
+{
+    "_total_items": 2,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/sources"
+        }
+    },
+    "_embedded": {
+        "sources": [
+            {
+                "id": 9619,
+                "name": "Номер отдела продаж",
+                "pipeline_id": 1300,
+                "external_id": "+17 912 100 00 00",
+                "default": true,
+                "origin_code": null,
+                "services": [],
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/sources/9619"
                     }
                 }
-            ]
-        }
+            },
+            {
+                "id": 4460,
+                "name": "Лендинг",
+                "pipeline_id": 1307,
+                "external_id": "65bd500b-fd52-4599-ab58-943ce3dd058c",
+                "origin_code": "amo.ext.30490163_v2",
+                "default": false,
+                "services": [],
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/sources/4460"
+                    }
+                }
+            }
+        ]
     }
+}
+```
 
 ### Удаление источников
 
@@ -566,14 +578,16 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    [
-        {
-            "id": 9619
-        },
-        {
-            "id": 4460
-        }
-    ]
+```json
+[
+    {
+        "id": 9619
+    },
+    {
+        "id": 4460
+    }
+]
+```
 
 #### HTTP коды ответа
 
@@ -594,22 +608,24 @@ _Content-Type: application/json_
 
 #### Пример ответа
 
-    {
-        "errors": [
-            {
-                "request_id": "0",
-                "errors": {
-                    "code": "EntityNotFound",
-                    "path": "id",
-                    "detail": "source with id = 31075178 not found"
-                }
+```json
+{
+    "errors": [
+        {
+            "request_id": "0",
+            "errors": {
+                "code": "EntityNotFound",
+                "path": "id",
+                "detail": "source with id = 31075178 not found"
             }
-        ],
-        "title": "Bad Request",
-        "type": "https://httpstatus.es/400",
-        "status": 400,
-        "detail": "Invalid request items"
-    }
+        }
+    ],
+    "title": "Bad Request",
+    "type": "https://httpstatus.es/400",
+    "status": 400,
+    "detail": "Invalid request items"
+}
+```
 
 ### Создание CRM Plugin
 
@@ -642,10 +658,12 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    {
-        "pipeline_id": 806215,
-        "trusted_websites": ["example.com"]
-    }
+```json
+{
+    "pipeline_id": 806215,
+    "trusted_websites": ["example.com"]
+}
+```
 
 #### HTTP коды ответа
 
@@ -668,10 +686,12 @@ _Content-Type: application/json_
 
 #### Пример ответа
 
-    {
-        "source_id": 62112321,
-        "trusted_websites": ["example.com"]
-    }
+```json
+{
+    "source_id": 62112321,
+    "trusted_websites": ["example.com"]
+}
+```
 
 ### Подключение онлайн-чата к CRM Plugin
 
@@ -711,8 +731,10 @@ _Content-Type: application/json_
 
 202
 
-    {
-    }
+```json
+{
+}
+```
 
 ### Изменение CRM Plugin
 
@@ -744,11 +766,13 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    {
-        "trusted_websites": {
-            "add": ["my-website.com"],
-        }
+```json
+{
+    "trusted_websites": {
+        "add": ["my-website.com"],
     }
+}
+```
 
 #### HTTP коды ответа
 
@@ -779,16 +803,18 @@ null | скрипт CRM Plugin |
 
 200
 
-    {
-        "account_id": 22521521,
-        "source_id": 64646723,
-        "button_id": 27537,
-        "is_duplication_control_enabled": false,
-        "name": "",
-        "creation_status": "created",
-        "pipeline_id": 591512,
-        "script": "<script>(function(a,m,o,c,r,m){a[m]={id:\"401034\",hash:\"7be6ba7b6a01795643f8c3a1f2d5e031b1438277be6f8841bf069e9f242ca4e8\",locale:\"ru\",inline:false,setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.amocrm.ru/js/button.js';d.head&&d.head.appendChild(s)}(window,0,'amoSocialButton',0,0,'amo_social_button'));</script>"
-    }
+```json
+{
+    "account_id": 22521521,
+    "source_id": 64646723,
+    "button_id": 27537,
+    "is_duplication_control_enabled": false,
+    "name": "",
+    "creation_status": "created",
+    "pipeline_id": 591512,
+    "script": "<script>(function(a,m,o,c,r,m){a[m]={id:\"401034\",hash:\"7be6ba7b6a01795643f8c3a1f2d5e031b1438277be6f8841bf069e9f242ca4e8\",locale:\"ru\",inline:false,setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.amocrm.ru/js/button.js';d.head&&d.head.appendChild(s)}(window,0,'amoSocialButton',0,0,'amo_social_button'));</script>"
+}
+```
 
 ### Получение одного CRM Plugin
 
@@ -812,7 +838,7 @@ _Content-Type: application/json_
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры](#Параметры-для-GET-параметра-with). |
+| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры](/crm_platform/sources-api#%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D1%8B-%D0%B4%D0%BB%D1%8F-GET-%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%B0-with.html). |
 
 #### HTTP коды ответа
 
@@ -843,16 +869,18 @@ null | скрипт CRM Plugin |
 
 200
 
-    {
-        "account_id": 22521521,
-        "source_id": 64646723,
-        "button_id": 27537,
-        "is_duplication_control_enabled": false,
-        "name": "",
-        "creation_status": "created",
-        "pipeline_id": 591512,
-        "script": "<script>(function(a,m,o,c,r,m){a[m]={id:\"401034\",hash:\"7be6ba7b6a01795643f8c3a1f2d5e031b1438277be6f8841bf069e9f242ca4e8\",locale:\"ru\",inline:false,setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.amocrm.ru/js/button.js';d.head&&d.head.appendChild(s)}(window,0,'amoSocialButton',0,0,'amo_social_button'));</script>"
-    }
+```json
+{
+    "account_id": 22521521,
+    "source_id": 64646723,
+    "button_id": 27537,
+    "is_duplication_control_enabled": false,
+    "name": "",
+    "creation_status": "created",
+    "pipeline_id": 591512,
+    "script": "<script>(function(a,m,o,c,r,m){a[m]={id:\"401034\",hash:\"7be6ba7b6a01795643f8c3a1f2d5e031b1438277be6f8841bf069e9f242ca4e8\",locale:\"ru\",inline:false,setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.amocrm.ru/js/button.js';d.head&&d.head.appendChild(s)}(window,0,'amoSocialButton',0,0,'amo_social_button'));</script>"
+}
+```
 
 ### Получение списка CRM Plugin
 
@@ -876,7 +904,7 @@ _Content-Type: application/json_
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры](#Параметры-для-GET-параметра-with). |
+| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры](/crm_platform/sources-api#%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D1%8B-%D0%B4%D0%BB%D1%8F-GET-%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%B0-with.html). |
 | page | int | Номер страницы. По умолчанию 1. |
 | limit | int | Количество моделей CRM Plugin на странице. По умолчанию 250. Маскимум 250. |
 
@@ -916,48 +944,50 @@ null | скрипт CRM Plugin |
 
 200
 
-       {
-        "_page": 1,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/website_buttons/?with=scripts&page=1&limit=250"
-            }
-        },
-        "_embedded": {
-            "website_buttons": [
-                {
-                    "account_id": 31952118,
-                    "source_id": 29181,
-                    "button_id": 401034,
-                    "is_duplication_control_enabled": false,
-                    "name": "",
-                    "creation_status": "created",
-                    "pipeline_id": 7714034,
-                    "script": "<script>(function(a,m,o,c,r,m){a[m]={id:\"400\",hash:\"gerwertew\",locale:\"ru\",inline:false,setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.amocrm.ru/js/button.js';d.head&&d.head.appendChild(s)}(window,0,'amoSocialButton',0,0,'amo_social_button'));</script>"
-                },
-                {
-                    "account_id": 31952118,
-                    "source_id": 29193,
-                    "button_id": 401040,
-                    "is_duplication_control_enabled": false,
-                    "name": "",
-                    "creation_status": "created",
-                    "pipeline_id": 7714034,
-                    "script": "<script>(function(a,m,o,c,r,m){a[m]={id:\"401\",hash:\"dsgfsdgqwe123\",locale:\"ru\",inline:false,setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.amocrm.ru/js/button.js';d.head&&d.head.appendChild(s)}(window,0,'amoSocialButton',0,0,'amo_social_button'));</script>"
-                },
-                {
-                    "account_id": 31952118,
-                    "source_id": 29223,
-                    "button_id": 401046,
-                    "is_duplication_control_enabled": false,
-                    "name": "",
-                    "creation_status": "created",
-                    "pipeline_id": 7714482,
-                    "script": "<script>(function(a,m,o,c,r,m){a[m]={id:\"402\",hash:\"dsgfsdg\",locale:\"ru\",inline:false,setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.amocrm.ru/js/button.js';d.head&&d.head.appendChild(s)}(window,0,'amoSocialButton',0,0,'amo_social_button'));</script>"
-                }
-            ]
+```json
+{
+    "_page": 1,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/website_buttons/?with=scripts&page=1&limit=250"
         }
+    },
+    "_embedded": {
+        "website_buttons": [
+            {
+                "account_id": 31952118,
+                "source_id": 29181,
+                "button_id": 401034,
+                "is_duplication_control_enabled": false,
+                "name": "",
+                "creation_status": "created",
+                "pipeline_id": 7714034,
+                "script": "<script>(function(a,m,o,c,r,m){a[m]={id:\"400\",hash:\"gerwertew\",locale:\"ru\",inline:false,setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.amocrm.ru/js/button.js';d.head&&d.head.appendChild(s)}(window,0,'amoSocialButton',0,0,'amo_social_button'));</script>"
+            },
+            {
+                "account_id": 31952118,
+                "source_id": 29193,
+                "button_id": 401040,
+                "is_duplication_control_enabled": false,
+                "name": "",
+                "creation_status": "created",
+                "pipeline_id": 7714034,
+                "script": "<script>(function(a,m,o,c,r,m){a[m]={id:\"401\",hash:\"dsgfsdgqwe123\",locale:\"ru\",inline:false,setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.amocrm.ru/js/button.js';d.head&&d.head.appendChild(s)}(window,0,'amoSocialButton',0,0,'amo_social_button'));</script>"
+            },
+            {
+                "account_id": 31952118,
+                "source_id": 29223,
+                "button_id": 401046,
+                "is_duplication_control_enabled": false,
+                "name": "",
+                "creation_status": "created",
+                "pipeline_id": 7714482,
+                "script": "<script>(function(a,m,o,c,r,m){a[m]={id:\"402\",hash:\"dsgfsdg\",locale:\"ru\",inline:false,setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.amocrm.ru/js/button.js';d.head&&d.head.appendChild(s)}(window,0,'amoSocialButton',0,0,'amo_social_button'));</script>"
+            }
+        ]
     }
+}
+```
 
 #### Параметры для GET-параметра with
 

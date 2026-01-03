@@ -1,12 +1,10 @@
 <!-- https://www.amocrm.ru/developers/content/oauth/lib/ -->
 
-# https://www.amocrm.ru/developers/content/oauth/lib/
-
-Библиотека
+# Библиотека
 
 Если вы являетесь разработчиком на PHP, то вы можете взять написанный [клиент для amoCRM](https://github.com/amocrm/amocrm-oauth-client). Клиент написан для библиотеки [PHP League OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client), которая также открыто распространяется.
 
-Все начинается также как в статье [Пример по шагам](https://www.amocrm.ru/developers/content/oauth/step-by-step) с регистрации интеграции. А далее мы рассмотрим, как можно было бы реализовать простейшую интеграцию с использованием готового клиента (этот же пример уже есть в клиенте amoCRM в файле example.php):
+Все начинается также как в статье [Пример по шагам](/oauth/step-by-step.html) с регистрации интеграции. А далее мы рассмотрим, как можно было бы реализовать простейшую интеграцию с использованием готового клиента (этот же пример уже есть в клиенте amoCRM в файле example.php):
 
 1.  Добавить клиента в свой проект можно с помощью Composer командой composer require amocrm/oauth2-amocrm;
 2.  Открываем файл example.php для того, чтобы адаптировать его под свою интеграцию;
@@ -25,6 +23,6 @@
 
 #### Смотрите также
 
-[Пример по шагам](https://www.amocrm.ru/developers/content/oauth/step-by-step)  
-[Обзор oAuth 2.0](https://www.amocrm.ru/developers/content/oauth/oauth)  
-[Запросы к API c Access токеном](https://www.amocrm.ru/developers/content/oauth/step-by-step#request_to_api)
+[Пример по шагам](/oauth/step-by-step.html)  
+[Обзор oAuth 2.0](/oauth/oauth.html)  
+[Запросы к API c Access токеном](/oauth/step-by-step#request_to_api.html)

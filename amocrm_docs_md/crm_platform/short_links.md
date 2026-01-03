@@ -1,8 +1,6 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/short_links -->
 
-# Создание коротких ссылок
-
-Короткие ссылки
+# Короткие ссылки
 
 Данный метод API позволяет сокращать ваши ссылки, которые отправляются контактам.  
 Когда человек перейдет по ссылке, в контакт добавиться примечание о переходе на сайт.  
@@ -12,6 +10,8 @@
 То есть, если одну и ту же ссылку нужно отправить нескольким контактам, для каждого контакта нужно сгенерировать отдельную ссылку.
 
 При этом, если вы хотите показать менеджеру, что ссылка была отправлена клиенту, например, создать об этом примечание, то менеджер должен видеть только исходную ссылку, не должен видеть или переходить по короткой, которая была отправлена клиенту.
+
+### Создание коротких ссылок
 
 #### Метод
 
@@ -41,9 +41,17 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-        `[    {       "url":"https://www.yandex.ru",       "metadata":{          "entity_type":"contacts",          "entity_id":11070881       }    } ]`
-        
-    
+```
+[
+   {
+      "url":"https://www.yandex.ru",
+      "metadata":{
+         "entity_type":"contacts",
+         "entity_id":11070881
+      }
+   }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -75,4 +83,24 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-        `{     "_links": {         "self": {             "href": "/api/v4/short_links"         }     },     "_embedded": {         "short_links": [             {                 "url": "https://amo.sh/XXXXXXXXXXXX",                 "account_id": 123,                 "metadata": {                     "entity_type": "contacts",                     "entity_id": 321                 }             }         ]     } }`
+```
+{
+    "_links": {
+        "self": {
+            "href": "/api/v4/short_links"
+        }
+    },
+    "_embedded": {
+        "short_links": [
+            {
+                "url": "https://amo.sh/XXXXXXXXXXXX",
+                "account_id": 123,
+                "metadata": {
+                    "entity_type": "contacts",
+                    "entity_id": 321
+                }
+            }
+        ]
+    }
+}
+```

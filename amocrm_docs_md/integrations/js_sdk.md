@@ -1,14 +1,14 @@
 <!-- https://www.amocrm.ru/developers/content/integrations/js_sdk -->
 
-# Оглавление
+# JS SDK
 
-JS SDK
+### Оглавление
 
-*   [Всплывающее уведомление](#Всплывающее-уведомление)
-*   [Уведомление об ошибке](#Уведомление-об-ошибке)
-*   [Метод для получения статуса online пользователей](#Метод-для-получения-статуса-online-пользователей)
-*   [Метод для установки статуса звонка](#Метод-для-установки-статуса-звонка)
-*   [Метод для получения статуса звонка](#Метод-для-получения-статуса-звонка)
+*   [Всплывающее уведомление](/integrations/js_sdk#%D0%92%D1%81%D0%BF%D0%BB%D1%8B%D0%B2%D0%B0%D1%8E%D1%89%D0%B5%D0%B5-%D1%83%D0%B2%D0%B5%D0%B4%D0%BE%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5.html)
+*   [Уведомление об ошибке](/integrations/js_sdk#%D0%A3%D0%B2%D0%B5%D0%B4%D0%BE%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BE%D0%B1-%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B5.html)
+*   [Метод для получения статуса online пользователей](/integrations/js_sdk#%D0%9C%D0%B5%D1%82%D0%BE%D0%B4-%D0%B4%D0%BB%D1%8F-%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D1%81%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%B0-online-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D0%B5%D0%B9.html)
+*   [Метод для установки статуса звонка](/integrations/js_sdk#%D0%9C%D0%B5%D1%82%D0%BE%D0%B4-%D0%B4%D0%BB%D1%8F-%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B8-%D1%81%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%B0-%D0%B7%D0%B2%D0%BE%D0%BD%D0%BA%D0%B0.html)
+*   [Метод для получения статуса звонка](/integrations/js_sdk#%D0%9C%D0%B5%D1%82%D0%BE%D0%B4-%D0%B4%D0%BB%D1%8F-%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D1%81%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%B0-%D0%B7%D0%B2%D0%BE%D0%BD%D0%BA%D0%B0.html)
 
 ### JS методы и объекты для работы с amoCRM
 
@@ -20,36 +20,38 @@ JS SDK
 
 Для реализации данной функции можно использовать предусмотренный объект. В примере функция, созданная для работы с ним.
 
-    self.add_call_notify = function (mess) {
-        var w_name = self.i18n('widget').name,
-            date_now = Math.ceil(Date.now() / 1000),
-            lang = self.i18n('settings'),
-            n_data = {
-                from: mess.from,
-                to: mess.to,
-                duration: mess.duration,
-                link: mess.link,
-                text: w_name + ': ' + mess.text,
-                date: date_now
-            };
-    
-        if (mess.element && mess.element.id && mess.element.type) {
-            n_data.element = mess.element;
-        }
-    
-        APP.notifications.add_call(n_data);
-    };
-    
-    /*---------------------------------------*/
-    var notify_data = {};
-    notify_data.from = '+7 (999) 111 22 33';
-    notify_data.to = 'User Name';
-    notify_data.duration = 65;
-    notify_data.link = 'https://example.com/dialog.mp3';
-    notify_data.text = 'Widget text';
-    notify_data.element = {id: 1003619, type: "contact"};
-    
-    self.add_call_notify(notify_data);
+```javascript
+self.add_call_notify = function (mess) {
+    var w_name = self.i18n('widget').name,
+        date_now = Math.ceil(Date.now() / 1000),
+        lang = self.i18n('settings'),
+        n_data = {
+            from: mess.from,
+            to: mess.to,
+            duration: mess.duration,
+            link: mess.link,
+            text: w_name + ': ' + mess.text,
+            date: date_now
+        };
+
+    if (mess.element && mess.element.id && mess.element.type) {
+        n_data.element = mess.element;
+    }
+
+    APP.notifications.add_call(n_data);
+};
+
+/*---------------------------------------*/
+var notify_data = {};
+notify_data.from = '+7 (999) 111 22 33';
+notify_data.to = 'User Name';
+notify_data.duration = 65;
+notify_data.link = 'https://example.com/dialog.mp3';
+notify_data.text = 'Widget text';
+notify_data.element = {id: 1003619, type: "contact"};
+
+self.add_call_notify(notify_data);
+```
 
 Пример не только вызывает окошко уведомления, но и навешивает ссылку.
 
@@ -63,28 +65,30 @@ JS SDK
 
 Объект очень похож на описанное выше уведомление, но выводит сообщение об ошибке. При этом иначе ведет себя функция закрытия окна, она запоминает в COOKIE пользователя событие закрытия и больше его не показывает.
 
-    var errors = APP.notifications,
-        date_now = Math.ceil(Date.now() / 1000),
-        header = self.get_settings().widget_code,
-        text = 'error'
-    var n_data = {
-            header: header, //код виджета
-            text: '<p>' + text + '</p>', //текст уведомления об ошибке
-            date: date_now //дата
-        },
-        callbacks = {
-            done: function () {
-                console.log('done');
-            }, //успешно добавлено и сохранено AJAX done
-            fail: function () {
-                console.log('fail');
-            }, //AJAX fail
-            always: function () {
-                console.log('always');
-            } //вызывается всегда
-        };
-    
-    errors.add_error(n_data, callbacks);
+```javascript
+var errors = APP.notifications,
+    date_now = Math.ceil(Date.now() / 1000),
+    header = self.get_settings().widget_code,
+    text = 'error'
+var n_data = {
+        header: header, //код виджета
+        text: '<p>' + text + '</p>', //текст уведомления об ошибке
+        date: date_now //дата
+    },
+    callbacks = {
+        done: function () {
+            console.log('done');
+        }, //успешно добавлено и сохранено AJAX done
+        fail: function () {
+            console.log('fail');
+        }, //AJAX fail
+        always: function () {
+            console.log('always');
+        } //вызывается всегда
+    };
+
+errors.add_error(n_data, callbacks);
+```
 
 Рассмотрим параметры подробнее:
 
@@ -99,35 +103,41 @@ JS SDK
 
 #### Получение статуса online для всех пользователей
 
-    APP.sdk.showUserStatus() //объект со всеми id пользователей и их статусами
-    //Пример ответа:
+```javascript
+APP.sdk.showUserStatus() //объект со всеми id пользователей и их статусами
+//Пример ответа:
+{
     {
-        {
-            id: 123456 ,
-            online: true
-        },
-        {
-            id: 123456 ,
-            online: false
-        }, ...
-    }
+        id: 123456 ,
+        online: true
+    },
+    {
+        id: 123456 ,
+        online: false
+    }, ...
+}
+```
 
 Для получения всех пользователей и их online статусов метод вызвается без флага и возвращает в объекте id всех пользователей и их online статусы.
 
 #### Получение id всех пользователей в сети
 
-    APP.sdk.showUserStatus('online') // массив всех id пользователей online
-    //Пример ответа:
-    [123456 , 123457...]
+```javascript
+APP.sdk.showUserStatus('online') // массив всех id пользователей online
+//Пример ответа:
+[123456 , 123457...]
+```
 
 Для получения списка всех пользователей, которые находятся в сети, данный метод необходимо вызвать с флагом “online”. В этом случае он отдаст массив, содержащий id пользователей в сети.
 
 #### Получение статуса online пользователя по его id
 
-    var id_user = 123456; //Уникальный идентификатор аккаунта
-    var status_user = APP.sdk.showUserStatus (id_user); // online статус пользователя (true или false)
+```javascript
+var id_user = 123456; //Уникальный идентификатор аккаунта
+var status_user = APP.sdk.showUserStatus (id_user); // online статус пользователя (true или false)
+```
 
-Для получения статуса пользователя по его id необходимо вызвать метод c [Уникальным идентификатором аккаунта](/developers/content/api/account). При этом данный метод вернет true (если пользователь в сети) или false (если пользователя нет в сети).
+Для получения статуса пользователя по его id необходимо вызвать метод c [Уникальным идентификатором аккаунта](/api/account.html). При этом данный метод вернет true (если пользователь в сети) или false (если пользователя нет в сети).
 
 ### Метод для установки статуса звонка
 
@@ -135,7 +145,9 @@ JS SDK
 
 #### Установка статуса звонка
 
-    APP.sdk.setCallingStatus(boolean)
+```javascript
+APP.sdk.setCallingStatus(boolean)
+```
 
 ### Метод для получения статуса звонка
 
@@ -143,10 +155,12 @@ JS SDK
 
 #### Получение статуса звонка
 
-    if (APP.sdk.getCallingStatus()) {
-        // code
-    } else {
-        // code
-    }
+```javascript
+if (APP.sdk.getCallingStatus()) {
+    // code
+} else {
+    // code
+}
+```
 
 Данный функционал необходим для того, чтобы не произошел обрыв разговора через виджет телефонии в момент обновления (отгрузки изменений) amoCRM.

@@ -1,8 +1,8 @@
 <!-- https://www.amocrm.ru/developers/content/integrations/areas -->
 
-# Области подключения виджетов
+# Области подключения
 
-Области подключения
+### Области подключения виджетов
 
 Подключение виджетов по сути представляет собой подключение JS-скриптов на определенных страницах (интерфейсах) amoCRM. Сделать это можно не на всех, а только на определенном списке экранов.
 
@@ -21,8 +21,8 @@
 | whatsapp\_modal | Модальное окно интеграций, работающих с WhatsApp |
 | everywhere | Виджет будет инициализироваться везде |
 | sms | Виджет может быть использован в качестве отправителя системных SMS сообщений |
-| mobile\_card | Виджет доступен в мобильном приложении. [Подробнее](/developers/content/integrations/mobile-widgets) |
-| amoforms | Виджет доступен в веб-формах. [Подробнее](/developers/content/integrations/amoforms-widgets) |
+| mobile\_card | Виджет доступен в мобильном приложении. [Подробнее](/integrations/mobile-widgets.html) |
+| amoforms | Виджет доступен в веб-формах. [Подробнее](/integrations/amoforms-widgets.html) |
 
 Обратите внимание, что области для инициализации виджета именно в воронке сделок не предусмотрено. Для любого раздела amoCRM с непредусмотренной областью мы рекомендуем использовать инициализацию "везде", указав "everywhere". И уже в самом коде виджета управлять отображением.
 
@@ -30,21 +30,23 @@
 
 Например, данный виджет будет инициализироваться на странице настроек, в настройках digital воронки, в карточках и списках контактов и сделок, но использовать правую колонку будет только в указанных карточках:
 
-    "locations": [
-            "lcard-1",
-            "llist-0",
-            "ccard-1",
-            "clist-0",
-            "comcard-0",
-            "card_sdk",
-            "settings",
-            "digital_pipeline",
-            "lead_sources",
-            "whatsapp_modal",
-            "catalogs",
-            "advanced_settings",
-            "amoforms"
-        ]
+```javascript
+"locations": [
+        "lcard-1",
+        "llist-0",
+        "ccard-1",
+        "clist-0",
+        "comcard-0",
+        "card_sdk",
+        "settings",
+        "digital_pipeline",
+        "lead_sources",
+        "whatsapp_modal",
+        "catalogs",
+        "advanced_settings",
+        "amoforms"
+    ]
+```
 
 Кроме того, указание true или false в блоке "init\_once" файла manifest.json регулирует возможность каждый раз при переходе из области в область вызывать функции init() и bind\_actions(), или вызвать их только один раз. К примеру, виджеты телефоний постоянно удерживают WebSocket соединение и его обрыва происходить не должно, поэтому init\_once должно иметь значение true. Если же общего для всех страниц контекста нет, то лучше ставить в false.
 
@@ -54,12 +56,14 @@
 
 Так же, для работы виджета в digital воронке, необходима php-часть виджета с endpoint’ом digital\_pipeline.
 
-Если ваш виджет имеет область видимости lead\_sources, то вы можете проверить, к какой воронке аккаунта он привязан с помощью HTTP-запроса или в [script.js вашего виджета](/developers/content/integrations/script_js#get_pipeline_id):
+Если ваш виджет имеет область видимости lead\_sources, то вы можете проверить, к какой воронке аккаунта он привязан с помощью HTTP-запроса или в [script.js вашего виджета](/integrations/script_js#get_pipeline_id.html):
 
-    https://myaccount.amocrm.ru/api/v4/widgets/my_widget_code
+```javascript
+https://myaccount.amocrm.ru/api/v4/widgets/my_widget_code
+```
 
-Для работы с SDK списков необходимо указать специальную область видимости "catalogs", id списка, с которым будет работать виджет, а также реализовать специальный callback loadCatalogElement. [Подробнее о SDK каталогов.](/developers/content/integrations/catalogs_sdk)
+Для работы с SDK списков необходимо указать специальную область видимости "catalogs", id списка, с которым будет работать виджет, а также реализовать специальный callback loadCatalogElement. [Подробнее о SDK каталогов.](/integrations/catalogs_sdk.html)
 
-Для создания собственной страницы в разделе "Настройки" необходимо указать область видимости advanced\_settings, а также добавить в manifest.json блок advanced и реализовать специальный callback advancedSettings. [Подробнее о расширенной странице настройки виджета.](/developers/content/integrations/custom_settings)
+Для создания собственной страницы в разделе "Настройки" необходимо указать область видимости advanced\_settings, а также добавить в manifest.json блок advanced и реализовать специальный callback advancedSettings. [Подробнее о расширенной странице настройки виджета.](/integrations/custom_settings.html)
 
 Для отображения вашего виджета в Источниках сделок WhatsApp необходимо указать область видимости whatsapp\_modal.

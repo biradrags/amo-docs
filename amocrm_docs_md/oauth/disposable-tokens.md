@@ -2,7 +2,7 @@
 
 # Одноразовые токены для интеграций
 
-Одноразовые токены для интеграций
+### Одноразовые токены для интеграций
 
 #### Описание
 
@@ -14,7 +14,7 @@
 
 Мы уже реализовали метод в рамках WEB SDK для работы вашей интеграции.  
 Метод позволяет сделать запрос с подмешиванием заголовка в запрос.  
-Подробная информация о методе: [this.$authorizedAjax()](/developers/content/web_sdk/mechanics#authorized_ajax).
+Подробная информация о методе: [this.$authorizedAjax()](/web_sdk/mechanics#authorized_ajax.html).
 
 #### Алгоритм декодирования токена
 
@@ -39,15 +39,17 @@
 
 #### Пример ответа
 
-    {
-        "iss": "https://subdomain.amocrm.ru",
-        "aud": "https://external.integration.io",
-        "jti": "d628f123-5123-473e-a123-ed123ef31f8f",
-        "iat": 1594204245,
-        "nbf": 1594204245,
-        "exp": 1594206045,
-        "account_id": 12345678,
-        "user_id": 87654321,
-        "subdomain": "subdomain",
-        "client_uuid": "0b0832f6-d123-4123-9123-e73f236833c"
-    }
+```json
+{
+    "iss": "https://subdomain.amocrm.ru",
+    "aud": "https://external.integration.io",
+    "jti": "d628f123-5123-473e-a123-ed123ef31f8f",
+    "iat": 1594204245,
+    "nbf": 1594204245,
+    "exp": 1594206045,
+    "account_id": 12345678,
+    "user_id": 87654321,
+    "subdomain": "subdomain",
+    "client_uuid": "0b0832f6-d123-4123-9123-e73f236833c"
+}
+```

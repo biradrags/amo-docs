@@ -1,10 +1,8 @@
 <!-- https://www.amocrm.ru/developers/content/oauth/button -->
 
-# https://www.amocrm.ru/developers/content/oauth/button
+# Кнопка на сайт
 
-Кнопка на сайт
-
-Для упрощения работы с oAuth для клиента, вы можете установить специальную кнопку на сайт. При нажатии пользователем на кнопку, будет открыто модальное окно выбора аккаунта и авторизации приложения в нём, после подтверждения пользователь будет перенаправлен на указанный Redirect URI с GET-параметрами. Подробней про этот механизм читайте в [статье.](https://www.amocrm.ru/developers/content/oauth/step-by-step#get_auth_code)
+Для упрощения работы с oAuth для клиента, вы можете установить специальную кнопку на сайт. При нажатии пользователем на кнопку, будет открыто модальное окно выбора аккаунта и авторизации приложения в нём, после подтверждения пользователь будет перенаправлен на указанный Redirect URI с GET-параметрами. Подробней про этот механизм читайте в [статье.](/oauth/step-by-step#get_auth_code.html)
 
 В кнопку на сайт вы можете передать уже существующий client-id, чтобы установить именно его, либо вы можете передать метаданные, чтобы была создана новая внешняя интеграция. Ниже рассмотрим оба варианта параметров кнопки и особенности кнопки с метаданными.
 
@@ -12,21 +10,21 @@
 
 Для установки кнопки на сайт для существующей интеграции необходимо разместить несколько строк JS кода в том месте, где вы хотите увидеть кнопку. Кнопка поддерживает параметры, которые описаны ниже.
 
-    
-    <script
-      class="amocrm_oauth"
-      charset="utf-8"
-      data-client-id="xxxx"
-      data-title="Button"
-      data-compact="false"
-      data-class-name="className"
-      data-color="default"
-      data-state="state"
-      data-error-callback="functionName"
-      data-mode="popup"
-      src="https://www.amocrm.ru/auth/button.min.js"
-    ></script>
-    
+```
+<script
+  class="amocrm_oauth"
+  charset="utf-8"
+  data-client-id="xxxx"
+  data-title="Button"
+  data-compact="false"
+  data-class-name="className"
+  data-color="default"
+  data-state="state"
+  data-error-callback="functionName"
+  data-mode="popup"
+  src="https://www.amocrm.ru/auth/button.min.js"
+></script>
+```
 
 #### Параметры
 
@@ -55,26 +53,26 @@
 
 Для установки кнопки на сайт для внешней интеграции необходимо разместить несколько строк JS кода в том месте, где вы хотите увидеть кнопку. Кнопка поддерживает параметры, которые описаны ниже.
 
-    
-    <script
-      class="amocrm_oauth"
-      charset="utf-8"
-      data-name="Integration name"
-      data-description="Integration description"
-      data-redirect_uri="https://example.com"
-      data-secrets_uri="https://example.com/secrets"
-      data-logo="https://example.com/amocrm_logo.png"
-      data-scopes="crm,notifications"
-      data-title="Button"
-      data-compact="false"
-      data-class-name="className"
-      data-color="default"
-      data-state="state"
-      data-error-callback="functionName"
-      data-mode="popup"
-      src="https://www.amocrm.ru/auth/button.min.js"
-    ></script>
-    
+```
+<script
+  class="amocrm_oauth"
+  charset="utf-8"
+  data-name="Integration name"
+  data-description="Integration description"
+  data-redirect_uri="https://example.com"
+  data-secrets_uri="https://example.com/secrets"
+  data-logo="https://example.com/amocrm_logo.png"
+  data-scopes="crm,notifications"
+  data-title="Button"
+  data-compact="false"
+  data-class-name="className"
+  data-color="default"
+  data-state="state"
+  data-error-callback="functionName"
+  data-mode="popup"
+  src="https://www.amocrm.ru/auth/button.min.js"
+></script>
+```
 
 #### Параметры
 
@@ -110,5 +108,5 @@
 
 #### Смотрите также
 
-[Бибилиотека авторизации](https://www.amocrm.ru/developers/content/oauth/lib)  
-[Пример по шагам](https://www.amocrm.ru/developers/content/oauth/step-by-step)
+[Бибилиотека авторизации](/oauth/lib.html)  
+[Пример по шагам](/oauth/step-by-step.html)

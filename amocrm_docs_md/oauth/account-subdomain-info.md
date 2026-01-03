@@ -1,12 +1,12 @@
 <!-- https://www.amocrm.ru/developers/content/oauth/account-subdomain-info -->
 
-# Получение информации о домене аккаунта по Refresh Token
-
-Информация о домене аккаунта
+# Информация о домене аккаунта
 
 В данном разделе описывается работа с методами получения информации о домене аккаунта.
 
 До сентября 2024 года был доступен только метод для получения информации по Access Token, но из-за того, что срок жизни этого токена мал, мы добавили метод для получения информации по Refresh Token. Изменился адрес метода и добавилась необходимость передавать Refresh Token в заголовке X-Refresh-Token.
+
+### Получение информации о домене аккаунта по Refresh Token
 
 #### Метод
 
@@ -31,7 +31,9 @@ _GET /oauth2/account/current/subdomain_
 
 Запрос должен уходить на host из claim api\_domain в JWT Access Token: {api\_domain}.amocrm.ru
 
-    curl 'https://api-a.amocrm.ru/oauth2/account/current/subdomain' -H 'X-Refresh-Token: {refresh_token}'
+```bash
+curl 'https://api-a.amocrm.ru/oauth2/account/current/subdomain' -H 'X-Refresh-Token: {refresh_token}'
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -61,12 +63,14 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "id": 123456,
-        "subdomain": "account_subdomain",
-        "domain": "account_subdomain.amocrm.ru",
-        "top_level_domain": "ru"
-    }
+```json
+{
+    "id": 123456,
+    "subdomain": "account_subdomain",
+    "domain": "account_subdomain.amocrm.ru",
+    "top_level_domain": "ru"
+}
+```
 
 ### Получение информации о домене аккаунта по Access Token (Устарел)
 
@@ -88,7 +92,9 @@ _GET /oauth2/account/subdomain_
 
 Запрос должен уходить на host: www.amocrm.ru или www.amocrm.com, в зависимости от аккаунта
 
-    curl 'https://www.amocrm.ru/oauth2/account/subdomain' -H 'Authorization: Bearer {access_token}'
+```json
+curl 'https://www.amocrm.ru/oauth2/account/subdomain' -H 'Authorization: Bearer {access_token}'
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -118,9 +124,11 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "id": 123456,
-        "subdomain": "account_subdomain",
-        "domain": "account_subdomain.amocrm.ru",
-        "top_level_domain": "ru"
-    }
+```json
+{
+    "id": 123456,
+    "subdomain": "account_subdomain",
+    "domain": "account_subdomain.amocrm.ru",
+    "top_level_domain": "ru"
+}
+```

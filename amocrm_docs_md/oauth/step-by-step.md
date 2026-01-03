@@ -1,22 +1,22 @@
 <!-- https://www.amocrm.ru/developers/content/oauth/step-by-step -->
 
-# Оглавление
-
-Пример по шагам
+# Пример по шагам
 
 Для примера рассмотрим полный цикл получения доступа к данным, начиная от регистрации новой интеграции.  
-При этом мы будем рассматривать прямую работу с API авторизации, но вы можете либо воспользоваться нашей готовой [библиотекой на PHP](https://www.amocrm.ru/developers/content/oauth/lib) для упрощения разработки, либо готовыми библиотеками сторонних вендоров, которые можно найти по [ссылке](https://oauth.net/code/).
+При этом мы будем рассматривать прямую работу с API авторизации, но вы можете либо воспользоваться нашей готовой [библиотекой на PHP](/oauth/lib.html) для упрощения разработки, либо готовыми библиотеками сторонних вендоров, которые можно найти по [ссылке](https://oauth.net/code/).
 
 Мы разрабатывали авторизацию, основываясь на протоколе oAuth 2.0, поэтому вы можете найти в открытых источниках много примеров и документацию, описывающих взаимодействие и логику выполнения запросов.
 
-*   [Регистрация приложения](#Регистрация-приложения)
-*   [Получение Authorization code](#Получение-Authorization-code)
-*   [Обмен кода авторизации на access token и refresh token](#Обмен-кода-авторизации-на-access-token-и-refresh-token)
-*   [Получение нового access token по его истечении](#Получение-нового-access-token-по-его-истечении)
-*   [Долгосрочные токены](#Долгосрочные-токены)
-*   [Запросы к API с передачей access token](#Запросы-к-API-с-передачей-access-token)
-*   [Хук об отключении интеграции](#Хук-об-отключении-интеграции)
-*   [Обработка ошибок](#Обработка-ошибок)
+### Оглавление
+
+*   [Регистрация приложения](/oauth/step-by-step#%D0%A0%D0%B5%D0%B3%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F.html)
+*   [Получение Authorization code](/oauth/step-by-step#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-Authorization-code.html)
+*   [Обмен кода авторизации на access token и refresh token](/oauth/step-by-step#%D0%9E%D0%B1%D0%BC%D0%B5%D0%BD-%D0%BA%D0%BE%D0%B4%D0%B0-%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8-%D0%BD%D0%B0-access-token-%D0%B8-refresh-token.html)
+*   [Получение нового access token по его истечении](/oauth/step-by-step#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BD%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE-access-token-%D0%BF%D0%BE-%D0%B5%D0%B3%D0%BE-%D0%B8%D1%81%D1%82%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D0%B8.html)
+*   [Долгосрочные токены](/oauth/step-by-step#%D0%94%D0%BE%D0%BB%D0%B3%D0%BE%D1%81%D1%80%D0%BE%D1%87%D0%BD%D1%8B%D0%B5-%D1%82%D0%BE%D0%BA%D0%B5%D0%BD%D1%8B.html)
+*   [Запросы к API с передачей access token](/oauth/step-by-step#%D0%97%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D1%8B-%D0%BA-API-%D1%81-%D0%BF%D0%B5%D1%80%D0%B5%D0%B4%D0%B0%D1%87%D0%B5%D0%B9-access-token.html)
+*   [Хук об отключении интеграции](/oauth/step-by-step#%D0%A5%D1%83%D0%BA-%D0%BE%D0%B1-%D0%BE%D1%82%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B8-%D0%B8%D0%BD%D1%82%D0%B5%D0%B3%D1%80%D0%B0%D1%86%D0%B8%D0%B8.html)
+*   [Обработка ошибок](/oauth/step-by-step#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA.html)
 
 ### Регистрация приложения
 
@@ -24,9 +24,9 @@
 
 *   Именно за этим аккаунтом будет закреплена Интеграция.  
     Это означает, что любой из администраторов этого аккаунта сможет управлять интеграцией и получит доступ к общим ключам приложения.  
-    Подробнее о терминах можно прочесть [здесь](https://www.amocrm.ru/developers/content/oauth/oauth).  
+    Подробнее о терминах можно прочесть [здесь](/oauth/oauth.html).  
     По сути этот аккаунт мы будем считать аккаунтом разработчика.  
-    Если вы разрабатываете публичную интеграции, необходимо ознакомиться с [требованиями](https://www.amocrm.ru/developers/content/integrations/requirements).
+    Если вы разрабатываете публичную интеграции, необходимо ознакомиться с [требованиями](/integrations/requirements.html).
 *   Для создания интеграции вам необходимо обладать правами администратора аккаунта
 *   При подключении приватной интеграции на аккаунте который не является техническим, клиенту необходимо заполнить заявление на отказ от технической поддержки amoCRM. Техническая поддержка не сможет принять обращения по ошибкам системы для фиксации и исправлений на аккаунте где было подписано заявление. Данное ограничение не касается консультаций и вопросов по оплате. Приняв единожды данное соглашение, оно фиксируется в аккаунте amoCRM навсегда. Отозвать соглашение и вернуть аккаунт к прежнему состоянию возможности уже не будет.
 
@@ -42,10 +42,10 @@
 *   Описание интеграции (не более 65000 символов) – отображается в модальном окне интеграции в аккаунте пользователя. Допускается использование html верстки.
 *   Ссылка для перенаправления – ссылка на ваш сайт, который будет обрабатывать работу с ключами. Важно, что домен должен быть защищен SSL сертификатом, если вы планируете использовать интеграцию более, чем в одном аккаунте.Просим обратить внимание на то, что мы не поддерживаем кириллические домены и кирилические домены, преобразованные с помощью паникода. Также мы периодически проверяем доступность домена, как обязательное условие для работы интеграции.
 *   Ссылка для хука об отключении интеграции – на этот адрес будет отправлен GET-запрос при отключении интеграции пользователем. В запросе будет содержаться 2 параметра account\_id и client\_id.
-*   Предоставить доступ – минимальный набор необходимых разрешений для работы интеграции. Подробнее про разрешения можно прочитать в [статье](https://www.amocrm.ru/developers/content/oauth/scopes).
+*   Предоставить доступ – минимальный набор необходимых разрешений для работы интеграции. Подробнее про разрешения можно прочитать в [статье](/oauth/scopes.html).
 *   Иконка интеграции (400х272 jpeg/jpg/png/gif) – отображается в списке интеграций, а также в окне запроса доступа у пользователя
-*   Контроль дублей – галку необходимо ставить, если ваша интеграция поддерживает [Контроль дублей](https://www.amocrm.ru/developers/content/crm_platform/duplication-control). После установки галки, интеграция будет доступна в настройках контроля дублей.
-*   Множественные источники – галку необходимо ставить, если ваша интеграция сама управляет источниками через [API](https://www.amocrm.ru/developers/content/crm_platform/sources-api). Если галка установлена, amoCRM не будет создавать источники по-умолчанию, интеграция сама должна будет создать все необходимые ей источники.
+*   Контроль дублей – галку необходимо ставить, если ваша интеграция поддерживает [Контроль дублей](/crm_platform/duplication-control.html). После установки галки, интеграция будет доступна в настройках контроля дублей.
+*   Множественные источники – галку необходимо ставить, если ваша интеграция сама управляет источниками через [API](/crm_platform/sources-api.html). Если галка установлена, amoCRM не будет создавать источники по-умолчанию, интеграция сама должна будет создать все необходимые ей источники.
 
 Кроме этих пунктов, администраторам аккаунта, в котором создана интеграция, будут доступны: ID интеграции, секретный ключ интеграции, код авторизации (после включения интеграции).
 
@@ -63,17 +63,17 @@ C его помощью вам необходимо в течении этого
 
 Получить Authorization code можно тремя способами:
 
-*   Скопировать из модального окна установленной интеграции. Этот случай подойдет, если вам необходимо проинтегрировать только один аккаунт amoCRM. Подробнее можно прочитать в разделе [Упрощенная авторизация](https://www.amocrm.ru/developers/content/oauth/easy-auth).
+*   Скопировать из модального окна установленной интеграции. Этот случай подойдет, если вам необходимо проинтегрировать только один аккаунт amoCRM. Подробнее можно прочитать в разделе [Упрощенная авторизация](/oauth/easy-auth.html).
 *   Если в вашей интеграции есть загруженный архив с виджетом, то при его установке вы получите Webhook на указанный в настройках интеграции Redirect URI.
 *   Получить код через адрес предоставления доступа интеграции. После предоставления доступа, пользовать будет перенаправлен на указанный Redirect URI.
 
-Вы можете упростить разработку при использовании способа получения ключа через GET-параметры, используя готовую [Кнопку amoCRM](https://www.amocrm.ru/developers/content/oauth/button).
+Вы можете упростить разработку при использовании способа получения ключа через GET-параметры, используя готовую [Кнопку amoCRM](/oauth/button.html).
 
 Полная логика способа получения ключа через GET-параметры заключается в следующем:
 
 *   Пользователь, у которого вы хотите запросить доступ, находится у вас на сайте и может открыть предложенную вами ссылку.  
     \*Внимание: Очень важно, чтобы для пользователя весь процесс был максимально прозрачен и понятен. При клике на ссылку пользователь должен однозначно понимать следующее: произойдет запрос его доступов в его аккаунте amoCRM, какую интеграцию он включает.  
-    Именно поэтому мы предлагаем использовать нашу брендированную кнопку, описание которой вы можете найти на странице [Кнопка amoCRM](https://www.amocrm.ru/developers/content/oauth/button)
+    Именно поэтому мы предлагаем использовать нашу брендированную кнопку, описание которой вы можете найти на странице [Кнопка amoCRM](/oauth/button.html)
 *   Генерация ссылки, по которой должен перейти пользователь. Вам необходимо отправить пользователя на URL [https://www.amocrm.ru/oauth?client\_id={Integration](https://www.amocrm.ru/oauth?client_id={Integration) ID}&state={параметр состояния, который будет возвращен вам на Redirect URI}&mode={popup или post\_message}.  
     Integration ID вам уже известен.  
     state – это сгенерированный вами строковый параметр, возможно хеш.  
@@ -103,44 +103,48 @@ C его помощью вам необходимо в течении этого
 Ниже рассмотрим пример общения окна предоставления доступов и основного окна с использованием функции [postMessage](https://developer.mozilla.org/ru/docs/Web/API/Window/postMessage).  
 Код ниже размещен в основном окне:
 
-    var popup;
-    
-    auth();
-    
-    // 1. Открывает окно предоставления доступов
-    function auth() {
-      popup = window.open('https://www.amocrm.ru/oauth?client_id=XXX&state=XXX&mode=post_message', 'Предоставить доступ', 'scrollbars, status, resizable, width=750, height=580');
-    }
-    
-    // 2. Регистрируем обработчика сообщений из popup окна
-    window.addEventListener('message', updateAuthInfo);
-    
-    // 3. Функция обработчик, зарегистрированная выше
-    function updateAuthInfo(e) {
-      if (e.data.error !== undefined) {
-        console.log('Ошибка - ' + e.data.error)
-      } else {
-        console.log('Авторизация прошла')
-      }
-    
-      // 4. Закрываем модальное окно
-      popup.close();
-    }
+```js
+var popup;
+
+auth();
+
+// 1. Открывает окно предоставления доступов
+function auth() {
+  popup = window.open('https://www.amocrm.ru/oauth?client_id=XXX&state=XXX&mode=post_message', 'Предоставить доступ', 'scrollbars, status, resizable, width=750, height=580');
+}
+
+// 2. Регистрируем обработчика сообщений из popup окна
+window.addEventListener('message', updateAuthInfo);
+
+// 3. Функция обработчик, зарегистрированная выше
+function updateAuthInfo(e) {
+  if (e.data.error !== undefined) {
+    console.log('Ошибка - ' + e.data.error)
+  } else {
+    console.log('Авторизация прошла')
+  }
+
+  // 4. Закрываем модальное окно
+  popup.close();
+}
+```
 
 Код ниже будет отдан в модальное окно вашим backend сервером при переходе на Redirect URI:
 
-    <!doctype html>
-    <html lang="en">
-    <head>
-      <title>oAuth Postback</title>
-      <script>
-        //Передадим данные в родительское окно, набор данных определяете вы
-        if(window.opener){
-          window.opener.postMessage({'error': undefined, 'status': 'ok'}, "*");
-        }
-      </script>
-    </head>
-    </html>
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <title>oAuth Postback</title>
+  <script>
+    //Передадим данные в родительское окно, набор данных определяете вы
+    if(window.opener){
+      window.opener.postMessage({'error': undefined, 'status': 'ok'}, "*");
+    }
+  </script>
+</head>
+</html>
+```
 
 После отработки кода выше, основное окно узнает результат. Рекомендуем закрывать модальное окно автоматически,  
 как это сделано в примере, чтобы у пользователя не возникла путаница в окнах.
@@ -171,13 +175,15 @@ _POST /oauth2/access\_token_
 
 #### Пример запроса
 
-    {
-      "client_id": "xxxx",
-      "client_secret": "xxxx",
-      "grant_type": "authorization_code",
-      "code": "xxxxxxx",
-      "redirect_uri": "https://test.test"
-    }
+```json
+{
+  "client_id": "xxxx",
+  "client_secret": "xxxx",
+  "grant_type": "authorization_code",
+  "code": "xxxxxxx",
+  "redirect_uri": "https://test.test"
+}
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -206,89 +212,95 @@ _Content-Type: application/json_
 
 #### Пример ответа
 
-    {
-      "token_type": "Bearer",
-      "expires_in": 86400,
-      "server_time": 1751621727,
-      "access_token": "xxxxxx",
-      "refresh_token": "xxxxx"
-    }
+```json
+{
+  "token_type": "Bearer",
+  "expires_in": 86400,
+  "server_time": 1751621727,
+  "access_token": "xxxxxx",
+  "refresh_token": "xxxxx"
+}
+```
 
 #### Получение Access токен по коду авторизации, реализация на bash
 
-    curl https://subdomain.amocrm.ru/oauth2/access_token -d \
-    '{"client_id":"xxx-xxx-xxx-xxx-xxx","client_secret":"xxxxxx","grant_type":"authorization_code","code":"xxxxxxxx","redirect_uri":"https://test.test/"}' \
-    -H 'Content-Type:application/json' \
-    -X POST
+```shell
+curl https://subdomain.amocrm.ru/oauth2/access_token -d \
+'{"client_id":"xxx-xxx-xxx-xxx-xxx","client_secret":"xxxxxx","grant_type":"authorization_code","code":"xxxxxxxx","redirect_uri":"https://test.test/"}' \
+-H 'Content-Type:application/json' \
+-X POST
+```
 
 #### Получение Access токен по коду авторизации, реализация на PHP
 
-    <?php
-    $subdomain = 'test'; //Поддомен нужного аккаунта
-    $link = 'https://' . $subdomain . '.amocrm.ru/oauth2/access_token'; //Формируем URL для запроса
-    
-    /** Соберем данные для запроса */
-    $data = [
-        'client_id' => 'xxxx',
-        'client_secret' => 'xxxx',
-        'grant_type' => 'authorization_code',
-        'code' => 'xxxxxx',
-        'redirect_uri' => 'https://test.ru/',
-    ];
-    
-    /**
-     * Нам необходимо инициировать запрос к серверу.
-     * Воспользуемся библиотекой cURL (поставляется в составе PHP).
-     * Вы также можете использовать и кроссплатформенную программу cURL, если вы не программируете на PHP.
-     */
-    $curl = curl_init(); //Сохраняем дескриптор сеанса cURL
-    /** Устанавливаем необходимые опции для сеанса cURL  */
-    curl_setopt($curl,CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl,CURLOPT_USERAGENT,'amoCRM-oAuth-client/1.0');
-    curl_setopt($curl,CURLOPT_URL, $link);
-    curl_setopt($curl,CURLOPT_HTTPHEADER,['Content-Type:application/json']);
-    curl_setopt($curl,CURLOPT_HEADER, false);
-    curl_setopt($curl,CURLOPT_CUSTOMREQUEST, 'POST');
-    curl_setopt($curl,CURLOPT_POSTFIELDS, json_encode($data));
-    curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, 1);
-    curl_setopt($curl,CURLOPT_SSL_VERIFYHOST, 2);
-    $out = curl_exec($curl); //Инициируем запрос к API и сохраняем ответ в переменную
-    $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    curl_close($curl);
-    /** Теперь мы можем обработать ответ, полученный от сервера. Это пример. Вы можете обработать данные своим способом. */
-    $code = (int)$code;
-    $errors = [
-        400 => 'Bad request',
-        401 => 'Unauthorized',
-        403 => 'Forbidden',
-        404 => 'Not found',
-        500 => 'Internal server error',
-        502 => 'Bad gateway',
-        503 => 'Service unavailable',
-    ];
-    
-    try
-    {
-        /** Если код ответа не успешный - возвращаем сообщение об ошибке  */
-        if ($code < 200 || $code > 204) {
-            throw new Exception(isset($errors[$code]) ? $errors[$code] : 'Undefined error', $code);
-        }
+```php
+<?php
+$subdomain = 'test'; //Поддомен нужного аккаунта
+$link = 'https://' . $subdomain . '.amocrm.ru/oauth2/access_token'; //Формируем URL для запроса
+
+/** Соберем данные для запроса */
+$data = [
+    'client_id' => 'xxxx',
+    'client_secret' => 'xxxx',
+    'grant_type' => 'authorization_code',
+    'code' => 'xxxxxx',
+    'redirect_uri' => 'https://test.ru/',
+];
+
+/**
+ * Нам необходимо инициировать запрос к серверу.
+ * Воспользуемся библиотекой cURL (поставляется в составе PHP).
+ * Вы также можете использовать и кроссплатформенную программу cURL, если вы не программируете на PHP.
+ */
+$curl = curl_init(); //Сохраняем дескриптор сеанса cURL
+/** Устанавливаем необходимые опции для сеанса cURL  */
+curl_setopt($curl,CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl,CURLOPT_USERAGENT,'amoCRM-oAuth-client/1.0');
+curl_setopt($curl,CURLOPT_URL, $link);
+curl_setopt($curl,CURLOPT_HTTPHEADER,['Content-Type:application/json']);
+curl_setopt($curl,CURLOPT_HEADER, false);
+curl_setopt($curl,CURLOPT_CUSTOMREQUEST, 'POST');
+curl_setopt($curl,CURLOPT_POSTFIELDS, json_encode($data));
+curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, 1);
+curl_setopt($curl,CURLOPT_SSL_VERIFYHOST, 2);
+$out = curl_exec($curl); //Инициируем запрос к API и сохраняем ответ в переменную
+$code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+curl_close($curl);
+/** Теперь мы можем обработать ответ, полученный от сервера. Это пример. Вы можете обработать данные своим способом. */
+$code = (int)$code;
+$errors = [
+    400 => 'Bad request',
+    401 => 'Unauthorized',
+    403 => 'Forbidden',
+    404 => 'Not found',
+    500 => 'Internal server error',
+    502 => 'Bad gateway',
+    503 => 'Service unavailable',
+];
+
+try
+{
+    /** Если код ответа не успешный - возвращаем сообщение об ошибке  */
+    if ($code < 200 || $code > 204) {
+        throw new Exception(isset($errors[$code]) ? $errors[$code] : 'Undefined error', $code);
     }
-    catch(\Exception $e)
-    {
-        die('Ошибка: ' . $e->getMessage() . PHP_EOL . 'Код ошибки: ' . $e->getCode());
-    }
-    
-    /**
-     * Данные получаем в формате JSON, поэтому, для получения читаемых данных,
-     * нам придётся перевести ответ в формат, понятный PHP
-     */
-    $response = json_decode($out, true);
-    
-    $access_token = $response['access_token']; //Access токен
-    $refresh_token = $response['refresh_token']; //Refresh токен
-    $token_type = $response['token_type']; //Тип токена
-    $expires_in = $response['expires_in']; //Через сколько действие токена истекает
+}
+catch(\Exception $e)
+{
+    die('Ошибка: ' . $e->getMessage() . PHP_EOL . 'Код ошибки: ' . $e->getCode());
+}
+
+/**
+ * Данные получаем в формате JSON, поэтому, для получения читаемых данных,
+ * нам придётся перевести ответ в формат, понятный PHP
+ */
+$response = json_decode($out, true);
+
+$access_token = $response['access_token']; //Access токен
+$refresh_token = $response['refresh_token']; //Refresh токен
+$token_type = $response['token_type']; //Тип токена
+$expires_in = $response['expires_in']; //Через сколько действие токена истекает
+```
 
 ### Получение нового access token по его истечении
 
@@ -324,13 +336,15 @@ _POST /oauth2/access\_token_
 
 #### Пример запроса
 
-    {
-      "client_id": "xxxx",
-      "client_secret": "xxxx",
-      "grant_type": "refresh_token",
-      "refresh_token": "xxxxx",
-      "redirect_uri": "https://test.test"
-    }
+```json
+{
+  "client_id": "xxxx",
+  "client_secret": "xxxx",
+  "grant_type": "refresh_token",
+  "refresh_token": "xxxxx",
+  "redirect_uri": "https://test.test"
+}
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -359,89 +373,95 @@ _Content-Type: application/json_
 
 #### Пример ответа
 
-    {
-      "token_type": "Bearer",
-      "expires_in": 86400,
-      "server_time": 1751621727,
-      "access_token": "xxxxxx",
-      "refresh_token": "xxxxx"
-    }
+```json
+{
+  "token_type": "Bearer",
+  "expires_in": 86400,
+  "server_time": 1751621727,
+  "access_token": "xxxxxx",
+  "refresh_token": "xxxxx"
+}
+```
 
 #### Получение Access токен по Refresh токену, реализация на bash
 
-    curl https://subdomain.amocrm.ru/oauth2/access_token -d \
-    '{"client_id":"xxx-xxx-xxx-xxx-xxx","client_secret":"xxxxxx","grant_type":"refresh_token","refresh_token":"xxxxxxxx","redirect_uri":"https://test.test/"}' \
-    -H 'Content-Type:application/json' \
-    -X POST
+```shell
+curl https://subdomain.amocrm.ru/oauth2/access_token -d \
+'{"client_id":"xxx-xxx-xxx-xxx-xxx","client_secret":"xxxxxx","grant_type":"refresh_token","refresh_token":"xxxxxxxx","redirect_uri":"https://test.test/"}' \
+-H 'Content-Type:application/json' \
+-X POST
+```
 
 #### Получение Access токен по коду авторизации, реализация на PHP
 
-    <?php
-    $subdomain = 'test'; //Поддомен нужного аккаунта
-    $link = 'https://' . $subdomain . '.amocrm.ru/oauth2/access_token'; //Формируем URL для запроса
-    
-    /** Соберем данные для запроса */
-    $data = [
-        'client_id' => 'xxxx',
-        'client_secret' => 'xxxx',
-        'grant_type' => 'refresh_token',
-        'refresh_token' => 'xxxxxx',
-        'redirect_uri' => 'https://test.ru/',
-    ];
-    
-    /**
-     * Нам необходимо инициировать запрос к серверу.
-     * Воспользуемся библиотекой cURL (поставляется в составе PHP).
-     * Вы также можете использовать и кроссплатформенную программу cURL, если вы не программируете на PHP.
-     */
-    $curl = curl_init(); //Сохраняем дескриптор сеанса cURL
-    /** Устанавливаем необходимые опции для сеанса cURL  */
-    curl_setopt($curl,CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl,CURLOPT_USERAGENT,'amoCRM-oAuth-client/1.0');
-    curl_setopt($curl,CURLOPT_URL, $link);
-    curl_setopt($curl,CURLOPT_HTTPHEADER,['Content-Type:application/json']);
-    curl_setopt($curl,CURLOPT_HEADER, false);
-    curl_setopt($curl,CURLOPT_CUSTOMREQUEST, 'POST');
-    curl_setopt($curl,CURLOPT_POSTFIELDS, json_encode($data));
-    curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, 1);
-    curl_setopt($curl,CURLOPT_SSL_VERIFYHOST, 2);
-    $out = curl_exec($curl); //Инициируем запрос к API и сохраняем ответ в переменную
-    $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    curl_close($curl);
-    /** Теперь мы можем обработать ответ, полученный от сервера. Это пример. Вы можете обработать данные своим способом. */
-    $code = (int)$code;
-    $errors = [
-        400 => 'Bad request',
-        401 => 'Unauthorized',
-        403 => 'Forbidden',
-        404 => 'Not found',
-        500 => 'Internal server error',
-        502 => 'Bad gateway',
-        503 => 'Service unavailable',
-    ];
-    
-    try
-    {
-        /** Если код ответа не успешный - возвращаем сообщение об ошибке  */
-        if ($code < 200 || $code > 204) {
-            throw new Exception(isset($errors[$code]) ? $errors[$code] : 'Undefined error', $code);
-        }
+```php
+<?php
+$subdomain = 'test'; //Поддомен нужного аккаунта
+$link = 'https://' . $subdomain . '.amocrm.ru/oauth2/access_token'; //Формируем URL для запроса
+
+/** Соберем данные для запроса */
+$data = [
+    'client_id' => 'xxxx',
+    'client_secret' => 'xxxx',
+    'grant_type' => 'refresh_token',
+    'refresh_token' => 'xxxxxx',
+    'redirect_uri' => 'https://test.ru/',
+];
+
+/**
+ * Нам необходимо инициировать запрос к серверу.
+ * Воспользуемся библиотекой cURL (поставляется в составе PHP).
+ * Вы также можете использовать и кроссплатформенную программу cURL, если вы не программируете на PHP.
+ */
+$curl = curl_init(); //Сохраняем дескриптор сеанса cURL
+/** Устанавливаем необходимые опции для сеанса cURL  */
+curl_setopt($curl,CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl,CURLOPT_USERAGENT,'amoCRM-oAuth-client/1.0');
+curl_setopt($curl,CURLOPT_URL, $link);
+curl_setopt($curl,CURLOPT_HTTPHEADER,['Content-Type:application/json']);
+curl_setopt($curl,CURLOPT_HEADER, false);
+curl_setopt($curl,CURLOPT_CUSTOMREQUEST, 'POST');
+curl_setopt($curl,CURLOPT_POSTFIELDS, json_encode($data));
+curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, 1);
+curl_setopt($curl,CURLOPT_SSL_VERIFYHOST, 2);
+$out = curl_exec($curl); //Инициируем запрос к API и сохраняем ответ в переменную
+$code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+curl_close($curl);
+/** Теперь мы можем обработать ответ, полученный от сервера. Это пример. Вы можете обработать данные своим способом. */
+$code = (int)$code;
+$errors = [
+    400 => 'Bad request',
+    401 => 'Unauthorized',
+    403 => 'Forbidden',
+    404 => 'Not found',
+    500 => 'Internal server error',
+    502 => 'Bad gateway',
+    503 => 'Service unavailable',
+];
+
+try
+{
+    /** Если код ответа не успешный - возвращаем сообщение об ошибке  */
+    if ($code < 200 || $code > 204) {
+        throw new Exception(isset($errors[$code]) ? $errors[$code] : 'Undefined error', $code);
     }
-    catch(\Exception $e)
-    {
-        die('Ошибка: ' . $e->getMessage() . PHP_EOL . 'Код ошибки: ' . $e->getCode());
-    }
-    
-    /**
-     * Данные получаем в формате JSON, поэтому, для получения читаемых данных,
-     * нам придётся перевести ответ в формат, понятный PHP
-     */
-    $response = json_decode($out, true);
-    
-    $access_token = $response['access_token']; //Access токен
-    $refresh_token = $response['refresh_token']; //Refresh токен
-    $token_type = $response['token_type']; //Тип токена
-    $expires_in = $response['expires_in']; //Через сколько действие токена истекает
+}
+catch(\Exception $e)
+{
+    die('Ошибка: ' . $e->getMessage() . PHP_EOL . 'Код ошибки: ' . $e->getCode());
+}
+
+/**
+ * Данные получаем в формате JSON, поэтому, для получения читаемых данных,
+ * нам придётся перевести ответ в формат, понятный PHP
+ */
+$response = json_decode($out, true);
+
+$access_token = $response['access_token']; //Access токен
+$refresh_token = $response['refresh_token']; //Refresh токен
+$token_type = $response['token_type']; //Тип токена
+$expires_in = $response['expires_in']; //Через сколько действие токена истекает
+```
 
 ### Долгосрочные токены
 
@@ -465,54 +485,56 @@ C помощью полученного Access токена вы можете л
 
 #### Пример запроса к методу account
 
-    <?php
-    $subdomain = 'test'; //Поддомен нужного аккаунта
-    $link = 'https://' . $subdomain . '.amocrm.ru/api/v4/account'; //Формируем URL для запроса
-    /** Получаем access_token из вашего хранилища */
-    $access_token = 'xxxx';
-    /** Формируем заголовки */
-    $headers = [
-        'Authorization: Bearer ' . $access_token
-    ];
-    /**
-     * Нам необходимо инициировать запрос к серверу.
-     * Воспользуемся библиотекой cURL (поставляется в составе PHP).
-     * Вы также можете использовать и кроссплатформенную программу cURL, если вы не программируете на PHP.
-     */
-    $curl = curl_init(); //Сохраняем дескриптор сеанса cURL
-    /** Устанавливаем необходимые опции для сеанса cURL  */
-    curl_setopt($curl,CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl,CURLOPT_USERAGENT,'amoCRM-oAuth-client/1.0');
-    curl_setopt($curl,CURLOPT_URL, $link);
-    curl_setopt($curl,CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($curl,CURLOPT_HEADER, false);
-    curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, 1);
-    curl_setopt($curl,CURLOPT_SSL_VERIFYHOST, 2);
-    $out = curl_exec($curl); //Инициируем запрос к API и сохраняем ответ в переменную
-    $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    curl_close($curl);
-    /** Теперь мы можем обработать ответ, полученный от сервера. Это пример. Вы можете обработать данные своим способом. */
-    $code = (int)$code;
-    $errors = [
-        400 => 'Bad request',
-        401 => 'Unauthorized',
-        403 => 'Forbidden',
-        404 => 'Not found',
-        500 => 'Internal server error',
-        502 => 'Bad gateway',
-        503 => 'Service unavailable',
-    ];
-    
-    try
-    {
-        /** Если код ответа не успешный - возвращаем сообщение об ошибке  */
-        if ($code < 200 || $code > 204) {
-            throw new Exception(isset($errors[$code]) ? $errors[$code] : 'Undefined error', $code);
-        }
-    } catch(\Exception $e)
-    {
-        die('Ошибка: ' . $e->getMessage() . PHP_EOL . 'Код ошибки: ' . $e->getCode());
+```php
+<?php
+$subdomain = 'test'; //Поддомен нужного аккаунта
+$link = 'https://' . $subdomain . '.amocrm.ru/api/v4/account'; //Формируем URL для запроса
+/** Получаем access_token из вашего хранилища */
+$access_token = 'xxxx';
+/** Формируем заголовки */
+$headers = [
+    'Authorization: Bearer ' . $access_token
+];
+/**
+ * Нам необходимо инициировать запрос к серверу.
+ * Воспользуемся библиотекой cURL (поставляется в составе PHP).
+ * Вы также можете использовать и кроссплатформенную программу cURL, если вы не программируете на PHP.
+ */
+$curl = curl_init(); //Сохраняем дескриптор сеанса cURL
+/** Устанавливаем необходимые опции для сеанса cURL  */
+curl_setopt($curl,CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl,CURLOPT_USERAGENT,'amoCRM-oAuth-client/1.0');
+curl_setopt($curl,CURLOPT_URL, $link);
+curl_setopt($curl,CURLOPT_HTTPHEADER, $headers);
+curl_setopt($curl,CURLOPT_HEADER, false);
+curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, 1);
+curl_setopt($curl,CURLOPT_SSL_VERIFYHOST, 2);
+$out = curl_exec($curl); //Инициируем запрос к API и сохраняем ответ в переменную
+$code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+curl_close($curl);
+/** Теперь мы можем обработать ответ, полученный от сервера. Это пример. Вы можете обработать данные своим способом. */
+$code = (int)$code;
+$errors = [
+    400 => 'Bad request',
+    401 => 'Unauthorized',
+    403 => 'Forbidden',
+    404 => 'Not found',
+    500 => 'Internal server error',
+    502 => 'Bad gateway',
+    503 => 'Service unavailable',
+];
+
+try
+{
+    /** Если код ответа не успешный - возвращаем сообщение об ошибке  */
+    if ($code < 200 || $code > 204) {
+        throw new Exception(isset($errors[$code]) ? $errors[$code] : 'Undefined error', $code);
     }
+} catch(\Exception $e)
+{
+    die('Ошибка: ' . $e->getMessage() . PHP_EOL . 'Код ошибки: ' . $e->getCode());
+}
+```
 
 Подобным образом можно делать запросы ко всем методам API, на которые у токена хватает прав.  
 Токен имеет права пользователя, который предоставил доступ.
@@ -535,38 +557,40 @@ C помощью полученного Access токена вы можете л
 
 ##### Пример кода для проверки подлинности
 
-    <?php
-    // id oauth-клиента интеграции
-    $clientId = 'xxx';
-    // секретный ключ oauth-клиента интеграции
-    $clientSecret = 'xxx';
-    
-    if (empty($_GET['client_uuid']) || empty($_GET['signature']) || empty($_GET['account_id'])) {
-        throw new \HttpInvalidParamException('Wrong hook format');
-    }
-    
-    $hookClientId = $_GET['client_uuid'];
-    $hookSignature = $_GET['signature'];
-    $hookAccountId = (int) $_GET['account_id'];
-    
-    if ($clientId !== $hookClientId) {
-        throw new \Exception('Invalid hook signature');
-    }
-    
-    if (!hash_equals(
-        hash_hmac('sha256', sprintf('%s|%s', $clientId, $hookAccountId), $clientSecret),
-        $hookSignature
-    )) {
-        throw new \Exception('Invalid hook signature');
-    }
-    // проверка подлинности пройденна, можно вызывать вашу логику обработки хука
+```php
+<?php
+// id oauth-клиента интеграции
+$clientId = 'xxx';
+// секретный ключ oauth-клиента интеграции
+$clientSecret = 'xxx';
+
+if (empty($_GET['client_uuid']) || empty($_GET['signature']) || empty($_GET['account_id'])) {
+    throw new \HttpInvalidParamException('Wrong hook format');
+}
+
+$hookClientId = $_GET['client_uuid'];
+$hookSignature = $_GET['signature'];
+$hookAccountId = (int) $_GET['account_id'];
+
+if ($clientId !== $hookClientId) {
+    throw new \Exception('Invalid hook signature');
+}
+
+if (!hash_equals(
+    hash_hmac('sha256', sprintf('%s|%s', $clientId, $hookAccountId), $clientSecret),
+    $hookSignature
+)) {
+    throw new \Exception('Invalid hook signature');
+}
+// проверка подлинности пройденна, можно вызывать вашу логику обработки хука
+```
 
 ### Обработка ошибок
 
 В ходе отработки всей вышеуказанной логики может возникать ряд исключений, которые необходимо обрабатывать, рассмотрим каждое из них:
 
 *   Если пользователь не дал разрешение на доступ к аккаунту, в случае использования кнопки amoCRM, будет вызвана функция,  
-    которая передана в одном из параметров. Подробней можно прочесть в разделе [Кнопка amoCRM](https://www.amocrm.ru/developers/content/oauth/button).  
+    которая передана в одном из параметров. Подробней можно прочесть в разделе [Кнопка amoCRM](/oauth/button.html).  
     Если же страница была открыта не кнопкой, то в случае отказа будет произведен редирект на Redirect URI c GET-параметром error=access\_denied.
 *   Если администратор аккаунта деактивировал установку интеграции, то выданные ей access\_token будут отозваны.  
     При обращении к API вы получите HTTP код 401.  
@@ -581,5 +605,5 @@ C помощью полученного Access токена вы можете л
 
 #### Смотрите также
 
-[Библиотека](https://www.amocrm.ru/developers/content/oauth/lib)  
-[Кнопка на сайт](https://www.amocrm.ru/developers/content/oauth/button)
+[Библиотека](/oauth/lib.html)  
+[Кнопка на сайт](/oauth/button.html)

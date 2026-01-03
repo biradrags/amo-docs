@@ -1,8 +1,6 @@
 <!-- https://www.amocrm.ru/developers/content/catalogs/products -->
 
-# Включение функционала
-
-Товары
+# Товары
 
 Товар это элемент специального каталога (тип 2). Такой каталог создаётся при включении функционала “Товары” в  
 настройках.
@@ -14,6 +12,8 @@
 *   Цена (code: PRICE)
 *   Группа (code: GROUP)
 *   External ID (скрытое поле, code: EXTERNAL\_ID)
+
+### Включение функционала  
 
 Данный метод позволяет включить функционал “Товаров” и при необходимости создаёт специальный каталог.
 
@@ -47,24 +47,26 @@ Response Headeres содержит следующие заголовки:
 
 #### Пример запроса  
 
-    
-    {
-            "enabled" : true
-            }
+```
+{
+        "enabled" : true
+        }
+```
 
 #### Пример ответа  
 
-    
-    {
-      "is_enabled" : true ,
-      "catalog_id" : 9999 ,
-      "_links" : {
-        "self" : {
-          "href" : "/api/v2/products_settings" ,
-            "method" : "post"
-        }
-      }
+```
+{
+  "is_enabled" : true ,
+  "catalog_id" : 9999 ,
+  "_links" : {
+    "self" : {
+      "href" : "/api/v2/products_settings" ,
+        "method" : "post"
     }
+  }
+}
+```
 
 ### Статус активности функционала  
 

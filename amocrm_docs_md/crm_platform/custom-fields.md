@@ -1,24 +1,24 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/custom-fields -->
 
-# Оглавление
-
-Поля и группы полей
+# Поля и группы полей
 
 В данном разделе описывается работа с дополнительными полями и группами полей через API
 
-*   [Общая информация](#Общая-информация)
-*   [Список полей сущности](#Список-полей-сущности)
-*   [Получение поля сущности по его ID](#Получение-поля-сущности-по-его-ID)
-*   [Создание дополнительных полей сущности](#Создание-дополнительных-полей-сущности)
-*   [Редактирование дополнительных полей сущности](#Редактирование-дополнительных-полей-сущности)
-*   [Удаление дополнительного поля](#Удаление-дополнительного-поля)
-*   [Список групп полей сущности](#Список-групп-полей-сущности)
-*   [Получение группы полей сущности по ID группы](#Получение-группы-полей-сущности-по-ID-группы)
-*   [Создание групп полей](#Создание-групп-полей)
-*   [Редактирование группы полей](#Редактирование-группы-полей)
-*   [Удаление группы дополнительных полей](#Удаление-группы-дополнительных-полей)
-*   [Доступные типы полей](#Доступные-типы-полей)
-*   [Примеры заполнения разных типов полей через API](#Примеры-заполнения-разных-типов-полей-через-API)
+### Оглавление
+
+*   [Общая информация](/crm_platform/custom-fields#%D0%9E%D0%B1%D1%89%D0%B0%D1%8F-%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D1%8F.html)
+*   [Список полей сущности](/crm_platform/custom-fields#%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B9-%D1%81%D1%83%D1%89%D0%BD%D0%BE%D1%81%D1%82%D0%B8.html)
+*   [Получение поля сущности по его ID](/crm_platform/custom-fields#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BF%D0%BE%D0%BB%D1%8F-%D1%81%D1%83%D1%89%D0%BD%D0%BE%D1%81%D1%82%D0%B8-%D0%BF%D0%BE-%D0%B5%D0%B3%D0%BE-ID.html)
+*   [Создание дополнительных полей сущности](/crm_platform/custom-fields#%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D1%85-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B9-%D1%81%D1%83%D1%89%D0%BD%D0%BE%D1%81%D1%82%D0%B8.html)
+*   [Редактирование дополнительных полей сущности](/crm_platform/custom-fields#%D0%A0%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D1%85-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B9-%D1%81%D1%83%D1%89%D0%BD%D0%BE%D1%81%D1%82%D0%B8.html)
+*   [Удаление дополнительного поля](/crm_platform/custom-fields#%D0%A3%D0%B4%D0%B0%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D0%BE%D0%BB%D1%8F.html)
+*   [Список групп полей сущности](/crm_platform/custom-fields#%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA-%D0%B3%D1%80%D1%83%D0%BF%D0%BF-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B9-%D1%81%D1%83%D1%89%D0%BD%D0%BE%D1%81%D1%82%D0%B8.html)
+*   [Получение группы полей сущности по ID группы](/crm_platform/custom-fields#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D1%8B-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B9-%D1%81%D1%83%D1%89%D0%BD%D0%BE%D1%81%D1%82%D0%B8-%D0%BF%D0%BE-ID-%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D1%8B.html)
+*   [Создание групп полей](/crm_platform/custom-fields#%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B3%D1%80%D1%83%D0%BF%D0%BF-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B9.html)
+*   [Редактирование группы полей](/crm_platform/custom-fields#%D0%A0%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D1%8B-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B9.html)
+*   [Удаление группы дополнительных полей](/crm_platform/custom-fields#%D0%A3%D0%B4%D0%B0%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D1%8B-%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D1%85-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B9.html)
+*   [Доступные типы полей](/crm_platform/custom-fields#%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D1%8B%D0%B5-%D1%82%D0%B8%D0%BF%D1%8B-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B9.html)
+*   [Примеры заполнения разных типов полей через API](/crm_platform/custom-fields#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D1%8B-%D0%B7%D0%B0%D0%BF%D0%BE%D0%BB%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F-%D1%80%D0%B0%D0%B7%D0%BD%D1%8B%D1%85-%D1%82%D0%B8%D0%BF%D0%BE%D0%B2-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B9-%D1%87%D0%B5%D1%80%D0%B5%D0%B7-API.html)
 
 ### Общая информация
 
@@ -56,7 +56,7 @@ _GET /api/v4/catalogs/{catalog\_id}/custom\_fields_
 | --- | --- | --- |
 | page | int | Страница выборки |
 | limit | int | Количество возвращаемых сущностей за один запрос (Максимум – 250) |
-| filter\[type\]\[0\] | string | Тип поля. [Список доступных полей](#Доступные-типы-полей) |
+| filter\[type\]\[0\] | string | Тип поля. [Список доступных полей](/crm_platform/custom-fields#%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D1%8B%D0%B5-%D1%82%D0%B8%D0%BF%D1%8B-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B9.html) |
 | order | object | Сортировка результатов списка.  
 Доступные поля для сортировки: sort, id.  
 Доступные значения для сортировки: asc, desc.  
@@ -89,7 +89,7 @@ _Content-Type: application/problem+json_
 | name | string | Название поля |
 | code | string | Код поля, по-которому можно обновлять значение в сущности, без передачи ID поля |
 | sort | int | Сортировка поля |
-| type | string | Тип поля. [Список доступных полей](#Доступные-типы-полей) |
+| type | string | Тип поля. [Список доступных полей](/crm_platform/custom-fields#%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D1%8B%D0%B5-%D1%82%D0%B8%D0%BF%D1%8B-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B9.html) |
 | entity\_type | string | Тип сущности (leads, contacts, companies, segments, customers, catalogs) |
 | is\_computed | bool | Параметр отвечает за определение типа поля как "вычисляемое" (computed) поле. Данный ключ возвращается только при получении списка полей сделки |
 | is\_predefined | bool | Является ли поле предустановленным. Данный ключ возвращается только при получении списка полей контактов и компаний |
@@ -142,67 +142,69 @@ null | ID списка или символьный код (contacts, companies, 
 
 #### Пример ответа
 
-    {
-        "_total_items": 2,
-        "_page": 1,
-        "_page_count": 10,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads/custom_fields?limit=2&page=1"
-            },
-            "next": {
-                "href": "https://example.amocrm.ru/api/v4/leads/custom_fields?limit=2&page=2"
-            },
-            "last": {
-                "href": "https://example.amocrm.ru/api/v4/leads/custom_fields?limit=2&page=10"
-            }
+```json
+{
+    "_total_items": 2,
+    "_page": 1,
+    "_page_count": 10,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads/custom_fields?limit=2&page=1"
         },
-        "_embedded": {
-            "custom_fields": [
-                {
-                    "id": 4439091,
-                    "name": "Пример текстового поля",
-                    "sort": 504,
-                    "type": "text",
-                    "is_predefined": false,
-                    "settings": null,
-                    "remind": null,
-                    "is_api_only": false,
-                    "group_id": null,
-                    "enums": null,
-                    "required_statuses": [
-                        {
-                            "status_id": 41221,
-                            "pipeline_id": 3142
-                        }
-                    ],
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/custom_fields/4439091/"
-                        }
+        "next": {
+            "href": "https://example.amocrm.ru/api/v4/leads/custom_fields?limit=2&page=2"
+        },
+        "last": {
+            "href": "https://example.amocrm.ru/api/v4/leads/custom_fields?limit=2&page=10"
+        }
+    },
+    "_embedded": {
+        "custom_fields": [
+            {
+                "id": 4439091,
+                "name": "Пример текстового поля",
+                "sort": 504,
+                "type": "text",
+                "is_predefined": false,
+                "settings": null,
+                "remind": null,
+                "is_api_only": false,
+                "group_id": null,
+                "enums": null,
+                "required_statuses": [
+                    {
+                        "status_id": 41221,
+                        "pipeline_id": 3142
                     }
-                },
-                {
-                    "id": 4440043,
-                    "name": "Пример поля с типом 'data'",
-                    "sort": 505,
-                    "type": "date",
-                    "is_predefined": false,
-                    "settings": null,
-                    "remind": null,
-                    "is_api_only": false,
-                    "group_id": null,
-                    "enums": null,
-                    "required_statuses": null,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/custom_fields/4440043/"
-                        }
+                ],
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/custom_fields/4439091/"
                     }
                 }
-            ]
-        }
+            },
+            {
+                "id": 4440043,
+                "name": "Пример поля с типом 'data'",
+                "sort": 505,
+                "type": "date",
+                "is_predefined": false,
+                "settings": null,
+                "remind": null,
+                "is_api_only": false,
+                "group_id": null,
+                "enums": null,
+                "required_statuses": null,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/custom_fields/4440043/"
+                    }
+                }
+            }
+        ]
     }
+}
+```
 
 ### Получение поля сущности по его ID
 
@@ -254,7 +256,7 @@ _Content-Type: application/problem+json_
 | name | string | Название поля |
 | code | string | Код поля, по-которому можно обновлять значение в сущности, без передачи ID поля |
 | sort | int | Сортировка поля |
-| type | string | Тип поля. [Список доступных полей](#Доступные-типы-полей) |
+| type | string | Тип поля. [Список доступных полей](/crm_platform/custom-fields#%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D1%8B%D0%B5-%D1%82%D0%B8%D0%BF%D1%8B-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B9.html) |
 | entity\_type | string | Тип сущности (leads, contacts, companies, segments, customers, catalogs) |
 | is\_predefined | bool | Является ли поле предустановленным. Данный ключ возвращается только при получении поля контакта и компании |
 | is\_deletable | bool | Доступно ли поле для удаления. |
@@ -305,58 +307,60 @@ null | Код валюты поля. Применимо только для ти
 
 #### Пример ответа
 
-    {
-        "id": 3,
-        "name": "Телефон",
-        "type": "multitext",
-        "account_id": 28805383,
-        "code": "PHONE",
-        "sort": 4,
-        "is_api_only": false,
-        "enums": [
-            {
-                "id": 1,
-                "value": "WORK",
-                "sort": 2
-            },
-            {
-                "id": 3,
-                "value": "WORKDD",
-                "sort": 4
-            },
-            {
-                "id": 5,
-                "value": "MOB",
-                "sort": 6
-            },
-            {
-                "id": 7,
-                "value": "FAX",
-                "sort": 8
-            },
-            {
-                "id": 9,
-                "value": "HOME",
-                "sort": 10
-            },
-            {
-                "id": 11,
-                "value": "OTHER",
-                "sort": 12
-            }
-        ],
-        "group_id": null,
-        "required_statuses": [],
-        "is_deletable": false,
-        "is_predefined": true,
-        "entity_type": "contacts",
-        "remind": null,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/contacts/custom_fields/3"
-            }
+```json
+{
+    "id": 3,
+    "name": "Телефон",
+    "type": "multitext",
+    "account_id": 28805383,
+    "code": "PHONE",
+    "sort": 4,
+    "is_api_only": false,
+    "enums": [
+        {
+            "id": 1,
+            "value": "WORK",
+            "sort": 2
+        },
+        {
+            "id": 3,
+            "value": "WORKDD",
+            "sort": 4
+        },
+        {
+            "id": 5,
+            "value": "MOB",
+            "sort": 6
+        },
+        {
+            "id": 7,
+            "value": "FAX",
+            "sort": 8
+        },
+        {
+            "id": 9,
+            "value": "HOME",
+            "sort": 10
+        },
+        {
+            "id": 11,
+            "value": "OTHER",
+            "sort": 12
+        }
+    ],
+    "group_id": null,
+    "required_statuses": [],
+    "is_deletable": false,
+    "is_predefined": true,
+    "entity_type": "contacts",
+    "remind": null,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/contacts/custom_fields/3"
         }
     }
+}
+```
 
 ### Создание дополнительных полей сущности
 
@@ -392,7 +396,7 @@ _Content-Type: application/json_
 
 | Параметр | Тип данных | Описание | Обязательное | Поддерживаемы типы полей |
 | --- | --- | --- | --- | --- |
-| type | string | Тип поля. [Доступные типы полей](#Доступные-типы-полей) | ✅ | Доступно для всех полей |
+| type | string | Тип поля. [Доступные типы полей](/crm_platform/custom-fields#%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D1%8B%D0%B5-%D1%82%D0%B8%D0%BF%D1%8B-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B9.html) | ✅ | Доступно для всех полей |
 | name | string | Название поля | ✅ | Доступно для всех полей |
 | code | string | Код поля, по-которому можно обновлять значение в сущности, без передачи ID поля | ❌ | Доступно для всех полей |
 | sort | int | Сортировка поля в группе полей | ❌ | Доступно для всех полей |
@@ -545,29 +549,31 @@ null | Код валюты поля. | ✅ | Доступно для полей:
 
 #### Пример запроса
 
-    [
-        {
-            "name": "multi select",
-            "type": "multiselect",
-            "sort": 510,
-            "required_statuses": [
-                {
-                    "pipeline_id": 16056,
-                    "status_id": 20540473
-                }
-            ],
-            "enums": [
-                {
-                    "value": "Значение 1",
-                    "sort": 1
-                },
-                {
-                    "value": "Значение 2",
-                    "sort": 2
-                }
-            ]
-        }
-    ]
+```json
+[
+    {
+        "name": "multi select",
+        "type": "multiselect",
+        "sort": 510,
+        "required_statuses": [
+            {
+                "pipeline_id": 16056,
+                "status_id": 20540473
+            }
+        ],
+        "enums": [
+            {
+                "value": "Значение 1",
+                "sort": 1
+            },
+            {
+                "value": "Значение 2",
+                "sort": 2
+            }
+        ]
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -592,47 +598,49 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_total_items": 1,
-        "_embedded": {
-            "custom_fields": [
-                {
-                    "name": "multi select",
-                    "type": "multiselect",
-                    "sort": 510,
-                    "settings": null,
-                    "is_predefined": false,
-                    "id": 4457223,
-                    "remind": null,
-                    "is_api_only": false,
-                    "enums": [
-                        {
-                            "value": "Значение 1",
-                            "sort": 1,
-                            "id": 3778801
-                        },
-                        {
-                            "value": "Значение 2",
-                            "sort": 2,
-                            "id": 3778803
-                        }
-                    ],
-                    "group_id": null,
-                    "required_statuses": [
-                        {
-                            "status_id": 20540473,
-                            "pipeline_id": 16056
-                        },
-                    ],
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/custom_fields/4457223/"
-                        }
+```json
+{
+    "_total_items": 1,
+    "_embedded": {
+        "custom_fields": [
+            {
+                "name": "multi select",
+                "type": "multiselect",
+                "sort": 510,
+                "settings": null,
+                "is_predefined": false,
+                "id": 4457223,
+                "remind": null,
+                "is_api_only": false,
+                "enums": [
+                    {
+                        "value": "Значение 1",
+                        "sort": 1,
+                        "id": 3778801
+                    },
+                    {
+                        "value": "Значение 2",
+                        "sort": 2,
+                        "id": 3778803
+                    }
+                ],
+                "group_id": null,
+                "required_statuses": [
+                    {
+                        "status_id": 20540473,
+                        "pipeline_id": 16056
+                    },
+                ],
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/custom_fields/4457223/"
                     }
                 }
-            ]
-        }
+            }
+        ]
     }
+}
+```
 
 ### Редактирование дополнительных полей сущности
 
@@ -831,37 +839,39 @@ null | Код валюты поля. | ✅ | Доступно для полей:
 
 В примере ниже обновим 2 поля у каталога, сделав запрос к методу /api/v4/catalogs/{catalog\_id}/custom\_fields.
 
-    [
-        {
-            "id": 1278898087,
-            "name": "Новое имя для дополнительного поля",
-            "sort": 560,
-            "is_visible": false,
-            "is_required": true
-        },
-        {
-            "id": 1278898091,
-            "name": "Новое имя для поля Категория",
-            "nested": [
-                {
-                    "id": 197,
-                    "parent_id": null,
-                    "value": "категория 1",
-                    "sort": 0
-                },
-                {
-                    "parent_id": null,
-                    "value": "новая категория 2",
-                    "sort": 1
-                },
-                {
-                    "parent_id": 197,
-                    "value": "новая подкатегория 1",
-                    "sort": 1
-                }
-            ]
-        }
-    ]
+```json
+[
+    {
+        "id": 1278898087,
+        "name": "Новое имя для дополнительного поля",
+        "sort": 560,
+        "is_visible": false,
+        "is_required": true
+    },
+    {
+        "id": 1278898091,
+        "name": "Новое имя для поля Категория",
+        "nested": [
+            {
+                "id": 197,
+                "parent_id": null,
+                "value": "категория 1",
+                "sort": 0
+            },
+            {
+                "parent_id": null,
+                "value": "новая категория 2",
+                "sort": 1
+            },
+            {
+                "parent_id": 197,
+                "value": "новая подкатегория 1",
+                "sort": 1
+            }
+        ]
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -886,76 +896,78 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_total_items": 2,
-        "_embedded": {
-            "custom_fields": [
-                {
-                    "id": 1278898087,
-                    "name": "Новое имя для дополнительного поля",
-                    "type": "textarea",
-                    "account_id": 17079858,
-                    "code": "DESCRIPTION",
-                    "sort": 560,
-                    "is_api_only": false,
-                    "enums": null,
-                    "request_id": "0",
-                    "catalog_id": 1095,
-                    "is_visible": false,
-                    "is_deletable": true,
-                    "is_required": false,
-                    "nested": null,
-                    "entity_type": "catalogs",
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/catalogs/1095/custom_fields/1278898087"
-                        }
-                    }
-                },
-                {
-                    "id": 1278898091,
-                    "name": "Новое имя для поля Категория",
-                    "type": "category",
-                    "account_id": 17079858,
-                    "code": "GROUP",
-                    "sort": 500,
-                    "is_api_only": false,
-                    "enums": null,
-                    "request_id": "1",
-                    "catalog_id": 1095,
-                    "is_visible": true,
-                    "is_deletable": false,
-                    "is_required": false,
-                    "nested": [
-                        {
-                            "id": 197,
-                            "parent_id": null,
-                            "value": "категория 1",
-                            "sort": 0
-                        },
-                        {
-                            "id": 215,
-                            "parent_id": 197,
-                            "value": "новая подкатегория 1",
-                            "sort": 0
-                        },
-                        {
-                            "id": 217,
-                            "parent_id": 197,
-                            "value": "новая категория 2",
-                            "sort": 1
-                        }
-                    ],
-                    "entity_type": "catalogs",
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/catalogs/1095/custom_fields/1278898091"
-                        }
+```json
+{
+    "_total_items": 2,
+    "_embedded": {
+        "custom_fields": [
+            {
+                "id": 1278898087,
+                "name": "Новое имя для дополнительного поля",
+                "type": "textarea",
+                "account_id": 17079858,
+                "code": "DESCRIPTION",
+                "sort": 560,
+                "is_api_only": false,
+                "enums": null,
+                "request_id": "0",
+                "catalog_id": 1095,
+                "is_visible": false,
+                "is_deletable": true,
+                "is_required": false,
+                "nested": null,
+                "entity_type": "catalogs",
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/catalogs/1095/custom_fields/1278898087"
                     }
                 }
-            ]
-        }
+            },
+            {
+                "id": 1278898091,
+                "name": "Новое имя для поля Категория",
+                "type": "category",
+                "account_id": 17079858,
+                "code": "GROUP",
+                "sort": 500,
+                "is_api_only": false,
+                "enums": null,
+                "request_id": "1",
+                "catalog_id": 1095,
+                "is_visible": true,
+                "is_deletable": false,
+                "is_required": false,
+                "nested": [
+                    {
+                        "id": 197,
+                        "parent_id": null,
+                        "value": "категория 1",
+                        "sort": 0
+                    },
+                    {
+                        "id": 215,
+                        "parent_id": 197,
+                        "value": "новая подкатегория 1",
+                        "sort": 0
+                    },
+                    {
+                        "id": 217,
+                        "parent_id": 197,
+                        "value": "новая категория 2",
+                        "sort": 1
+                    }
+                ],
+                "entity_type": "catalogs",
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/catalogs/1095/custom_fields/1278898091"
+                    }
+                }
+            }
+        ]
     }
+}
+```
 
 ### Удаление дополнительного поля
 
@@ -1052,19 +1064,21 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "id": "leads_29741591099841",
-        "name": "Группа полей",
-        "is_predefined": false,
-        "type": "custom_field_group",
-        "entity_type": "leads",
-        "sort": 3,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/leads_29741591099841"
-            }
+```json
+{
+    "id": "leads_29741591099841",
+    "name": "Группа полей",
+    "is_predefined": false,
+    "type": "custom_field_group",
+    "entity_type": "leads",
+    "sort": 3,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/leads_29741591099841"
         }
     }
+}
+```
 
 ### Получение группы полей сущности по ID группы
 
@@ -1119,65 +1133,67 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_total_items": 4,
-        "_embedded": {
-            "custom_field_groups": [
-                {
-                    "id": "default",
-                    "name": "Основное",
-                    "is_predefined": true,
-                    "type": "custom_field_group",
-                    "entity_type": "leads",
-                    "sort": 0,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/default"
-                        }
-                    }
-                },
-                {
-                    "id": "4521",
-                    "name": "Товары",
-                    "is_predefined": true,
-                    "type": "linked_group",
-                    "entity_type": "leads",
-                    "sort": 1,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/4521"
-                        }
-                    }
-                },
-                {
-                    "id": "statistic",
-                    "name": "Статистика",
-                    "is_predefined": true,
-                    "type": "linked_group",
-                    "entity_type": "leads",
-                    "sort": 2,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/statistic"
-                        }
-                    }
-                },
-                {
-                    "id": "leads_29741591099841",
-                    "name": "Группа полей",
-                    "is_predefined": false,
-                    "type": "custom_field_group",
-                    "entity_type": "leads",
-                    "sort": 3,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/leads_29741591099841"
-                        }
+```json
+{
+    "_total_items": 4,
+    "_embedded": {
+        "custom_field_groups": [
+            {
+                "id": "default",
+                "name": "Основное",
+                "is_predefined": true,
+                "type": "custom_field_group",
+                "entity_type": "leads",
+                "sort": 0,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/default"
                     }
                 }
-            ]
-        }
+            },
+            {
+                "id": "4521",
+                "name": "Товары",
+                "is_predefined": true,
+                "type": "linked_group",
+                "entity_type": "leads",
+                "sort": 1,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/4521"
+                    }
+                }
+            },
+            {
+                "id": "statistic",
+                "name": "Статистика",
+                "is_predefined": true,
+                "type": "linked_group",
+                "entity_type": "leads",
+                "sort": 2,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/statistic"
+                    }
+                }
+            },
+            {
+                "id": "leads_29741591099841",
+                "name": "Группа полей",
+                "is_predefined": false,
+                "type": "custom_field_group",
+                "entity_type": "leads",
+                "sort": 3,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/leads_29741591099841"
+                    }
+                }
+            }
+        ]
     }
+}
+```
 
 ### Создание групп полей
 
@@ -1215,16 +1231,18 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    [
-        {
-            "name": "group 1",
-            "sort": 4
-        },
-        {
-            "name": "group 2",
-            "sort": 5
-        }
-    ]
+```json
+[
+    {
+        "name": "group 1",
+        "sort": 4
+    },
+    {
+        "name": "group 2",
+        "sort": 5
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -1249,39 +1267,41 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_total_items": 2,
-        "_embedded": {
-            "custom_field_groups": [
-                {
-                    "id": "leads_2745158",
-                    "name": "group 1",
-                    "is_predefined": false,
-                    "type": "custom_field_group",
-                    "entity_type": "leads",
-                    "sort": 4,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/leads_2745158/"
-                        }
-                    }
-                },
-                {
-                    "id": "leads_609315",
-                    "name": "group 2",
-                    "is_predefined": false,
-                    "type": "custom_field_group",
-                    "entity_type": "leads",
-                    "sort": 5,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/leads_609315/"
-                        }
+```json
+{
+    "_total_items": 2,
+    "_embedded": {
+        "custom_field_groups": [
+            {
+                "id": "leads_2745158",
+                "name": "group 1",
+                "is_predefined": false,
+                "type": "custom_field_group",
+                "entity_type": "leads",
+                "sort": 4,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/leads_2745158/"
                     }
                 }
-            ]
-        }
+            },
+            {
+                "id": "leads_609315",
+                "name": "group 2",
+                "is_predefined": false,
+                "type": "custom_field_group",
+                "entity_type": "leads",
+                "sort": 5,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/leads_609315/"
+                    }
+                }
+            }
+        ]
     }
+}
+```
 
 ### Редактирование группы полей
 
@@ -1321,13 +1341,15 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    {
-        "sort": 6,
-        "fields": [
-            14563,
-            12575
-        ]
-    }
+```json
+{
+    "sort": 6,
+    "fields": [
+        14563,
+        12575
+    ]
+}
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -1352,24 +1374,26 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "id": "leads_2745",
-        "name": "group 1",
-        "is_predefined": false,
-        "type": "custom_field_group",
-        "entity_type": "leads",
-        "fields": [
-            13478,
-            14563,
-            12575
-        ],
-        "sort": 6,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/leads_2745/"
-            }
+```json
+{
+    "id": "leads_2745",
+    "name": "group 1",
+    "is_predefined": false,
+    "type": "custom_field_group",
+    "entity_type": "leads",
+    "fields": [
+        13478,
+        14563,
+        12575
+    ],
+    "sort": 6,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads/custom_fields/groups/leads_2745/"
         }
     }
+}
+```
 
 ### Удаление группы дополнительных полей
 
@@ -1490,31 +1514,31 @@ _Content-Type: application/json_
 
 Типы полей:
 
-*   [text](#text-numeric-textarea-price-streetaddress-tracking_data-monetary)
-*   [numeric](#text-numeric-textarea-price-streetaddress-tracking_data-monetary)
-*   [checkbox](#checkbox)
-*   [select](#select-multiselect-radiobutton-category)
-*   [multiselect](#select-multiselect-radiobutton-category)
-*   [date](#date-date_time-birthday)
-*   [url](#url)
-*   [textarea](#text-numeric-textarea-price-streetaddress-tracking_data-monetary)
-*   [radiobutton](#select-multiselect-radiobutton-category)
-*   [streetaddress](#text-numeric-textarea-price-streetaddress-tracking_data-monetary)
-*   [smart\_address](#smart_address)
-*   [legal\_entity](#legal_entity)
-*   [birthday](#date-date_time-birthday)
-*   [date\_time](#date-date_time-birthday)
-*   [price](#text-numeric-textarea-price-streetaddress-tracking_data-monetary)
-*   [category](#select-multiselect-radiobutton-category)
-*   [items](#items)
-*   [multitext](#multitext)
-*   [tracking\_data](#text-numeric-textarea-price-streetaddress-tracking_data-monetary)
-*   [linked\_entity](#linked_entity)
-*   [chained\_list](#chained_list)
-*   [monetary](#text-numeric-textarea-price-streetaddress-tracking_data-monetary)
-*   [file](#file)
-*   [payer](#payer)
-*   [supplier](#supplier)
+*   [text](/crm_platform/custom-fields#text-numeric-textarea-price-streetaddress-tracking_data-monetary.html)
+*   [numeric](/crm_platform/custom-fields#text-numeric-textarea-price-streetaddress-tracking_data-monetary.html)
+*   [checkbox](/crm_platform/custom-fields#checkbox.html)
+*   [select](/crm_platform/custom-fields#select-multiselect-radiobutton-category.html)
+*   [multiselect](/crm_platform/custom-fields#select-multiselect-radiobutton-category.html)
+*   [date](/crm_platform/custom-fields#date-date_time-birthday.html)
+*   [url](/crm_platform/custom-fields#url.html)
+*   [textarea](/crm_platform/custom-fields#text-numeric-textarea-price-streetaddress-tracking_data-monetary.html)
+*   [radiobutton](/crm_platform/custom-fields#select-multiselect-radiobutton-category.html)
+*   [streetaddress](/crm_platform/custom-fields#text-numeric-textarea-price-streetaddress-tracking_data-monetary.html)
+*   [smart\_address](/crm_platform/custom-fields#smart_address.html)
+*   [legal\_entity](/crm_platform/custom-fields#legal_entity.html)
+*   [birthday](/crm_platform/custom-fields#date-date_time-birthday.html)
+*   [date\_time](/crm_platform/custom-fields#date-date_time-birthday.html)
+*   [price](/crm_platform/custom-fields#text-numeric-textarea-price-streetaddress-tracking_data-monetary.html)
+*   [category](/crm_platform/custom-fields#select-multiselect-radiobutton-category.html)
+*   [items](/crm_platform/custom-fields#items.html)
+*   [multitext](/crm_platform/custom-fields#multitext.html)
+*   [tracking\_data](/crm_platform/custom-fields#text-numeric-textarea-price-streetaddress-tracking_data-monetary.html)
+*   [linked\_entity](/crm_platform/custom-fields#linked_entity.html)
+*   [chained\_list](/crm_platform/custom-fields#chained_list.html)
+*   [monetary](/crm_platform/custom-fields#text-numeric-textarea-price-streetaddress-tracking_data-monetary.html)
+*   [file](/crm_platform/custom-fields#file.html)
+*   [payer](/crm_platform/custom-fields#payer.html)
+*   [supplier](/crm_platform/custom-fields#supplier.html)
 
 #### text, numeric, textarea, price, streetaddress, tracking\_data, monetary
 
@@ -1524,50 +1548,52 @@ _Content-Type: application/json_
 | --- | --- | --- |
 | value | string | Значение поля |
 
-        ...
-        "custom_fields_values": [
-            {
-                "field_id": 3,
-                "values": [
-                    {
-                        "value": "Значение поля"
-                    }
-                ]
-            },
-            {
-                "field_id": 103,
-                "values": [
-                    {
-                        "value": "1.5"
-                    }
-                ]
-            },
-            {
-                "field_id": 203,
-                "values": [
-                    {
-                        "value": "Строка1\nСтрока2"
-                    }
-                ]
-            },
-            {
-                "field_id": 303,
-                "values": [
-                    {
-                        "value": "100"
-                    }
-                ]
-            },
-            {
-                "field_id": 403,
-                "values": [
-                    {
-                        "value": "г. Москва, Николоямская улица 28/60 стр. 1"
-                    }
-                ]
-            }
-        ],
-        ...
+```json
+...
+    "custom_fields_values": [
+        {
+            "field_id": 3,
+            "values": [
+                {
+                    "value": "Значение поля"
+                }
+            ]
+        },
+        {
+            "field_id": 103,
+            "values": [
+                {
+                    "value": "1.5"
+                }
+            ]
+        },
+        {
+            "field_id": 203,
+            "values": [
+                {
+                    "value": "Строка1\nСтрока2"
+                }
+            ]
+        },
+        {
+            "field_id": 303,
+            "values": [
+                {
+                    "value": "100"
+                }
+            ]
+        },
+        {
+            "field_id": 403,
+            "values": [
+                {
+                    "value": "г. Москва, Николоямская улица 28/60 стр. 1"
+                }
+            ]
+        }
+    ],
+    ...
+```
 
 #### checkbox
 
@@ -1577,18 +1603,20 @@ _Content-Type: application/json_
 | --- | --- | --- |
 | value | bool | Значение поля |
 
-        ...
-        "custom_fields_values": [
-            {
-                "field_id": 5,
-                "values": [
-                    {
-                        "value": true
-                    }
-                ]
-            }
-        ],
-        ...
+```json
+...
+    "custom_fields_values": [
+        {
+            "field_id": 5,
+            "values": [
+                {
+                    "value": true
+                }
+            ]
+        }
+    ],
+    ...
+```
 
 #### url
 
@@ -1598,18 +1626,20 @@ _Content-Type: application/json_
 | --- | --- | --- |
 | value | string | Значение поля. Делегированный URL |
 
-        ...
-        "custom_fields_values": [
-            {
-                "field_id": 7,
-                "values": [
-                    {
-                        "value": "https://www.amocrm.ru/"
-                    }
-                ]
-            }
-        ],
-        ...
+```json
+...
+    "custom_fields_values": [
+        {
+            "field_id": 7,
+            "values": [
+                {
+                    "value": "https://www.amocrm.ru/"
+                }
+            ]
+        }
+    ],
+    ...
+```
 
 #### date, date\_time, birthday
 
@@ -1619,34 +1649,36 @@ _Content-Type: application/json_
 | --- | --- | --- |
 | value | int | string | Значение поля – Unix Timestamp отметка или время в формате RFC-3339 |
 
-        ...
-        "custom_fields_values": [
-            {
-                "field_id": 9,
-                "values": [
-                    {
-                        "value": 1577836800
-                    }
-                ]
-            },
-            {
-                "field_id": 109,
-                "values": [
-                    {
-                        "value": 1591965296
-                    }
-                ]
-            },
-            {
-                "field_id": 209,
-                "values": [
-                    {
-                        "value": 1586476800
-                    }
-                ]
-            }
-        ],
-        ...
+```json
+...
+    "custom_fields_values": [
+        {
+            "field_id": 9,
+            "values": [
+                {
+                    "value": 1577836800
+                }
+            ]
+        },
+        {
+            "field_id": 109,
+            "values": [
+                {
+                    "value": 1591965296
+                }
+            ]
+        },
+        {
+            "field_id": 209,
+            "values": [
+                {
+                    "value": 1586476800
+                }
+            ]
+        }
+    ],
+    ...
+```
 
 #### select, multiselect, radiobutton, category
 
@@ -1658,37 +1690,39 @@ _Content-Type: application/json_
 | enum\_id | int | ID значения поля (enum). |
 | enum\_code | string | Символьный код значения поля (enum). |
 
-        ...
-        "custom_fields_values": [
-            {
-                "field_id": 11,
-                "values": [
-                    {
-                        "value": "Значение 1"
-                    }
-                ]
-            },
-            {
-                "field_id": 111,
-                "values": [
-                    {
-                        "enum_id": 17
-                    },
-                    {
-                        "enum_id": 19
-                    }
-                ]
-            },
-            {
-                "field_id": 211,
-                "values": [
-                    {
-                        "value": "Значение 4"
-                    }
-                ]
-            }
-        ],
-        ...
+```json
+...
+    "custom_fields_values": [
+        {
+            "field_id": 11,
+            "values": [
+                {
+                    "value": "Значение 1"
+                }
+            ]
+        },
+        {
+            "field_id": 111,
+            "values": [
+                {
+                    "enum_id": 17
+                },
+                {
+                    "enum_id": 19
+                }
+            ]
+        },
+        {
+            "field_id": 211,
+            "values": [
+                {
+                    "value": "Значение 4"
+                }
+            ]
+        }
+    ],
+    ...
+```
 
 #### smart\_address
 
@@ -1700,35 +1734,37 @@ _Content-Type: application/json_
 | enum\_id | int | ID значения поля. Доступные значения: 1 – Первая строка адреса, 2 – Вторая строка адреса, 3 – Город, 4 – Регион, 5 – Почтовый индекс, 6 – Страна |
 | enum\_code | string | Код значения поля. Доступные значения: address\_line\_1 – Первая строка адреса, address\_line\_2 – Вторая строка адреса, city – Город, state – Регион, zip – Почтовый индекс, country – Страна |
 
-        ...
-        "custom_fields_values": [
-            {
-                "field_id": 13,
-                "values": [
-                    {
-                        "value": "Николоямская улица 28/60",
-                        "enum_id": 1
-                    },
-                    {
-                        "value": "Москва",
-                        "enum_code": "city"
-                    },
-                    {
-                        "value": "Москва",
-                        "enum_code": "state"
-                    },
-                    {
-                        "value": "109004",
-                        "enum_id": 5
-                    },
-                    {
-                        "value": "RU",
-                        "enum_code": "country"
-                    }
-                ]
-            }
-        ],
-        ...
+```json
+...
+    "custom_fields_values": [
+        {
+            "field_id": 13,
+            "values": [
+                {
+                    "value": "Николоямская улица 28/60",
+                    "enum_id": 1
+                },
+                {
+                    "value": "Москва",
+                    "enum_code": "city"
+                },
+                {
+                    "value": "Москва",
+                    "enum_code": "state"
+                },
+                {
+                    "value": "109004",
+                    "enum_id": 5
+                },
+                {
+                    "value": "RU",
+                    "enum_code": "country"
+                }
+            ]
+        }
+    ],
+    ...
+```
 
 #### multitext
 
@@ -1742,23 +1778,25 @@ _Content-Type: application/json_
 Доступные значения для поля Телефон: WORK – рабочий, WORKDD – рабочий прямой, MOB – мобильный, FAX – факс, HOME – домашний, OTHER – другой.  
 Доступные значение для поля Email: WORK – рабочий, PRIV – личный, OTHER – другой. |
 
-        ...
-        "custom_fields_values": [
-            {
-                "field_id": 31,
-                "values": [
-                    {
-                        "value": "+79121234567",
-                        "enum_id": 48224
-                    },
-                    {
-                        "value": "+74991234567",
-                        "enum_code": "HOME"
-                    }
-                ]
-            }
-        ],
-        ...
+```json
+...
+    "custom_fields_values": [
+        {
+            "field_id": 31,
+            "values": [
+                {
+                    "value": "+79121234567",
+                    "enum_id": 48224
+                },
+                {
+                    "value": "+74991234567",
+                    "enum_code": "HOME"
+                }
+            ]
+        }
+    ],
+    ...
+```
 
 #### legal\_entity
 
@@ -1784,26 +1822,28 @@ _Content-Type: application/json_
 | value\[oked\] | string | ОКЭД организации (Узбекистан) |
 | value\[external\_uid\] | string | Идентификатор внешней системы |
 
-        ...
-        "custom_fields_values": [
-            {
-                "field_id": 25,
-                "values": [
-                    {
-                        "value": {
-                            "name": "ООО Рога и копыта",
-                            "entity_type": 1,
-                            "vat_id": "123123123",
-                            "tax_registration_reason_code": 213,
-                            "address": "Moscow",
-                            "kpp": "23123123",
-                            "external_uid": "uuid"
-                        }
+```json
+...
+    "custom_fields_values": [
+        {
+            "field_id": 25,
+            "values": [
+                {
+                    "value": {
+                        "name": "ООО Рога и копыта",
+                        "entity_type": 1,
+                        "vat_id": "123123123",
+                        "tax_registration_reason_code": 213,
+                        "address": "Moscow",
+                        "kpp": "23123123",
+                        "external_uid": "uuid"
                     }
-                ]
-            }
-        ],
-        ...
+                }
+            ]
+        }
+    ],
+    ...
+```
 
 #### items
 
@@ -1826,30 +1866,32 @@ _Content-Type: application/json_
 | value\[is\_total\_sum\_recalculated\] | bool | Произошел ли перерасчет суммы товарной позиции (только в том случае, если скидка не установлена). Свойство доступно только для чтения |
 | value\[total\_sum\] | float | Сумма товарной позиции. Свойство доступно только для чтения |
 
-        ...
-        "custom_fields_values": [
-            {
-                "field_id": 25,
-                "values": [
-                    {
-                        "value": {
-                            "sku": "34N4124",
-                            "description": "Описание товара",
-                            "unit_price": 10,
-                            "quantity": 2,
-                            "unit_type": "шт.",
-                            "discount": {
-                                "type": "amount",
-                                "value": 25
-                            },
-                            "vat_rate_id": 18,
-                            "external_uid": "uid"
-                        }
+```json
+...
+    "custom_fields_values": [
+        {
+            "field_id": 25,
+            "values": [
+                {
+                    "value": {
+                        "sku": "34N4124",
+                        "description": "Описание товара",
+                        "unit_price": 10,
+                        "quantity": 2,
+                        "unit_type": "шт.",
+                        "discount": {
+                            "type": "amount",
+                            "value": 25
+                        },
+                        "vat_rate_id": 18,
+                        "external_uid": "uid"
                     }
-                ]
-            }
-        ],
-        ...
+                }
+            ]
+        }
+    ],
+    ...
+```
 
 #### linked\_entity
 
@@ -1863,36 +1905,38 @@ _Content-Type: application/json_
 | value\[entity\_type\] | string | Тип сущности (catalog\_elements, contacts, companies) |
 | value\[catalog\_id\] | int|null | ID списка, если указывается связь со списком |
 
-      ...
-      "custom_fields_values": [
+```json
+...
+  "custom_fields_values": [
+    {
+      "field_id": 1150977,
+      "values": [
         {
-          "field_id": 1150977,
-          "values": [
-            {
-              "value": {
-                "name": "Ivan Ivanov",
-                "entity_id": 24833339,
-                "entity_type": "contacts",
-                "catalog_id": null
-              }
-            }
-          ]
-        },
-        {
-          "field_id": 1150979,
-          "values": [
-            {
-              "value": {
-                "name": "Товар 1",
-                "entity_id": 527597,
-                "entity_type": "catalog_elements",
-                "catalog_id": 6319
-              }
-            }
-          ]
+          "value": {
+            "name": "Ivan Ivanov",
+            "entity_id": 24833339,
+            "entity_type": "contacts",
+            "catalog_id": null
+          }
         }
-      ],
-      ...
+      ]
+    },
+    {
+      "field_id": 1150979,
+      "values": [
+        {
+          "value": {
+            "name": "Товар 1",
+            "entity_id": 527597,
+            "entity_type": "catalog_elements",
+            "catalog_id": 6319
+          }
+        }
+      ]
+    }
+  ],
+  ...
+```
 
 #### chained\_list
 
@@ -1904,23 +1948,25 @@ _Content-Type: application/json_
 | catalog\_id | int | ID списка, если указывается связь со списком |
 | catalog\_element\_id | int | ID элемента списка, если указывается связь со списком |
 
-      ...
-      "custom_fields_values": [
+```json
+...
+  "custom_fields_values": [
+    {
+      "field_id": 1150985,
+      "values": [
         {
-          "field_id": 1150985,
-          "values": [
-            {
-              "catalog_id": 1001,
-              "catalog_element_id": 12235
-            },
-            {
-              "catalog_id": 1007,
-              "catalog_element_id": 12243
-            }
-          ]
+          "catalog_id": 1001,
+          "catalog_element_id": 12235
+        },
+        {
+          "catalog_id": 1007,
+          "catalog_element_id": 12243
         }
-      ],
-      ...
+      ]
+    }
+  ],
+  ...
+```
 
 #### file
 
@@ -1934,23 +1980,25 @@ _Content-Type: application/json_
 | value\[file\_name\] | string | Название файла. можно не передавать, но |
 | value\[file\_size\] | int | Размер файла в байтах |
 
-      ...
-      "custom_fields_values": [
+```json
+...
+  "custom_fields_values": [
+    {
+      "field_id": 1150985,
+      "values": [
         {
-          "field_id": 1150985,
-          "values": [
-            {
-              "value": {
-                "file_uuid": "3b454645-5c7f-4539-9ef9-0dd1b3638dad",
-                "version_uuid": "13db6652-b3ed-4fff-aed8-0c6f3c43b887",
-                "file_name": "wiki.odt",
-                "file_size": 20763,
-              }
-            }
-          ]
+          "value": {
+            "file_uuid": "3b454645-5c7f-4539-9ef9-0dd1b3638dad",
+            "version_uuid": "13db6652-b3ed-4fff-aed8-0c6f3c43b887",
+            "file_name": "wiki.odt",
+            "file_size": 20763,
+          }
         }
-      ],
-      ...
+      ]
+    }
+  ],
+  ...
+```
 
 #### payer
 
@@ -1962,21 +2010,23 @@ _Content-Type: application/json_
 
 Покупателем может быть физ лицо – контакт, в таком случае для заполнения доступны параметры name и address.
 
-      ...
-      "custom_fields_values": [
+```json
+...
+  "custom_fields_values": [
+    {
+      "field_id": 1164361,
+      "values": [
         {
-          "field_id": 1164361,
-          "values": [
-            {
-              "value": {
-                "name": "Иван",
-                "address": "Москва, Вымышленная набережная, дом 1"
-              }
-            }
-          ]
+          "value": {
+            "name": "Иван",
+            "address": "Москва, Вымышленная набережная, дом 1"
+          }
         }
-      ],
-      ...
+      ]
+    }
+  ],
+  ...
+```
 
 Покупателем может быть юр лицо – компания, в таком случае для заполнения доступны следующие параметры:
 
@@ -1997,78 +2047,86 @@ _Content-Type: application/json_
 | mfo | string | МФО организации (Украина/Узбекистан) |
 | oked | string | ОКЭД организации (Узбекистан) |
 
-      ...
-      "custom_fields_values": [
+```json
+...
+  "custom_fields_values": [
+    {
+      "field_id": 1164361,
+      "values": [
         {
-          "field_id": 1164361,
-          "values": [
-            {
-              "value": {
-                "name": "ООО Рога и копыта",
-                "address": "Москва, Вымышленная набережная, дом 1",
-                "real_address": "Москва, Вымышленная улица, дом 99",
-                "vat_id": "0000111122"
-              }
-            }
-          ]
+          "value": {
+            "name": "ООО Рога и копыта",
+            "address": "Москва, Вымышленная набережная, дом 1",
+            "real_address": "Москва, Вымышленная улица, дом 99",
+            "vat_id": "0000111122"
+          }
         }
-      ],
-      ...
+      ]
+    }
+  ],
+  ...
+```
 
 Если вы хотите в плательщике указать связь с контактом или компанией, достаточно передать entity\_id и entity\_type (contacts/companies).
 
-      ...
-      "custom_fields_values": [
+```json
+...
+  "custom_fields_values": [
+    {
+      "field_id": 1164361,
+      "values": [
         {
-          "field_id": 1164361,
-          "values": [
-            {
-              "value": {
-                "name": "Василий", // Имя для отображения в счете
-                "entity_type": "contacts",
-                "entity_id": 17615543
-              }
-            }
-          ]
+          "value": {
+            "name": "Василий", // Имя для отображения в счете
+            "entity_type": "contacts",
+            "entity_id": 17615543
+          }
         }
-      ],
-      ...
+      ]
+    }
+  ],
+  ...
+```
 
 Также можно принудительно задать тип покупателя с помощью свойства type, например, если какой-то информации не хватает, чтобы четко сказать, что покупатель юр лицо.  
 В данный момент свойство является не обязательным. Возможные значения для свойства: legal – юр лицо, individual – физ лицо.
 
-      ...
-      "custom_fields_values": [
+```json
+...
+  "custom_fields_values": [
+    {
+      "field_id": 1164361,
+      "values": [
         {
-          "field_id": 1164361,
-          "values": [
-            {
-              "value": {
-                "name": "ООО Рога и копыта",
-                "address": "Москва, Вымышленная набережная, дом 1",
-                "type": "legal"
-              }
-            }
-          ]
+          "value": {
+            "name": "ООО Рога и копыта",
+            "address": "Москва, Вымышленная набережная, дом 1",
+            "type": "legal"
+          }
         }
-      ],
-      ...
+      ]
+    }
+  ],
+  ...
+```
 
 #### supplier
 
 В данном примере рассмотрим запрос на заполнение поля типа supplier. Поле доступно только в списке счетов-покупок и хранит в себе ссылку на сущность из списка Мои Юр лица. Поле всегда имеет символьный код – SUPPLIER.
 
-      ...
-      "custom_fields_values": [
+```json
+...
+  "custom_fields_values": [
+    {
+      "field_id": 1042517,
+      "values": [
         {
-          "field_id": 1042517,
-          "values": [
-            {
-              "value": {
-                "entity_id": 521717,
-              }
-            }
-          ]
+          "value": {
+            "entity_id": 521717,
+          }
         }
-      ],
-      ...
+      ]
+    }
+  ],
+  ...
+```

@@ -1,14 +1,14 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/talks-api -->
 
-# Оглавление
-
-Беседы
+# Беседы
 
 В данном разделе описываются доступные методы для работы с сущностью бесед
 
-*   [Получение беседы по ID](#talk-detail)
+### Оглавление
+
+*   [Получение беседы по ID](/crm_platform/talks-api#talk-detail.html)
     
-*   [Закрытие беседы по ID](#talk-close)
+*   [Закрытие беседы по ID](/crm_platform/talks-api#talk-close.html)
     
 
 ### Получение беседы по ID
@@ -78,49 +78,51 @@ null | Дата когда беседа была пропущена (не отв
 
 #### Пример ответа
 
-    {
-        "talk_id": 117,
-        "created_at": 1631018291,
-        "updated_at": 1631035929,
-        "rate": 0,
-        "contact_id": 3372695,
-        "chat_id": "88278e98-2b8d-4ae2-a5f0-bfab511cd621",
-        "entity_id": 667999637,
-        "entity_type": "lead",
-        "is_in_work": true,
-        "is_read": true,
-        "origin": "telegram",
-        "missed_at": null,
-        "account_id": 17029541,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/talks/117"
-            }
-        },
-        "_embedded": {
-            "contacts": [
-                {
-                    "id": 3372695,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/contacts/3372695"
-                        }
-                    }
-                }
-            ],
-            "leads": [
-                {
-                    "id": 667999637,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/667999637"
-                        }
-                    }
-                }
-            ],
-            "customers": []
+```json
+{
+    "talk_id": 117,
+    "created_at": 1631018291,
+    "updated_at": 1631035929,
+    "rate": 0,
+    "contact_id": 3372695,
+    "chat_id": "88278e98-2b8d-4ae2-a5f0-bfab511cd621",
+    "entity_id": 667999637,
+    "entity_type": "lead",
+    "is_in_work": true,
+    "is_read": true,
+    "origin": "telegram",
+    "missed_at": null,
+    "account_id": 17029541,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/talks/117"
         }
+    },
+    "_embedded": {
+        "contacts": [
+            {
+                "id": 3372695,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/contacts/3372695"
+                    }
+                }
+            }
+        ],
+        "leads": [
+            {
+                "id": 667999637,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/667999637"
+                    }
+                }
+            }
+        ],
+        "customers": []
     }
+}
+```
 
 ### Закрытие беседы по ID
 
@@ -153,9 +155,11 @@ _Content-Type: application/json_
 
 В данном примере мы принудительно закроем беседу.
 
-    {
-        "force_close": true
-    }
+```json
+{
+    "force_close": true
+}
+```
 
 #### HTTP коды ответа
 

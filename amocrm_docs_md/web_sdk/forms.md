@@ -1,16 +1,16 @@
 <!-- https://www.amocrm.ru/developers/content/web_sdk/forms -->
 
-# Оглавление
-
-API формы
+# API формы
 
 ❗️ **Важно** ❗️
 
 Информация на данной странице актуальна для последней версии JS-кода для вставки формы на сайт. Если вы давно размещали форму на странице, то необходимо заново скопировать код из источника в Digital Pipeline и заменить им уже размещенный.
 
-*   [Загрузка формы](#loaded)
-*   [Принудительный ресайз формы](#resize)
-*   [Подписка на отправку формы](#submit)
+### Оглавление
+
+*   [Загрузка формы](/web_sdk/forms#loaded.html)
+*   [Принудительный ресайз формы](/web_sdk/forms#resize.html)
+*   [Подписка на отправку формы](/web_sdk/forms#submit.html)
 
 #### Загрузка формы
 
@@ -29,17 +29,19 @@ API формы
 
 **Пример использования:**
 
-    amo_forms_loaded(function (params) {
-      console.log(params); // { form_id: 1234 }
-    
-      // после того, как убедились,
-      // что форма загрузилась можем
-      // спокойно использовать методы,
-      // описанные на этой странице
-      if (params.form_id === 1234) {
-        amo_forms_params.resizeForm('amoforms_iframe_1234');
-      }
-    });
+```javascript
+amo_forms_loaded(function (params) {
+  console.log(params); // { form_id: 1234 }
+
+  // после того, как убедились,
+  // что форма загрузилась можем
+  // спокойно использовать методы,
+  // описанные на этой странице
+  if (params.form_id === 1234) {
+    amo_forms_params.resizeForm('amoforms_iframe_1234');
+  }
+});
+```
 
 Для взаимодействия с размещенными на странице формами, существует глобальный объект amo\_forms\_params, в котором доступны следующие методы:
 
@@ -57,7 +59,9 @@ API формы
 
 **Пример использования:**
 
-    amo_forms_params.resizeForm('amoforms_iframe_1234');
+```javascript
+amo_forms_params.resizeForm('amoforms_iframe_1234');
+```
 
 #### Подписка на отправку формы
 
@@ -76,6 +80,8 @@ API формы
 
 **Пример использования:**
 
-    amo_forms_params.onFormSubmit(function (params) {
-      console.log(params); // { form_id: 1234, status: 'success' }
-    }, 1234);
+```javascript
+amo_forms_params.onFormSubmit(function (params) {
+  console.log(params); // { form_id: 1234, status: 'success' }
+}, 1234);
+```

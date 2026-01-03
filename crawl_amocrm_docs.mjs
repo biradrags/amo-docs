@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { URL } from "node:url";
 
+import axios from "axios";
 import * as cheerio from "cheerio";
 import TurndownService from "turndown";
 import { gfm } from "turndown-plugin-gfm";
@@ -20,10 +21,11 @@ const SECTIONS = [
   "https://www.amocrm.ru/developers/content/web_sdk/start"
 ];
 
+const BASE_URL = "https://www.amocrm.ru/developers/content/";
 const OUT_BASE = path.resolve(process.cwd(), "amocrm_docs_md");
 
 const USER_AGENT =
-  "amocrm-docs-crawler/1.0 (+https://www.amocrm.ru/developers/content/crm_platform/platform-abilities)";
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
 function buildSectionRoot(url) {
   if (!url.endsWith("/")) {
@@ -69,6 +71,13 @@ function urlToFilename(sectionDir, sectionRoot, url) {
   return path.join(sectionDir, `${safe}.md`);
 }
 
+function urlToMarkdownPath(url) {
+  if (!url.startsWith(BASE_URL)) return null;
+  const rel = url.slice(BASE_URL.length).replace(/\/+$/, "");
+  if (!rel) return null;
+  return rel;
+}
+
 function extractMainContent($) {
   const selectors = [
     "div.content-block__inner",
@@ -102,54 +111,140 @@ function stripLayoutElements($, root) {
     "div.nav",
     "div.sidebar",
     "div.breadcrumbs",
-    "ul.breadcrumbs"
+    "ul.breadcrumbs",
+    "script",
+    "style",
+    "noscript",
+    ".button",
+    ".btn"
   ];
 
   for (const selector of selectors) {
     root.find(selector).remove();
-    if (root.is(selector)) root.remove();
   }
+}
+
+function convertInternalLinks($, baseUrl) {
+  $("a").each((_, a) => {
+    const $a = $(a);
+    const href = $a.attr("href");
+    if (!href) return;
+    
+    let absUrl;
+    try {
+      absUrl = new URL(href, baseUrl).toString();
+    } catch {
+      return;
+    }
+
+    if (absUrl.startsWith(BASE_URL)) {
+      const targetPath = urlToMarkdownPath(absUrl);
+      if (targetPath) {
+        $a.attr("href", `/${targetPath}.html`);
+      }
+    }
+  });
 }
 
 async function fetchHtml(url) {
-  const resp = await fetch(url, {
+  const resp = await axios.get(url, {
     headers: {
       "User-Agent": USER_AGENT
     },
-    redirect: "follow"
+    maxRedirects: 5,
+    timeout: 30000
   });
-  if (!resp.ok) {
-    throw new Error(`HTTP ${resp.status} for ${url}`);
-  }
-  return await resp.text();
+  return resp.data;
 }
 
-const turndown = new TurndownService({
-  headingStyle: "atx"
-});
-turndown.use(gfm);
+function setupTurndown() {
+  const turndown = new TurndownService({
+    headingStyle: "atx",
+    codeBlockStyle: "fenced",
+    fence: "```",
+    bulletListMarker: "*"
+  });
+  
+  turndown.use(gfm);
+  
+  turndown.addRule("preserveCodeBlocks", {
+    filter: function (node) {
+      return node.nodeName === "PRE" && node.querySelector("code");
+    },
+    replacement: function (content, node) {
+      const codeNode = node.querySelector("code");
+      const lang = codeNode ? (codeNode.className.match(/language-(\w+)/) || ["", ""])[1] : "";
+      const code = codeNode ? codeNode.textContent : content;
+      return "\n\n```" + lang + "\n" + code.trim() + "\n```\n\n";
+    }
+  });
+
+  turndown.addRule("inlineCode", {
+    filter: function (node) {
+      return node.nodeName === "CODE" && node.parentNode.nodeName !== "PRE";
+    },
+    replacement: function (content) {
+      return "`" + content + "`";
+    }
+  });
+
+  return turndown;
+}
+
+function cleanMarkdown(markdown) {
+  const lines = markdown.split("\n");
+  const result = [];
+  let inCodeBlock = false;
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    
+    if (line.trim().startsWith("```")) {
+      inCodeBlock = !inCodeBlock;
+      result.push(line);
+      continue;
+    }
+    
+    if (inCodeBlock) {
+      result.push(line);
+      continue;
+    }
+    
+    if (i === 0 && !line.startsWith("#") && line.trim() && lines[i + 1] === "") {
+      result.push(`# ${line.trim()}`);
+      continue;
+    }
+    
+    result.push(line);
+  }
+  
+  let cleanedMarkdown = result.join("\n");
+  
+  cleanedMarkdown = cleanedMarkdown.replace(/<a\s+href="([^"]*\([^)]*\)[^"]*)"/g, (match, url) => {
+    const cleanedUrl = url.replace(/[()]/g, '');
+    return `<a href="${cleanedUrl}"`;
+  });
+  
+  return cleanedMarkdown;
+}
 
 function htmlToMarkdown(url, html) {
   const $ = cheerio.load(html);
   const main = extractMainContent($);
   stripLayoutElements($, main);
-  const heading = main.find("h1, h2, h3").first();
-  let title = "";
-  if (heading.length) {
-    title = heading.text().trim();
-    heading.remove();
-  }
+  convertInternalLinks($, url);
+
+  const turndown = setupTurndown();
   const innerHtml = main.html() ?? "";
-  const markdownBody = turndown.turndown(innerHtml).trim();
+  let markdownBody = turndown.turndown(innerHtml).trim();
+  
+  markdownBody = cleanMarkdown(markdownBody);
 
   const parts = [];
   parts.push(`<!-- ${url} -->`);
-  if (title) {
-    parts.push("", `# ${title}`, "");
-  } else {
-    parts.push("", `# ${url}`, "");
-  }
+  parts.push("");
   parts.push(markdownBody);
+  
   return parts.join("\n");
 }
 
@@ -179,15 +274,13 @@ async function crawlSection(sectionRoot, startUrl, maxPages = 200) {
     if (!url || visited.has(url)) continue;
     visited.add(url);
 
-    // eslint-disable-next-line no-console
     console.log(`[${name}] fetch ${url}`);
 
     let html;
     try {
       html = await fetchHtml(url);
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(`[${name}] error fetching ${url}:`, e);
+      console.log(`[${name}] error fetching ${url}:`, e.message);
       continue;
     }
 
@@ -195,10 +288,9 @@ async function crawlSection(sectionRoot, startUrl, maxPages = 200) {
     try {
       markdown = htmlToMarkdown(url, html);
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.log(
         `[${name}] error converting ${url} to markdown:`,
-        e
+        e.message
       );
       continue;
     }
@@ -207,18 +299,16 @@ async function crawlSection(sectionRoot, startUrl, maxPages = 200) {
     try {
       await fs.writeFile(outFile, markdown, "utf8");
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(`[${name}] error writing ${outFile}:`, e);
+      console.log(`[${name}] error writing ${outFile}:`, e.message);
     }
 
     let newLinks = [];
     try {
       newLinks = extractLinks(html, url, sectionRoot);
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.log(
         `[${name}] error extracting links from ${url}:`,
-        e
+        e.message
       );
     }
 
@@ -229,7 +319,6 @@ async function crawlSection(sectionRoot, startUrl, maxPages = 200) {
     }
   }
 
-  // eslint-disable-next-line no-console
   console.log(
     `[${name}] done, saved ${visited.size} pages to ${sectionDir}`
   );
@@ -238,18 +327,14 @@ async function crawlSection(sectionRoot, startUrl, maxPages = 200) {
 async function main() {
   await fs.mkdir(OUT_BASE, { recursive: true });
   for (const [sectionRoot, startUrl] of SECTION_ROOTS.entries()) {
-    // eslint-disable-next-line no-await-in-loop
     await crawlSection(sectionRoot, startUrl, 300);
   }
 }
 
 const thisFile = fileURLToPath(import.meta.url);
 if (process.argv[1] && path.resolve(process.argv[1]) === thisFile) {
-  // eslint-disable-next-line no-console
   main().catch((e) => {
     console.error(e);
     process.exitCode = 1;
   });
 }
-
-

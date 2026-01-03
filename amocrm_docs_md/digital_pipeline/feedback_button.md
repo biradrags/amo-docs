@@ -1,8 +1,6 @@
 <!-- https://www.amocrm.ru/developers/content/digital_pipeline/feedback_button -->
 
-# Добавление информации
-
-Кнопка обратной связи
+# Кнопка обратной связи
 
 API для передачи даных о посетителе страницы, с  кнопкой обратной связи.
 
@@ -10,11 +8,15 @@ API для передачи даных о посетителе страницы,
 
 Если вы размещали кнопку до 23.11.2019 – может потребоваться обновить код кнопки на сайте
 
+### Добавление информации
+
 Метод позволяет передать информацию в поля сделки, контакта или в примечание. Метод должен быть вызван из js части вашего сайта, на котором находится кнопка обратной связи.
 
 После установки кнопки обратной связи, будет доступ объект в глобальной области видимости amo\_social\_button
 
-    amo_social_button.setMeta(params);
+```
+amo_social_button.setMeta(params);
+```
 
 #### Параметры
 
@@ -22,7 +24,7 @@ API для передачи даных о посетителе страницы,
 | --- | --- | --- |
 | note\[text\] | string | Текст примечания |
 | note\[element\_type\] | int | Тип сущности элемента, в карточку которого будет добавлено примечание. Доступные типы: element\_type: 1 – карточка контакта, element\_type: 2 – карточка сделки |
-| note\[note\_type\] | string | Тип добавляемого примечания. Доступные типы см. [здесь](https://www.amocrm.ru/developers/content/crm_platform/events-and-notes#notes-types) |
+| note\[note\_type\] | string | Тип добавляемого примечания. Доступные типы см. [здесь](/crm_platform/events-and-notes#notes-types.html) |
 | contact\[name\] | string | Имя контакта |
 | contact\[custom\_fields\] | array | Массив дополнительных полей сущности "Контакт" |
 | contact\[custom\_fields\]\[0\]\[id\] | int | id дополнительного поля сущности "Контакт" |
@@ -42,28 +44,30 @@ API для передачи даных о посетителе страницы,
 
 #### Пример
 
-    amo_social_button.setMeta({
-      note: {
-        text: 'Текст примечания',
-        element_type: 1,
-        note_type: "common",
-      },
-      contact: {
-        name: 'Иван Иванов',
-        custom_fields: [
-          {
-            id: 123456, values:
-              [
-                {
-                  enum: 12345,
-                  value: '+7123456789',
-                }
-             ]
-          }
-        ]
-      },
-      lead: {
-        name: 'Название сделки',
-        sale: 999,
+```js
+amo_social_button.setMeta({
+  note: {
+    text: 'Текст примечания',
+    element_type: 1,
+    note_type: "common",
+  },
+  contact: {
+    name: 'Иван Иванов',
+    custom_fields: [
+      {
+        id: 123456, values:
+          [
+            {
+              enum: 12345,
+              value: '+7123456789',
+            }
+         ]
       }
-    })
+    ]
+  },
+  lead: {
+    name: 'Название сделки',
+    sale: 999,
+  }
+})
+```

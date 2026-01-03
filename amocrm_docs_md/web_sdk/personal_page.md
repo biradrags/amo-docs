@@ -1,8 +1,6 @@
 <!-- https://www.amocrm.ru/developers/content/web_sdk/personal_page -->
 
-# Настройка виджета для кабинета клиента
-
-Кабинет клиента
+# Кабинет клиента
 
 в amoCRM существует личный кабинет клиента. Активировать его можно на странице “Общие настройки” под настройками левого меню. Там есть отдельная секция.
 
@@ -16,54 +14,60 @@
 
 В сайдбаре слева находятся данные по сделке, контакты и аккордион с виджетами. Кнопка с виджетами будет доступа только если интеграция настроена для отображения в кабинете клиента.
 
+### Настройка виджета для кабинета клиента
+
 Чтобы виджет маунтился в кабинет клиента необходимо добавить location в **manifest.json**
 
-    {
-      ...
-    
-      "locations": [
-        "personal_page"  // указываем personal_page
-      ],
-    
-      ...
-    }
+```javascript
+{
+  ...
+
+  "locations": [
+    "personal_page"  // указываем personal_page
+  ],
+
+  ...
+}
+```
 
 В корневой папке проекта виджета создаем одноименный js файл **personal\_page.js**
 
 **Общий вид personal\_page.js**
 
-    // Мы используем requirejs для импорта модулей в рантайме
-    // См. секцию "Объявленные зависимости", чтобы узнать, какие модули предоставлены для импорта.
-    define(['amocrm-sdk', 'jquery', 'dateformat'], function (initAmocrmWidgetSdk, $, dateFormat) {
-      // Этот код выполняется один раз при импорте модуля
-      const WidgetSdk = initAmocrmWidgetSdk({
-        version: '1.0.0',
-      })
-    
-      // Чтобы виджет заработал, нужно вернуть объект с колбэками
-      return {
-        initLead(params) {
-          console.warn('WIDGET: initLead with token: ', params.token)
-    
-          return () => {
-            console.warn('WIDGET: initLead destroyed')
-          }
-        },
-        registerWidgetsBarSlot(el) {
-          const $el = $(el)
-          const sysData = WidgetSdk.methods.getState(WidgetSdk.constants.PUBLIC_STATE_ENTITIES.sys)
-          const formattedTime = dateFormat(Date.now(), sysData.timeFormat)
-    
-          $el.text('Hello world!')
-    
-          console.warn(`WIDGET registerWidgetsBarSlot inited at ${formattedTime}`)
-    
-          return () => {
-            console.warn('WIDGET: registerWidgetsBarSlot destroyed')
-          }
-        },
+```javascript
+// Мы используем requirejs для импорта модулей в рантайме
+// См. секцию "Объявленные зависимости", чтобы узнать, какие модули предоставлены для импорта.
+define(['amocrm-sdk', 'jquery', 'dateformat'], function (initAmocrmWidgetSdk, $, dateFormat) {
+  // Этот код выполняется один раз при импорте модуля
+  const WidgetSdk = initAmocrmWidgetSdk({
+    version: '1.0.0',
+  })
+
+  // Чтобы виджет заработал, нужно вернуть объект с колбэками
+  return {
+    initLead(params) {
+      console.warn('WIDGET: initLead with token: ', params.token)
+
+      return () => {
+        console.warn('WIDGET: initLead destroyed')
       }
-    })
+    },
+    registerWidgetsBarSlot(el) {
+      const $el = $(el)
+      const sysData = WidgetSdk.methods.getState(WidgetSdk.constants.PUBLIC_STATE_ENTITIES.sys)
+      const formattedTime = dateFormat(Date.now(), sysData.timeFormat)
+
+      $el.text('Hello world!')
+
+      console.warn(`WIDGET registerWidgetsBarSlot inited at ${formattedTime}`)
+
+      return () => {
+        console.warn('WIDGET: registerWidgetsBarSlot destroyed')
+      }
+    },
+  }
+})
+```
 
 ### Callbacks:
 
@@ -129,142 +133,144 @@
 
 Создает инстанс WidgetSdk следующего вида:
 
-    type Constants = {
-      DATE_FORMATS: {
-        americanNormal: 'dd/mm/yyyy',
-        americanInversed: 'mm/dd/yyyy',
-        russianNormal: 'dd.mm.yyyy',
-        chineseNormal: 'yyyy/mm/dd',
-      },
-      TIME_FORMATS: {
-        twelve: 'h:MM TT',
-        twentyFour: 'HH:MM',
-      },
-      SUPPORTED_LANGS: {
-        ru: 'ru',
-        en: 'en',
-        es: 'es',
-        pt: 'pt',
-      },
-      LEAD_FIELD_SOURCES: {
-        lead: 'lead',
-        contacts: 'contacts',
-        company: 'company',
-      },
-      FIELD_TYPES: {
-        text: 'text',
-        numeric: 'numeric',
-        checkbox: 'checkbox',
-        date: 'date',
-        select: 'select',
-        multiselect: 'multiselect',
-        url: 'url',
-        textarea: 'textarea',
-        radiobutton: 'radiobutton',
-        streetaddress: 'streetaddress',
-        smartAddress: 'smartAddress',
-        legalEntity: 'legalEntity',
-        birthday: 'birthday',
-        dateTime: 'dateTime',
-        multitext: 'multitext',
-        budget: 'budget',
-      },
-      PUBLIC_STATE_ENTITIES: {
-        sys: 'sys',
-        lead: 'lead',
-        leadFields: 'leadFields',
-        authors: 'authors',
-      },
-      // Содержит все имена классов, начинающиеся на `js-`
-      GLOBAL_CLASS_NAMES: {
-        widgetBarItemContainer: string,
-      },
-    }
-    
-    type SysModel = {
-      currencySymbol: string,
-      dateFormat: ValueOf<Constants[DATE_FORMATS]>,
-      timeFormat: ValueOf<Constants[TIME_FORMATS]>,
-      lang: ValueOf<Constants[SUPPORTED_LANGS]>,
-      isRemovalAvailable: boolean,
-      logoUrl: string,
-      pageTitle: string,
-    }
-    
-    type LeadModel = {
-      id: string,
-      pid: string,
-      isLeadLoaded: boolean,
+```javascript
+type Constants = {
+  DATE_FORMATS: {
+    americanNormal: 'dd/mm/yyyy',
+    americanInversed: 'mm/dd/yyyy',
+    russianNormal: 'dd.mm.yyyy',
+    chineseNormal: 'yyyy/mm/dd',
+  },
+  TIME_FORMATS: {
+    twelve: 'h:MM TT',
+    twentyFour: 'HH:MM',
+  },
+  SUPPORTED_LANGS: {
+    ru: 'ru',
+    en: 'en',
+    es: 'es',
+    pt: 'pt',
+  },
+  LEAD_FIELD_SOURCES: {
+    lead: 'lead',
+    contacts: 'contacts',
+    company: 'company',
+  },
+  FIELD_TYPES: {
+    text: 'text',
+    numeric: 'numeric',
+    checkbox: 'checkbox',
+    date: 'date',
+    select: 'select',
+    multiselect: 'multiselect',
+    url: 'url',
+    textarea: 'textarea',
+    radiobutton: 'radiobutton',
+    streetaddress: 'streetaddress',
+    smartAddress: 'smartAddress',
+    legalEntity: 'legalEntity',
+    birthday: 'birthday',
+    dateTime: 'dateTime',
+    multitext: 'multitext',
+    budget: 'budget',
+  },
+  PUBLIC_STATE_ENTITIES: {
+    sys: 'sys',
+    lead: 'lead',
+    leadFields: 'leadFields',
+    authors: 'authors',
+  },
+  // Содержит все имена классов, начинающиеся на `js-`
+  GLOBAL_CLASS_NAMES: {
+    widgetBarItemContainer: string,
+  },
+}
+
+type SysModel = {
+  currencySymbol: string,
+  dateFormat: ValueOf<Constants[DATE_FORMATS]>,
+  timeFormat: ValueOf<Constants[TIME_FORMATS]>,
+  lang: ValueOf<Constants[SUPPORTED_LANGS]>,
+  isRemovalAvailable: boolean,
+  logoUrl: string,
+  pageTitle: string,
+}
+
+type LeadModel = {
+  id: string,
+  pid: string,
+  isLeadLoaded: boolean,
+  fieldIds: string[],
+  statuses: Array<{
+    id: string,
+    name: string,
+    color: string,
+    selected: boolean,
+  }>,
+  managerId: string,
+  contacts: Record<
+    string,
+    {
       fieldIds: string[],
-      statuses: Array<{
-        id: string,
-        name: string,
-        color: string,
-        selected: boolean,
-      }>,
-      managerId: string,
-      contacts: Record<
-        string,
-        {
-          fieldIds: string[],
-          id: string,
-          userId: string,
-        }
-      >,
-      company: {
-        id: string,
-        name: string,
-        fieldIds: string[],
-      } | null,
+      id: string,
+      userId: string,
     }
-    
-    type LeadFieldsModel = Record<
-      string,
-      {
-        id: string,
-        fieldId: string,
-        fieldSource: ValueOf<Constants[LEAD_FIELD_SOURCES]>,
-        name: string,
-        type: ValueOf<Constants[FIELD_TYPES]>,
-        value: any,
+  >,
+  company: {
+    id: string,
+    name: string,
+    fieldIds: string[],
+  } | null,
+}
+
+type LeadFieldsModel = Record<
+  string,
+  {
+    id: string,
+    fieldId: string,
+    fieldSource: ValueOf<Constants[LEAD_FIELD_SOURCES]>,
+    name: string,
+    type: ValueOf<Constants[FIELD_TYPES]>,
+    value: any,
+  }
+>
+
+type AuthorsModel = Record<
+  string,
+  {
+    id: string,
+    avatar: string,
+    name: string,
+    isBot: boolean,
+    isClient: boolean,
+  }
+>
+
+type RouterQuery = {
+  leadId?: string,
+  accountId?: string,
+}
+
+type WidgetSdk = {
+  methods: {
+    // Запрашивает данные сущности по её имени
+    getState: (entityName: ValueOf<Constants[PUBLIC_STATE_ENTITIES]>) => SysModel | LeadModel | LeadFieldsModel | AuthorsModel | null,
+    // Подписывается на изменение данных сущности. Возвращает функцию для подчистки слушателя изменений.
+    // Третьим аргументом можно передать дополнительные параметры.
+    subscribe: (
+      entityName: FirstArgument<typeof getState>,
+      callback: (ReturnType<typeof getState>) => void,
+      options?: {
+        // Если withInitialResult true, то при создании подписки callback будет сразу же вызван с текущим значением.
+        withInitialResult?: boolean,
       }
-    >
-    
-    type AuthorsModel = Record<
-      string,
-      {
-        id: string,
-        avatar: string,
-        name: string,
-        isBot: boolean,
-        isClient: boolean,
-      }
-    >
-    
-    type RouterQuery = {
-      leadId?: string,
-      accountId?: string,
-    }
-    
-    type WidgetSdk = {
-      methods: {
-        // Запрашивает данные сущности по её имени
-        getState: (entityName: ValueOf<Constants[PUBLIC_STATE_ENTITIES]>) => SysModel | LeadModel | LeadFieldsModel | AuthorsModel | null,
-        // Подписывается на изменение данных сущности. Возвращает функцию для подчистки слушателя изменений.
-        // Третьим аргументом можно передать дополнительные параметры.
-        subscribe: (
-          entityName: FirstArgument<typeof getState>,
-          callback: (ReturnType<typeof getState>) => void,
-          options?: {
-            // Если withInitialResult true, то при создании подписки callback будет сразу же вызван с текущим значением.
-            withInitialResult?: boolean,
-          }
-        ) => () => void,
-        // Получает динамические id по урлу
-        getRouterQuery: () => RouterQuery,
-      },
-      constants: Constants,
-    }
+    ) => () => void,
+    // Получает динамические id по урлу
+    getRouterQuery: () => RouterQuery,
+  },
+  constants: Constants,
+}
+```
 
 ### Developer utils
 
@@ -278,11 +284,13 @@
 
 Для подключения виджета с локального компьютера в консоли браузера необходимо выполнить следующий метод (значения аргументов см. ниже):
 
-    window.AMOCRM.developer.addWidget({
-      script: 'http://localhost:3000',
-      token: 'foo',
-    })
-    //параметр токен может принимать пустую строку, если тестируется фронт
+```js
+window.AMOCRM.developer.addWidget({
+  script: 'http://localhost:3000',
+  token: 'foo',
+})
+//параметр токен может принимать пустую строку, если тестируется фронт
+```
 
 _При переключении сделок, виджет будет сбрасываться и понадобится повторный вызов метода в консоли._  
 _При вызове метода будет отображаться только подключаемый виджет. Для отката необходимо обновить страницу._

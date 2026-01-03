@@ -1,21 +1,21 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/webhooks-api -->
 
-# Оглавление
-
-Вебхуки
+# Вебхуки
 
 В данном разделе описывается работа с вебхуками через API.  
-Информация про формат получаемых хуков доступна [тут](/developers/content/crm_platform/webhooks-format)
+Информация про формат получаемых хуков доступна [тут](/crm_platform/webhooks-format.html)
 
-*   [Общая информация](#common-info)
+### Оглавление
+
+*   [Общая информация](/crm_platform/webhooks-api#common-info.html)
     
-*   [Список установленных вебхуков в аккаунте](#webhooks-list)
+*   [Список установленных вебхуков в аккаунте](/crm_platform/webhooks-api#webhooks-list.html)
     
-*   [Подписка на вебхук](#webhook-subscribe)
+*   [Подписка на вебхук](/crm_platform/webhooks-api#webhook-subscribe.html)
     
-*   [Отписка от событий](#webhooks-delete)
+*   [Отписка от событий](/crm_platform/webhooks-api#webhooks-delete.html)
     
-*   [Возможные события](#webhooks-available-actions)
+*   [Возможные события](/crm_platform/webhooks-api#webhooks-available-actions.html)
     
 
 ### Общая информация
@@ -72,43 +72,45 @@ _Content-Type: application/problem+json_
 | sort | int | Сортировка вебхука |
 | disabled | bool | Отключен ли вебхук |
 | destination | string | Валидный URL на который необходимо присылать уведомления |
-| settings | array | Действия, на которые подписан вебхук. Список доступных действий смотрите [тут](#webhooks-available-actions) |
+| settings | array | Действия, на которые подписан вебхук. Список доступных действий смотрите [тут](/crm_platform/webhooks-api#webhooks-available-actions.html) |
 
 #### Пример ответа
 
-    {
-        "_total_items": 2,
-        "_embedded": {
-            "webhooks": [
-                {
-                    "id": 839656,
-                    "destination": "https://webhook-uri.com",
-                    "created_at": 1575539157,
-                    "updated_at": 1575539157,
-                    "account_id": 321321,
-                    "created_by": 123123,
-                    "sort": 1,
-                    "disabled": false,
-                    "settings": [
-                        "add_task"
-                    ]
-                },
-                {
-                    "id": 849193,
-                    "destination": "https://api.test.ru/amoWebHook",
-                    "created_at": 1576157524,
-                    "updated_at": 1585816857,
-                    "account_id": 321321,
-                    "created_by": 123123,
-                    "sort": 2,
-                    "disabled": true,
-                    "settings": [
-                        "update_lead"
-                    ]
-                }
-            ]
-        }
+```json
+{
+    "_total_items": 2,
+    "_embedded": {
+        "webhooks": [
+            {
+                "id": 839656,
+                "destination": "https://webhook-uri.com",
+                "created_at": 1575539157,
+                "updated_at": 1575539157,
+                "account_id": 321321,
+                "created_by": 123123,
+                "sort": 1,
+                "disabled": false,
+                "settings": [
+                    "add_task"
+                ]
+            },
+            {
+                "id": 849193,
+                "destination": "https://api.test.ru/amoWebHook",
+                "created_at": 1576157524,
+                "updated_at": 1585816857,
+                "account_id": 321321,
+                "created_by": 123123,
+                "sort": 2,
+                "disabled": true,
+                "settings": [
+                    "update_lead"
+                ]
+            }
+        ]
     }
+}
+```
 
 ### Подписка на вебхук
 
@@ -135,17 +137,19 @@ _Content-Type: application/json_
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
 | destination | string | Валидный URL на который необходимо присылать уведомления |
-| settings | array | Действия, на которые подписан вебхук. Передается в виде массива cо списком возможных действий. Список доступных действий смотрите [тут](#webhooks-available-actions) |
+| settings | array | Действия, на которые подписан вебхук. Передается в виде массива cо списком возможных действий. Список доступных действий смотрите [тут](/crm_platform/webhooks-api#webhooks-available-actions.html) |
 
 #### Пример запроса
 
-    {
-        "destination": "https://example.test",
-        "settings": [
-            "add_lead"
-        ],
-        "sort": 10
-    }
+```json
+{
+    "destination": "https://example.test",
+    "settings": [
+        "add_lead"
+    ],
+    "sort": 10
+}
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -170,19 +174,21 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "id": 1056949,
-        "destination": "https://example.test",
-        "created_at": 1589012268,
-        "updated_at": 1589012268,
-        "account_id": 321321,
-        "created_by": 3944275,
-        "sort": 1,
-        "disabled": false,
-        "settings": [
-            "add_lead"
-        ]
-    }
+```json
+{
+    "id": 1056949,
+    "destination": "https://example.test",
+    "created_at": 1589012268,
+    "updated_at": 1589012268,
+    "account_id": 321321,
+    "created_by": 3944275,
+    "sort": 1,
+    "disabled": false,
+    "settings": [
+        "add_lead"
+    ]
+}
+```
 
 ### Отписка от событий
 
@@ -212,9 +218,11 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    {
-        "destination": "https://example.test"
-    }
+```json
+{
+    "destination": "https://example.test"
+}
+```
 
 #### HTTP коды ответа
 

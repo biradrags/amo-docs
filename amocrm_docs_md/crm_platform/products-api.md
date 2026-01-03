@@ -1,10 +1,8 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/products-api -->
 
-# https://www.amocrm.ru/developers/content/crm_platform/products-api
+# Товары
 
-Товары
-
-Товар – это специальный [список](/developers/content/crm_platform/catalogs) с типом **“products”**.
+Товар – это специальный [список](/crm_platform/catalogs.html) с типом **“products”**.
 
 Такой список создаётся при включении функционала в разделе  
 **Настройки** -> **Общие настройки** -> **Товары**.
@@ -19,7 +17,7 @@
 *   – **group** ( Группа )
 *   – **external\_id** ( скрытое поле )
 
-Для товаров также доступны все **основные** методы для работы со [списками](/developers/content/crm_platform/catalog) такие как:
+Для товаров также доступны все **основные** методы для работы со [списками](/crm_platform/catalog.html) такие как:
 
 – Редактирование параметров списка  
 – Получение параметров списка  

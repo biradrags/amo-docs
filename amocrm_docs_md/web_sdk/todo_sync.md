@@ -1,8 +1,6 @@
 <!-- https://www.amocrm.ru/developers/content/web_sdk/todo_sync -->
 
-# https://www.amocrm.ru/developers/content/web_sdk/todo_sync
-
-Синхронизация задач
+# Синхронизация задач
 
 Если виджет предоставляет возможность синхронизации задач amoCRM с другими сервисами управления задачами, то он может встроиться в модальное окно синхронизации.
 

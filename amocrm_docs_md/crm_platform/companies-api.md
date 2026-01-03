@@ -1,18 +1,18 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/companies-api -->
 
-# Оглавление
-
-Компании
+# Компании
 
 В данном разделе описываются доступные методы для работы с сущностью компании
 
-*   [Список компаний](#companies-list)
+### Оглавление
+
+*   [Список компаний](/crm_platform/companies-api#companies-list.html)
     
-*   [Получение компании по ID](#company-detail)
+*   [Получение компании по ID](/crm_platform/companies-api#company-detail.html)
     
-*   [Добавление компаний](#companies-add)
+*   [Добавление компаний](/crm_platform/companies-api#companies-add.html)
     
-*   [Редактирование компаний](#companies-edit)
+*   [Редактирование компаний](/crm_platform/companies-api#companies-edit.html)
     
 
 ### Список компаний
@@ -33,12 +33,12 @@ _GET /api/v4/companies_
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](#with-1bcd09db-6db3-4625-94b9-0d443e753631-params) |
+| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](/crm_platform/companies-api#with-1bcd09db-6db3-4625-94b9-0d443e753631-params.html) |
 | page | int | Страница выборки |
 | limit | int | Количество возвращаемых сущностей за один запрос (Максимум – 250) |
 | query | string  
 int | Поисковый запрос (Осуществляет поиск по заполненным полям сущности) |
-| filter | object | Фильтр. Подробней про фильтры читайте в [отдельной статье](/developers/content/crm_platform/filters-api) |
+| filter | object | Фильтр. Подробней про фильтры читайте в [отдельной статье](/crm_platform/filters-api.html) |
 | order | object | Сортировка результатов списка.  
 Доступные поля для сортировки: updated\_at, id.  
 Доступные значения для сортировки: asc, desc.  
@@ -105,63 +105,65 @@ float | Количество элементов у компании |
 
 #### Пример ответа
 
-    {
-        "_page": 1,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/companies?limit=2&page=1"
-            },
-            "next": {
-                "href": "https://example.amocrm.ru/api/v4/companies?limit=2&page=2"
-            }
+```json
+{
+    "_page": 1,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/companies?limit=2&page=1"
         },
-        "_embedded": {
-            "companies": [
-                {
-                    "id": 7767077,
-                    "name": "Компания Васи",
-                    "responsible_user_id": 504141,
-                    "group_id": 0,
-                    "created_by": 504141,
-                    "updated_by": 504141,
-                    "created_at": 1586359618,
-                    "updated_at": 1586359618,
-                    "closest_task_at": null,
-                    "custom_fields_values": null,
-                    "account_id": 28805383,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/companies/7767077"
-                        }
-                    },
-                    "_embedded": {
-                        "tags": []
+        "next": {
+            "href": "https://example.amocrm.ru/api/v4/companies?limit=2&page=2"
+        }
+    },
+    "_embedded": {
+        "companies": [
+            {
+                "id": 7767077,
+                "name": "Компания Васи",
+                "responsible_user_id": 504141,
+                "group_id": 0,
+                "created_by": 504141,
+                "updated_by": 504141,
+                "created_at": 1586359618,
+                "updated_at": 1586359618,
+                "closest_task_at": null,
+                "custom_fields_values": null,
+                "account_id": 28805383,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/companies/7767077"
                     }
                 },
-                {
-                    "id": 7767457,
-                    "name": "Example",
-                    "responsible_user_id": 504141,
-                    "group_id": 0,
-                    "created_by": 504141,
-                    "updated_by": 504141,
-                    "created_at": 1586360394,
-                    "updated_at": 1586360394,
-                    "closest_task_at": null,
-                    "custom_fields_values": null,
-                    "account_id": 28805383,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/companies/7767457"
-                        }
-                    },
-                    "_embedded": {
-                        "tags": []
-                    }
+                "_embedded": {
+                    "tags": []
                 }
-            ]
-        }
+            },
+            {
+                "id": 7767457,
+                "name": "Example",
+                "responsible_user_id": 504141,
+                "group_id": 0,
+                "created_by": 504141,
+                "updated_by": 504141,
+                "created_at": 1586360394,
+                "updated_at": 1586360394,
+                "closest_task_at": null,
+                "custom_fields_values": null,
+                "account_id": 28805383,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/companies/7767457"
+                    }
+                },
+                "_embedded": {
+                    "tags": []
+                }
+            }
+        ]
     }
+}
+```
 
 #### Параметры для GET-параметра with
 
@@ -190,7 +192,7 @@ _GET /api/v4/companies/{id}_
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](#with-bf1e4aa2-96b3-43e2-bb4d-16b6f6e1cb0d-params) |
+| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](/crm_platform/companies-api#with-bf1e4aa2-96b3-43e2-bb4d-16b6f6e1cb0d-params.html) |
 
 #### Заголовок типа данных при успешном результате
 
@@ -253,41 +255,43 @@ float | Количество элементов у компании |
 
 #### Пример ответа
 
-    {
-        "id": 1,
-        "name": "АО Рога и копыта",
-        "responsible_user_id": 504141,
-        "group_id": 0,
-        "created_by": 504141,
-        "updated_by": 504141,
-        "created_at": 1582117331,
-        "updated_at": 1586361223,
-        "closest_task_at": null,
-        "custom_fields_values": [
-            {
-                "field_id": 3,
-                "field_name": "Телефон",
-                "field_code": "PHONE",
-                "field_type": "multitext",
-                "values": [
-                    {
-                        "value": "123213",
-                        "enum_id": 1,
-                        "enum": "WORK"
-                    }
-                ]
-            }
-        ],
-        "account_id": 28805383,
-        "_links": {
-            "self": {
-                "href": "https://exmaple.amocrm.ru/api/v4/companies/1"
-            }
-        },
-        "_embedded": {
-            "tags": []
+```json
+{
+    "id": 1,
+    "name": "АО Рога и копыта",
+    "responsible_user_id": 504141,
+    "group_id": 0,
+    "created_by": 504141,
+    "updated_by": 504141,
+    "created_at": 1582117331,
+    "updated_at": 1586361223,
+    "closest_task_at": null,
+    "custom_fields_values": [
+        {
+            "field_id": 3,
+            "field_name": "Телефон",
+            "field_code": "PHONE",
+            "field_type": "multitext",
+            "values": [
+                {
+                    "value": "123213",
+                    "enum_id": 1,
+                    "enum": "WORK"
+                }
+            ]
         }
+    ],
+    "account_id": 28805383,
+    "_links": {
+        "self": {
+            "href": "https://exmaple.amocrm.ru/api/v4/companies/1"
+        }
+    },
+    "_embedded": {
+        "tags": []
     }
+}
+```
 
 #### Параметры для GET-параметра with
 
@@ -328,7 +332,7 @@ _Content-Type: application/json_
 | updated\_by | int | ID пользователя, изменившего компанию |
 | created\_at | int | Дата создания компании, передается в Unix Timestamp |
 | updated\_at | int | Дата изменения компании, передается в Unix Timestamp |
-| custom\_fields\_values | array | Массив, содержащий информацию по значениям дополнительных полей, заданных для данной компании. [Примеры заполнения полей](/developers/content/crm_platform/custom-fields#cf-fill-examples) |
+| custom\_fields\_values | array | Массив, содержащий информацию по значениям дополнительных полей, заданных для данной компании. [Примеры заполнения полей](/crm_platform/custom-fields#cf-fill-examples.html) |
 | tags\_to\_add | array | Массив тегов для добавления. |
 | tags\_to\_add\[0\] | object | Модель тега для добавления. |
 | tags\_to\_add\[0\]\[id\] | array | ID тега для добавления. Важно передать или id или name. |
@@ -342,22 +346,24 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    [
-        {
-            "name": "АО Рога и Копыта",
-            "custom_fields_values": [
-                {
-                    "field_code": "PHONE",
-                    "values": [
-                        {
-                            "value": "+7912322222",
-                            "enum_code": "WORK"
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+```json
+[
+    {
+        "name": "АО Рога и Копыта",
+        "custom_fields_values": [
+            {
+                "field_code": "PHONE",
+                "values": [
+                    {
+                        "value": "+7912322222",
+                        "enum_code": "WORK"
+                    }
+                ]
+            }
+        ]
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -386,26 +392,28 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/companies"
-            }
-        },
-        "_embedded": {
-            "companies": [
-                {
-                    "id": 11090825,
-                    "request_id": "0",
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/companies/11090825"
-                        }
+```json
+{
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/companies"
+        }
+    },
+    "_embedded": {
+        "companies": [
+            {
+                "id": 11090825,
+                "request_id": "0",
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/companies/11090825"
                     }
                 }
-            ]
-        }
+            }
+        ]
     }
+}
+```
 
 ### Редактирование компаний
 
@@ -439,7 +447,7 @@ _Content-Type: application/json_
 | updated\_by | int | ID пользователя, изменивший контакт |
 | created\_at | int | Дата создания контакта, передается в Unix Timestamp |
 | updated\_at | int | Дата изменения контакта, передается в Unix Timestamp |
-| custom\_fields\_values | array | Массив, содержащий информацию по значениям дополнительных полей, заданных для данной компании. [Примеры заполнения полей](/developers/content/crm_platform/custom-fields#cf-fill-examples) |
+| custom\_fields\_values | array | Массив, содержащий информацию по значениям дополнительных полей, заданных для данной компании. [Примеры заполнения полей](/crm_platform/custom-fields#cf-fill-examples.html) |
 | tags\_to\_add | array | Массив тегов для добавления. |
 | tags\_to\_add\[0\] | object | Модель тега для добавления. |
 | tags\_to\_add\[0\]\[id\] | array | ID тега для добавления. Важно передать или id или name. |
@@ -456,23 +464,25 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    [
-        {
-            "id": 11090825,
-            "name": "Новое название компании",
-            "custom_fields_values": [
-                {
-                    "field_code": "EMAIL",
-                    "values": [
-                        {
-                            "value": "test@example.com",
-                            "enum_code": "WORK"
-                        }
-                    ]
-                }
-           ]
-        }
-    ]
+```json
+[
+    {
+        "id": 11090825,
+        "name": "Новое название компании",
+        "custom_fields_values": [
+            {
+                "field_code": "EMAIL",
+                "values": [
+                    {
+                        "value": "test@example.com",
+                        "enum_code": "WORK"
+                    }
+                ]
+            }
+       ]
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -501,24 +511,26 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/companies"
-            }
-        },
-        "_embedded": {
-            "companies": [
-                {
-                    "id": 11090825,
-                    "name": "Новое название компании",
-                    "updated_at": 1590998669,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/companies/11090825"
-                        }
+```json
+{
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/companies"
+        }
+    },
+    "_embedded": {
+        "companies": [
+            {
+                "id": 11090825,
+                "name": "Новое название компании",
+                "updated_at": 1590998669,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/companies/11090825"
                     }
                 }
-            ]
-        }
+            }
+        ]
     }
+}
+```

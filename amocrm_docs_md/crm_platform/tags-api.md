@@ -1,17 +1,17 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/tags-api -->
 
-# Оглавление
-
-Теги
+# Теги
 
 В данном разделе описывается работа с тегами через API
 
-*   [Общая информация](#Общая-информация)
-*   [Список тегов для сущности](#Список-тегов-для-сущности)
-*   [Добавление тегов для конкретного типа сущности](#Добавление-тегов-для-конкретного-типа-сущности)
-*   [Добавление тегов к сущности](#Добавление-тегов-к-сущности)
-*   [Удаление тегов у сущности](#Удаление-тегов-у-сущности)
-*   [Доступные цвета для тегов сделок](#Доступные-цвета-для-тегов-сделок)
+### Оглавление
+
+*   [Общая информация](/crm_platform/tags-api#%D0%9E%D0%B1%D1%89%D0%B0%D1%8F-%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D1%8F.html)
+*   [Список тегов для сущности](/crm_platform/tags-api#%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA-%D1%82%D0%B5%D0%B3%D0%BE%D0%B2-%D0%B4%D0%BB%D1%8F-%D1%81%D1%83%D1%89%D0%BD%D0%BE%D1%81%D1%82%D0%B8.html)
+*   [Добавление тегов для конкретного типа сущности](/crm_platform/tags-api#%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D1%82%D0%B5%D0%B3%D0%BE%D0%B2-%D0%B4%D0%BB%D1%8F-%D0%BA%D0%BE%D0%BD%D0%BA%D1%80%D0%B5%D1%82%D0%BD%D0%BE%D0%B3%D0%BE-%D1%82%D0%B8%D0%BF%D0%B0-%D1%81%D1%83%D1%89%D0%BD%D0%BE%D1%81%D1%82%D0%B8.html)
+*   [Добавление тегов к сущности](/crm_platform/tags-api#%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D1%82%D0%B5%D0%B3%D0%BE%D0%B2-%D0%BA-%D1%81%D1%83%D1%89%D0%BD%D0%BE%D1%81%D1%82%D0%B8.html)
+*   [Удаление тегов у сущности](/crm_platform/tags-api#%D0%A3%D0%B4%D0%B0%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D1%82%D0%B5%D0%B3%D0%BE%D0%B2-%D1%83-%D1%81%D1%83%D1%89%D0%BD%D0%BE%D1%81%D1%82%D0%B8.html)
+*   [Доступные цвета для тегов сделок](/crm_platform/tags-api#%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D1%8B%D0%B5-%D1%86%D0%B2%D0%B5%D1%82%D0%B0-%D0%B4%D0%BB%D1%8F-%D1%82%D0%B5%D0%B3%D0%BE%D0%B2-%D1%81%D0%B4%D0%B5%D0%BB%D0%BE%D0%BA.html)
 
 ### Общая информация
 
@@ -50,7 +50,9 @@ array | Фильтр по ID тега. Можно передать как оди
 
 В следующем примере мы получим теги сделок c фильтром по ID.
 
-    https://example.amocrm.ru/api/v4/leads/tags?filter[id][]=2707&filter[id][]=2709
+```json
+https://example.amocrm.ru/api/v4/leads/tags?filter[id][]=2707&filter[id][]=2709
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -80,31 +82,33 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_page": 1,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads/tags?filter[id][]=2707&filter[id][]=2709&page=1&limit=50"
-            },
-            "next": {
-                "href": "https://example.amocrm.ru/api/v4/leads/tags?filter[id][]=2707&filter[id][]=2709&page=2&limit=50"
-            }
+```json
+{
+    "_page": 1,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads/tags?filter[id][]=2707&filter[id][]=2709&page=1&limit=50"
         },
-        "_embedded": {
-            "tags": [
-                {
-                    "id": 2707,
-                    "name": "Заявка с сайта",
-                    "color": "EBEBEB"
-                },
-                {
-                    "id": 2709,
-                    "name": "Техническая поддержка",
-                    "color": null
-                }
-            ]
+        "next": {
+            "href": "https://example.amocrm.ru/api/v4/leads/tags?filter[id][]=2707&filter[id][]=2709&page=2&limit=50"
         }
+    },
+    "_embedded": {
+        "tags": [
+            {
+                "id": 2707,
+                "name": "Заявка с сайта",
+                "color": "EBEBEB"
+            },
+            {
+                "id": 2709,
+                "name": "Техническая поддержка",
+                "color": null
+            }
+        ]
     }
+}
+```
 
 ### Добавление тегов для конкретного типа сущности
 
@@ -137,19 +141,21 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    [
-      {
-        "name": "Tag 1",
-        "color": "DDEBB5"
-      },
-      {
-        "name": "Tag 2",
-        "request_id": "my_request_id"
-      },
-      {
-        "name": "Tag 3"
-      }
-    ]
+```json
+[
+  {
+    "name": "Tag 1",
+    "color": "DDEBB5"
+  },
+  {
+    "name": "Tag 2",
+    "request_id": "my_request_id"
+  },
+  {
+    "name": "Tag 3"
+  }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -180,31 +186,33 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-      "_total_items": 3,
-      "_embedded": {
-        "tags": [
-          {
-            "id": 263807,
-            "name": "Tag 1",
-            "color": "DDEBB5",
-            "request_id": "0"
-          },
-          {
-            "id": 263809,
-            "name": "Tag 2",
-            "color": null,
-            "request_id": "my_request_id"
-          },
-          {
-            "id": 263811,
-            "name": "Tag 3",
-            "color": null,
-            "request_id": "2"
-          }
-        ]
+```json
+{
+  "_total_items": 3,
+  "_embedded": {
+    "tags": [
+      {
+        "id": 263807,
+        "name": "Tag 1",
+        "color": "DDEBB5",
+        "request_id": "0"
+      },
+      {
+        "id": 263809,
+        "name": "Tag 2",
+        "color": null,
+        "request_id": "my_request_id"
+      },
+      {
+        "id": 263811,
+        "name": "Tag 3",
+        "color": null,
+        "request_id": "2"
       }
-    }
+    ]
+  }
+}
+```
 
 ### Добавление тегов к сущности
 
@@ -242,28 +250,30 @@ null | Данные тегов, добавляемых к сделке |
 
 В данном примере мы обновим 2 сделки через метод /api/v4/leads.
 
-    [
-        {
-            "id": 167353,
-            "_embedded": {
-                "tags": [
-                    {
-                        "id": 263807
-                    }
-                ]
-            }
-        },
-        {
-            "id": 167355,
-            "_embedded": {
-                "tags": [
-                    {
-                        "name": "Тег 2"
-                    }
-                ]
-            }
+```json
+[
+    {
+        "id": 167353,
+        "_embedded": {
+            "tags": [
+                {
+                    "id": 263807
+                }
+            ]
         }
-    ]
+    },
+    {
+        "id": 167355,
+        "_embedded": {
+            "tags": [
+                {
+                    "name": "Тег 2"
+                }
+            ]
+        }
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -287,35 +297,37 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-      "_links": {
-        "self": {
-          "href": "https://example.amocrm.ru/api/v4/leads"
+```json
+{
+  "_links": {
+    "self": {
+      "href": "https://example.amocrm.ru/api/v4/leads"
+    }
+  },
+  "_embedded": {
+    "leads": [
+      {
+        "id": 167353,
+        "updated_at": 1588928155,
+        "_links": {
+          "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads/167353"
+          }
         }
       },
-      "_embedded": {
-        "leads": [
-          {
-            "id": 167353,
-            "updated_at": 1588928155,
-            "_links": {
-              "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads/167353"
-              }
-            }
-          },
-          {
-            "id": 167355,
-            "updated_at": 1588928155,
-            "_links": {
-              "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads/167355"
-              }
-            }
+      {
+        "id": 167355,
+        "updated_at": 1588928155,
+        "_links": {
+          "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads/167355"
           }
-        ]
+        }
       }
-    }
+    ]
+  }
+}
+```
 
 ### Удаление тегов у сущности
 
@@ -349,11 +361,13 @@ _Content-Type: application/json_
 
 В данном примере мы обновим сделку через метод /api/v4/leads/{id}.
 
-    {
-        "_embedded": {
-            "tags": null
-        }
+```json
+{
+    "_embedded": {
+        "tags": null
     }
+}
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -377,15 +391,17 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "id": 167353,
-        "updated_at": 1588928155,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads/167353"
-            }
+```json
+{
+    "id": 167353,
+    "updated_at": 1588928155,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads/167353"
         }
     }
+}
+```
 
 ### Доступные цвета для тегов сделок
 

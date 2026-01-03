@@ -1,18 +1,18 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/entity-links-api -->
 
-# Оглавление
-
-Связи сущностей
+# Связи сущностей
 
 В данном разделе описываются доступные методы для работы со связями контактов, компаний, сделок и покупателей
 
-*   [Общая информация](#common-info)
-*   [Список связанных сущностей](#links-list)
-*   [Привязка сущностей](#links-link)
-*   [Отвязка сущностей](#links-unlink)
-*   [Массовый список связанных сущностей](#mass-links-list)
-*   [Массовая привязка сущностей](#mass-links-link)
-*   [Массовая отвязка сущностей](#mass-links-unlink)
+### Оглавление
+
+*   [Общая информация](/crm_platform/entity-links-api#common-info.html)
+*   [Список связанных сущностей](/crm_platform/entity-links-api#links-list.html)
+*   [Привязка сущностей](/crm_platform/entity-links-api#links-link.html)
+*   [Отвязка сущностей](/crm_platform/entity-links-api#links-unlink.html)
+*   [Массовый список связанных сущностей](/crm_platform/entity-links-api#mass-links-list.html)
+*   [Массовая привязка сущностей](/crm_platform/entity-links-api#mass-links-link.html)
+*   [Массовая отвязка сущностей](/crm_platform/entity-links-api#mass-links-unlink.html)
 
 ### Общая информация
 
@@ -84,45 +84,47 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
-    {
-        "_total_items": 4,
-        "_links": {
-            "self": {
-                "href": "https://shard151.amocrm.ru/api/v4/leads/7593303/links?page=1&limit=50"
-            }
-        },
-        "_embedded": {
-            "links": [
-                {
-                    "to_entity_id": 597393,
-                    "to_entity_type": "catalog_elements",
-                    "metadata": {
-                        "quantity": 1,
-                        "catalog_id": 4521
-                    }
-                },
-                {
-                    "to_entity_id": 11069775,
-                    "to_entity_type": "contacts",
-                    "metadata": {
-                        "main_contact": true
-                    }
-                },
-                {
-                    "to_entity_id": 11271233,
-                    "to_entity_type": "contacts",
-                    "metadata": {
-                        "main_contact": false
-                    }
-                },
-                {
-                    "to_entity_id": 11271229,
-                    "to_entity_type": "companies",
-                    "metadata": null
-                }
-            ]
+```json
+{
+    "_total_items": 4,
+    "_links": {
+        "self": {
+            "href": "https://shard151.amocrm.ru/api/v4/leads/7593303/links?page=1&limit=50"
         }
+    },
+    "_embedded": {
+        "links": [
+            {
+                "to_entity_id": 597393,
+                "to_entity_type": "catalog_elements",
+                "metadata": {
+                    "quantity": 1,
+                    "catalog_id": 4521
+                }
+            },
+            {
+                "to_entity_id": 11069775,
+                "to_entity_type": "contacts",
+                "metadata": {
+                    "main_contact": true
+                }
+            },
+            {
+                "to_entity_id": 11271233,
+                "to_entity_type": "contacts",
+                "metadata": {
+                    "main_contact": false
+                }
+            },
+            {
+                "to_entity_id": 11271229,
+                "to_entity_type": "companies",
+                "metadata": null
+            }
+        ]
     }
+}
+```
 
 ### Привязка сущностей
 
@@ -163,23 +165,25 @@ Content-Type: application/json
 
 #### Пример запроса
 
-    [
-        {
-            "to_entity_id": 10,
-            "to_entity_type": "catalog_elements",
-            "metadata": {
-                "quantity": 1,
-                "catalog_id": 1026
-            }
-        },
-        {
-            "to_entity_id": 457282,
-            "to_entity_type": "contacts",
-            "metadata": {
-                "is_main": true
-            }
+```json
+[
+    {
+        "to_entity_id": 10,
+        "to_entity_type": "catalog_elements",
+        "metadata": {
+            "quantity": 1,
+            "catalog_id": 1026
         }
-    ]
+    },
+    {
+        "to_entity_id": 457282,
+        "to_entity_type": "contacts",
+        "metadata": {
+            "is_main": true
+        }
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -204,37 +208,39 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
-    {
-        "_total_items": 2,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads/14158851/links"
-            }
-        },
-        "_embedded": {
-            "links": [
-                {
-                    "entity_id": 14158851,
-                    "entity_type": "leads",
-                    "to_entity_id": 10,
-                    "to_entity_type": "catalog_elements",
-                    "metadata": {
-                        "quantity": 1,
-                        "catalog_id": 1026
-                    }
-                },
-                {
-                    "entity_id": 14158851,
-                    "entity_type": "leads",
-                    "to_entity_id": 457282,
-                    "to_entity_type": "contacts",
-                    "metadata": {
-                        "main_contact": true
-                    }
-                }
-            ]
+```json
+{
+    "_total_items": 2,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads/14158851/links"
         }
+    },
+    "_embedded": {
+        "links": [
+            {
+                "entity_id": 14158851,
+                "entity_type": "leads",
+                "to_entity_id": 10,
+                "to_entity_type": "catalog_elements",
+                "metadata": {
+                    "quantity": 1,
+                    "catalog_id": 1026
+                }
+            },
+            {
+                "entity_id": 14158851,
+                "entity_type": "leads",
+                "to_entity_id": 457282,
+                "to_entity_type": "contacts",
+                "metadata": {
+                    "main_contact": true
+                }
+            }
+        ]
     }
+}
+```
 
 ### Отвязка сущностей
 
@@ -272,19 +278,21 @@ Content-Type: application/json
 
 #### Пример запроса
 
-    [
-        {
-            "to_entity_id": 10,
-            "to_entity_type": "catalog_elements",
-            "metadata": {
-                "catalog_id": 1026
-            }
-        },
-        {
-            "to_entity_id": 457282,
-            "to_entity_type": "contacts"
+```json
+[
+    {
+        "to_entity_id": 10,
+        "to_entity_type": "catalog_elements",
+        "metadata": {
+            "catalog_id": 1026
         }
-    ]
+    },
+    {
+        "to_entity_id": 457282,
+        "to_entity_type": "contacts"
+    }
+]
+```
 
 #### HTTP коды ответа
 
@@ -363,53 +371,55 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
-    {
-        "_total_items": 4,
-        "_links": {
-            "self": {
-                "href": "https://shard151.amocrm.ru/api/v4/leads/links?filter[entity_id][]=7593303&filter[entity_id][]=7593305"
-            }
-        },
-        "_embedded": {
-            "links": [
-                {
-                    "entity_id": 7593303,
-                    "entity_type": "leads"
-                    "to_entity_id": 597393,
-                    "to_entity_type": "catalog_elements",
-                    "metadata": {
-                        "quantity": 1,
-                        "catalog_id": 4521
-                    }
-                },
-                {
-                    "entity_id": 7593303,
-                    "entity_type": "leads"
-                    "to_entity_id": 11069775,
-                    "to_entity_type": "contacts",
-                    "metadata": {
-                        "main_contact": true
-                    }
-                },
-                {
-                    "entity_id": 7593305,
-                    "entity_type": "leads"
-                    "to_entity_id": 11271233,
-                    "to_entity_type": "contacts",
-                    "metadata": {
-                        "main_contact": false
-                    }
-                },
-                {
-                    "entity_id": 7593305,
-                    "entity_type": "leads"
-                    "to_entity_id": 11271229,
-                    "to_entity_type": "companies",
-                    "metadata": null
-                }
-            ]
+```json
+{
+    "_total_items": 4,
+    "_links": {
+        "self": {
+            "href": "https://shard151.amocrm.ru/api/v4/leads/links?filter[entity_id][]=7593303&filter[entity_id][]=7593305"
         }
+    },
+    "_embedded": {
+        "links": [
+            {
+                "entity_id": 7593303,
+                "entity_type": "leads"
+                "to_entity_id": 597393,
+                "to_entity_type": "catalog_elements",
+                "metadata": {
+                    "quantity": 1,
+                    "catalog_id": 4521
+                }
+            },
+            {
+                "entity_id": 7593303,
+                "entity_type": "leads"
+                "to_entity_id": 11069775,
+                "to_entity_type": "contacts",
+                "metadata": {
+                    "main_contact": true
+                }
+            },
+            {
+                "entity_id": 7593305,
+                "entity_type": "leads"
+                "to_entity_id": 11271233,
+                "to_entity_type": "contacts",
+                "metadata": {
+                    "main_contact": false
+                }
+            },
+            {
+                "entity_id": 7593305,
+                "entity_type": "leads"
+                "to_entity_id": 11271229,
+                "to_entity_type": "companies",
+                "metadata": null
+            }
+        ]
     }
+}
+```
 
 ### Массовая привязка сущностей
 
@@ -451,25 +461,27 @@ Content-Type: application/json
 
 #### Пример запроса
 
-    [
-        {
-            "entity_id": 14158851,
-            "to_entity_id": 10,
-            "to_entity_type": "catalog_elements",
-            "metadata": {
-                "quantity": 1,
-                "catalog_id": 1026
-            }
-        },
-        {
-            "entity_id": 14158852,
-            "to_entity_id": 457282,
-            "to_entity_type": "contacts",
-            "metadata": {
-                "is_main": true
-            }
+```json
+[
+    {
+        "entity_id": 14158851,
+        "to_entity_id": 10,
+        "to_entity_type": "catalog_elements",
+        "metadata": {
+            "quantity": 1,
+            "catalog_id": 1026
         }
-    ]
+    },
+    {
+        "entity_id": 14158852,
+        "to_entity_id": 457282,
+        "to_entity_type": "contacts",
+        "metadata": {
+            "is_main": true
+        }
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -494,37 +506,39 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
-    {
-        "_total_items": 2,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads/links"
-            }
-        },
-        "_embedded": {
-            "links": [
-                {
-                    "entity_id": 14158851,
-                    "entity_type": "leads",
-                    "to_entity_id": 10,
-                    "to_entity_type": "catalog_elements",
-                    "metadata": {
-                        "quantity": 1,
-                        "catalog_id": 1026
-                    }
-                },
-                {
-                    "entity_id": 14158852,
-                    "entity_type": "leads",
-                    "to_entity_id": 457282,
-                    "to_entity_type": "contacts",
-                    "metadata": {
-                        "main_contact": true
-                    }
-                }
-            ]
+```json
+{
+    "_total_items": 2,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads/links"
         }
+    },
+    "_embedded": {
+        "links": [
+            {
+                "entity_id": 14158851,
+                "entity_type": "leads",
+                "to_entity_id": 10,
+                "to_entity_type": "catalog_elements",
+                "metadata": {
+                    "quantity": 1,
+                    "catalog_id": 1026
+                }
+            },
+            {
+                "entity_id": 14158852,
+                "entity_type": "leads",
+                "to_entity_id": 457282,
+                "to_entity_type": "contacts",
+                "metadata": {
+                    "main_contact": true
+                }
+            }
+        ]
     }
+}
+```
 
 ### Массовая отвязка сущностей
 
@@ -563,21 +577,23 @@ Content-Type: application/json
 
 #### Пример запроса
 
-    [
-        {
-            "entity_id": 14158851,
-            "to_entity_id": 10,
-            "to_entity_type": "catalog_elements",
-            "metadata": {
-                "catalog_id": 1026
-            }
-        },
-        {
-            "entity_id": 14158853,
-            "to_entity_id": 457282,
-            "to_entity_type": "contacts"
+```json
+[
+    {
+        "entity_id": 14158851,
+        "to_entity_id": 10,
+        "to_entity_type": "catalog_elements",
+        "metadata": {
+            "catalog_id": 1026
         }
-    ]
+    },
+    {
+        "entity_id": 14158853,
+        "to_entity_id": 457282,
+        "to_entity_type": "contacts"
+    }
+]
+```
 
 #### HTTP коды ответа
 

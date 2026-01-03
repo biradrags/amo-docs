@@ -1,8 +1,6 @@
 <!-- https://www.amocrm.ru/developers/content/files/files-api -->
 
-# Оглавление
-
-Методы API
+# Методы API
 
 В данном разделе описываются доступные методы для работы с API файлов в amoCRM.
 
@@ -13,21 +11,23 @@
 Большинство методов API файлов доступны только через отдельный домен сервиса файлов.
 
 **Важно учесть, что при добавлении файла по общему адресу, некоторые функции, например поиск этого файла, могут быть доступны с задержкой.  
-Для получения адреса сервиса, который обслуживает текущий аккаунт, можно запросить [свойства аккаунта](https://www.amocrm.ru/developers/content/crm_platform/account-info) с флагом `with=drive_url`.**
+Для получения адреса сервиса, который обслуживает текущий аккаунт, можно запросить [свойства аккаунта](/crm_platform/account-info.html) с флагом `with=drive_url`.**
 
-*   [Требования к работе с API файлов](#Требования-к-работе-с-API-файлов)
-*   [Создание сессии загрузки файла](#Создание-сессии-загрузки-файла)
-*   [Загрузка части файла](#Загрузка-части-файла)
-*   [Получение файлов](#Получение-файлов)
-*   [Получение файла по UUID](#Получение-файла-по-UUID)
-*   [Редактирование файла](#Редактирование-файла)
-*   [Удаление файлов](#Удаление-файлов)
-*   [Восстановление файлов](#Восстановление-файлов)
-*   [Получение версий файла](#Получение-версий-файла)
-*   [Получение файлов связанных с сущностью](#Получение-файлов-связанных-с-сущностью)
-*   [Привязка файлов к сущности](#Привязка-файлов-к-сущности)
-*   [Отвязка файлов от сущности](#Отвязка-файлов-от-сущности)
-*   [Получение сущностей связанных с файлом](#Получение-сущностей-связанных-с-файлом)
+### Оглавление
+
+*   [Требования к работе с API файлов](/files/files-api#%D0%A2%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B5-%D1%81-API-%D1%84%D0%B0%D0%B9%D0%BB%D0%BE%D0%B2.html)
+*   [Создание сессии загрузки файла](/files/files-api#%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D1%81%D0%B5%D1%81%D1%81%D0%B8%D0%B8-%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B8-%D1%84%D0%B0%D0%B9%D0%BB%D0%B0.html)
+*   [Загрузка части файла](/files/files-api#%D0%97%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0-%D1%87%D0%B0%D1%81%D1%82%D0%B8-%D1%84%D0%B0%D0%B9%D0%BB%D0%B0.html)
+*   [Получение файлов](/files/files-api#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D1%84%D0%B0%D0%B9%D0%BB%D0%BE%D0%B2.html)
+*   [Получение файла по UUID](/files/files-api#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D1%84%D0%B0%D0%B9%D0%BB%D0%B0-%D0%BF%D0%BE-UUID.html)
+*   [Редактирование файла](/files/files-api#%D0%A0%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D1%84%D0%B0%D0%B9%D0%BB%D0%B0.html)
+*   [Удаление файлов](/files/files-api#%D0%A3%D0%B4%D0%B0%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D1%84%D0%B0%D0%B9%D0%BB%D0%BE%D0%B2.html)
+*   [Восстановление файлов](/files/files-api#%D0%92%D0%BE%D1%81%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D1%84%D0%B0%D0%B9%D0%BB%D0%BE%D0%B2.html)
+*   [Получение версий файла](/files/files-api#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D0%B9-%D1%84%D0%B0%D0%B9%D0%BB%D0%B0.html)
+*   [Получение файлов связанных с сущностью](/files/files-api#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D1%84%D0%B0%D0%B9%D0%BB%D0%BE%D0%B2-%D1%81%D0%B2%D1%8F%D0%B7%D0%B0%D0%BD%D0%BD%D1%8B%D1%85-%D1%81-%D1%81%D1%83%D1%89%D0%BD%D0%BE%D1%81%D1%82%D1%8C%D1%8E.html)
+*   [Привязка файлов к сущности](/files/files-api#%D0%9F%D1%80%D0%B8%D0%B2%D1%8F%D0%B7%D0%BA%D0%B0-%D1%84%D0%B0%D0%B9%D0%BB%D0%BE%D0%B2-%D0%BA-%D1%81%D1%83%D1%89%D0%BD%D0%BE%D1%81%D1%82%D0%B8.html)
+*   [Отвязка файлов от сущности](/files/files-api#%D0%9E%D1%82%D0%B2%D1%8F%D0%B7%D0%BA%D0%B0-%D1%84%D0%B0%D0%B9%D0%BB%D0%BE%D0%B2-%D0%BE%D1%82-%D1%81%D1%83%D1%89%D0%BD%D0%BE%D1%81%D1%82%D0%B8.html)
+*   [Получение сущностей связанных с файлом](/files/files-api#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D1%81%D1%83%D1%89%D0%BD%D0%BE%D1%81%D1%82%D0%B5%D0%B9-%D1%81%D0%B2%D1%8F%D0%B7%D0%B0%D0%BD%D0%BD%D1%8B%D1%85-%D1%81-%D1%84%D0%B0%D0%B9%D0%BB%D0%BE%D0%BC.html)
 
 ### Требования к работе с API файлов
 
@@ -65,12 +65,14 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    {
-      "file_name": "aaa",
-      "file_size": 3435,
-      "content_type": "image/jpeg",
-      "file_uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
-    }
+```json
+{
+  "file_name": "aaa",
+  "file_size": 3435,
+  "content_type": "image/jpeg",
+  "file_uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
+}
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -102,12 +104,14 @@ _Content-Type: application/json_
 
 #### Пример ответа
 
-    {
-      "max_file_size": 314572800,
-      "max_part_size": 524288,
-      "session_id": 26136001,
-      "upload_url": "https://drive-b.amocrm.ru/v1.0/sessions/upload/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjc0MTg3MzYwMCwiaWF0Ijo3NDE4NzM2MDAsIm5iZiI6NzQxODczNjAwLCJhY2NvdW50X2lkIjo3Nzc3Nzc3Nywic2Vzc2lvbl9pZCI6Nzc3Nzc3NzcsInVzZXJfaWQiOjc3Nzc3NzcsInVzZXJfdHlwZSI6ImludGVybmFsIiwicGFydF9udW0iOjF9.8sdJVTZJ_MjuHhMGDkU7_eSi2q1u1EG-au_TZhmmXK8"
-    }
+```json
+{
+  "max_file_size": 314572800,
+  "max_part_size": 524288,
+  "session_id": 26136001,
+  "upload_url": "https://drive-b.amocrm.ru/v1.0/sessions/upload/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjc0MTg3MzYwMCwiaWF0Ijo3NDE4NzM2MDAsIm5iZiI6NzQxODczNjAwLCJhY2NvdW50X2lkIjo3Nzc3Nzc3Nywic2Vzc2lvbl9pZCI6Nzc3Nzc3NzcsInVzZXJfaWQiOjc3Nzc3NzcsInVzZXJfdHlwZSI6ImludGVybmFsIiwicGFydF9udW0iOjF9.8sdJVTZJ_MjuHhMGDkU7_eSi2q1u1EG-au_TZhmmXK8"
+}
+```
 
 ### Загрузка части файла
 
@@ -146,10 +150,12 @@ _Content-Type: application/json_
 
 #### Пример ответа
 
-    {
-      "next_url": "https://drive-b.amocrm.ru/v1.0/sessions/upload/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjc0MTg3MzYwMCwiaWF0Ijo3NDE4NzM2MDAsIm5iZiI6NzQxODczNjAwLCJhY2NvdW50X2lkIjo3Nzc3Nzc3Nywic2Vzc2lvbl9pZCI6Nzc3Nzc3NzcsInVzZXJfaWQiOjc3Nzc3NzcsInVzZXJfdHlwZSI6ImludGVybmFsIiwicGFydF9udW0iOjF9.8sdJVTZJ_MjuHhMGDkU7_eSi2q1u1EG-au_TZhmmXK8",
-      "session_id": 26434413
-    }
+```json
+{
+  "next_url": "https://drive-b.amocrm.ru/v1.0/sessions/upload/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjc0MTg3MzYwMCwiaWF0Ijo3NDE4NzM2MDAsIm5iZiI6NzQxODczNjAwLCJhY2NvdW50X2lkIjo3Nzc3Nzc3Nywic2Vzc2lvbl9pZCI6Nzc3Nzc3NzcsInVzZXJfaWQiOjc3Nzc3NzcsInVzZXJfdHlwZSI6ImludGVybmFsIiwicGFydF9udW0iOjF9.8sdJVTZJ_MjuHhMGDkU7_eSi2q1u1EG-au_TZhmmXK8",
+  "session_id": 26434413
+}
+```
 
 #### Параметры ответа при загрузке последней части файла
 
@@ -185,37 +191,39 @@ _Content-Type: application/json_
 
 #### Пример ответа при загрузке последней части файла
 
-    {
-      "_links": {
-        "download": {
-          "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/picture.png"
-        },
-        "download_version": {
-          "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/43de3be7-307b-4766-a23e-5e88211b9a8d/picture.png"
-        },
-        "self": {
-          "href": "https://drive-b.amocrm.ru/v1.0/files/367b9f38-5f01-4cea-947e-dfab47aea522"
-        }
-      },
-      "created_at": 1671687247,
-      "created_by": { "type": "internal", "id": 7758337 },
-      "deleted_at": null,
-      "deleted_by": null,
-      "has_multiple_versions": false,
-      "is_trashed": false,
-      "metadata": { "extension": "png", "mime_type": "image/png" },
-      "name": "product",
-      "previews": null,
-      "sanitized_name": "product",
-      "session_id": 26136001,
-      "size": 7526,
-      "source_id": null,
-      "type": "file",
-      "updated_at": 1671687247,
-      "updated_by": { "type": "internal", "id": 7758337 },
-      "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522",
-      "version_uuid": "43de3be7-307b-4766-a23e-5e88211b9a8d"
+```json
+{
+  "_links": {
+    "download": {
+      "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/picture.png"
+    },
+    "download_version": {
+      "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/43de3be7-307b-4766-a23e-5e88211b9a8d/picture.png"
+    },
+    "self": {
+      "href": "https://drive-b.amocrm.ru/v1.0/files/367b9f38-5f01-4cea-947e-dfab47aea522"
     }
+  },
+  "created_at": 1671687247,
+  "created_by": { "type": "internal", "id": 7758337 },
+  "deleted_at": null,
+  "deleted_by": null,
+  "has_multiple_versions": false,
+  "is_trashed": false,
+  "metadata": { "extension": "png", "mime_type": "image/png" },
+  "name": "product",
+  "previews": null,
+  "sanitized_name": "product",
+  "session_id": 26136001,
+  "size": 7526,
+  "source_id": null,
+  "type": "file",
+  "updated_at": 1671687247,
+  "updated_by": { "type": "internal", "id": 7758337 },
+  "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522",
+  "version_uuid": "43de3be7-307b-4766-a23e-5e88211b9a8d"
+}
+```
 
 ### Получение файлов
 
@@ -275,82 +283,84 @@ _Content-Type: application/json_
 
 #### Пример ответа
 
-    {
-      "_count": 25,
-      "_embedded": {
-        "files": [
-          {
-            "_links": {
-              "download": {
-                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
-              },
-              "download_version": {
-                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/0244c437-1637-4cdf-887a-e574f55eb114/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
-              },
-              "self": {
-                "href": "https://drive-b.amocrm.ru/v1.0/files/26ec7266-d953-433b-8bc5-737eb70da87a"
-              }
-            },
-            "created_at": 1671871033,
-            "created_by": { "type": "internal", "id": 7758337 },
-            "deleted_at": null,
-            "deleted_by": null,
-            "has_multiple_versions": false,
-            "is_trashed": false,
-            "metadata": { "extension": "jpg", "mime_type": "image/jpeg" },
-            "name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
-            "previews": null,
-            "sanitized_name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
-            "size": 38635,
-            "source_id": null,
-            "type": "image",
-            "updated_at": 1671871033,
-            "updated_by": { "type": "internal", "id": 7758337 },
-            "uuid": "26ec7266-d953-433b-8bc5-737eb70da87a",
-            "version_uuid": "0244c437-1637-4cdf-887a-e574f55eb114"
+```json
+{
+  "_count": 25,
+  "_embedded": {
+    "files": [
+      {
+        "_links": {
+          "download": {
+            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
           },
-          {
-            "_links": {
-              "download": {
-                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/-96.png"
-              },
-              "download_version": {
-                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/2a93e2a2-7c09-4f0d-b8ee-f0228e890307/-96.png"
-              },
-              "self": {
-                "href": "https://drive-b.amocrm.ru/v1.0/files/9403badc-5690-4c7d-a999-be09f8c57566"
-              }
-            },
-            "created_at": 1671814907,
-            "created_by": { "type": "internal", "id": 2647957 },
-            "deleted_at": null,
-            "deleted_by": null,
-            "has_multiple_versions": false,
-            "is_trashed": false,
-            "metadata": { "extension": "png", "mime_type": "image/png" },
-            "name": "_96",
-            "previews": null,
-            "sanitized_name": "-96",
-            "size": 5230,
-            "source_id": null,
-            "type": "image",
-            "updated_at": 1671814907,
-            "updated_by": { "type": "internal", "id": 2647957 },
-            "uuid": "9403badc-5690-4c7d-a999-be09f8c57566",
-            "version_uuid": "2a93e2a2-7c09-4f0d-b8ee-f0228e890307"
+          "download_version": {
+            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/0244c437-1637-4cdf-887a-e574f55eb114/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
           },
-          ...
-        ]
-      },
-      "_links": {
-        "next": {
-          "href": "https://drive-b.amocrm.ru/v1.0/files?filter%5Bextensions%5D%5B%5D=bmp&filter%5Bextensions%5D%5B%5D=jpeg&filter%5Bextensions%5D%5B%5D=jpg&filter%5Bextensions%5D%5B%5D=png&filter%5Bis_filter%5D=true&filter%5Bsize%5D%5Bunit%5D=1000000&limit=25&page=2"
+          "self": {
+            "href": "https://drive-b.amocrm.ru/v1.0/files/26ec7266-d953-433b-8bc5-737eb70da87a"
+          }
         },
-        "self": {
-          "href": "https://drive-b.amocrm.ru/v1.0/files?filter%5Bextensions%5D%5B%5D=bmp&filter%5Bextensions%5D%5B%5D=jpeg&filter%5Bextensions%5D%5B%5D=jpg&filter%5Bextensions%5D%5B%5D=png&filter%5Bis_filter%5D=true&filter%5Bsize%5D%5Bunit%5D=1000000&limit=25&page=1"
-        }
-      }
+        "created_at": 1671871033,
+        "created_by": { "type": "internal", "id": 7758337 },
+        "deleted_at": null,
+        "deleted_by": null,
+        "has_multiple_versions": false,
+        "is_trashed": false,
+        "metadata": { "extension": "jpg", "mime_type": "image/jpeg" },
+        "name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
+        "previews": null,
+        "sanitized_name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
+        "size": 38635,
+        "source_id": null,
+        "type": "image",
+        "updated_at": 1671871033,
+        "updated_by": { "type": "internal", "id": 7758337 },
+        "uuid": "26ec7266-d953-433b-8bc5-737eb70da87a",
+        "version_uuid": "0244c437-1637-4cdf-887a-e574f55eb114"
+      },
+      {
+        "_links": {
+          "download": {
+            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/-96.png"
+          },
+          "download_version": {
+            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/2a93e2a2-7c09-4f0d-b8ee-f0228e890307/-96.png"
+          },
+          "self": {
+            "href": "https://drive-b.amocrm.ru/v1.0/files/9403badc-5690-4c7d-a999-be09f8c57566"
+          }
+        },
+        "created_at": 1671814907,
+        "created_by": { "type": "internal", "id": 2647957 },
+        "deleted_at": null,
+        "deleted_by": null,
+        "has_multiple_versions": false,
+        "is_trashed": false,
+        "metadata": { "extension": "png", "mime_type": "image/png" },
+        "name": "_96",
+        "previews": null,
+        "sanitized_name": "-96",
+        "size": 5230,
+        "source_id": null,
+        "type": "image",
+        "updated_at": 1671814907,
+        "updated_by": { "type": "internal", "id": 2647957 },
+        "uuid": "9403badc-5690-4c7d-a999-be09f8c57566",
+        "version_uuid": "2a93e2a2-7c09-4f0d-b8ee-f0228e890307"
+      },
+      ...
+    ]
+  },
+  "_links": {
+    "next": {
+      "href": "https://drive-b.amocrm.ru/v1.0/files?filter%5Bextensions%5D%5B%5D=bmp&filter%5Bextensions%5D%5B%5D=jpeg&filter%5Bextensions%5D%5B%5D=jpg&filter%5Bextensions%5D%5B%5D=png&filter%5Bis_filter%5D=true&filter%5Bsize%5D%5Bunit%5D=1000000&limit=25&page=2"
+    },
+    "self": {
+      "href": "https://drive-b.amocrm.ru/v1.0/files?filter%5Bextensions%5D%5B%5D=bmp&filter%5Bextensions%5D%5B%5D=jpeg&filter%5Bextensions%5D%5B%5D=jpg&filter%5Bextensions%5D%5B%5D=png&filter%5Bis_filter%5D=true&filter%5Bsize%5D%5Bunit%5D=1000000&limit=25&page=1"
     }
+  }
+}
+```
 
 ### Получение файла по UUID
 
@@ -389,37 +399,39 @@ _Content-Type: application/json_
 
 #### Пример ответа
 
-    {
-      "_links": {
-        "download": {
-          "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/picture.png"
-        },
-        "download_version": {
-          "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/43de3be7-307b-4766-a23e-5e88211b9a8d/picture.png"
-        },
-        "self": {
-          "href": "https://drive-b.amocrm.ru/v1.0/files/367b9f38-5f01-4cea-947e-dfab47aea522"
-        }
-      },
-      "created_at": 1671687247,
-      "created_by": { "type": "internal", "id": 7758337 },
-      "deleted_at": null,
-      "deleted_by": null,
-      "has_multiple_versions": false,
-      "is_trashed": false,
-      "metadata": { "extension": "png", "mime_type": "image/png" },
-      "name": "product",
-      "previews": null,
-      "sanitized_name": "product",
-      "session_id": 26136001,
-      "size": 7526,
-      "source_id": null,
-      "type": "file",
-      "updated_at": 1671687247,
-      "updated_by": { "type": "internal", "id": 7758337 },
-      "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522",
-      "version_uuid": "43de3be7-307b-4766-a23e-5e88211b9a8d"
+```json
+{
+  "_links": {
+    "download": {
+      "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/picture.png"
+    },
+    "download_version": {
+      "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/43de3be7-307b-4766-a23e-5e88211b9a8d/picture.png"
+    },
+    "self": {
+      "href": "https://drive-b.amocrm.ru/v1.0/files/367b9f38-5f01-4cea-947e-dfab47aea522"
     }
+  },
+  "created_at": 1671687247,
+  "created_by": { "type": "internal", "id": 7758337 },
+  "deleted_at": null,
+  "deleted_by": null,
+  "has_multiple_versions": false,
+  "is_trashed": false,
+  "metadata": { "extension": "png", "mime_type": "image/png" },
+  "name": "product",
+  "previews": null,
+  "sanitized_name": "product",
+  "session_id": 26136001,
+  "size": 7526,
+  "source_id": null,
+  "type": "file",
+  "updated_at": 1671687247,
+  "updated_by": { "type": "internal", "id": 7758337 },
+  "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522",
+  "version_uuid": "43de3be7-307b-4766-a23e-5e88211b9a8d"
+}
+```
 
 ### Редактирование файла
 
@@ -450,13 +462,15 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    {
-      "name": "Новое имя файла"
-    }
-    
-    {
-      "version_uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
-    }
+```json
+{
+  "name": "Новое имя файла"
+}
+
+{
+  "version_uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
+}
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -482,37 +496,39 @@ _Content-Type: application/json_
 
 #### Пример ответа
 
-    {
-      "_links": {
-        "download": {
-          "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/picture.png"
-        },
-        "download_version": {
-          "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/43de3be7-307b-4766-a23e-5e88211b9a8d/picture.png"
-        },
-        "self": {
-          "href": "https://drive-b.amocrm.ru/v1.0/files/367b9f38-5f01-4cea-947e-dfab47aea522"
-        }
-      },
-      "created_at": 1671687247,
-      "created_by": { "type": "internal", "id": 7758337 },
-      "deleted_at": null,
-      "deleted_by": null,
-      "has_multiple_versions": false,
-      "is_trashed": false,
-      "metadata": { "extension": "png", "mime_type": "image/png" },
-      "name": "product",
-      "previews": null,
-      "sanitized_name": "product",
-      "session_id": 26136001,
-      "size": 7526,
-      "source_id": null,
-      "type": "file",
-      "updated_at": 1671687247,
-      "updated_by": { "type": "internal", "id": 7758337 },
-      "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522",
-      "version_uuid": "43de3be7-307b-4766-a23e-5e88211b9a8d"
+```json
+{
+  "_links": {
+    "download": {
+      "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/picture.png"
+    },
+    "download_version": {
+      "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/43de3be7-307b-4766-a23e-5e88211b9a8d/picture.png"
+    },
+    "self": {
+      "href": "https://drive-b.amocrm.ru/v1.0/files/367b9f38-5f01-4cea-947e-dfab47aea522"
     }
+  },
+  "created_at": 1671687247,
+  "created_by": { "type": "internal", "id": 7758337 },
+  "deleted_at": null,
+  "deleted_by": null,
+  "has_multiple_versions": false,
+  "is_trashed": false,
+  "metadata": { "extension": "png", "mime_type": "image/png" },
+  "name": "product",
+  "previews": null,
+  "sanitized_name": "product",
+  "session_id": 26136001,
+  "size": 7526,
+  "source_id": null,
+  "type": "file",
+  "updated_at": 1671687247,
+  "updated_by": { "type": "internal", "id": 7758337 },
+  "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522",
+  "version_uuid": "43de3be7-307b-4766-a23e-5e88211b9a8d"
+}
+```
 
 ### Удаление файлов
 
@@ -542,14 +558,16 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    [
-      {
-        "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
-      },
-      {
-        "uuid": "bf1097fb-58fe-42c1-b385-ac443228ddd0"
-      }
-    ]
+```json
+[
+  {
+    "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
+  },
+  {
+    "uuid": "bf1097fb-58fe-42c1-b385-ac443228ddd0"
+  }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -600,14 +618,16 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    [
-      {
-        "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
-      },
-      {
-        "uuid": "bf1097fb-58fe-42c1-b385-ac443228ddd0"
-      }
-    ]
+```json
+[
+  {
+    "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
+  },
+  {
+    "uuid": "bf1097fb-58fe-42c1-b385-ac443228ddd0"
+  }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -632,73 +652,75 @@ _Content-Type: application/json_
 
 #### Пример ответа
 
-    {
-      "_count": 2,
-      "_embedded": {
-        "files": [
-          {
-            "_links": {
-              "download": {
-                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
-              },
-              "download_version": {
-                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/0244c437-1637-4cdf-887a-e574f55eb114/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
-              },
-              "self": {
-                "href": "https://drive-b.amocrm.ru/v1.0/files/26ec7266-d953-433b-8bc5-737eb70da87a"
-              }
-            },
-            "created_at": 1671871033,
-            "created_by": { "type": "internal", "id": 7758337 },
-            "deleted_at": null,
-            "deleted_by": null,
-            "has_multiple_versions": false,
-            "is_trashed": false,
-            "metadata": { "extension": "jpg", "mime_type": "image/jpeg" },
-            "name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
-            "previews": null,
-            "sanitized_name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
-            "size": 38635,
-            "source_id": null,
-            "type": "image",
-            "updated_at": 1671871033,
-            "updated_by": { "type": "internal", "id": 7758337 },
-            "uuid": "26ec7266-d953-433b-8bc5-737eb70da87a",
-            "version_uuid": "0244c437-1637-4cdf-887a-e574f55eb114"
+```json
+{
+  "_count": 2,
+  "_embedded": {
+    "files": [
+      {
+        "_links": {
+          "download": {
+            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
           },
-          {
-            "_links": {
-              "download": {
-                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/-96.png"
-              },
-              "download_version": {
-                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/2a93e2a2-7c09-4f0d-b8ee-f0228e890307/-96.png"
-              },
-              "self": {
-                "href": "https://drive-b.amocrm.ru/v1.0/files/9403badc-5690-4c7d-a999-be09f8c57566"
-              }
-            },
-            "created_at": 1671814907,
-            "created_by": { "type": "internal", "id": 2647957 },
-            "deleted_at": null,
-            "deleted_by": null,
-            "has_multiple_versions": false,
-            "is_trashed": false,
-            "metadata": { "extension": "png", "mime_type": "image/png" },
-            "name": "_96",
-            "previews": null,
-            "sanitized_name": "-96",
-            "size": 5230,
-            "source_id": null,
-            "type": "image",
-            "updated_at": 1671814907,
-            "updated_by": { "type": "internal", "id": 2647957 },
-            "uuid": "9403badc-5690-4c7d-a999-be09f8c57566",
-            "version_uuid": "2a93e2a2-7c09-4f0d-b8ee-f0228e890307"
+          "download_version": {
+            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/0244c437-1637-4cdf-887a-e574f55eb114/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
+          },
+          "self": {
+            "href": "https://drive-b.amocrm.ru/v1.0/files/26ec7266-d953-433b-8bc5-737eb70da87a"
           }
-        ]
+        },
+        "created_at": 1671871033,
+        "created_by": { "type": "internal", "id": 7758337 },
+        "deleted_at": null,
+        "deleted_by": null,
+        "has_multiple_versions": false,
+        "is_trashed": false,
+        "metadata": { "extension": "jpg", "mime_type": "image/jpeg" },
+        "name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
+        "previews": null,
+        "sanitized_name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
+        "size": 38635,
+        "source_id": null,
+        "type": "image",
+        "updated_at": 1671871033,
+        "updated_by": { "type": "internal", "id": 7758337 },
+        "uuid": "26ec7266-d953-433b-8bc5-737eb70da87a",
+        "version_uuid": "0244c437-1637-4cdf-887a-e574f55eb114"
+      },
+      {
+        "_links": {
+          "download": {
+            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/-96.png"
+          },
+          "download_version": {
+            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/2a93e2a2-7c09-4f0d-b8ee-f0228e890307/-96.png"
+          },
+          "self": {
+            "href": "https://drive-b.amocrm.ru/v1.0/files/9403badc-5690-4c7d-a999-be09f8c57566"
+          }
+        },
+        "created_at": 1671814907,
+        "created_by": { "type": "internal", "id": 2647957 },
+        "deleted_at": null,
+        "deleted_by": null,
+        "has_multiple_versions": false,
+        "is_trashed": false,
+        "metadata": { "extension": "png", "mime_type": "image/png" },
+        "name": "_96",
+        "previews": null,
+        "sanitized_name": "-96",
+        "size": 5230,
+        "source_id": null,
+        "type": "image",
+        "updated_at": 1671814907,
+        "updated_by": { "type": "internal", "id": 2647957 },
+        "uuid": "9403badc-5690-4c7d-a999-be09f8c57566",
+        "version_uuid": "2a93e2a2-7c09-4f0d-b8ee-f0228e890307"
       }
-    }
+    ]
+  }
+}
+```
 
 ### Получение версий файла
 
@@ -763,66 +785,68 @@ _Content-Type: application/json_
 
 #### Пример ответа
 
-    {
-      "_count": 2,
-      "_embedded": {
-        "versions": [
-          {
-            "_links": {
-              "download": {
-                "href": "https://drive-b.amocrm.ru/download/21c0e773-0b10-57ac-96d1-c0b97ba6a3f7/89a61e7b-ba30-476f-b2f6-705a964e85c6/fd8401e1-c1db-4033-851c-1df68d40f579/source.jpeg"
-              },
-              "self": {
-                "href": "https://drive-b.amocrm.ru/v1.0/files/89a61e7b-ba30-476f-b2f6-705a964e85c6/versions/fd8401e1-c1db-4033-851c-1df68d40f579"
-              }
-            },
-            "created_at": 1671995440,
-            "created_by": { "type": "internal", "id": 7758337 },
-            "file_uuid": "89a61e7b-ba30-476f-b2f6-705a964e85c6",
-            "is_main": true,
-            "metadata": { "extension": "jpeg", "mime_type": "image/jpeg" },
-            "name": "source",
-            "previews": null,
-            "sanitized_name": "source",
-            "size": 93425,
-            "source_id": null,
-            "type": "image",
-            "updated_at": 1671995440,
-            "updated_by": { "type": "internal", "id": 7758337 },
-            "uuid": "fd8401e1-c1db-4033-851c-1df68d40f579"
+```json
+{
+  "_count": 2,
+  "_embedded": {
+    "versions": [
+      {
+        "_links": {
+          "download": {
+            "href": "https://drive-b.amocrm.ru/download/21c0e773-0b10-57ac-96d1-c0b97ba6a3f7/89a61e7b-ba30-476f-b2f6-705a964e85c6/fd8401e1-c1db-4033-851c-1df68d40f579/source.jpeg"
           },
-          {
-            "_links": {
-              "download": {
-                "href": "https://drive-b.amocrm.ru/download/21c0e773-0b10-57ac-96d1-c0b97ba6a3f7/89a61e7b-ba30-476f-b2f6-705a964e85c6/17006a5b-aa43-4b2f-a380-e851786b9a57/consoleText.txt"
-              },
-              "self": {
-                "href": "https://drive-b.amocrm.ru/v1.0/files/89a61e7b-ba30-476f-b2f6-705a964e85c6/versions/17006a5b-aa43-4b2f-a380-e851786b9a57"
-              }
-            },
-            "created_at": 1663233556,
-            "created_by": { "type": "internal", "id": 7758337 },
-            "file_uuid": "89a61e7b-ba30-476f-b2f6-705a964e85c6",
-            "is_main": false,
-            "metadata": { "extension": "txt", "mime_type": "" },
-            "name": "consoleText",
-            "previews": null,
-            "sanitized_name": "consoleText",
-            "size": 7347,
-            "source_id": null,
-            "type": "file",
-            "updated_at": 1670599185,
-            "updated_by": { "type": "internal", "id": 7758337 },
-            "uuid": "17006a5b-aa43-4b2f-a380-e851786b9a57"
+          "self": {
+            "href": "https://drive-b.amocrm.ru/v1.0/files/89a61e7b-ba30-476f-b2f6-705a964e85c6/versions/fd8401e1-c1db-4033-851c-1df68d40f579"
           }
-        ]
+        },
+        "created_at": 1671995440,
+        "created_by": { "type": "internal", "id": 7758337 },
+        "file_uuid": "89a61e7b-ba30-476f-b2f6-705a964e85c6",
+        "is_main": true,
+        "metadata": { "extension": "jpeg", "mime_type": "image/jpeg" },
+        "name": "source",
+        "previews": null,
+        "sanitized_name": "source",
+        "size": 93425,
+        "source_id": null,
+        "type": "image",
+        "updated_at": 1671995440,
+        "updated_by": { "type": "internal", "id": 7758337 },
+        "uuid": "fd8401e1-c1db-4033-851c-1df68d40f579"
       },
-      "_links": {
-        "self": {
-          "href": "https://drive-b.amocrm.ru/v1.0/files/89a61e7b-ba30-476f-b2f6-705a964e85c6/versions"
-        }
+      {
+        "_links": {
+          "download": {
+            "href": "https://drive-b.amocrm.ru/download/21c0e773-0b10-57ac-96d1-c0b97ba6a3f7/89a61e7b-ba30-476f-b2f6-705a964e85c6/17006a5b-aa43-4b2f-a380-e851786b9a57/consoleText.txt"
+          },
+          "self": {
+            "href": "https://drive-b.amocrm.ru/v1.0/files/89a61e7b-ba30-476f-b2f6-705a964e85c6/versions/17006a5b-aa43-4b2f-a380-e851786b9a57"
+          }
+        },
+        "created_at": 1663233556,
+        "created_by": { "type": "internal", "id": 7758337 },
+        "file_uuid": "89a61e7b-ba30-476f-b2f6-705a964e85c6",
+        "is_main": false,
+        "metadata": { "extension": "txt", "mime_type": "" },
+        "name": "consoleText",
+        "previews": null,
+        "sanitized_name": "consoleText",
+        "size": 7347,
+        "source_id": null,
+        "type": "file",
+        "updated_at": 1670599185,
+        "updated_by": { "type": "internal", "id": 7758337 },
+        "uuid": "17006a5b-aa43-4b2f-a380-e851786b9a57"
       }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "https://drive-b.amocrm.ru/v1.0/files/89a61e7b-ba30-476f-b2f6-705a964e85c6/versions"
     }
+  }
+}
+```
 
 ### Получение файлов связанных с сущностью
 
@@ -883,19 +907,21 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-      "_links": {
-        "self": {
-          "href": "https://wombat.amocrm.ru/ajax/v4/leads/18437733/files?limit=50"
-        }
-      },
-      "_embedded": {
-        "files": [
-          { "file_uuid": "50ca4b6b-0b88-4ece-9f89-d48961579ae0", "id": 2140857 },
-          { "file_uuid": "5ef222cd-bce4-4df8-8466-3dee7d16e70d", "id": 2128681 }
-        ]
-      }
+```json
+{
+  "_links": {
+    "self": {
+      "href": "https://wombat.amocrm.ru/ajax/v4/leads/18437733/files?limit=50"
     }
+  },
+  "_embedded": {
+    "files": [
+      { "file_uuid": "50ca4b6b-0b88-4ece-9f89-d48961579ae0", "id": 2140857 },
+      { "file_uuid": "5ef222cd-bce4-4df8-8466-3dee7d16e70d", "id": 2128681 }
+    ]
+  }
+}
+```
 
 ### Привязка файлов к сущности
 
@@ -931,14 +957,16 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    [
-      {
-        "file_uuid": "50ca4b6b-0b88-4ece-9f89-d48961579ae0"
-      },
-      {
-        "file_uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
-      }
-    ]
+```json
+[
+  {
+    "file_uuid": "50ca4b6b-0b88-4ece-9f89-d48961579ae0"
+  },
+  {
+    "file_uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
+  }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -1055,36 +1083,38 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
+```json
+{
+  "file_uuid": "5ef222cd-bce4-4df8-8466-3dee7d16e70d",
+  "entities": [
     {
-      "file_uuid": "5ef222cd-bce4-4df8-8466-3dee7d16e70d",
-      "entities": [
-        {
-          "id": 22859207,
-          "name": "Сделка #22859207",
-          "created_by": 0,
-          "main_user_id": 7758337,
-          "date_create": 1669372247,
-          "price": 20,
-          "pipeline_id": 3858604,
-          "date_update": 1672060100,
-          "updated_by": 7758337,
-          "entity_type": "leads",
-          "status_id": 37066879,
-          "closest_task_at": null
-        },
-        {
-          "id": 19229439,
-          "name": "Сделка #19229439",
-          "created_by": 0,
-          "main_user_id": 7758337,
-          "date_create": 1651773549,
-          "price": 20,
-          "pipeline_id": 3858604,
-          "date_update": 1662404148,
-          "updated_by": null,
-          "entity_type": "leads",
-          "status_id": 37066876,
-          "closest_task_at": null
-        }
-      ]
+      "id": 22859207,
+      "name": "Сделка #22859207",
+      "created_by": 0,
+      "main_user_id": 7758337,
+      "date_create": 1669372247,
+      "price": 20,
+      "pipeline_id": 3858604,
+      "date_update": 1672060100,
+      "updated_by": 7758337,
+      "entity_type": "leads",
+      "status_id": 37066879,
+      "closest_task_at": null
+    },
+    {
+      "id": 19229439,
+      "name": "Сделка #19229439",
+      "created_by": 0,
+      "main_user_id": 7758337,
+      "date_create": 1651773549,
+      "price": 20,
+      "pipeline_id": 3858604,
+      "date_update": 1662404148,
+      "updated_by": null,
+      "entity_type": "leads",
+      "status_id": 37066876,
+      "closest_task_at": null
     }
+  ]
+}
+```

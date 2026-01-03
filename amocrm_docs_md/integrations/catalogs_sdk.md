@@ -1,24 +1,28 @@
 <!-- https://www.amocrm.ru/developers/content/integrations/catalogs_sdk -->
 
-# JS методы для работы с SDK списков
+# SDK списков
 
-SDK списков
+### JS методы для работы с SDK списков
 
 В данном разделе описываются функции и последовательность действий, для работы с SDK списков
 
-В системе реализована возможность заменять стандартную карточку редактирования элемента списка. Для этого необходимо в manifest.json установить [область подключения](/developers/content/integrations/areas) виджета “catalogs”, после чего указать id каталога, в котором будет использоваться кастомная карточка вместо обычной
+В системе реализована возможность заменять стандартную карточку редактирования элемента списка. Для этого необходимо в manifest.json установить [область подключения](/integrations/areas.html) виджета “catalogs”, после чего указать id каталога, в котором будет использоваться кастомная карточка вместо обычной
 
 Для того, чтобы указать id каталога, необходимо до момента сохранения настроек виджета вызвать специальный метод виджета setSdkCatalogId, передав в качестве аргумента id каталога. Сделать это можно, например, в callback’е onSave
 
 Пример:
 
-    onSave: _.bind(function () {
-        this.setSdkCatalogId(this.params.catalog_id);
-        return true;
-    }, self),
+```
+onSave: _.bind(function () {
+    this.setSdkCatalogId(this.params.catalog_id);
+    return true;
+}, self),
+```
 
 После установки настроек, при попытке отредактировать элемент каталога, будет вызван callback виджета loadCatalogElement. При этом, стандартная карточка редактирования элемента списка не откроется.
 
-    loadCatalogElement: function (catalog_element) {
-        console.log('Редактирование элемента каталога #' + catalog_element.id);
-    },
+```
+loadCatalogElement: function (catalog_element) {
+    console.log('Редактирование элемента каталога #' + catalog_element.id);
+},
+```

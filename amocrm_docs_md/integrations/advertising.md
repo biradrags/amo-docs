@@ -1,8 +1,6 @@
 <!-- https://www.amocrm.ru/developers/content/integrations/advertising -->
 
-# https://www.amocrm.ru/developers/content/integrations/advertising
-
-Рекламное размещение
+# Рекламное размещение
 
 В amoMarket вы можете не только опубликовать вашу интеграцию, но и активно продвигать ее среди пользователей. Для этого в вашем техническом аккаунте есть отдельный раздел – Рекламное размещение.
 

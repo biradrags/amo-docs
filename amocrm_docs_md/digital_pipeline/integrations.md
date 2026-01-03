@@ -1,8 +1,8 @@
 <!-- https://www.amocrm.ru/developers/content/digital_pipeline/integrations -->
 
-# Виджеты в digital pipeline
+# Разработка интеграций
 
-Разработка интеграций
+### Виджеты в digital pipeline
 
 Виджеты могут взаимодействовать с функционалом цифровой воронки и реагировать на какие-либо из следующих событий:
 
@@ -14,37 +14,39 @@
 
 ![](https://i.postimg.cc/pLnJGqY6/select-event.png)
 
-Для взаимодействия виджета с цифровой воронкой, в файле manifest.json необходимо указать область видимости digital\_pipeline и блок dp/settings, подробнее о структуре виджета, [см. здесь](/developers/content/integrations/structure).
+Для взаимодействия виджета с цифровой воронкой, в файле manifest.json необходимо указать область видимости digital\_pipeline и блок dp/settings, подробнее о структуре виджета, [см. здесь](/integrations/structure.html).
 
 При наступлении события мы отправим webhook на указанный адрес. Важно отметить, что мы ожидаем от вашего акцептора максимально быстрый ответ. **Используя свойство webhook\_url, можно получить данные из digital pipeline к себе на сервер без отправки виджета на модерацию.**
 
 #### Пример ответа
 
-    {
-        "event": {
-            "type": 15,
-            "type_code": "lead_appeared_in_status",
-            "data": {
-                "id": 123124, // id сделки
-                "element_type": 2, // Тип элемента (2 - сделка, 12 - покупатель)
-                "status_id": 654324, // статус сделки
-                "pipeline_id": 654324, // воронка сделки
-                "direction_of_movement": "went_to_trigger" // направление движения сделки относительно триггера
-            },
-            "time": 1491300016
+```javascript
+{
+    "event": {
+        "type": 15,
+        "type_code": "lead_appeared_in_status",
+        "data": {
+            "id": 123124, // id сделки
+            "element_type": 2, // Тип элемента (2 - сделка, 12 - покупатель)
+            "status_id": 654324, // статус сделки
+            "pipeline_id": 654324, // воронка сделки
+            "direction_of_movement": "went_to_trigger" // направление движения сделки относительно триггера
         },
-        "action": {
-            "settings": {
-                "widget": {
-                    "settings": {
-                        //Настройки виджета dp
-                    }
+        "time": 1491300016
+    },
+    "action": {
+        "settings": {
+            "widget": {
+                "settings": {
+                    //Настройки виджета dp
                 }
             }
-        },
-        "subdomain": "ivanov",
-        "account_id": 30441694
-    }
+        }
+    },
+    "subdomain": "ivanov",
+    "account_id": 30441694
+}
+```
 
 #### Список возможных значений type и type\_code
 
@@ -73,7 +75,7 @@
 
 #### Интеграция с API
 
-Подробнее про добавление сделок через API с уникальным идентификатором посетителя можно узнать на [этой странице](/developers/content/digital_pipeline/site_visit).
+Подробнее про добавление сделок через API с уникальным идентификатором посетителя можно узнать на [этой странице](/digital_pipeline/site_visit.html).
 
 \*\*\*\*\*В том случае когда в блоке dp вашего manifest.json вы указываете action\_multiple – true, то тем самым вы позволяете растягивать (задавать) действие вашего виджета сразу на несколько этапов. При смене статуса сделки/покупателя, в области растянутого на несколько этапов действия вашего виджета, будет приходить type = 15. При этом, при переходе сделки/покупателя в статус в котором активируется ваш виджет, изначально придёт type = 14.
 
@@ -89,52 +91,56 @@
 
 #### Пример
 
-    dpSettings: function() {
-        var w_code = self.get_settings().widget_code, //Код виджета, заданный в manifest.json
-            lang = self.i18n('settings'),
-            dp_modal = $(".digital-pipeline__short-task_widget-style_" + w_code) //Благодаря подстановке кода(w_code) вашего виджета, мы можем обратиться к элементу содержащему именно ваш виджет
-            .parent()
-            .parent()
-            .find('[data-action=send_widget_hook]'),
-            message_label = dp_modal.find('[title^=' + lang.message.split(" ")[0] + ']'), //Ваши пояснения к полям, описанные в ru.json
-            message_label_new = "" + lang.message + "",
-            message_input = dp_modal.find('input[name=message]'), //Обращение к введёному тексту
-            message_textarea = self.render( //Отрисовываем поле ввода текста
-                {
-                    ref: '/tmpl/controls/textarea.twig'
-                }, {
-                    id: 'dp_message',
-                    style: {
-                        'width': '396px',
-                        'margin-top': '5px',
-                        'margin-bottom': '-3px'
-                    },
-                    value: message_input.val(),
-                    placeholder: lang.message
-                }
-            );
-        message_label.hide().after(message_label_new);
-    
-        message_input.hide().after(message_textarea);
-    
-        return true;
-    }
-
-Важно помнить, об объявлении настроек в manifest.json, подробнее о структуре виджета [здесь](/developers/content/integrations/structure#manifest)
-
-    "locations": [
-        "settings",
-        "digital_pipeline"
-    ],
-    "dp": {
-        "settings": {
-            "message": {
-                "name": "settings.message",
-                "type": "text",
-                "required": true
+```javascript
+dpSettings: function() {
+    var w_code = self.get_settings().widget_code, //Код виджета, заданный в manifest.json
+        lang = self.i18n('settings'),
+        dp_modal = $(".digital-pipeline__short-task_widget-style_" + w_code) //Благодаря подстановке кода(w_code) вашего виджета, мы можем обратиться к элементу содержащему именно ваш виджет
+        .parent()
+        .parent()
+        .find('[data-action=send_widget_hook]'),
+        message_label = dp_modal.find('[title^=' + lang.message.split(" ")[0] + ']'), //Ваши пояснения к полям, описанные в ru.json
+        message_label_new = "" + lang.message + "",
+        message_input = dp_modal.find('input[name=message]'), //Обращение к введёному тексту
+        message_textarea = self.render( //Отрисовываем поле ввода текста
+            {
+                ref: '/tmpl/controls/textarea.twig'
+            }, {
+                id: 'dp_message',
+                style: {
+                    'width': '396px',
+                    'margin-top': '5px',
+                    'margin-bottom': '-3px'
+                },
+                value: message_input.val(),
+                placeholder: lang.message
             }
+        );
+    message_label.hide().after(message_label_new);
+
+    message_input.hide().after(message_textarea);
+
+    return true;
+}
+```
+
+Важно помнить, об объявлении настроек в manifest.json, подробнее о структуре виджета [здесь](/integrations/structure#manifest.html)
+
+```javascript
+"locations": [
+    "settings",
+    "digital_pipeline"
+],
+"dp": {
+    "settings": {
+        "message": {
+            "name": "settings.message",
+            "type": "text",
+            "required": true
         }
     }
+}
+```
 
 ### Работа автоматического действия по событию “При заходе на сайт”
 
@@ -166,37 +172,39 @@
 
 ![](https://i.postimg.cc/jSV75KPM/only-main.png)
 
-    /* script.js, front-end часть */
-    dpSettings: function() {
-        var lang = self.i18n('dp.settings');
-        var form = $('#widget_settings__fields_wrapper');
-        var field_divs = form.find('.widget_settings_block__input_field');
-        var textarea_div = field_divs.first();
-        textarea_div.html('<textarea name="message" ' +
-            'style="height:50px; width: 100%;" ' +
-            'id="message" ' +
-            'class="text-input text-input-textarea digital-pipeline__add-task-textarea textarea-autosize task-edit__textarea">' +
-            '' + textarea_div.find('input').val() +
-            '</textarea>');
-        var checkbox_template = '<label class="control-checkbox">' +
-            '<div class="control-checkbox__body">' +
-            '<input type="checkbox" id=""/>' +
-            '<span class="control-checkbox__helper"></span>' +
-            '</div>' +
-            '<div class="control-checkbox__text element__text">' +
-            '<span class="control-checkbox__note-text">' + lang.only_main.name + '</span>' +
-            '</div>' +
-            '</div>' +
-            '</label>';
-        var checkbox_div = field_divs.last();
-        checkbox_div.siblings().html('');
-        checkbox_div.html(checkbox_template);
-        return true;
-    }
+```javascript
+/* script.js, front-end часть */
+dpSettings: function() {
+    var lang = self.i18n('dp.settings');
+    var form = $('#widget_settings__fields_wrapper');
+    var field_divs = form.find('.widget_settings_block__input_field');
+    var textarea_div = field_divs.first();
+    textarea_div.html('<textarea name="message" ' +
+        'style="height:50px; width: 100%;" ' +
+        'id="message" ' +
+        'class="text-input text-input-textarea digital-pipeline__add-task-textarea textarea-autosize task-edit__textarea">' +
+        '' + textarea_div.find('input').val() +
+        '</textarea>');
+    var checkbox_template = '<label class="control-checkbox">' +
+        '<div class="control-checkbox__body">' +
+        '<input type="checkbox" id=""/>' +
+        '<span class="control-checkbox__helper"></span>' +
+        '</div>' +
+        '<div class="control-checkbox__text element__text">' +
+        '<span class="control-checkbox__note-text">' + lang.only_main.name + '</span>' +
+        '</div>' +
+        '</div>' +
+        '</label>';
+    var checkbox_div = field_divs.last();
+    checkbox_div.siblings().html('');
+    checkbox_div.html(checkbox_template);
+    return true;
+}
+```
 
 ### Логирование
 
-В том случае если по результатам работы вашего виджета вам необходимо занести соответствующую уведомительную информацию в карточку сущности, то мы рекомендуем воспользоваться добавлением системного события. Подробнее о событиях и их типах см. [здесь](/developers/content/crm_platform/events-and-notes).
+В том случае если по результатам работы вашего виджета вам необходимо занести соответствующую уведомительную информацию в карточку сущности, то мы рекомендуем воспользоваться добавлением системного события. Подробнее о событиях и их типах см. [здесь](/crm_platform/events-and-notes.html).
 
 События отображаются в карточках на ряду с задачами, всегда в хронологическом порядке.
 
@@ -210,10 +218,10 @@
 
 В amoCRM есть возможность подключить, уже реализованного, salesbot’a. Данного бота можно запрограммировать на выполнение определенных действий. Он помогает получать от пользователей данные через мессенджеры (Telegram, Facebook Messenger, VK, Viber).
 
-Подробная инструкция по подключению, функционалу, настройке, языку и работе с нашим Salesbot в разделе [Salesbot](/developers/content/digital_pipeline/salesbot)
+Подробная инструкция по подключению, функционалу, настройке, языку и работе с нашим Salesbot в разделе [Salesbot](/digital_pipeline/salesbot.html)
 
 #### Обмен информацией с внешними веб-серверами
 
 **Каждый аккаунт в amoCRM на тарифе расширенный и выше имеет возможность сообщать о действиях на ваш веб- сервер.** Эти “WebHooks” могут быть использованы для обновления информации о сделках в вашем магазине, отправки смс уведомлений или автоматизации ведения сделок. Каждый WebHook может быть настроен для определённой операции и событий.
 
-WebHooks – это уведомление сторонних приложений посредством отправки уведомлений о событиях, произошедших в amoCRM. Подробнее о работе WebHooks и digital pipeline смотрите в разделе [WebHook](/developers/content/digital_pipeline/webhooks).
+WebHooks – это уведомление сторонних приложений посредством отправки уведомлений о событиях, произошедших в amoCRM. Подробнее о работе WebHooks и digital pipeline смотрите в разделе [WebHook](/digital_pipeline/webhooks.html).

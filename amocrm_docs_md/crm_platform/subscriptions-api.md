@@ -1,12 +1,12 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/subscriptions-api -->
 
-# Оглавление
-
-Подписчики сущности
+# Подписчики сущности
 
 В данном разделе описываются доступные методы для работы с подписчиками сущности
 
-*   [Список подписчиков сущности](#subscriptions-list)
+### Оглавление
+
+*   [Список подписчиков сущности](/crm_platform/subscriptions-api#subscriptions-list.html)
     
 
 ### Список подписчиков сущности
@@ -62,25 +62,27 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_total_items": 2,
-        "_page": 1,
-        "_page_count": 1,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads/667999637/subscriptions?page=1&limit=50"
-            }
-        },
-        "_embedded": {
-            "subscriptions": [
-                {
-                    "subscriber_id": 964291,
-                    "type": "user"
-                },
-                {
-                    "subscriber_id": 1150,
-                    "type": "group"
-                }
-            ]
+```json
+{
+    "_total_items": 2,
+    "_page": 1,
+    "_page_count": 1,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads/667999637/subscriptions?page=1&limit=50"
         }
+    },
+    "_embedded": {
+        "subscriptions": [
+            {
+                "subscriber_id": 964291,
+                "type": "user"
+            },
+            {
+                "subscriber_id": 1150,
+                "type": "group"
+            }
+        ]
     }
+}
+```

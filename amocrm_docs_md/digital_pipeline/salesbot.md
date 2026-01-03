@@ -1,14 +1,14 @@
 <!-- https://www.amocrm.ru/developers/content/digital_pipeline/salesbot -->
 
-# Оглавление
+# Salesbot
 
-Salesbot
+### Оглавление
 
-*   [Начало работы с Salesbot](#Начало-работы-с-Salesbot)
-*   [Язык Salesbot](#Язык-Salesbot)
-*   [Обработчик ошибок Salesbot](#Обработчик-ошибок-Salesbot)
-*   [Обработчики Salesbot](#Обработчики-Salesbot)
-*   [Примеры](#Примеры)
+*   [Начало работы с Salesbot](/digital_pipeline/salesbot#%D0%9D%D0%B0%D1%87%D0%B0%D0%BB%D0%BE-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B-%D1%81-Salesbot.html)
+*   [Язык Salesbot](/digital_pipeline/salesbot#%D0%AF%D0%B7%D1%8B%D0%BA-Salesbot.html)
+*   [Обработчик ошибок Salesbot](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-Salesbot.html)
+*   [Обработчики Salesbot](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA%D0%B8-Salesbot.html)
+*   [Примеры](/digital_pipeline/salesbot#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D1%8B.html)
 
 ### Начало работы с Salesbot
 
@@ -39,7 +39,7 @@ Salesbot можно подключить двумя способами:
 
 #### Подключение интеграции к Salesbot
 
-Раздел "Сделки" – "Настроить" – в левой колонке нажимаем "Добавить" – в появившемся окне ищем "Виджеты" – добавляем нужный виджет. Больше информации об интеграции виджета в Salesbot можно прочитать [здесь](https://www.amocrm.ru/developers/content/integrations/salesbot_widget)
+Раздел "Сделки" – "Настроить" – в левой колонке нажимаем "Добавить" – в появившемся окне ищем "Виджеты" – добавляем нужный виджет. Больше информации об интеграции виджета в Salesbot можно прочитать [здесь](/integrations/salesbot_widget.html)
 
 ![](https://i.postimg.cc/MKTNydWv/2023-04-08-12-14.jpg)
 
@@ -51,43 +51,45 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
-    [
+```json
+[
+  {
+    "question": [
       {
-        "question": [
-          {
-            "handler": "show",
-            "params": {
-              "type": "text",
-              "value": "Сообщите,пожалуйста, ваш номер телефона и e-mail"
-            }
-          },
-          {
-            "handler": "action",
-            "params": {
-              "name": "set_tag",
-              "params": {
-                "type": 2,
-                "value": "salesbot"
-              }
-            }
+        "handler": "show",
+        "params": {
+          "type": "text",
+          "value": "Сообщите,пожалуйста, ваш номер телефона и e-mail"
+        }
+      },
+      {
+        "handler": "action",
+        "params": {
+          "name": "set_tag",
+          "params": {
+            "type": 2,
+            "value": "salesbot"
           }
-        ],
-        "answer": [
-          {
-            "handler": "preset",
-            "params": {
-              "name": "contacts.validate_base_info",
-              "params": {
-                "empty_email": "Пришлите,пожалуйста, ваш e-mail",
-                "empty_phone": "Пришлите,пожалуйста, ваш номер телефона",
-                "invalid_phone": "Нам кажется, что в номере телефона ошибка",
-                "success": "Спасибо"
-              }
-            }
+        }
+      }
+    ],
+    "answer": [
+      {
+        "handler": "preset",
+        "params": {
+          "name": "contacts.validate_base_info",
+          "params": {
+            "empty_email": "Пришлите,пожалуйста, ваш e-mail",
+            "empty_phone": "Пришлите,пожалуйста, ваш номер телефона",
+            "invalid_phone": "Нам кажется, что в номере телефона ошибка",
+            "success": "Спасибо"
           }
-        ]
+        }
       }
     ]
+  }
+]
+```
 
 В объекте должен быть ключ question, answer или finish.  
 Данные в объекте question отвечают за действия, которые будут происходить при отправке сообщения пользователю.  
@@ -102,38 +104,39 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
-    
-    $bot_text = 'Привет мир!';
-    $salesbot = [
+```php
+$bot_text = 'Привет мир!';
+$salesbot = [
+    [
+        'question' =>
         [
-            'question' =>
             [
-                [
-    
-                    'handler' =>
-                    'show',
-                    'params' => [
-                        'type' => 'text',
-                        'value' => $bot_text,
-                    ],
-                ],
-            ],
-            'answer' =>
-            [
-                [
-    
-                    'handler' =>
-                    'preset',
-                    'params' => [
-                        'name' =>
-                        'contacts.get_base_info',
-                    ],
+
+                'handler' =>
+                'show',
+                'params' => [
+                    'type' => 'text',
+                    'value' => $bot_text,
                 ],
             ],
         ],
-    ];
-    
-    echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        'answer' =>
+        [
+            [
+
+                'handler' =>
+                'preset',
+                'params' => [
+                    'name' =>
+                    'contacts.get_base_info',
+                ],
+            ],
+        ],
+    ],
+];
+
+echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+```
 
 Результатом выполнения кода выше будет валидный JSON объект, готовый для вставки в Salesbot’а Digital воронки.
 
@@ -143,47 +146,49 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
+```javascript
+{
+  "0": {
+    "question": [
+      ...
+    ],
+    "answer": [
+      ...
+    ]
+  },
+  "error": [
     {
-      "0": {
-        "question": [
-          ...
-        ],
-        "answer": [
-          ...
-        ]
-      },
-      "error": [
-        {
-          "handler": "action",
-          "params": {
-            "name": "change_status",
-            "params": {
-              "value": 142
-            }
-          }
+      "handler": "action",
+      "params": {
+        "name": "change_status",
+        "params": {
+          "value": 142
         }
-      ]
+      }
     }
+  ]
+}
+```
 
 ### Обработчики Salesbot
 
 | Код | Описание |
 | --- | --- |
-| [show](#Обработчик-show) | Отправляет сообщение с текстом |
-| [buttons](#Обработчик-buttons) | Обработка ответа, полученного от кнопок из мессенджеров (VK не поддерживает отображение кнопок) |
-| [action](#Обработчик-action) | Действие |
-| [meta](#Обработчик-meta) | Обработка мета-данных |
-| [condition](#Обработчик-condition) | Условие |
-| [validations](#Обработчик-validations) | Проверка |
-| [preset](#Обработчик-preset) | Обрабатывает данные по определенному алгоритму |
-| [goto](#Обработчик-goto) | Переход сценария к определенному шагу |
-| [wait\_answer](#Обработчик-wait_answer) | Ожидание ответа |
-| [find](#Обработчик-find) | Поиск |
-| [filter](#Обработчик-filter) | Фильтрация |
-| [send\_internal](#Обработчик-send_internal) | Отправить внутреннее сообщение |
-| [widget\_request](#Обработчик-widget_request) | Отправка WebHook |
-| [stop](#Обработчик-stop) | Действие при завершении бота |
-| [send\_external\_message](#Обработчик-send_external_message) | Отправляет сообщение с текстом и возможностью фильтрации по получателю и чату |
+| [show](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-show.html) | Отправляет сообщение с текстом |
+| [buttons](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-buttons.html) | Обработка ответа, полученного от кнопок из мессенджеров (VK не поддерживает отображение кнопок) |
+| [action](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-action.html) | Действие |
+| [meta](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-meta.html) | Обработка мета-данных |
+| [condition](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-condition.html) | Условие |
+| [validations](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-validations.html) | Проверка |
+| [preset](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-preset.html) | Обрабатывает данные по определенному алгоритму |
+| [goto](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-goto.html) | Переход сценария к определенному шагу |
+| [wait\_answer](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-wait_answer.html) | Ожидание ответа |
+| [find](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-find.html) | Поиск |
+| [filter](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-filter.html) | Фильтрация |
+| [send\_internal](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-send_internal.html) | Отправить внутреннее сообщение |
+| [widget\_request](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-widget_request.html) | Отправка WebHook |
+| [stop](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-stop.html) | Действие при завершении бота |
+| [send\_external\_message](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-send_external_message.html) | Отправляет сообщение с текстом и возможностью фильтрации по получателю и чату |
 
 #### Обработчик show
 
@@ -226,17 +231,19 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
-    {
-      "handler": "show",
-      "params": {
-        "type": "text",
-        "value": "Сообщите, пожалуйста, ваш номер телефона и e-mail",
-        "quick_replies": [
-          "user_phone_number",
-          "user_email"
-        ]
-      }
-    }
+```javascript
+{
+  "handler": "show",
+  "params": {
+    "type": "text",
+    "value": "Сообщите, пожалуйста, ваш номер телефона и e-mail",
+    "quick_replies": [
+      "user_phone_number",
+      "user_email"
+    ]
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -248,17 +255,19 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
-    {
-      "handler": "show",
-      "params": {
-        "type": "buttons",
-        "value": "Выберите, пожалуйста, тип участия:",
-        "buttons": [
-          "Личное присутствие",
-          "Онлайн"
-        ]
-      }
-    }
+```javascript
+{
+  "handler": "show",
+  "params": {
+    "type": "buttons",
+    "value": "Выберите, пожалуйста, тип участия:",
+    "buttons": [
+      "Личное присутствие",
+      "Онлайн"
+    ]
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -271,23 +280,25 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
-    {
-        "handler": "show",
-        "params": {
-            "type": "buttons_url",
-            "value": "Кнопки со ссылками",
-            "buttons": [
-                {
-                    "text": "Яндекс",
-                    "url": "https://yandex.ru"
-                },
-                {
-                    "text": "Google",
-                    "url": "https://google.ru"
-                }
-            ]
-        }
+```javascript
+{
+    "handler": "show",
+    "params": {
+        "type": "buttons_url",
+        "value": "Кнопки со ссылками",
+        "buttons": [
+            {
+                "text": "Яндекс",
+                "url": "https://yandex.ru"
+            },
+            {
+                "text": "Google",
+                "url": "https://google.ru"
+            }
+        ]
     }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -309,33 +320,35 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
+```javascript
+{
+  "handler": "buttons",
+  "params": [
     {
-      "handler": "buttons",
+      "value": "Личное присутствие",
       "params": [
         {
-          "value": "Личное присутствие",
-          "params": [
-            {
-              "handler": "...",
-              "params": {
-                ...
-              }
-            }
-          ]
-        },
+          "handler": "...",
+          "params": {
+            ...
+          }
+        }
+      ]
+    },
+    {
+      "value": "Онлайн",
+      "params": [
         {
-          "value": "Онлайн",
-          "params": [
-            {
-              "handler": "...",
-              "params": {
-                ...
-              }
-            }
-          ]
+          "handler": "...",
+          "params": {
+            ...
+          }
         }
       ]
     }
+  ]
+}
+```
 
 Обработчик buttons ожидает на вход в параметры массив объектов, в которых можно вызвать любой из обработчиков, указанных на этой странице
 
@@ -345,13 +358,15 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
-    {
-      "handler": "goto",
-      "params": {
-        "type": "question",
-        "step": 3
-      }
-    }
+```javascript
+{
+  "handler": "goto",
+  "params": {
+    "type": "question",
+    "step": 3
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -364,13 +379,15 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
-    {
-      "handler": "wait_answer",
-      "params": {
-        "type": "question",
-        "step": 2
-      }
-    }
+```javascript
+{
+  "handler": "wait_answer",
+  "params": {
+    "type": "question",
+    "step": 2
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -381,62 +398,64 @@ Salesbot можно подключить двумя способами:
 
 Обработчик find позволяет найти сущность и использовать ее данные. Если найден элемент, можно использовать маркеры:  
 `{{founded_id}}` – ID первого найденного элемента каталога  
-`{{contact_double.*}}` – если найден дубль контакта, можно обратиться к его полям по аналогии с маркерами `{{contact.*}}` из [SHOW](#salesbot-markers)
+`{{contact_double.*}}` – если найден дубль контакта, можно обратиться к его полям по аналогии с маркерами `{{contact.*}}` из [SHOW](/digital_pipeline/salesbot#salesbot-markers.html)
 
 #### Пример
 
-    {
-      "handler": "find",
-      "params": {
-        "type": "contact_double",
-        "params": {
-          "type": "name",
-          "actions": [
-            {
-              "handler": "show",
-              "params": {
-                "type": "buttons",
-                "value": "Это ваш номер {{contact_double.cf.3574}}?",
-                "buttons": [
-                  "Да",
-                  "Нет"
-                ]
-              }
-            }
-          ]
+```javascript
+{
+  "handler": "find",
+  "params": {
+    "type": "contact_double",
+    "params": {
+      "type": "name",
+      "actions": [
+        {
+          "handler": "show",
+          "params": {
+            "type": "buttons",
+            "value": "Это ваш номер {{contact_double.cf.3574}}?",
+            "buttons": [
+              "Да",
+              "Нет"
+            ]
+          }
         }
-      }
+      ]
     }
-    
-    {
-      "handler": "find",
-      "params": {
-      "type": "catalog_elements",
-        "params": {
-          "value": "Salesbot",
-          "catalog_id": "15123",
-          "actions": [
-            {
-              "handler": "show",
-              "params": {
-                "type": "buttons",
-                "value": "Найден элемент с ID - {{founded_id}}",
-                "buttons": [
-                    "Да",
-                    "Нет"
-                ]
-              }
-            }
-          ]
+  }
+}
+
+{
+  "handler": "find",
+  "params": {
+  "type": "catalog_elements",
+    "params": {
+      "value": "Salesbot",
+      "catalog_id": "15123",
+      "actions": [
+        {
+          "handler": "show",
+          "params": {
+            "type": "buttons",
+            "value": "Найден элемент с ID - {{founded_id}}",
+            "buttons": [
+                "Да",
+                "Нет"
+            ]
+          }
         }
-      }
+      ]
     }
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
 | type | string | contact\_double – поиск дубля текущего контакта catalog\_elements – поиск элемента каталога |
 | params | array | type – может быть name (поиск доступен по имени, для поиска по каталогу не обязателен), actions – действия, которые надо выполнить если сущность была найдена |
-| value | string | Для типа actions – слово которое ищем, могут быть использованы маркеры из блока [SHOW](#salesbot-markers); для типа catalog\_elements – имя элемента каталога |
+| value | string | Для типа actions – слово которое ищем, могут быть использованы маркеры из блока [SHOW](/digital_pipeline/salesbot#salesbot-markers.html); для типа catalog\_elements – имя элемента каталога |
 | catalog\_id | int | Id каталога – в котором ищем элементы |
 
 #### Обработчик filter
@@ -445,33 +464,35 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
-    {
-      "handler": "filter",
-      "params": {
-        "type": 2,
-        "value": "{{lead.cf.111}}",
-        "custom_fields_id": 222,
-        "actions": [
-          {
-            "handler": "action",
-            "params": {
-              "name": "set_custom_fields",
-              "params": {
-                "type": 1,
-                "value": "{{external_contact.cf.333}}",
-                "custom_fields_id": 444,
-                "enum": "WORK"
-              }
-            }
+```javascript
+{
+  "handler": "filter",
+  "params": {
+    "type": 2,
+    "value": "{{lead.cf.111}}",
+    "custom_fields_id": 222,
+    "actions": [
+      {
+        "handler": "action",
+        "params": {
+          "name": "set_custom_fields",
+          "params": {
+            "type": 1,
+            "value": "{{external_contact.cf.333}}",
+            "custom_fields_id": 444,
+            "enum": "WORK"
           }
-        ]
+        }
       }
-    }
+    ]
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
 | type | int | Тип сущности по которой проихсодит фильтр: 1 – контакт, 2 – сделка, 12 – покупатель |
-| value | string | Слово по которому фильтруем, могут быть использованы маркеры из блока [SHOW](#salesbot-markers) |
+| value | string | Слово по которому фильтруем, могут быть использованы маркеры из блока [SHOW](/digital_pipeline/salesbot#salesbot-markers.html) |
 | custom\_fields\_id | int | Id кастомного поля, по которому будет произведен фильтр |
 
 #### Обработчик send\_internal
@@ -482,14 +503,16 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
-    {
-      "handler": "send_internal",
-      "params": {
-        "entity_id": "{{customer.id}}",
-        "entity_type": 12,
-        "message": "Всем привет"
-      }
-    }
+```javascript
+{
+  "handler": "send_internal",
+  "params": {
+    "entity_id": "{{customer.id}}",
+    "entity_type": 12,
+    "message": "Всем привет"
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -505,20 +528,20 @@ Salesbot можно подключить двумя способами:
 
 | Код | Описание |
 | --- | --- |
-| [unsorted](#Действие-unsorted) | Действия к неразобранному |
-| [change\_status](#Действие-change_status) | Смена статуса |
-| [set\_tag](#Действие-set_tag) | Установка тега |
-| [unset\_tag](#Действие-unset_tag) | Удаление тега |
-| [set\_custom\_fields](#Действие-set_custom_fields) | Установка значений полей сделки/контакта |
-| [subscribe](#Действие-subscribe) | Подписка пользователей на чат в сущности |
-| [unsubscribe](#Действие-unsubscribe) | Отписк пользователей от чата в сущности |
-| [add\_lead\_contact](#Действие-add_lead_contact) | Добавление сделки и контакта, связанных между собой |
-| [set\_budget](#Действие-set_budget) | Установка бюджета сделки |
-| [add\_linked\_company](#Действие-add_linked_company) | Добавление компании |
-| [add\_note](#Действие-add_note) | Добавление примечания |
-| [link](#Действие-link) | Связывает элементы |
-| [change\_responsible\_user](#Действие-change_responsible_user) | Меняет ответственного |
-| [link\_to\_unsorted](#Действие-link_to_unsorted) | Создаёт контакт из неразобранного и связывает его с сущностью |
+| [unsorted](/digital_pipeline/salesbot#%D0%94%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5-unsorted.html) | Действия к неразобранному |
+| [change\_status](/digital_pipeline/salesbot#%D0%94%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5-change_status.html) | Смена статуса |
+| [set\_tag](/digital_pipeline/salesbot#%D0%94%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5-set_tag.html) | Установка тега |
+| [unset\_tag](/digital_pipeline/salesbot#%D0%94%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5-unset_tag.html) | Удаление тега |
+| [set\_custom\_fields](/digital_pipeline/salesbot#%D0%94%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5-set_custom_fields.html) | Установка значений полей сделки/контакта |
+| [subscribe](/digital_pipeline/salesbot#%D0%94%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5-subscribe.html) | Подписка пользователей на чат в сущности |
+| [unsubscribe](/digital_pipeline/salesbot#%D0%94%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5-unsubscribe.html) | Отписк пользователей от чата в сущности |
+| [add\_lead\_contact](/digital_pipeline/salesbot#%D0%94%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5-add_lead_contact.html) | Добавление сделки и контакта, связанных между собой |
+| [set\_budget](/digital_pipeline/salesbot#%D0%94%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5-set_budget.html) | Установка бюджета сделки |
+| [add\_linked\_company](/digital_pipeline/salesbot#%D0%94%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5-add_linked_company.html) | Добавление компании |
+| [add\_note](/digital_pipeline/salesbot#%D0%94%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5-add_note.html) | Добавление примечания |
+| [link](/digital_pipeline/salesbot#%D0%94%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5-link.html) | Связывает элементы |
+| [change\_responsible\_user](/digital_pipeline/salesbot#%D0%94%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5-change_responsible_user.html) | Меняет ответственного |
+| [link\_to\_unsorted](/digital_pipeline/salesbot#%D0%94%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5-link_to_unsorted.html) | Создаёт контакт из неразобранного и связывает его с сущностью |
 
 #### Действие unsorted
 
@@ -526,23 +549,25 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
-    {
-      "handler": "action",
-      "params": {
-        "name": "unsorted",
-        "params": {
-          "value": "accept"
-        }
-      }
-    }, {
-      "handler": "action",
-      "params": {
-        "name": "unsorted",
-        "params": {
-          "value": "decline"
-        }
-      }
+```javascript
+{
+  "handler": "action",
+  "params": {
+    "name": "unsorted",
+    "params": {
+      "value": "accept"
     }
+  }
+}, {
+  "handler": "action",
+  "params": {
+    "name": "unsorted",
+    "params": {
+      "value": "decline"
+    }
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -554,15 +579,17 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
-    {
-      "handler": "action",
-      "params": {
-        "name": "change_status",
-        "params": {
-          "value": 142
-        }
-      }
+```javascript
+{
+  "handler": "action",
+  "params": {
+    "name": "change_status",
+    "params": {
+      "value": 142
     }
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -575,26 +602,28 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
-    {
-      "handler": "action",
-      "params": {
-        "name": "set_tag",
-        "params": {
-          "type": 2,
-          "value": "Salesbot"
-        }
-      }
-    },
-    {
-      "handler": "action",
-      "params": {
-        "name": "set_tag",
-        "params": {
-          "type": 2,
-          "value": "{{origin}}"
-        }
-      }
+```javascript
+{
+  "handler": "action",
+  "params": {
+    "name": "set_tag",
+    "params": {
+      "type": 2,
+      "value": "Salesbot"
     }
+  }
+},
+{
+  "handler": "action",
+  "params": {
+    "name": "set_tag",
+    "params": {
+      "type": 2,
+      "value": "{{origin}}"
+    }
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -607,16 +636,18 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
-    {
-      "handler": "action",
-      "params": {
-        "name": "unset_tag",
-        "params": {
-          "type": 2,
-          "value": "Salesbot"
-        }
-      }
+```javascript
+{
+  "handler": "action",
+  "params": {
+    "name": "unset_tag",
+    "params": {
+      "type": 2,
+      "value": "Salesbot"
     }
+  }
+}
+```
 
 get\_base\_info
 
@@ -628,49 +659,51 @@ get\_base\_info
 #### Действие set\_custom\_fields
 
 Действие set\_custom\_fields установит сделке или контакту значения кастомных полей.  
-ID полей можно узнать в разделе Настройки->Поля или используя метод [получения списка полей сущности](/developers/content/crm_platform/custom-fields#custom-fields-list) В значение поля можно использовать маркеры описанные в разделе "Обработчик show"
+ID полей можно узнать в разделе Настройки->Поля или используя метод [получения списка полей сущности](/crm_platform/custom-fields#custom-fields-list.html) В значение поля можно использовать маркеры описанные в разделе "Обработчик show"
 
 #### Пример
 
-    {
-      "handler": "action",
-      "params": {
-        "name": "set_custom_fields",
-        "params": {
-          "type": 2,
-          "value": "Значение поля",
-          "custom_fields_id": 123,
-          "option": "add"
-        }
-      }
-    },
-    {
-      "handler": "action",
-      "params": {
-        "name": "set_custom_fields",
-        "params": {
-          "type": 2,
-          "value": "{{message_text}}",
-          "custom_fields_id": 987
-        }
-      }
-    },
-    {
-      "handler": "action",
-      "params": {
-        "name": "set_custom_fields",
-        "params": {
-          "type": "lead",
-          "value": "{{last_validation_result}}",
-          "custom_field": "{{cf.talk.nps}}"
-        }
-      }
+```javascript
+{
+  "handler": "action",
+  "params": {
+    "name": "set_custom_fields",
+    "params": {
+      "type": 2,
+      "value": "Значение поля",
+      "custom_fields_id": 123,
+      "option": "add"
     }
+  }
+},
+{
+  "handler": "action",
+  "params": {
+    "name": "set_custom_fields",
+    "params": {
+      "type": 2,
+      "value": "{{message_text}}",
+      "custom_fields_id": 987
+    }
+  }
+},
+{
+  "handler": "action",
+  "params": {
+    "name": "set_custom_fields",
+    "params": {
+      "type": "lead",
+      "value": "{{last_validation_result}}",
+      "custom_field": "{{cf.talk.nps}}"
+    }
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
 | type | int | Тип сущности, которой будут заданы кастомные поля (1 – контакт, 2 – сделка) |
-| value | string | Значение поля, которое будет установлено, могут быть использованы маркеры из блока [SHOW](#salesbot-markers). После хэндлера [validations](#обработчик-validations) допустимо использовать маркер `{{last_validation_result}}`, тогда в качестве значения будут использованны распознанные данные из последнего истинного условия. Например, если было использовано условие "содержит email", то найденный email будет подставлен в качестве значения. |
+| value | string | Значение поля, которое будет установлено, могут быть использованы маркеры из блока [SHOW](/digital_pipeline/salesbot#salesbot-markers.html). После хэндлера [validations](/digital_pipeline/salesbot#%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-validations.html) допустимо использовать маркер `{{last_validation_result}}`, тогда в качестве значения будут использованны распознанные данные из последнего истинного условия. Например, если было использовано условие "содержит email", то найденный email будет подставлен в качестве значения. |
 | custom\_fields\_id | int | id поля, в которое будет установлено значение |
 | custom\_field | string | Идентификатор изменяемого поля, могут быть использованы: `{{lead.price}}` – бюджет сделки, `{{lead.name}}` – название сделки, `{{contact.name}}` – имя контакта, `{{customer.next_price}}` – сумма следующей покупки покупателя, `{{cf.talk.nps}}` – оценка текущего диалога |
 | calculated | bool | Нужно ли попытаться посчитать значение этого кастомного поля по формуле, например `{{lead.cf.123}}*{{lead.cf.456}}` |
@@ -682,16 +715,18 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-    {
-      "handler": "action",
-      "params": {
-        "name": "subscribe",
-        "params": {
-          "type": "user",
-          "value": "{{lead.responsible_user_id}}"
-        }
-      }
+```javascript
+{
+  "handler": "action",
+  "params": {
+    "name": "subscribe",
+    "params": {
+      "type": "user",
+      "value": "{{lead.responsible_user_id}}"
     }
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -705,16 +740,18 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-    {
-      "handler": "action",
-      "params": {
-        "name": "unsubscribe",
-        "params": {
-          "type": "user",
-          "value": "{{lead.responsible_user_id}}"
-        }
-      }
+```javascript
+{
+  "handler": "action",
+  "params": {
+    "name": "unsubscribe",
+    "params": {
+      "type": "user",
+      "value": "{{lead.responsible_user_id}}"
     }
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -728,73 +765,75 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-    {
-      "handler": "action",
-      "params": {
-        "name": "add_lead_contact",
-        "params": {
-          "preset": "contacts.require_email_or_phone",
-          "lead": {
-            "name": "Lead name",
-            "status_id": 142,
-            "responsible_user_id": 123,
-            "price": 2000,
-            "tags": "",
-            "custom_fields": [
+```javascript
+{
+  "handler": "action",
+  "params": {
+    "name": "add_lead_contact",
+    "params": {
+      "preset": "contacts.require_email_or_phone",
+      "lead": {
+        "name": "Lead name",
+        "status_id": 142,
+        "responsible_user_id": 123,
+        "price": 2000,
+        "tags": "",
+        "custom_fields": [
+          {
+            "id": 77744111,
+            "values": [
               {
-                "id": 77744111,
-                "values": [
-                  {
-                    "value": "{{contact.name}}"
-                  }
-                ]
-              },
-              {
-                "id": 77744222,
-                "values": [
-                  {
-                    "value": "{{lead.cf.77744222}}"
-                  }
-                ]
+                "value": "{{contact.name}}"
               }
             ]
           },
-          "contact": {
-            "name": "Contactname",
-            "responsible_user_id": 123,
-            "tags": "",
-            "custom_fields": [
+          {
+            "id": 77744222,
+            "values": [
               {
-                "id": 77744333,
-                "values": [
-                  {
-                    "value": "{{rand}}"
-                  }
-                ]
-              },
-              {
-                "id": 77744444,
-                "values": [
-                  {
-                    "value": "{{message_text.email}}",
-                    "enum": "WORK"
-                  }
-                ]
-              },
-              {
-                "id": 77744555,
-                "values": [
-                  {
-                    "value": "{{message_text.phone}}",
-                    "enum": "WORK"
-                  }
-                ]
+                "value": "{{lead.cf.77744222}}"
               }
             ]
           }
-        }
+        ]
+      },
+      "contact": {
+        "name": "Contactname",
+        "responsible_user_id": 123,
+        "tags": "",
+        "custom_fields": [
+          {
+            "id": 77744333,
+            "values": [
+              {
+                "value": "{{rand}}"
+              }
+            ]
+          },
+          {
+            "id": 77744444,
+            "values": [
+              {
+                "value": "{{message_text.email}}",
+                "enum": "WORK"
+              }
+            ]
+          },
+          {
+            "id": 77744555,
+            "values": [
+              {
+                "value": "{{message_text.phone}}",
+                "enum": "WORK"
+              }
+            ]
+          }
+        ]
       }
     }
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -808,19 +847,21 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-    {
-      "handler": "action",
-      "params": {
-        "name": "set_budget",
-        "params": {
-          "value": "{{lead.cf.555123}}*{{lead.cf.555321}}"
-        }
-      }
+```javascript
+{
+  "handler": "action",
+  "params": {
+    "name": "set_budget",
+    "params": {
+      "value": "{{lead.cf.555123}}*{{lead.cf.555321}}"
     }
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
-| value | string | Число, которое будет записано в бюджет сделки. Так же поле может быть вычисляемым, в выражения можно подставлять любые маркеры из блока [SHOW](#salesbot-markers). Доступные операции: +, -, \*, /, так же можно использовать скобки например: `({{lead.cf.555123}} + 1) * {{lead.cf.555321}}` |
+| value | string | Число, которое будет записано в бюджет сделки. Так же поле может быть вычисляемым, в выражения можно подставлять любые маркеры из блока [SHOW](/digital_pipeline/salesbot#salesbot-markers.html). Доступные операции: +, -, \*, /, так же можно использовать скобки например: `({{lead.cf.555123}} + 1) * {{lead.cf.555321}}` |
 
 #### Действие add\_linked\_company
 
@@ -828,19 +869,21 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-    {
-      "handler": "action",
-      "params": {
-        "name": "add_linked_company",
-        "params": {
-          "name": "{{message_text}}"
-        }
-      }
+```javascript
+{
+  "handler": "action",
+  "params": {
+    "name": "add_linked_company",
+    "params": {
+      "name": "{{message_text}}"
     }
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
-| name | string | Название компании, могут использоваться маркеры из блока [SHOW](#salesbot-markers) |
+| name | string | Название компании, могут использоваться маркеры из блока [SHOW](/digital_pipeline/salesbot#salesbot-markers.html) |
 
 #### Действие add\_note
 
@@ -848,23 +891,25 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-    {
-      "handler": "action",
-      "params": {
-        "name": "add_note",
-        "params": {
-          "element_type": 1,
-          "note_type": 4,
-          "text": "Текст примечания"
-        }
-      }
+```javascript
+{
+  "handler": "action",
+  "params": {
+    "name": "add_note",
+    "params": {
+      "element_type": 1,
+      "note_type": 4,
+      "text": "Текст примечания"
     }
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
 | element\_type | int | Сущность, к которой будет прикрепленно примечание: 1 – контакт, 2 – сделка |
 | note\_type | int | Тип примечания: 4 – обычное примечание 10 – Примечание входящего звонка 11 – Примечание исходящего звонка 102 – Примечание входящего смс сообщения 103 – Примечание исходящего смс сообщения 25 – Сервисное примечание |
-| text | string | Текст примечания, в нем могут быть использованы маркеры из блока [SHOW](#salesbot-markers) |
+| text | string | Текст примечания, в нем могут быть использованы маркеры из блока [SHOW](/digital_pipeline/salesbot#salesbot-markers.html) |
 
 #### Действие link
 
@@ -872,27 +917,29 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-    {
-      "handler": "action",
-      "params": {
-        "name": "link",
-        "params": {
-          "from": 2,
-          "to": 11,
-          "to_id": "{{founded_id}}",
-          "to_catalog_id": 123
-        }
-      }
+```javascript
+{
+  "handler": "action",
+  "params": {
+    "name": "link",
+    "params": {
+      "from": 2,
+      "to": 11,
+      "to_id": "{{founded_id}}",
+      "to_catalog_id": 123
     }
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
 | from | int | Сущность, к которой будет производится прикрепление: 1 – контакт, 2 – сделка |
-| from\_id | int | Не обязательный параметр. Id сущности, к которой будет производится прикрепление. Если не указан, то будет использован id текущей сущности. Можно использовать маркеры из раздела [SHOW](#salesbot-markers) |
+| from\_id | int | Не обязательный параметр. Id сущности, к которой будет производится прикрепление. Если не указан, то будет использован id текущей сущности. Можно использовать маркеры из раздела [SHOW](/digital_pipeline/salesbot#salesbot-markers.html) |
 | to | int | Сущность, которую нужно прикрепить прикрепеление: 1 – контакт, 2 – сделка, 11 – элемент каталога, 3 – компания |
-| to\_id | string | Id элемента который нужно прикрепить, можно использовать маркеры из раздела [SHOW](#salesbot-markers) |
+| to\_id | string | Id элемента который нужно прикрепить, можно использовать маркеры из раздела [SHOW](/digital_pipeline/salesbot#salesbot-markers.html) |
 | to\_catalog\_id | int | Не обязательный параметр, id каталога – если привязывается элемент каталога |
-| quantity | string | Не обязательный параметр, количество элементов каталога, которое будет привязано к сущности. Можно использовать маркеры из раздела [SHOW](#salesbot-markers) |
+| quantity | string | Не обязательный параметр, количество элементов каталога, которое будет привязано к сущности. Можно использовать маркеры из раздела [SHOW](/digital_pipeline/salesbot#salesbot-markers.html) |
 
 #### Действие change\_responsible\_user
 
@@ -900,16 +947,18 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-    {
-      "handler": "action",
-      "params": {
-        "name": "change_responsible_user",
-        "params": {
-          "value": 123,
-          "type": 2
-        }
-      }
+```javascript
+{
+  "handler": "action",
+  "params": {
+    "name": "change_responsible_user",
+    "params": {
+      "value": 123,
+      "type": 2
     }
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -922,16 +971,18 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-    {
-      "handler": "action",
-      "params": {
-        "name": "link_to_unsorted",
-        "params": {
-          "entity_type": 2,
-          "entity_id": "12345"
-        }
-      }
+```javascript
+{
+  "handler": "action",
+  "params": {
+    "name": "link_to_unsorted",
+    "params": {
+      "entity_type": 2,
+      "entity_id": "12345"
     }
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -951,18 +1002,20 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-    {
-      "handler": "meta",
-      "params": {
-        "delimiter": "-",
-        "values": [
-          "lead.tags",
-          "lead.custom_fields.123",
-          "lead.custom_fields.124",
-          "lead.tags"
-        ]
-      }
-    }
+```javascript
+{
+  "handler": "meta",
+  "params": {
+    "delimiter": "-",
+    "values": [
+      "lead.tags",
+      "lead.custom_fields.123",
+      "lead.custom_fields.124",
+      "lead.tags"
+    ]
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -975,30 +1028,32 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-    {
-      "handler": "condition",
-      "params": {
-        "term1": "lead.tags",
-        "term2": "telegram",
-        "operation": "=",
-        "result": [
-          {
-            "handler": "action",
-            "params": {
-              "name": "change_status",
-              "params": {
-                "value": 123
-              }
-            }
+```javascript
+{
+  "handler": "condition",
+  "params": {
+    "term1": "lead.tags",
+    "term2": "telegram",
+    "operation": "=",
+    "result": [
+      {
+        "handler": "action",
+        "params": {
+          "name": "change_status",
+          "params": {
+            "value": 123
           }
-        ]
+        }
       }
-    }
+    ]
+  }
+}
+```
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
-| term1 | string | Условие 1 может быть `lead.tags` – который возвращает список тегов, `chat.origin` – который возвращает источник откуда пришла заявка(vk, facebook, telegram, viber) любой обработчик из блока описанного в разделе [SHOW](#salesbot-markers), например `{{contact.name}}` |
-| term2 | string, object | Условие 2, для оператора range необходимо передать объект с параметрами, в ином случае строку либо маркеры из блока [SHOW](#salesbot-markers) |
+| term1 | string | Условие 1 может быть `lead.tags` – который возвращает список тегов, `chat.origin` – который возвращает источник откуда пришла заявка(vk, facebook, telegram, viber) любой обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}` |
+| term2 | string, object | Условие 2, для оператора range необходимо передать объект с параметрами, в ином случае строку либо маркеры из блока [SHOW](/digital_pipeline/salesbot#salesbot-markers.html) |
 | term2.from | int | Значение диапазона "от" |
 | term2.to | int | Значение диапазона "до" |
 | operation | string | Операторы сравнения (‘=’, ‘!=’), ‘in’, ‘not\_in’, ‘in\_range’ |
@@ -1016,50 +1071,52 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-    {
-      "handler": "validations",
-      "params": {
-        "logic": "and",
-        "conditions": [
-          {
-            "client_value": "{{message_text}}",
-            "type": "regex",
-            "condition_value": "/[0-9]+/",
-            "operation": "contains"
-          },
-          {
-            "client_value": "{{message_text}}",
-            "type": "simple",
-            "condition_value": "654",
-            "operation": "equal"
-          },
-          {
-            "client_value": "{{message_text}}",
-            "type": "range_numbers",
-            "condition_value": {
-              "from": 123,
-              "to": 321
-            },
-            "operation": "contains"
-          },
-          {
-            "client_value": "{{message_text}}",
-            "type": "email",
-            "condition_value": "",
-            "operation": "contains"
-          }
-        ],
-        "result": [
-          {
-            "handler": "goto",
-            "params": {
-              "type": "question",
-              "step": 3
-            }
-          }
-        ]
+```javascript
+{
+  "handler": "validations",
+  "params": {
+    "logic": "and",
+    "conditions": [
+      {
+        "client_value": "{{message_text}}",
+        "type": "regex",
+        "condition_value": "/[0-9]+/",
+        "operation": "contains"
+      },
+      {
+        "client_value": "{{message_text}}",
+        "type": "simple",
+        "condition_value": "654",
+        "operation": "equal"
+      },
+      {
+        "client_value": "{{message_text}}",
+        "type": "range_numbers",
+        "condition_value": {
+          "from": 123,
+          "to": 321
+        },
+        "operation": "contains"
+      },
+      {
+        "client_value": "{{message_text}}",
+        "type": "email",
+        "condition_value": "",
+        "operation": "contains"
       }
-    }
+    ],
+    "result": [
+      {
+        "handler": "goto",
+        "params": {
+          "type": "question",
+          "step": 3
+        }
+      }
+    ]
+  }
+}
+```
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
@@ -1073,18 +1130,20 @@ ID полей можно узнать в разделе Настройки->По
 
 ##### Пример
 
-    {
-      "client_value": "{{message_text}}",
-      "type": "simple",
-      "condition_value": "654",
-      "operation": "equal"
-    }
+```javascript
+{
+  "client_value": "{{message_text}}",
+  "type": "simple",
+  "condition_value": "654",
+  "operation": "equal"
+}
+```
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
-| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](#salesbot-markers), например `{{contact.name}}`. |
+| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}`. |
 | type | `"simple"` | Тип условия, всегда "simple" |
-| condition\_value | string | Текстом условия может быть обработчик из блока описанного в разделе [SHOW](#salesbot-markers), например `{{contact.name}}`, либо собственное значение |
+| condition\_value | string | Текстом условия может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}`, либо собственное значение |
 | operation | `"equal"`, `"not_equal"` | Если выбран оператор "equal", то условие будет истинным, если client\_value равно condition\_value. Если выбран оператор "not\_equal", то условие будет истинным, если client\_value не равно condition\_value |
 
 ##### Условие length
@@ -1093,18 +1152,20 @@ ID полей можно узнать в разделе Настройки->По
 
 ##### Пример
 
-    {
-      "client_value": "{{message_text}}",
-      "type": "simple",
-      "condition_value": "321",
-      "operation": "length"
-    }
+```javascript
+{
+  "client_value": "{{message_text}}",
+  "type": "simple",
+  "condition_value": "321",
+  "operation": "length"
+}
+```
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
-| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](#salesbot-markers), например `{{contact.name}}`. |
+| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}`. |
 | type | `"simple"` | Тип условия, всегда "simple" |
-| condition\_value | string | Текстом условия может быть обработчик из блока описанного в разделе [SHOW](#salesbot-markers), например `{{contact.name}}`, либо собственное значение |
+| condition\_value | string | Текстом условия может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}`, либо собственное значение |
 | operation | `"length"` | Условие будет истинным, если длина строки client\_value будет равна condition\_value |
 
 ##### Условие номер телефона или email
@@ -1113,16 +1174,18 @@ ID полей можно узнать в разделе Настройки->По
 
 ##### Пример
 
-    {
-      "client_value": "{{message_text}}",
-      "type": "email",
-      "condition_value": "",
-      "operation": "contains"
-    }
+```javascript
+{
+  "client_value": "{{message_text}}",
+  "type": "email",
+  "condition_value": "",
+  "operation": "contains"
+}
+```
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
-| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](#salesbot-markers), например `{{contact.name}}` |
+| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}` |
 | type | `"email"`, `"phone"` | Тип условия, может быть "email" для поиска email-а или "phone" для поиска номера телефона |
 | condition\_value | `""` | Текст условия оставляем пустым |
 | operation | `"contains"`, `"not_contains"` | Если выбран оператор "contains", условие будет истинным, если client\_value содержит email или телефон. Если выбран оператор "not\_contains", условие будет истинным, если client\_value не содержит email или телефон |
@@ -1133,16 +1196,18 @@ ID полей можно узнать в разделе Настройки->По
 
 ##### Пример
 
-    {
-      "client_value": "{{message_text}}",
-      "type": "regex",
-      "condition_value": "/[0-9]+/",
-      "operation": "contains"
-    }
+```javascript
+{
+  "client_value": "{{message_text}}",
+  "type": "regex",
+  "condition_value": "/[0-9]+/",
+  "operation": "contains"
+}
+```
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
-| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](#salesbot-markers), например `{{contact.name}}` |
+| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}` |
 | type | `"regex"` | Тип условия, всегда "regex" |
 | condition\_value | string | Текст условия |
 | operation | `"contains"`, `"not_contains"` | Если выбран оператор "contains", условие будет истинным, если client\_value содержит указанное регулярное выражение. Если выбран оператор "not\_contains", условие будет истинным, если client\_value не содержит указанное регулярное выражение |
@@ -1153,23 +1218,25 @@ ID полей можно узнать в разделе Настройки->По
 
 ##### Пример
 
-    {
-      "client_value": "{{message_text}}",
-      "type": "range_numbers",
-      "condition_value": {
-        "from": 123,
-        "to": 321
-      },
-      "operation": "contains"
-    }
+```javascript
+{
+  "client_value": "{{message_text}}",
+  "type": "range_numbers",
+  "condition_value": {
+    "from": 123,
+    "to": 321
+  },
+  "operation": "contains"
+}
+```
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
-| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](#salesbot-markers), например `{{contact.name}}` |
+| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}` |
 | type | `"range_numbers"` | Тип условия, всегда "range\_numbers" |
 | condition\_value | object | Диапазон, на который проверяем все числа в client\_value |
-| condition\_value.from | string, number | значение диапазона "от", можно указать обработчик из блока описанного в разделе [SHOW](#salesbot-markers), например `{{lead.price}}`, либо собственное значение |
-| condition\_value.to | string, number | значение диапазона "до", можно указать обработчик из блока описанного в разделе [SHOW](#salesbot-markers), например `{{lead.price}}`, либо собственное значение |
+| condition\_value.from | string, number | значение диапазона "от", можно указать обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{lead.price}}`, либо собственное значение |
+| condition\_value.to | string, number | значение диапазона "до", можно указать обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{lead.price}}`, либо собственное значение |
 | operation | `"contains"`, `"not_contains"` | Если выбран оператор "contains", условие будет истинным, если client\_value содержит число в указанном диапазоне. Если выбран оператор "not\_contains", условие будет истинным, если client\_value не содержит число в указанном диапазоне |
 
 #### Обработчик preset
@@ -1187,34 +1254,38 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-    {
-      "handler": "widget_request",
-      "params": {
-        "url": "https://example.com/endpoint",
-        "data": {
-          "contact": "{{contact.name}}",
-          "from": "widget"
-        }
-      }
+```javascript
+{
+  "handler": "widget_request",
+  "params": {
+    "url": "https://example.com/endpoint",
+    "data": {
+      "contact": "{{contact.name}}",
+      "from": "widget"
     }
+  }
+}
+```
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
 | url | string | URL эндпоинта внешнего сервера |
-| data | array | Массив любых данных, содержащих строки и/или обработчики из блока описанного в разделе [SHOW](#salesbot-markers), например `{{contact.name}}` |
+| data | array | Массив любых данных, содержащих строки и/или обработчики из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}` |
 
 На эндпоинт придёт POST запрос, для отметки, что хук принят, вам необходимо ответить на него в течении 2 секунд с HTTP-кодом ответа 200.
 
 #### Пример тела запроса
 
-    {
-          "token": "JWT_TOKEN",
-          "data": [
-              "contact": "Имя контакта",
-              "from": "widget"
-          ],
-          "return_url": "https://subdomain.amocrm.ru/api/v4/salesbot/321/continue/123"
-        }
+```javascript
+{
+      "token": "JWT_TOKEN",
+      "data": [
+          "contact": "Имя контакта",
+          "from": "widget"
+      ],
+      "return_url": "https://subdomain.amocrm.ru/api/v4/salesbot/321/continue/123"
+    }
+```
 
 #### Поля JWT token’а
 
@@ -1229,7 +1300,7 @@ JWT Token нужен для валидации данных присланных
 
 #### Ответ виджета и продолжение работы бота
 
-Для возобновления работы бота смотрите необходимо сделать запрос с данными. Подробней о запросе [тут.](/developers/content/crm_platform/widgets-api#widget-continue) Текущий бот не продолжит работу, пока не получит запрос. Также вы не сможете продолжить выполнения бота, если уже будет запущен другой бот по сущности.
+Для возобновления работы бота смотрите необходимо сделать запрос с данными. Подробней о запросе [тут.](/crm_platform/widgets-api#widget-continue.html) Текущий бот не продолжит работу, пока не получит запрос. Также вы не сможете продолжить выполнения бота, если уже будет запущен другой бот по сущности.
 
 #### Пресет contacts.validate\_base\_info
 
@@ -1237,25 +1308,27 @@ JWT Token нужен для валидации данных присланных
 
 #### Пример
 
-    {
-      "handler": "preset",
-      "params": {
-        "name": "contacts.validate_base_info",
-        "params": {
-          "empty_email": "Пришлите, пожалуйста, ваш e-mail",
-          "empty_phone": "Пришлите, пожалуйста, ваш номер телефона",
-          "invalid_phone": "Нам кажется, что в номере телефона ошибка",
-          "success": "Спасибо",
-          "empty_all": "Пришлите, пожалуйста, ваш номер телефона и e-mail",
-          "empty_all": "Пришлите, пожалуйста, ваш номер телефона и e-mail",
-          "check_doubles": true,
-          "phone_doubles": "Данный номер телефона уже используется. Введите другой номер ",
-          "email_doubles": "Данный email уже используется. Введите другой email ",
-          "all_doubles": "Данный номер телефона и email уже используются. Введите другие контактные данные ",
-          "use_quick_replies": true
-        }
-      }
+```javascript
+{
+  "handler": "preset",
+  "params": {
+    "name": "contacts.validate_base_info",
+    "params": {
+      "empty_email": "Пришлите, пожалуйста, ваш e-mail",
+      "empty_phone": "Пришлите, пожалуйста, ваш номер телефона",
+      "invalid_phone": "Нам кажется, что в номере телефона ошибка",
+      "success": "Спасибо",
+      "empty_all": "Пришлите, пожалуйста, ваш номер телефона и e-mail",
+      "empty_all": "Пришлите, пожалуйста, ваш номер телефона и e-mail",
+      "check_doubles": true,
+      "phone_doubles": "Данный номер телефона уже используется. Введите другой номер ",
+      "email_doubles": "Данный email уже используется. Введите другой email ",
+      "all_doubles": "Данный номер телефона и email уже используются. Введите другие контактные данные ",
+      "use_quick_replies": true
     }
+  }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -1276,12 +1349,14 @@ JWT Token нужен для валидации данных присланных
 
 #### Пример
 
-    {
-      "handler": "preset",
-      "params": {
-        "name": "contacts.get_base_info"
-      }
-    }
+```javascript
+{
+  "handler": "preset",
+  "params": {
+    "name": "contacts.get_base_info"
+  }
+}
+```
 
 #### Обработчик stop
 
@@ -1289,23 +1364,25 @@ JWT Token нужен для валидации данных присланных
 
 #### Пример
 
+```javascript
+{
+  "finish": [
     {
-      "finish": [
-        {
-          "handler": "stop",
-          "params": {
-            "action": "talk-close"
-          }
-        },
-        {
-          "handler": "stop",
-          "params": {
-            "action": "salesbot-start",
-            "bot": 7049
-          }
-        }
-      ]
+      "handler": "stop",
+      "params": {
+        "action": "talk-close"
+      }
+    },
+    {
+      "handler": "stop",
+      "params": {
+        "action": "salesbot-start",
+        "bot": 7049
+      }
     }
+  ]
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -1318,269 +1395,289 @@ JWT Token нужен для валидации данных присланных
 
 #### Пример
 
-    [
+```javascript
+[
+  {
+    "question": [
       {
-        "question": [
-          {
-            "handler": "action",
-            "params": {
-              "name": "subscribe",
-              "params": {
-                "type": "group",
-                "value": 111
-              }
-            }
+        "handler": "action",
+        "params": {
+          "name": "subscribe",
+          "params": {
+            "type": "group",
+            "value": 111
           }
-        ]
+        }
       }
     ]
+  }
+]
+```
 
 Перевод сделки в нужный статус.
 
 #### Пример
 
-    [
+```javascript
+[
+  {
+    "question": [
       {
-        "question": [
-          {
-            "handler": "action",
-            "params": {
-              "name": "change_status",
-              "params": {
-                "value": 142
-              }
-            }
+        "handler": "action",
+        "params": {
+          "name": "change_status",
+          "params": {
+            "value": 142
           }
-        ]
+        }
       }
     ]
+  }
+]
+```
 
 Отправка клиенту любого текста.
 
 #### Пример
 
-    [
+```javascript
+[
+  {
+    "question": [
       {
-        "question": [
-          {
-            "handler": "show",
-            "params": {
-              "type": "text",
-              "value": "Здравствуйте"
-            }
-          }
-        ]
+        "handler": "show",
+        "params": {
+          "type": "text",
+          "value": "Здравствуйте"
+        }
       }
     ]
+  }
+]
+```
 
 Отправка сообщения с кнопками выбора.
 
 #### Пример
 
-    [
+```javascript
+[
+  {
+    "question": [
       {
-        "question": [
+        "handler": "show",
+        "params": {
+          "type": "buttons",
+          "value": "Выберите, пожалуйста, тип участия: ",
+          "buttons": [
+            "Личное присутствие",
+            "Онлайн"
+          ]
+        }
+      }
+    ],
+    "answer": [
+      {
+        "handler": "buttons",
+        "params": [
           {
-            "handler": "show",
-            "params": {
-              "type": "buttons",
-              "value": "Выберите, пожалуйста, тип участия: ",
-              "buttons": [
-                "Личное присутствие",
-                "Онлайн"
-              ]
-            }
-          }
-        ],
-        "answer": [
-          {
-            "handler": "buttons",
+            "regex": "/личное/iu",
             "params": [
               {
-                "regex": "/личное/iu",
-                "params": [
-                  {
-                    "handler": "action",
-                    "params": {
-                      "name": "set_custom_fields",
-                      "params": {
-                        "type": 1,
-                        "value": "Личное присутствие",
-                        "custom_fields_id": 4242
-                      }
-                    }
+                "handler": "action",
+                "params": {
+                  "name": "set_custom_fields",
+                  "params": {
+                    "type": 1,
+                    "value": "Личное присутствие",
+                    "custom_fields_id": 4242
                   }
-                ]
-              },
+                }
+              }
+            ]
+          },
+          {
+            "regex": "/онлайн/iu",
+            "params": [
               {
-                "regex": "/онлайн/iu",
-                "params": [
-                  {
-                    "handler": "action",
-                    "params": {
-                      "name": "set_custom_fields",
-                      "params": {
-                        "type": 1,
-                        "value": "Онлайн",
-                        "custom_fields_id": 4242
-                      }
-                    }
+                "handler": "action",
+                "params": {
+                  "name": "set_custom_fields",
+                  "params": {
+                    "type": 1,
+                    "value": "Онлайн",
+                    "custom_fields_id": 4242
                   }
-                ]
+                }
               }
             ]
           }
         ]
       }
     ]
+  }
+]
+```
 
 Установка тега для сделки.
 
 #### Пример
 
-    [
+```javascript
+[
+  {
+    "question": [
       {
-        "question": [
-          {
-            "handler": "action",
-            "params": {
-              "name": "set_tag",
-              "params": {
-                "type": 2,
-                "value": "salesbot"
-              }
-            }
+        "handler": "action",
+        "params": {
+          "name": "set_tag",
+          "params": {
+            "type": 2,
+            "value": "salesbot"
           }
-        ]
+        }
       }
     ]
+  }
+]
+```
 
 Установка значения дополнительному полю.
 
 #### Пример
 
-    [
+```javascript
+[
+  {
+    "question": [
       {
-        "question": [
-          {
-            "handler": "action",
-            "params": {
-              "name": "set_custom_fields",
-              "params": {
-                "type": 2,
-                "custom_fields_id": 123,
-                "value": "Значение поля"
-              }
-            }
+        "handler": "action",
+        "params": {
+          "name": "set_custom_fields",
+          "params": {
+            "type": 2,
+            "custom_fields_id": 123,
+            "value": "Значение поля"
           }
-        ]
+        }
       }
     ]
+  }
+]
+```
 
 Сохранение метаданных в карточку сделки.
 
 #### Пример
 
-    [
+```javascript
+[
+  {
+    "question": [
       {
-        "question": [
-          {
-            "handler": "meta",
-            "params": {
-              "delimiter": "-",
-              "values": [
-                "lead.tags",
-                "lead.custom_fields.123",
-                "lead.custom_fields.124",
-                "lead.tags"
-              ]
-            }
-          }
-        ]
+        "handler": "meta",
+        "params": {
+          "delimiter": "-",
+          "values": [
+            "lead.tags",
+            "lead.custom_fields.123",
+            "lead.custom_fields.124",
+            "lead.tags"
+          ]
+        }
       }
     ]
+  }
+]
+```
 
 Запрос email и телефона, запись в карточку только из первого ответа.
 
 #### Пример
 
-    [
+```javascript
+[
+  {
+    "question": [
       {
-        "question": [
-          {
-            "handler": "show",
-            "params": {
-              "type": "text",
-              "value": "Сообщите, пожалуйста, ваш номер телефона и e-mail"
-            }
-          }
-        ],
-        "answer": [
-          {
-            "handler": "preset",
-            "params": {
-              "name": "contacts.get_base_info"
-            }
-          }
-        ]
+        "handler": "show",
+        "params": {
+          "type": "text",
+          "value": "Сообщите, пожалуйста, ваш номер телефона и e-mail"
+        }
+      }
+    ],
+    "answer": [
+      {
+        "handler": "preset",
+        "params": {
+          "name": "contacts.get_base_info"
+        }
       }
     ]
+  }
+]
+```
 
 Использование оператора ‘in’ в сравнении
 
 #### Пример
 
-    [
+```javascript
+[
+  {
+    "question": [
       {
-        "question": [
-          {
-            "handler": "condition",
-            "params": {
-              "term1": "{{customer.groups_subscribers}}",
-              "term2": "0,12345",
-              "operation": "in",
-              "result": [
-                {
-                  "handler": "show",
-                  "params": {
-                    "type": "text",
-                    "value": "Одна из двух групп подписана на чат в покупателе"
-                  }
-                }
-              ]
+        "handler": "condition",
+        "params": {
+          "term1": "{{customer.groups_subscribers}}",
+          "term2": "0,12345",
+          "operation": "in",
+          "result": [
+            {
+              "handler": "show",
+              "params": {
+                "type": "text",
+                "value": "Одна из двух групп подписана на чат в покупателе"
+              }
             }
-          }
-        ]
+          ]
+        }
       }
     ]
+  }
+]
+```
 
 Использование оператора ‘in\_range’ в сравнении
 
 #### Пример
 
-    [
+```javascript
+[
+  {
+    "question": [
       {
-        "question": [
-          {
-            "handler": "condition",
-            "params": {
-              "term1": "{{cf.talk.nps}}",
-              "term2": { "from": 7 },
-              "operation": "in_range",
-              "result": [
-                {
-                  "handler": "show",
-                  "params": {
-                    "type": "text",
-                    "value": "Спасибо, что так высоко оценили наш сервис!"
-                  }
-                }
-              ]
+        "handler": "condition",
+        "params": {
+          "term1": "{{cf.talk.nps}}",
+          "term2": { "from": 7 },
+          "operation": "in_range",
+          "result": [
+            {
+              "handler": "show",
+              "params": {
+                "type": "text",
+                "value": "Спасибо, что так высоко оценили наш сервис!"
+              }
             }
-          }
-        ]
+          ]
+        }
       }
     ]
+  }
+]
+```
 
 #### Обработчик send\_external\_message
 
@@ -1591,34 +1688,36 @@ JWT Token нужен для валидации данных присланных
 
 #### Пример
 
-    {
-        "handler": "send_external_message",
-        "params": {
-            "message": {
-                "type": "external",
-                "text": "Сообщите, пожалуйста, ваш номер телефона и e-mail"
-            },
-            "recipient": {
-                "type": "main_contact",
-                "way_of_communication": "over_all"
-            },
-            "channels": [
-                {
-                    "id": 23499795
-                }
-            ],
-            "metadata": {
-                "facebook_tag": "CONFIRMED_EVENT_UPDATE"
-            },
-            "on_error": {
-                "handler": "goto",
-                "params": {
-                    "step": 1,
-                    "type": "question"
-                }
+```javascript
+{
+    "handler": "send_external_message",
+    "params": {
+        "message": {
+            "type": "external",
+            "text": "Сообщите, пожалуйста, ваш номер телефона и e-mail"
+        },
+        "recipient": {
+            "type": "main_contact",
+            "way_of_communication": "over_all"
+        },
+        "channels": [
+            {
+                "id": 23499795
+            }
+        ],
+        "metadata": {
+            "facebook_tag": "CONFIRMED_EVENT_UPDATE"
+        },
+        "on_error": {
+            "handler": "goto",
+            "params": {
+                "step": 1,
+                "type": "question"
             }
         }
     }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -1637,44 +1736,46 @@ JWT Token нужен для валидации данных присланных
 
 #### Пример
 
-    {
-        "handler": "send_external_message",
-        "params": {
-            "message": {
-                "type": "external",
-                "text": "Выберите, пожалуйста, тип участия:",
-                "buttons": [
-                    {
-                        "type": "inline",
-                        "text": "Личное присутствие"
-                    },
-                    {
-                        "type": "inline",
-                        "text": "Онлайн"
-                    }
-                ]
-            },
-            "recipient": {
-                "type": "main_contact",
-                "way_of_communication": "over_all"
-            },
-            "channels": [
+```javascript
+{
+    "handler": "send_external_message",
+    "params": {
+        "message": {
+            "type": "external",
+            "text": "Выберите, пожалуйста, тип участия:",
+            "buttons": [
                 {
-                    "id": 23499795
+                    "type": "inline",
+                    "text": "Личное присутствие"
+                },
+                {
+                    "type": "inline",
+                    "text": "Онлайн"
                 }
-            ],
-            "metadata": {
-                "facebook_tag": "CONFIRMED_EVENT_UPDATE"
-            },
-            "on_error": {
-                "handler": "goto",
-                "params": {
-                    "step": 1,
-                    "type": "question"
-                }
+            ]
+        },
+        "recipient": {
+            "type": "main_contact",
+            "way_of_communication": "over_all"
+        },
+        "channels": [
+            {
+                "id": 23499795
+            }
+        ],
+        "metadata": {
+            "facebook_tag": "CONFIRMED_EVENT_UPDATE"
+        },
+        "on_error": {
+            "handler": "goto",
+            "params": {
+                "step": 1,
+                "type": "question"
             }
         }
     }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -1696,36 +1797,38 @@ JWT Token нужен для валидации данных присланных
 
 #### Пример
 
-    {
-        "handler": "send_external_message",
-        "params": {
-            "message": {
-                "type": "external",
-                "text": "Кнопки со ссылками",
-                "buttons": [
-                    {
-                        "type": "url",
-                        "text": "Google",
-                        "url": "https://google.com"
-                    },
-                    {
-                        "type": "url",
-                        "text": "Яндекс",
-                        "url": "https://ya.ru"
-                    }
-                ]
-            },
-            "recipient": {
-                "type": "main_contact",
-                "way_of_communication": "over_all"
-            },
-            "channels": [],
-            "metadata": {
-                "facebook_tag": "CONFIRMED_EVENT_UPDATE"
-            },
-            "on_error": null
-        }
+```javascript
+{
+    "handler": "send_external_message",
+    "params": {
+        "message": {
+            "type": "external",
+            "text": "Кнопки со ссылками",
+            "buttons": [
+                {
+                    "type": "url",
+                    "text": "Google",
+                    "url": "https://google.com"
+                },
+                {
+                    "type": "url",
+                    "text": "Яндекс",
+                    "url": "https://ya.ru"
+                }
+            ]
+        },
+        "recipient": {
+            "type": "main_contact",
+            "way_of_communication": "over_all"
+        },
+        "channels": [],
+        "metadata": {
+            "facebook_tag": "CONFIRMED_EVENT_UPDATE"
+        },
+        "on_error": null
     }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -1756,42 +1859,44 @@ JWT Token нужен для валидации данных присланных
 
 #### Пример
 
-    {
-        "handler": "send_external_message",
-        "params": {
-            "message": {
-                "type": "external",
-                "text": "Сообщите, пожалуйста, ваш номер телефона и e-mail"
+```javascript
+{
+    "handler": "send_external_message",
+    "params": {
+        "message": {
+            "type": "external",
+            "text": "Сообщите, пожалуйста, ваш номер телефона и e-mail"
+        },
+        "recipient": {
+            "type": "filtered_contacts",
+            "filter": {
+                "logic": "and",
+                "result": 1,
+                "conditions": [
+                    {
+                        "term1": "{{contact.cf.1880614.is_checked}}",
+                        "term2": "{{contact.cf.1880614.1300836}}",
+                        "operation": "=",
+                        "value_type": "value"
+                    }
+                ]
             },
-            "recipient": {
-                "type": "filtered_contacts",
-                "filter": {
-                    "logic": "and",
-                    "result": 1,
-                    "conditions": [
-                        {
-                            "term1": "{{contact.cf.1880614.is_checked}}",
-                            "term2": "{{contact.cf.1880614.1300836}}",
-                            "operation": "=",
-                            "value_type": "value"
-                        }
-                    ]
-                },
-                "way_of_communication": "over_all"
-            },
-            "channels": [],
-                "metadata": {
-                "facebook_tag": "CONFIRMED_EVENT_UPDATE"
-            },
-            "on_error": {
-                "handler": "goto",
-                "params": {
-                    "step": 1,
-                    "type": "question"
-                }
+            "way_of_communication": "over_all"
+        },
+        "channels": [],
+            "metadata": {
+            "facebook_tag": "CONFIRMED_EVENT_UPDATE"
+        },
+        "on_error": {
+            "handler": "goto",
+            "params": {
+                "step": 1,
+                "type": "question"
             }
         }
     }
+}
+```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -1801,7 +1906,7 @@ JWT Token нужен для валидации данных присланных
 | recipient | array | Получатель сообщения |
 | recipient.type | string | Тип получателя. Возможно 3 варианта – all\_contacts(все контакты), main\_contact(главный контакт) и filtered\_contacts(отфильтрованные по значению поля контакты) |
 | recipient.way\_of\_communication | string | Способ связи. Доступные варианты – over\_all(по всем найденным), any\_first(по первому найденному) и last\_active(по последнему активному) |
-| recipient.filter | array | Настройка фильтра по значению полей контактов. Настраивается и работает также, как при обработчике [condition](#Обработчик-condition) |
+| recipient.filter | array | Настройка фильтра по значению полей контактов. Настраивается и работает также, как при обработчике [condition](/digital_pipeline/salesbot#%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-condition.html) |
 | channels | array | Массив, элементами которого являются id источников, по которым требуется отправить сообщение клиенту |
 | metadata | array | Метаданные отправляемые вместе с сообщением. |
 | metadata.facebook\_tag | string | Тег, позволяющий вашей Странице отправлять сообщение человеку вне стандартного 24-часового окна переписки. [Доступные значения](https://developers.facebook.com/docs/messenger-platform/reference/send-api/#---------) |

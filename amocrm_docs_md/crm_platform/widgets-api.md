@@ -1,16 +1,16 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/widgets-api -->
 
-# Оглавление
-
-Виджеты
+# Виджеты
 
 В данном разделе описывается работа с виджетами через API.
 
-*   [Список виджетов](#widgets-list)
-*   [Информация о виджете по его коду](#widget-detail)
-*   [Установка виджета в аккаунт](#widget-install)
-*   [Удаление установки виджета](#widget-uninstall)
-*   [Подтверждение выполнения блока виджета в Salesbot](#widget-continue)
+### Оглавление
+
+*   [Список виджетов](/crm_platform/widgets-api#widgets-list.html)
+*   [Информация о виджете по его коду](/crm_platform/widgets-api#widget-detail.html)
+*   [Установка виджета в аккаунт](/crm_platform/widgets-api#widget-install.html)
+*   [Удаление установки виджета](/crm_platform/widgets-api#widget-uninstall.html)
+*   [Подтверждение выполнения блока виджета в Salesbot](/crm_platform/widgets-api#widget-continue.html)
 
 ### Список виджетов
 
@@ -73,71 +73,73 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
-    {
-      "_page": 1,
-      "_links": {
-        "self": {
-          "href": "https://example.amocrm.ru/api/v4/widgets?limit=2&page=1"
-        },
-        "next": {
-          "href": "https://example.amocrm.ru/api/v4/widgets?limit=2&page=2"
+```json
+{
+  "_page": 1,
+  "_links": {
+    "self": {
+      "href": "https://example.amocrm.ru/api/v4/widgets?limit=2&page=1"
+    },
+    "next": {
+      "href": "https://example.amocrm.ru/api/v4/widgets?limit=2&page=2"
+    }
+  },
+  "_embedded": {
+    "widgets": [
+      {
+        "id": 742,
+        "code": "amo_dropbox",
+        "version": "0.0.13",
+        "rating": "2,8",
+        "settings_template": [
+          {
+            "key": "conf",
+            "name": "custom",
+            "type": "custom",
+            "is_required": false
+          }
+        ],
+        "is_lead_source": false,
+        "is_work_with_dp": false,
+        "is_crm_template": false,
+        "client_uuid": null,
+        "is_active_in_account": false,
+        "pipeline_id": null,
+        "_links": {
+          "self": {
+            "href": "https://example.amocrm.ru/api/v4/widgets/amo_dropbox"
+          }
         }
       },
-      "_embedded": {
-        "widgets": [
+      {
+        "id": 796,
+        "code": "amo_mailchimp",
+        "version": "1.1.12",
+        "rating": "3,4",
+        "settings_template": [
           {
-            "id": 742,
-            "code": "amo_dropbox",
-            "version": "0.0.13",
-            "rating": "2,8",
-            "settings_template": [
-              {
-                "key": "conf",
-                "name": "custom",
-                "type": "custom",
-                "is_required": false
-              }
-            ],
-            "is_lead_source": false,
-            "is_work_with_dp": false,
-            "is_crm_template": false,
-            "client_uuid": null,
-            "is_active_in_account": false,
-            "pipeline_id": null,
-            "_links": {
-              "self": {
-                "href": "https://example.amocrm.ru/api/v4/widgets/amo_dropbox"
-              }
-            }
-          },
-          {
-            "id": 796,
-            "code": "amo_mailchimp",
-            "version": "1.1.12",
-            "rating": "3,4",
-            "settings_template": [
-              {
-                "key": "api",
-                "name": "custom",
-                "type": "custom",
-                "is_required": false
-              }
-            ],
-            "is_lead_source": false,
-            "is_work_with_dp": false,
-            "is_crm_template": false,
-            "client_uuid": null,
-            "is_active_in_account": false,
-            "pipeline_id": null,
-            "_links": {
-              "self": {
-                "href": "https://example.amocrm.ru/api/v4/widgets/amo_mailchimp"
-              }
-            }
+            "key": "api",
+            "name": "custom",
+            "type": "custom",
+            "is_required": false
           }
-        ]
+        ],
+        "is_lead_source": false,
+        "is_work_with_dp": false,
+        "is_crm_template": false,
+        "client_uuid": null,
+        "is_active_in_account": false,
+        "pipeline_id": null,
+        "_links": {
+          "self": {
+            "href": "https://example.amocrm.ru/api/v4/widgets/amo_mailchimp"
+          }
+        }
       }
-    }
+    ]
+  }
+}
+```
 
 ### Информация о виджете по его коду
 
@@ -195,31 +197,33 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
+```json
+{
+  "id": 742,
+  "code": "amo_dropbox",
+  "version": "0.0.13",
+  "rating": "2,8",
+  "settings_template": [
     {
-      "id": 742,
-      "code": "amo_dropbox",
-      "version": "0.0.13",
-      "rating": "2,8",
-      "settings_template": [
-        {
-          "key": "conf",
-          "name": "custom",
-          "type": "custom",
-          "is_required": false
-        }
-      ],
-      "is_lead_source": false,
-      "is_work_with_dp": false,
-      "is_crm_template": false,
-      "client_uuid": null,
-      "is_active_in_account": false,
-      "pipeline_id": null,
-      "_links": {
-        "self": {
-          "href": "https://example.amocrm.ru/api/v4/widgets/amo_dropbox"
-        }
-      }
+      "key": "conf",
+      "name": "custom",
+      "type": "custom",
+      "is_required": false
     }
+  ],
+  "is_lead_source": false,
+  "is_work_with_dp": false,
+  "is_crm_template": false,
+  "client_uuid": null,
+  "is_active_in_account": false,
+  "pipeline_id": null,
+  "_links": {
+    "self": {
+      "href": "https://example.amocrm.ru/api/v4/widgets/amo_dropbox"
+    }
+  }
+}
+```
 
 ### Установка виджета в аккаунт
 
@@ -260,14 +264,16 @@ Content-Type: application/json
 Поле password имеет тип pass.  
 Поле phones имеет тип users.
 
-    {
-      "login": "example",
-      "password": "eXaMp1E",
-      "phones": {
-         "504141": "1039"
-      },
-      "script_path": "https://example.com/"
-    }
+```json
+{
+  "login": "example",
+  "password": "eXaMp1E",
+  "phones": {
+     "504141": "1039"
+  },
+  "script_path": "https://example.com/"
+}
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -292,57 +298,59 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
+```json
+{
+  "id": 972,
+  "code": "amo_asterisk",
+  "version": "1.1.6",
+  "rating": "2,7",
+  "settings_template": [
     {
-      "id": 972,
-      "code": "amo_asterisk",
-      "version": "1.1.6",
-      "rating": "2,7",
-      "settings_template": [
-        {
-          "key": "login",
-          "name": "Логин",
-          "type": "text",
-          "is_required": true
-        },
-        {
-          "key": "password",
-          "name": "Пароль",
-          "type": "pass",
-          "is_required": true
-        },
-        {
-          "key": "phones",
-          "name": "Список телефонов",
-          "type": "users",
-          "is_required": true
-        },
-        {
-          "key": "script_path",
-          "name": "Путь к скрипту",
-          "type": "text",
-          "is_required": true
-        }
-      ],
-      "is_lead_source": false,
-      "is_work_with_dp": false,
-      "is_crm_template": false,
-      "client_uuid": null,
-      "is_active_in_account": true,
-      "pipeline_id": null,
-      "settings": {
-        "login": "example",
-        "password": "eXaMp1E",
-        "phones": {
-          "504141": "1039"
-        },
-        "script_path": "https://example.com/"
-      },
-      "_links": {
-        "self": {
-          "href": "https://example.amocrm.ru/api/v4/widgets/amo_asterisk"
-        }
-      }
+      "key": "login",
+      "name": "Логин",
+      "type": "text",
+      "is_required": true
+    },
+    {
+      "key": "password",
+      "name": "Пароль",
+      "type": "pass",
+      "is_required": true
+    },
+    {
+      "key": "phones",
+      "name": "Список телефонов",
+      "type": "users",
+      "is_required": true
+    },
+    {
+      "key": "script_path",
+      "name": "Путь к скрипту",
+      "type": "text",
+      "is_required": true
     }
+  ],
+  "is_lead_source": false,
+  "is_work_with_dp": false,
+  "is_crm_template": false,
+  "client_uuid": null,
+  "is_active_in_account": true,
+  "pipeline_id": null,
+  "settings": {
+    "login": "example",
+    "password": "eXaMp1E",
+    "phones": {
+      "504141": "1039"
+    },
+    "script_path": "https://example.com/"
+  },
+  "_links": {
+    "self": {
+      "href": "https://example.amocrm.ru/api/v4/widgets/amo_asterisk"
+    }
+  }
+}
+```
 
 ### Удаление установки виджета
 
@@ -384,7 +392,7 @@ POST /api/v4/{salesbot|marketingbot}/{bot\_id}/continue/{continue\_id}
 #### Описание
 
 Метод принимает данные после выполнения отработки виджета в Salesbot’е и продолжает работу бота.  
-Подробней о методе Salesbot widget\_request читайте – [тут.](https://www.amocrm.ru/developers/content/digital_pipeline/salesbot)
+Подробней о методе Salesbot widget\_request читайте – [тут.](/digital_pipeline/salesbot.html)
 
 #### Ограничения
 
@@ -411,53 +419,55 @@ Content-Type: application/json
 В примере передадим виджету поле status, в любом блоке после widget\_request по ключу {{json.status}} виджет сможет получить его значение: "success".  
 Также передадим, чтобы бот виджета отобразил текст, кнопки, кнопки со ссылками и перешёл на 5 шаг бота виджета
 
-    {
-      "data": {
-          "status": "success"
-      },
-      "execute_handlers": [
-          {
-              "handler": "show",
-              "params": {
-                  "type": "text",
-                  "value": "Здесь текст"
-              }
-          },
-          {
-              "handler": "show",
-              "params": {
-                  "type": "buttons",
-                  "value": "Нажми на кнопку",
-                  "buttons": [
-                      "1ая кнопка",
-                      "2ая кнопка",
-                      "3ая кнопка",
-                      "4ая кнопка",
-                      ...
-                      "25ая кнопка"
-                  ]
-              }
-          },
-          {
-              "handler": "show",
-              "params": {
-                  "type": "buttons_url",
-                  "value": "Кнопки со ссылками",
-                  "buttons": [
-                      "https://amocrm.ru",
-                      "https://amocrm.com"
-                  ]
-              }
-          },
-          {
-              "handler": "goto",
-              "params": {
-                  "type": "question|answer|finish",
-                  "step": 5
-              }
+```json
+{
+  "data": {
+      "status": "success"
+  },
+  "execute_handlers": [
+      {
+          "handler": "show",
+          "params": {
+              "type": "text",
+              "value": "Здесь текст"
           }
-      ]
-    }
+      },
+      {
+          "handler": "show",
+          "params": {
+              "type": "buttons",
+              "value": "Нажми на кнопку",
+              "buttons": [
+                  "1ая кнопка",
+                  "2ая кнопка",
+                  "3ая кнопка",
+                  "4ая кнопка",
+                  ...
+                  "25ая кнопка"
+              ]
+          }
+      },
+      {
+          "handler": "show",
+          "params": {
+              "type": "buttons_url",
+              "value": "Кнопки со ссылками",
+              "buttons": [
+                  "https://amocrm.ru",
+                  "https://amocrm.com"
+              ]
+          }
+      },
+      {
+          "handler": "goto",
+          "params": {
+              "type": "question|answer|finish",
+              "step": 5
+          }
+      }
+  ]
+}
+```
 
 #### HTTP коды ответа
 

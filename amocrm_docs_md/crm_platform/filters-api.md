@@ -1,25 +1,25 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/filters-api -->
 
-# Общая информация
+# Фильтрация (Alpha)
 
-Фильтрация (Alpha)
+### Общая информация
 
 Функционал API-фильтрации доступен для подключения в разделе «Настройки» → «Счета и оплата». Информацию о ценообразовании подключения функционала, вы можете посмотреть в «Дополнительные пакеты» по [ссылке](https://www.amocrm.ru/buy#additional-pricing).
 
 Если вы хотите подключить фильтрацию для разработки интеграции — пожалуйста, обратитесь в чат поддержки интеграторов из вашего технического аккаунта.
 
-Подробнее о техническом аккаунте вы можете узнать по [ссылке](https://www.amocrm.ru/developers/content/integrations/intro#registration:~:text=%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D0%B9%20%D0%BC%D1%8B%20%D0%BD%D0%B0%D0%B7%D1%8B%D0%B2%D0%B0%D0%B5%D0%BC-,%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%BC.,-%D0%9F%D0%BE%D1%81%D0%BB%D0%B5%20%D1%80%D0%B5%D0%B3%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D0%B8%20%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D0%B0)
+Подробнее о техническом аккаунте вы можете узнать по [ссылке](/integrations/intro#registration:~:text=%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D0%B9%20%D0%BC%D1%8B%20%D0%BD%D0%B0%D0%B7%D1%8B%D0%B2%D0%B0%D0%B5%D0%BC-,%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%BC.,-%D0%9F%D0%BE%D1%81%D0%BB%D0%B5%20%D1%80%D0%B5%D0%B3%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D0%B8%20%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D0%B0.html)
 
-Данный функционал доступен для следующих списков: [сделки](/developers/content/crm_platform/leads-api), [контакты](/developers/content/crm_platform/contacts-api), [компании](/developers/content/crm_platform/companies-api) и [покупатели](/developers/content/crm_platform/customers-api).
+Данный функционал доступен для следующих списков: [сделки](/crm_platform/leads-api.html), [контакты](/crm_platform/contacts-api.html), [компании](/crm_platform/companies-api.html) и [покупатели](/crm_platform/customers-api.html).
 
 ### Оглавление
 
-*   [Общая информация](#common-info)
-*   [Фильтрация списка сделок](#leads-filter)
-*   [Фильтрация списка контактов](#contacts-filter)
-*   [Фильтрация списка компаний](#companies-filter)
-*   [Фильтрация списка покупателей](#customers-filter)
-*   [Типы фильтров](#filter-types)
+*   [Общая информация](/crm_platform/filters-api#common-info.html)
+*   [Фильтрация списка сделок](/crm_platform/filters-api#leads-filter.html)
+*   [Фильтрация списка контактов](/crm_platform/filters-api#contacts-filter.html)
+*   [Фильтрация списка компаний](/crm_platform/filters-api#companies-filter.html)
+*   [Фильтрация списка покупателей](/crm_platform/filters-api#customers-filter.html)
+*   [Типы фильтров](/crm_platform/filters-api#filter-types.html)
 
 ### Фильтрация списка сделок
 
@@ -165,9 +165,9 @@ GET /api/v4/customers
 
 Пример запроса
 
-    
-    /api/v4/leads?filter[name]=Сделка
-    
+```javascript
+/api/v4/leads?filter[name]=Сделка
+```
 
 #### Множественный
 
@@ -175,9 +175,9 @@ GET /api/v4/customers
 
 Пример запроса
 
-    
-    /api/v4/leads?filter[pipeline_id][0]=15314&filter[pipeline_id][1]=21856
-    
+```javascript
+/api/v4/leads?filter[pipeline_id][0]=15314&filter[pipeline_id][1]=21856
+```
 
 #### Диапазонный
 
@@ -198,9 +198,9 @@ GET /api/v4/customers
 
 Пример запроса
 
-    
-    /api/v4/leads?filter[updated_at][from]=1575296400&filter[updated_at][to]=1589540009
-    
+```javascript
+/api/v4/leads?filter[updated_at][from]=1575296400&filter[updated_at][to]=1589540009
+```
 
 #### Фильтр по статусам
 
@@ -210,9 +210,9 @@ GET /api/v4/customers
 
 Пример запроса
 
-    
-    /api/v4/leads?filter[statuses][0][pipeline_id]={pipeline_id}&filter[statuses][0][status_id]={status_id}
-    
+```javascript
+/api/v4/leads?filter[statuses][0][pipeline_id]={pipeline_id}&filter[statuses][0][status_id]={status_id}
+```
 
 #### Фильтр по дополнительным полям
 
@@ -245,7 +245,8 @@ GET /api/v4/customers
 
 Пример запроса
 
-    
-    /api/v4/leads?filter[custom_fields_values][{field_id}][]={value}&filter[custom_fields_values][{field_id}][]={value2}
-    /api/v4/leads?filter[custom_fields_values][{field_id}][]={enum_id}&filter[custom_fields_values][{field_id}][]={enum_id2}
-    /api/v4/leads?filter[custom_fields_values][{field_id}][from]={date_from}&filter[custom_fields_values][{field_id}][to]={date_to}
+```javascript
+/api/v4/leads?filter[custom_fields_values][{field_id}][]={value}&filter[custom_fields_values][{field_id}][]={value2}
+/api/v4/leads?filter[custom_fields_values][{field_id}][]={enum_id}&filter[custom_fields_values][{field_id}][]={enum_id2}
+/api/v4/leads?filter[custom_fields_values][{field_id}][from]={date_from}&filter[custom_fields_values][{field_id}][to]={date_to}
+```

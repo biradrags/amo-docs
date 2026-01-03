@@ -1,12 +1,12 @@
 <!-- https://www.amocrm.ru/developers/content/web_sdk/settings -->
 
-# Оглавление
+# Работа виджета в разделе интеграций
 
-Работа виджета в разделе интеграций
+### Оглавление
 
-*   [Колбэк settings](#settings)
-*   [Колбэк onSave](#onsave)
-*   [Собственная страница настроек](#advanced)
+*   [Колбэк settings](/web_sdk/settings#settings.html)
+*   [Колбэк onSave](/web_sdk/settings#onsave.html)
+*   [Собственная страница настроек](/web_sdk/settings#advanced.html)
 
 В маркетплейсе интеграций при клике на виджет открывается модальное окно с настройками. При открытии этого окна система отрисует поля, которые перечислены в разделе settings файла **manifest.json**.
 
@@ -14,24 +14,28 @@
 
 Если вы хотите кастомизировать внешний вид данного окна, для этого есть колбэк **settings**.
 
-    define(['jquery'], function ($) {
-      return function () {
-        this.callbacks = {
-          settings: function ($settings_body, context) {
-            // ...
-          }
-        };
-      };
-    });
+```javascript
+define(['jquery'], function ($) {
+  return function () {
+    this.callbacks = {
+      settings: function ($settings_body, context) {
+        // ...
+      }
+    };
+  };
+});
+```
 
 Колбэк `settings` принимает два аргумента. Первый `$settings_body` – jQuery-элемент, в котором рисуется форма настроек виджета. Второй `context` – объект, в который могут быть переданы дополнительные параметры в зависимости от того, откуда был вызван показ модального окна настроек виджета.
 
 Если ваш виджет реализует функционал источника сделок и выводится в колонке источников слева в разделе Digital Pipeline, то при клике на такой установленный виджет в `context` придут следующие данные:
 
-    {
-      source_id: 12345, // id источника на стороне amoCRM
-      external_id: 761527839 // id источника на стороне интеграции
-    }
+```javascript
+{
+  source_id: 12345, // id источника на стороне amoCRM
+  external_id: 761527839 // id источника на стороне интеграции
+}
+```
 
 ❗️ Важно ❗️
 
@@ -53,25 +57,29 @@
 
 Для этого необходимо в **manifest.json** указать локейшн "**advanced\_settings**":
 
-    {
-      ...
-    
-      "locations": [
-        "advanced_settings"
-      ],
-      "advanced": {
-        "title": "advanced.title"
-      },
-    
-      ...
-    }
+```javascript
+{
+  ...
+
+  "locations": [
+    "advanced_settings"
+  ],
+  "advanced": {
+    "title": "advanced.title"
+  },
+
+  ...
+}
+```
 
 После установки виджета с таким локейшном в меню раздела "Настройки" появится новый пункт с названием из **advanced.title**, справа от названия виджета будет указано его название.
 
 При клике пользователя по этому пункту меню будет вызван колбэк виджета "**advancedSettings**", в котором виджет может отрисовать все необходимые элементы своих настроек на страницу в элемент с ID "**list\_page\_holder**". Пример кода:
 
-    this.callbacks = {
-      advancedSettings: function () {
-        $('#list_page_holder').html('Настройки виджета здесь');
-      }
-    }
+```javascript
+this.callbacks = {
+  advancedSettings: function () {
+    $('#list_page_holder').html('Настройки виджета здесь');
+  }
+}
+```

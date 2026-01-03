@@ -2,7 +2,7 @@
 
 # Параметры аккаунта
 
-Параметры аккаунта
+### Параметры аккаунта
 
 #### Метод
 
@@ -20,7 +20,7 @@ _GET /api/v4/account_
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](#with-b030cba4-f35c-42c2-b9fd-24bdfebebfb6-params) |
+| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](/crm_platform/account-info#with-b030cba4-f35c-42c2-b9fd-24bdfebebfb6-params.html) |
 
 #### Заголовок типа данных при успешном результате
 
@@ -78,108 +78,110 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "id": 1231414,
-        "name": "example",
-        "subdomain": "example",
-        "current_user_id": 581651,
-        "country": "RU",
-        "customers_mode": "segments",
-        "is_unsorted_on": true,
-        "is_loss_reason_enabled": true,
-        "is_helpbot_enabled": false,
-        "is_technical_account": false,
-        "is_api_filter_enabled": true,
-        "contact_name_display_order": 1,
-        "amojo_id": "f3c6340d-410e-4ad1-9f7e-c5e663599909",
-        "uuid": "824f3a59-6154-4edf-ba90-0b5593715d07",
-        "drive_url": "https://drive-b.amocrm.ru"
-        "version": 16,
-        "entity_names": {
-            "leads": {
-                "ru": {
-                    "gender": "m",
-                    "plural_form": {
-                        "dative": "клиентам",
-                        "default": "клиенты",
-                        "genitive": "клиентов",
-                        "accusative": "клиентов",
-                        "instrumental": "клиентами",
-                        "prepositional": "клиентах"
-                    },
-                    "singular_form": {
-                        "dative": "клиенту",
-                        "default": "клиент",
-                        "genitive": "клиента",
-                        "accusative": "клиента",
-                        "instrumental": "клиентом",
-                        "prepositional": "клиенте"
-                    }
+```json
+{
+    "id": 1231414,
+    "name": "example",
+    "subdomain": "example",
+    "current_user_id": 581651,
+    "country": "RU",
+    "customers_mode": "segments",
+    "is_unsorted_on": true,
+    "is_loss_reason_enabled": true,
+    "is_helpbot_enabled": false,
+    "is_technical_account": false,
+    "is_api_filter_enabled": true,
+    "contact_name_display_order": 1,
+    "amojo_id": "f3c6340d-410e-4ad1-9f7e-c5e663599909",
+    "uuid": "824f3a59-6154-4edf-ba90-0b5593715d07",
+    "drive_url": "https://drive-b.amocrm.ru"
+    "version": 16,
+    "entity_names": {
+        "leads": {
+            "ru": {
+                "gender": "m",
+                "plural_form": {
+                    "dative": "клиентам",
+                    "default": "клиенты",
+                    "genitive": "клиентов",
+                    "accusative": "клиентов",
+                    "instrumental": "клиентами",
+                    "prepositional": "клиентах"
                 },
-                "en": {
-                    "singular_form": {
-                        "default": "lead"
-                    },
-                    "plural_form": {
-                        "default": "leads"
-                    },
-                    "gender": "f"
-                },
-                "es": {
-                    "singular_form": {
-                        "default": "acuerdo"
-                    },
-                    "plural_form": {
-                        "default": "acuerdos"
-                    },
-                    "gender": "m"
+                "singular_form": {
+                    "dative": "клиенту",
+                    "default": "клиент",
+                    "genitive": "клиента",
+                    "accusative": "клиента",
+                    "instrumental": "клиентом",
+                    "prepositional": "клиенте"
                 }
-            }
-        },
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/account"
-            }
-        },
-        "_embedded": {
-            "amojo_rights": {
-                "can_direct": true,
-                "can_create_groups": true
             },
-            "users_groups": [
-                {
-                    "id": 0,
-                    "name": "Отдел продаж",
-                    "uuid": null
-                }
-            ],
-            "task_types": [
-                {
-                    "id": 1,
-                    "name": "Связаться",
-                    "color": null,
-                    "icon_id": null,
-                    "code": "FOLLOW_UP"
+            "en": {
+                "singular_form": {
+                    "default": "lead"
                 },
-                {
-                    "id": 2,
-                    "name": "Встреча",
-                    "color": null,
-                    "icon_id": null,
-                    "code": "MEETING"
-                }
-            ],
-            "datetime_settings": {
-                "date_pattern": "d.m.Y H:i",
-                "short_date_pattern": "d.m.Y",
-                "short_time_pattern": "H:i",
-                "date_formant": "d.m.Y",
-                "time_format": "H:i:s",
-                "timezone": "Europe/Moscow",
-                "timezone_offset": "+03:00"
+                "plural_form": {
+                    "default": "leads"
+                },
+                "gender": "f"
+            },
+            "es": {
+                "singular_form": {
+                    "default": "acuerdo"
+                },
+                "plural_form": {
+                    "default": "acuerdos"
+                },
+                "gender": "m"
             }
         }
+    },
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/account"
+        }
+    },
+    "_embedded": {
+        "amojo_rights": {
+            "can_direct": true,
+            "can_create_groups": true
+        },
+        "users_groups": [
+            {
+                "id": 0,
+                "name": "Отдел продаж",
+                "uuid": null
+            }
+        ],
+        "task_types": [
+            {
+                "id": 1,
+                "name": "Связаться",
+                "color": null,
+                "icon_id": null,
+                "code": "FOLLOW_UP"
+            },
+            {
+                "id": 2,
+                "name": "Встреча",
+                "color": null,
+                "icon_id": null,
+                "code": "MEETING"
+            }
+        ],
+        "datetime_settings": {
+            "date_pattern": "d.m.Y H:i",
+            "short_date_pattern": "d.m.Y",
+            "short_time_pattern": "H:i",
+            "date_formant": "d.m.Y",
+            "time_format": "H:i:s",
+            "timezone": "Europe/Moscow",
+            "timezone_offset": "+03:00"
+        }
     }
+}
+```
 
 #### Параметры для GET-параметра with
 

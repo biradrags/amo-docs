@@ -1,8 +1,6 @@
 <!-- https://www.amocrm.ru/developers/content/integrations/structure -->
 
-# https://www.amocrm.ru/developers/content/integrations/structure
-
-Структура виджета
+# Структура виджета
 
 После того, как вы распакуете архив, вы увидите папку **widget\_example**, структуру которой мы рассмотрим:
 
@@ -30,14 +28,14 @@
 
 Кроме того, API amoCRM поддерживает событийную модель вызова сторонних скриптов через WebHooks – механизм. Он позволяет при определенных событиях, к примеру, изменение статуса сделки или изменение контакта, обращаться по указанному в настройках URL-скрипту и передавать в него актуальные данные.
 
-Также, публичные виджеты могут взаимодействовать с функционалом digital воронок сделок и покупателей. Подробнее можно узнать в разделе [Digital pipeline](https://www.amocrm.ru/developers/content/digital_pipeline/integrations)
+Также, публичные виджеты могут взаимодействовать с функционалом digital воронок сделок и покупателей. Подробнее можно узнать в разделе [Digital pipeline](/digital_pipeline/integrations.html)
 
 Итак, сначала копируем папку с примером виджета и называем ее **widget**. Это основа нашего будущего виджета.  
 Далее начинаем разбираться со всеми файлами по очереди.
 
 #### manifest.json
 
-Начинаем редактировать файл, руководствуясь таблицей описания его параметров. В значении вы можете использовать ссылку на языковые сообщения, если нужно. Внимание! С ноября 2018 года добавилось 2 ОБЯЗАТЕЛЬНЫХ поля в manifest.json. Поля отвечают за обратную связь и располагаются в кнопке "Обратная связь" (необходимо указать ссылку на сайт поддержки, либо email). Обратите внимание, email является менее приоритетным способом связи. Краткое описание виджета будет располагаться в левой части модального окна. С ноября 2019 года добавлено ОБЯЗАТЕЛЬНОЕ свойство в manifest.json – тур (tour). Тур — это набор картинок, на которых демонстрируется функционал виджета. Обязательными поля данного свойства являются: поле с указанием включением тура для виджета, ключи локализаций для картинок тура и ключ ланга, содержащего краткий текст, который будет выведен в момент показа тура виджета. Подробнее можно узнать в [статье](https://www.amocrm.ru/developers/content/integrations/script_js).
+Начинаем редактировать файл, руководствуясь таблицей описания его параметров. В значении вы можете использовать ссылку на языковые сообщения, если нужно. Внимание! С ноября 2018 года добавилось 2 ОБЯЗАТЕЛЬНЫХ поля в manifest.json. Поля отвечают за обратную связь и располагаются в кнопке "Обратная связь" (необходимо указать ссылку на сайт поддержки, либо email). Обратите внимание, email является менее приоритетным способом связи. Краткое описание виджета будет располагаться в левой части модального окна. С ноября 2019 года добавлено ОБЯЗАТЕЛЬНОЕ свойство в manifest.json – тур (tour). Тур — это набор картинок, на которых демонстрируется функционал виджета. Обязательными поля данного свойства являются: поле с указанием включением тура для виджета, ключи локализаций для картинок тура и ключ ланга, содержащего краткий текст, который будет выведен в момент показа тура виджета. Подробнее можно узнать в [статье](/integrations/script_js.html).
 
 | Параметр | Описание |
 | --- | --- |
@@ -47,21 +45,21 @@
 | widget/**short\_description** | Обязательное поле. Короткое описание для вывода в списке виджетов. Должно содержать путь к переводу в языковых файлах. |
 | widget/**version** | Версия виджета. Носит только информативную нагрузку. **(Рекомендуется увеличивать версию при каждой загрузки архива виджета для того, чтобы иметь актуальные файлы в системе)** |
 | widget/**interface\_version** | (int) Версия интерфейса (1,2) для какого именно интерфейса системы загружается виджет. По умолчанию необходимо оставлять 2. Интерфейс 1 — предыдущая версия интерфейса всей системы amoCRM, без использования AJAX. Регистрация на старую версию сейчас закрыта. |
-| widget/**init\_once** | (true/false) указывает на то, нужно ли собирать js объект виджет 1 раз за сеанс работы с интерфейсом amocrm. При инициализации виджета вызываются функции render(), init() и bind\_actions() (подробнее о них в части [script.js](https://www.amocrm.ru/developers/content/integrations/script_js)). Указание true или false регулирует возможность каждый раз при переходе из области в область ([подробнее об областях подключения](https://www.amocrm.ru/developers/content/integrations/areas)) вызывать функции init() и bind\_actions(), или вызвать их только один раз. К примеру, виджеты телефоний постоянно удерживают WebSocket соединение и его обрыва происходить не должно, поэтому init\_once должно иметь значение true. Если же общего для всех страниц контекста нет, то лучше ставить в false. |
+| widget/**init\_once** | (true/false) указывает на то, нужно ли собирать js объект виджет 1 раз за сеанс работы с интерфейсом amocrm. При инициализации виджета вызываются функции render(), init() и bind\_actions() (подробнее о них в части [script.js](/integrations/script_js.html)). Указание true или false регулирует возможность каждый раз при переходе из области в область ([подробнее об областях подключения](/integrations/areas.html)) вызывать функции init() и bind\_actions(), или вызвать их только один раз. К примеру, виджеты телефоний постоянно удерживают WebSocket соединение и его обрыва происходить не должно, поэтому init\_once должно иметь значение true. Если же общего для всех страниц контекста нет, то лучше ставить в false. |
 | widget/**locale** | Обязательное поле c массивом кодов языков, на которых будет доступен виджет. Под каждый язык должен быть свой файл с переводом в папке i18n. Доступные языки: ru, en, es (русский, английский и испанский соответственно).Если виджет загружен в разделе amoМаркет => Мое приложение, то языковые файлы должны совпадать с теми языками, которые заполнены в интеграции. |
 | widget/**installation** | (true/false) Если выбрано false, то виджет будет отображаться только в списке виджетов, не запрашивая настройки или установку в аккаунте. Это актуально, когда все настройки происходят в другой системе, взаимодействующей с amoCRM через API. |
 | widget/**is\_showcase** | (true/false) True изменяет название кнопки "Установить" на "Посмотреть". Это необходимо, когда виджет носит информационный характер, не устанавливается напрямую. installation при этом должен быть false. |
-| **locations** | Интерфейсы в которых должен быть отображен виджет. Массив, обязательный для заполнения, в случае если необходимо использовать js часть виджета. Подробнее об [областях](https://www.amocrm.ru/developers/content/integrations/areas). Возможные местоположения: **llist** — список сделок, **clist** — список контактов, **tlist** — список задач, **lcard** — карточка сделки, **ccard** — карточка контакта, **card\_sdk** — SDK карточки, **culist** – cписок покупателей, **cucard** – карточка покупателя, **digital\_pipeline** – digital воронка сделок и покупателей, **catalogs** – SDK списков, **whatsapp\_modal** – модальное окно интеграций, работающих с WhatsApp, **advanced\_settings** – страница расширенных настроек виджета, **salesbot\_designer** – возможность [использовать виджет](https://www.amocrm.ru/developers/content/integrations/salesbot_widget) в конструкторе Salesbot, sms –[возможность отправки](https://www.amocrm.ru/developers/content/integrations/system_sms) системных SMS виджетом, mobile\_card – [возможность использования](https://www.amocrm.ru/developers/content/integrations/mobile-widgets) виджета в мобильных приложениях. Так же необходимо сообщить нашей системе будет ли виджет использовать правую колонку для отображения, сделать это можно дописанием 0 или 1 после указания зоны. То есть, если указать "clist-0", виджет инициализируется в данной зоне, но не будет использовать правую колонку. К примеру, панель для WEB-фона находится не в правой колонке виджетов, а внизу в любом интерфейсе. Поэтому для всех мест подключения в настройках виджета должно быть написано 0, но при этом на каждой странице он инициализируется. amoforms – [возможность использования](https://www.amocrm.ru/developers/content/integrations/amoforms-widgets) виджета в веб-формах. |
-| **tour** | Блок содержит все основные настройки для тура виджета. Пример реализации можете посмотреть [ниже](#manifest-example) |
+| **locations** | Интерфейсы в которых должен быть отображен виджет. Массив, обязательный для заполнения, в случае если необходимо использовать js часть виджета. Подробнее об [областях](/integrations/areas.html). Возможные местоположения: **llist** — список сделок, **clist** — список контактов, **tlist** — список задач, **lcard** — карточка сделки, **ccard** — карточка контакта, **card\_sdk** — SDK карточки, **culist** – cписок покупателей, **cucard** – карточка покупателя, **digital\_pipeline** – digital воронка сделок и покупателей, **catalogs** – SDK списков, **whatsapp\_modal** – модальное окно интеграций, работающих с WhatsApp, **advanced\_settings** – страница расширенных настроек виджета, **salesbot\_designer** – возможность [использовать виджет](/integrations/salesbot_widget.html) в конструкторе Salesbot, sms –[возможность отправки](/integrations/system_sms.html) системных SMS виджетом, mobile\_card – [возможность использования](/integrations/mobile-widgets.html) виджета в мобильных приложениях. Так же необходимо сообщить нашей системе будет ли виджет использовать правую колонку для отображения, сделать это можно дописанием 0 или 1 после указания зоны. То есть, если указать "clist-0", виджет инициализируется в данной зоне, но не будет использовать правую колонку. К примеру, панель для WEB-фона находится не в правой колонке виджетов, а внизу в любом интерфейсе. Поэтому для всех мест подключения в настройках виджета должно быть написано 0, но при этом на каждой странице он инициализируется. amoforms – [возможность использования](/integrations/amoforms-widgets.html) виджета в веб-формах. |
+| **tour** | Блок содержит все основные настройки для тура виджета. Пример реализации можете посмотреть [ниже](/integrations/structure#manifest-example.html) |
 | tour/**is\_tour** | (true/false) указывает на то, нужно ли включать тур для виджета. false на данный момент является depricated. Значение всегда должно быть true |
 | tour/**tour\_images** | Содержит ключи локализаций для картинок тура |
 | tour/tour\_images/**{lang}** | (Array) Содержит путь до изображений для тура в зависимости от локализации |
 | tour/**tour\_description** | Ключ ланга, содержащего краткий текст, который будет выведен в момент показа тура виджета |
 | **settings** | Массив настроек виджета, доступных пользователю, т.е. поля, которые будут присутствовать в окне настроек виджета и заполняться пользователем. Данный раздел требуется только если installation = true, если installation = false, то данный раздел не нужен, т.к. в окне настроек будет выводиться только описание виджета.Ключем в массиве является код поля **{FIELD\_CODE}** |
 | settings/{FIELD\_CODE}/**name** | Название поля (только ссылка на элемент в lang файле) |
-| settings/{FIELD\_CODE}/**type** | Тип поля. Доступные варианты: **a) text,** **b) pass,** **c) users** (список пользователей системы с 1 текстовым полем на каждого, требуется в случае если нужно ввести какую-то информацию по каждому сотруднику, например внутренний телефонный номер для IP-телефонии), **d) users\_lp** (список пользователей системы с 2 полями (login,password) на каждого. Подробно типы полей разобраны в разделе [Типы полей раздела settings manifest.json](https://www.amocrm.ru/developers/content/integrations/fields) |
+| settings/{FIELD\_CODE}/**type** | Тип поля. Доступные варианты: **a) text,** **b) pass,** **c) users** (список пользователей системы с 1 текстовым полем на каждого, требуется в случае если нужно ввести какую-то информацию по каждому сотруднику, например внутренний телефонный номер для IP-телефонии), **d) users\_lp** (список пользователей системы с 2 полями (login,password) на каждого. Подробно типы полей разобраны в разделе [Типы полей раздела settings manifest.json](/integrations/fields.html) |
 | settings/{FIELD\_CODE}/**required** | true/false обязательность заполнения поля пользователем. |
-| **dp** | Блок настройки виджетов в digital pipeline. Данный блок необходимо включать в manifest.json, только если есть область видимости digital\_pipeline. С функционалом digital pipeline могут работать публичные и приватные виджеты (подробнее [Digital pipeline](https://www.amocrm.ru/developers/content/digital_pipeline/integrations)) |
+| **dp** | Блок настройки виджетов в digital pipeline. Данный блок необходимо включать в manifest.json, только если есть область видимости digital\_pipeline. С функционалом digital pipeline могут работать публичные и приватные виджеты (подробнее [Digital pipeline](/digital_pipeline/integrations.html)) |
 | dp/**settings** | Аналогичен блоку settings, но будет выводится при настройке виджета в digital воронке. |
 | dp/**action\_multiple** | Обязательное поле в блоке dp, значения – true/false, определяет, может ли действие виджета растягиваться на несколько этапов |
 | dp/**webhook\_url** | При указании webhook\_url , amoCRM будет отправлять вебхук напрямую по указанному адресу. Url должен содержать протокол SSL |
@@ -69,9 +67,9 @@
 | widget/support/**link** | Ссылка на поддержку интеграции (обязательно) |
 | widget/support/**email** | Email технической поддержки (обязательно в случае отсутствия ссылки на поддержку интеграции) |
 | advanced/**title** | Ключ в ланг файле для названия страницы виджета в настройках. |
-| **salesbot\_designer** | Параметры для добавления виджета в конструкторе Salesbot. Подробней читайте [по ссылке](https://www.amocrm.ru/developers/content/integrations/salesbot_widget). |
-| sms/**endpoint** | Адрес, на который будет отправлен запрос для отправки системного SMS. Подробней читайте [по ссылке](https://www.amocrm.ru/developers/content/integrations/system_sms). |
-| mobile/**frame\_url** | Адрес, который будет открыт в специальной области в мобильном приложении. Подробней читайте [по ссылке](https://www.amocrm.ru/developers/content/integrations/mobile-widgets). |
+| **salesbot\_designer** | Параметры для добавления виджета в конструкторе Salesbot. Подробней читайте [по ссылке](/integrations/salesbot_widget.html). |
+| sms/**endpoint** | Адрес, на который будет отправлен запрос для отправки системного SMS. Подробней читайте [по ссылке](/integrations/system_sms.html). |
+| mobile/**frame\_url** | Адрес, который будет открыт в специальной области в мобильном приложении. Подробней читайте [по ссылке](/integrations/mobile-widgets.html). |
 | mobile/**color** | HEX код цвета, который будет использован как подложка под заголовкам блока с виджетом. |
 | amoforms\_settings/**title** | Ключ в ланг файле для отображения названия пункта виджета в веб-формах. |
 | amoforms\_settings/**required** | Обязательность в веб-формах, прежде чем клиент нажмет обычную кнопку "Отправить", ему необходимо нажать на кнопку виджета.Необязательный параметр |
@@ -79,110 +77,111 @@
 
 #### Пример manifest.json
 
-    {
-      "widget": {
-        "name": "widget.name",
-        "description": "widget.description",
-        "short_description": "widget.short_description",
-        "version": "1.0.0",
-        "interface_version": 2,
-        "init_once": false,
-        "locale": ["ru", "en"],
-        "installation": true,
-        "support": {
-          "link": "https://www.amocrm.com",
-          "email": "support@amocrm.com"
-        }
-      },
-      "locations": ["ccard-1", "clist-1", "digital_pipeline", "settings"],
-      "tour": {
-        "is_tour": true,
-        "tour_images": {
-          "ru": [
-            "/images/tour_1_ru.png",
-            "/images/tour_2_ru.png",
-            "/images/tour_3_ru.png"
-          ],
-          "en": [
-            "/images/tour_1_en.png",
-            "/images/tour_2_en.png",
-            "/images/tour_3_en.png"
-          ],
-          "es": [
-            "/images/tour_1_es.png",
-            "/images/tour_2_es.png",
-            "/images/tour_3_es.png"
-          ]
-        },
-        "tour_description": "widget.tour_description"
-      },
+```json
+{
+  "widget": {
+    "name": "widget.name",
+    "description": "widget.description",
+    "short_description": "widget.short_description",
+    "version": "1.0.0",
+    "interface_version": 2,
+    "init_once": false,
+    "locale": ["ru", "en"],
+    "installation": true,
+    "support": {
+      "link": "https://www.amocrm.com",
+      "email": "support@amocrm.com"
+    }
+  },
+  "locations": ["ccard-1", "clist-1", "digital_pipeline", "settings"],
+  "tour": {
+    "is_tour": true,
+    "tour_images": {
+      "ru": [
+        "/images/tour_1_ru.png",
+        "/images/tour_2_ru.png",
+        "/images/tour_3_ru.png"
+      ],
+      "en": [
+        "/images/tour_1_en.png",
+        "/images/tour_2_en.png",
+        "/images/tour_3_en.png"
+      ],
+      "es": [
+        "/images/tour_1_es.png",
+        "/images/tour_2_es.png",
+        "/images/tour_3_es.png"
+      ]
+    },
+    "tour_description": "widget.tour_description"
+  },
+  "settings": {
+    "login": {
+      "name": "settings.login",
+      //указывает на файл локализации, в папке i18n
+      "type": "text",
+      //тип: текстовое поле
+      "required": false
+    },
+    "password": {
+      "name": "settings.password",
+      //указывает на файл локализации, в папке i18n
+      "type": "pass",
+      //тип: пароль
+      "required": false
+    }
+  },
+  "dp": {
+    "settings": {
+      "message": {
+        "name": "settings.message",
+        "type": "text",
+        "required": true
+      }
+    },
+    "action_multiple": false
+  },
+  "advanced": {
+    "title": "advanced.title"
+  },
+  "salesbot_designer": {
+    "handler_code": {
+      "name": "salesbot.handler_name",
       "settings": {
-        "login": {
-          "name": "settings.login",
-          //указывает на файл локализации, в папке i18n
+        "button_title": {
+          "name": "salesbot.button_title",
           "type": "text",
-          //тип: текстовое поле
-          "required": false
+          "default_value": "salesbot.button_title_default_value",
+          "manual": true
         },
-        "password": {
-          "name": "settings.password",
-          //указывает на файл локализации, в папке i18n
-          "type": "pass",
-          //тип: пароль
-          "required": false
-        }
-      },
-      "dp": {
-        "settings": {
-          "message": {
-            "name": "settings.message",
-            "type": "text",
-            "required": true
-          }
+        "button_caption": {
+          "name": "salesbot.button_caption",
+          "type": "text",
+          "default_value": "salesbot.button_caption_default_value",
+          "manual": true
         },
-        "action_multiple": false
-      },
-      "advanced": {
-        "title": "advanced.title"
-      },
-      "salesbot_designer": {
-        "handler_code": {
-          "name": "salesbot.handler_name",
-          "settings": {
-            "button_title": {
-              "name": "salesbot.button_title",
-              "type": "text",
-              "default_value": "salesbot.button_title_default_value",
-              "manual": true
-            },
-            "button_caption": {
-              "name": "salesbot.button_caption",
-              "type": "text",
-              "default_value": "salesbot.button_caption_default_value",
-              "manual": true
-            },
-            "text": {
-              "name": "salesbot.text",
-              "type": "text"
-            },
-            "number": {
-              "name": "salesbot.number",
-              "type": "numeric"
-            },
-            "url": {
-              "name": "salesbot.url",
-              "type": "url"
-            }
-          }
+        "text": {
+          "name": "salesbot.text",
+          "type": "text"
+        },
+        "number": {
+          "name": "salesbot.number",
+          "type": "numeric"
+        },
+        "url": {
+          "name": "salesbot.url",
+          "type": "url"
         }
-      },
-      "amoforms_settings": {
-        "title": "amoforms_settings.title",
-        "required": false,
-        "error_text": "amoforms_settings.error_text"
       }
     }
-    
+  },
+  "amoforms_settings": {
+    "title": "amoforms_settings.title",
+    "required": false,
+    "error_text": "amoforms_settings.error_text"
+  }
+}
+```
 
 **Особенности, связанные с oAuth интеграциями:**
 
@@ -199,47 +198,51 @@
 
 #### Пример i18n/ru.json
 
-    {
-      "widget": {
-        "name": "Demo виджет",
-        "short_description": "Виджет для отсылки контакта во внутреннюю систему",
-        "description": "Виджет, который служит для отправки данных из карточки контакта вашего домена #SUBDOMAIN# во внутренню систему"
-      },
-      "settings": {
-        "login": "Логин",
-        "password": "Пароль"
-      },
-      "userLang": {
-        "firstWidgetText": "Кликните на кнопку, чтобы переслать данные на сторонний сервер:",
-        "textIntoTheButton": "Отправить данные",
-        "responseMessage": "Ответ сервера :",
-        "responseError": "Ошибка"
-      }
-    }
+```json
+{
+  "widget": {
+    "name": "Demo виджет",
+    "short_description": "Виджет для отсылки контакта во внутреннюю систему",
+    "description": "Виджет, который служит для отправки данных из карточки контакта вашего домена #SUBDOMAIN# во внутренню систему"
+  },
+  "settings": {
+    "login": "Логин",
+    "password": "Пароль"
+  },
+  "userLang": {
+    "firstWidgetText": "Кликните на кнопку, чтобы переслать данные на сторонний сервер:",
+    "textIntoTheButton": "Отправить данные",
+    "responseMessage": "Ответ сервера :",
+    "responseError": "Ошибка"
+  }
+}
+```
 
 #### Пример i18n/en.json
 
-    {
-      "widget": {
-        "name": "Demo widget",
-        "short_description": "Widget for sending the contact to the internal system",
-        "description": "Widget that is used to send data from the contact card on your domain # SUBDOMAIN # in the internal system"
-      },
-      "settings": {
-        "login": "Login",
-        "password": "Password"
-      },
-      "userLang": {
-        "firstWidgetText": "Please, click on the button, if you want:",
-        "textIntoTheButton": "Send Data",
-        "responseMessage": "Server response:",
-        "responseError": "Failed"
-      }
-    }
+```json
+{
+  "widget": {
+    "name": "Demo widget",
+    "short_description": "Widget for sending the contact to the internal system",
+    "description": "Widget that is used to send data from the contact card on your domain # SUBDOMAIN # in the internal system"
+  },
+  "settings": {
+    "login": "Login",
+    "password": "Password"
+  },
+  "userLang": {
+    "firstWidgetText": "Please, click on the button, if you want:",
+    "textIntoTheButton": "Send Data",
+    "responseMessage": "Server response:",
+    "responseError": "Failed"
+  }
+}
+```
 
 Для обращения к языковым сообщениям из JS кода виджета используйте метод **self.i18n(‘obj\_name’)**, где obj\_name – это один из объектов файла локализации.
 
-Примеры файлов manifest.json есть в разделе [Типы полей раздела settings manifest.json](https://www.amocrm.ru/developers/content/integrations/fields)
+Примеры файлов manifest.json есть в разделе [Типы полей раздела settings manifest.json](/integrations/fields.html)
 
 **Типовые ошибки:**
 
@@ -249,4 +252,4 @@
 *   Зачастую в упакованном архиве в корне лежит папка widget, как первый уровень, а на самом деле должны уже сразу лежать файлы
 *   Если изначально был загружен неверный manifest, то необходимо сгенерировать новый код и ключ, т.к. предыдущий будет дескредитирован
 
-[Типы полей](https://www.amocrm.ru/developers/content/integrations/fields)
+[Типы полей](/integrations/fields.html)

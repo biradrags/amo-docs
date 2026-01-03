@@ -1,4 +1,4 @@
-# fly.toml app configuration file for amo-docs
+# fly.toml app configuration file generated for amo-docs on 2026-01-03T21:23:05+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -27,5 +27,4 @@ kill_timeout = '5s'
   memory = '256mb'
   cpu_kind = 'shared'
   cpus = 1
-
-
+  memory_mb = 256

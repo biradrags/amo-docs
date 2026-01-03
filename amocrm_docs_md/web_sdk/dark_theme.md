@@ -1,16 +1,16 @@
 <!-- https://www.amocrm.ru/developers/content/web_sdk/dark_theme -->
 
-# Оглавление
+# Темная тема
 
-Темная тема
+### Оглавление
 
-*   [Использование переменных в темной теме](#Использование-переменных-в-темной-теме)
-*   [Пример реализации темной темы](#Пример-реализации)
-*   [Правила для интеграторов](#Правила-для-интеграторов)
-*   [Кастомные переменные для интеграций](#Кастомные-переменные-для-интеграций)
-*   [Пример переменных для цветов](#Пример-переменных-для-цветов)
-*   [Пример для светлой темы](#Пример-для-светлой-темы)
-*   [Пример для темной темы](#Пример-для-темной-темы)
+*   [Использование переменных в темной теме](/web_sdk/dark_theme#%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D0%B2-%D1%82%D0%B5%D0%BC%D0%BD%D0%BE%D0%B9-%D1%82%D0%B5%D0%BC%D0%B5.html)
+*   [Пример реализации темной темы](/web_sdk/dark_theme#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8.html)
+*   [Правила для интеграторов](/web_sdk/dark_theme#%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%B4%D0%BB%D1%8F-%D0%B8%D0%BD%D1%82%D0%B5%D0%B3%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%B2.html)
+*   [Кастомные переменные для интеграций](/web_sdk/dark_theme#%D0%9A%D0%B0%D1%81%D1%82%D0%BE%D0%BC%D0%BD%D1%8B%D0%B5-%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D0%B4%D0%BB%D1%8F-%D0%B8%D0%BD%D1%82%D0%B5%D0%B3%D1%80%D0%B0%D1%86%D0%B8%D0%B9.html)
+*   [Пример переменных для цветов](/web_sdk/dark_theme#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80-%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D0%B4%D0%BB%D1%8F-%D1%86%D0%B2%D0%B5%D1%82%D0%BE%D0%B2.html)
+*   [Пример для светлой темы](/web_sdk/dark_theme#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80-%D0%B4%D0%BB%D1%8F-%D1%81%D0%B2%D0%B5%D1%82%D0%BB%D0%BE%D0%B9-%D1%82%D0%B5%D0%BC%D1%8B.html)
+*   [Пример для темной темы](/web_sdk/dark_theme#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80-%D0%B4%D0%BB%D1%8F-%D1%82%D0%B5%D0%BC%D0%BD%D0%BE%D0%B9-%D1%82%D0%B5%D0%BC%D1%8B.html)
 
 Если вы нажмете на аватарку вашего профиля, расположенную в верхнем левом углу экрана, в правом углу появится возможность выбрать тему интерфейса: светлую или тёмную. Вы можете выбрать одну из тем вручную или настроить автоматическое переключение, чтобы темная тема активировалась в соответствии с настройками вашей операционной системы.
 
@@ -28,17 +28,19 @@
 ![](https://i.postimg.cc/tJR17K6h/white-input.png)  
 ![](https://i.postimg.cc/T3nRMkLG/dark-input.png)
 
-    .input {
-      color: var(--palette-text-secondary-dark);
-      border: 1px solid var(--palette-border-default);
-      background-color: var(--palette-background-primary);
-    }
+```css
+.input {
+  color: var(--palette-text-secondary-dark);
+  border: 1px solid var(--palette-border-default);
+  background-color: var(--palette-background-primary);
+}
+```
 
 ### Правила для интеграторов:
 
 При разработке интеграции с темной темой в amoCRM необходимо соблюдать следующие правила:
 
-1.  Желательно использовать предоставленные переменные: это гарантирует согласованность и стабильность внешнего вида системы и предотвращает возможные конфликты и ошибки, но если у вас есть свои корпоративные цвета и вам не подходят наши, то нужно использовать [данное решение](#Кастомные-переменные-для-интеграций).
+1.  Желательно использовать предоставленные переменные: это гарантирует согласованность и стабильность внешнего вида системы и предотвращает возможные конфликты и ошибки, но если у вас есть свои корпоративные цвета и вам не подходят наши, то нужно использовать [данное решение](/web_sdk/dark_theme#%D0%9A%D0%B0%D1%81%D1%82%D0%BE%D0%BC%D0%BD%D1%8B%D0%B5-%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D0%B4%D0%BB%D1%8F-%D0%B8%D0%BD%D1%82%D0%B5%D0%B3%D1%80%D0%B0%D1%86%D0%B8%D0%B9.html).
 2.  Не переопределять переменные: интеграторам не разрешается переопределять предопределенные переменные, объявленные в CSS темной темы. Это позволяет сохранить целостность стилей и избежать несовместимости с обновлениями системы.
 3.  Использование переменных только для соответствующих элементов: переменные, связанные с текстом, рамками и фоном, должны использоваться только для соответствующих элементов в интерфейсе. Например, переменные, определенные для текста, могут быть применены только к элементам, содержащим текст, и не должны использоваться для изменения других стилей.
 
@@ -48,32 +50,38 @@
 
 ### Пример переменных для цветов
 
-    :root {
-      --example-code-widget-color-white: #ffffff;
-      --example-code-widget-color-anti-flash-white: #f2f2f2;
-      --example-code-widget-color-cultured: #f5f5f5;
-      --example-code-widget-color-onyx: #363b44;
-      --example-code-widget-color-dark-gunmetal: #0f2231;
-      --example-code-widget-color-spanish-gray: #92989b;
-      --example-code-widget-color-dark-silver: #6b6d72;
-    }
+```css
+:root {
+  --example-code-widget-color-white: #ffffff;
+  --example-code-widget-color-anti-flash-white: #f2f2f2;
+  --example-code-widget-color-cultured: #f5f5f5;
+  --example-code-widget-color-onyx: #363b44;
+  --example-code-widget-color-dark-gunmetal: #0f2231;
+  --example-code-widget-color-spanish-gray: #92989b;
+  --example-code-widget-color-dark-silver: #6b6d72;
+}
+```
 
 При объявлении переменных для фона и текста, вы должны использовать переменные уже существующих цветов. В частных случаях, можно использовать цвета без переменных.
 
 ### Пример для светлой темы
 
-    :root {
-      --example-code-widget-text-primary: var( --example-code-widget-color-onyx); /* text */
-      --example-code-widget-background-default: var(--example-code-widget-color-cultured); /* background */
-      --example-code-widget-overlay-background-primary-600: rgba(255, 255, 255, 0.6); /* частный случай с фоном */
-    }
+```css
+:root {
+  --example-code-widget-text-primary: var( --example-code-widget-color-onyx); /* text */
+  --example-code-widget-background-default: var(--example-code-widget-color-cultured); /* background */
+  --example-code-widget-overlay-background-primary-600: rgba(255, 255, 255, 0.6); /* частный случай с фоном */
+}
+```
 
 ### Пример для темной темы
 
 В темной теме нужно использовать data attribute
 
-    :root[data-color-scheme="dark"] {
-      --example-code-widget-text-primary: var(--example-code-widget-color-anti-flash-white); /* text */
-      --example-code-widget-background-default: var(--example-code-widget-color-dark-gunmetal); /* background */
-      --example-code-widget-overlay-background-primary-600: rgba(0, 0, 0, 0.6); /* частный случай с прозрачным */
-    }
+```css
+:root[data-color-scheme="dark"] {
+  --example-code-widget-text-primary: var(--example-code-widget-color-anti-flash-white); /* text */
+  --example-code-widget-background-default: var(--example-code-widget-color-dark-gunmetal); /* background */
+  --example-code-widget-overlay-background-primary-600: rgba(0, 0, 0, 0.6); /* частный случай с прозрачным */
+}
+```

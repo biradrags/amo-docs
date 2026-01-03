@@ -1,26 +1,26 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/events-and-notes -->
 
-# Оглавление
-
-События и Примечания
+# События и Примечания
 
 В данном разделе описывается работа со списком событий и примечаниями сущностей
 
-*   [Общая информация о событиях](#events-common-info)
-*   [Список событий](#events-list)
-*   [Получение события по ID](#events-detail)
-*   [Значения для фильтра по значению до/после](#events-filter-params)
-*   [Структуры данных в полях value\_after и value\_before](#events-params)
-*   [Типы событий](#events-types)
-*   [Получение типов событий](#event-types)
-*   [Особенности фильтрации событий по связанным сущностям](#events-peculiarities)
-*   [Общая информация о примечаниях](#notes-common-info)
-*   [Типы примечаний](#notes-types)
-*   [Список примечаний по типу сущности](#notes-list)
-*   [Список примечаний по конкретной сущности, по ID сущности](#notes-entity-list)
-*   [Получение примечания по ID](#note-detail)
-*   [Добавление примечаний](#notes-add)
-*   [Редактирование примечаний](#notes-edit)
+### Оглавление
+
+*   [Общая информация о событиях](/crm_platform/events-and-notes#events-common-info.html)
+*   [Список событий](/crm_platform/events-and-notes#events-list.html)
+*   [Получение события по ID](/crm_platform/events-and-notes#events-detail.html)
+*   [Значения для фильтра по значению до/после](/crm_platform/events-and-notes#events-filter-params.html)
+*   [Структуры данных в полях value\_after и value\_before](/crm_platform/events-and-notes#events-params.html)
+*   [Типы событий](/crm_platform/events-and-notes#events-types.html)
+*   [Получение типов событий](/crm_platform/events-and-notes#event-types.html)
+*   [Особенности фильтрации событий по связанным сущностям](/crm_platform/events-and-notes#events-peculiarities.html)
+*   [Общая информация о примечаниях](/crm_platform/events-and-notes#notes-common-info.html)
+*   [Типы примечаний](/crm_platform/events-and-notes#notes-types.html)
+*   [Список примечаний по типу сущности](/crm_platform/events-and-notes#notes-list.html)
+*   [Список примечаний по конкретной сущности, по ID сущности](/crm_platform/events-and-notes#notes-entity-list.html)
+*   [Получение примечания по ID](/crm_platform/events-and-notes#note-detail.html)
+*   [Добавление примечаний](/crm_platform/events-and-notes#notes-add.html)
+*   [Редактирование примечаний](/crm_platform/events-and-notes#notes-edit.html)
 
 ### Общая информация о событиях
 
@@ -44,7 +44,7 @@ _GET /api/v4/events_
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры.](#with-e2e4c901-fcb2-463f-b8bf-fcdf1643963d-params) |
+| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры.](/crm_platform/events-and-notes#with-e2e4c901-fcb2-463f-b8bf-fcdf1643963d-params.html) |
 | page | int | Страница выборки |
 | limit | int | Количество возвращаемых сущностей за один запрос (Максимум – 100) |
 | filter | object | Фильтр |
@@ -56,9 +56,9 @@ _GET /api/v4/events_
 Например, filter\[created\_by\]\[\]=956328&filter\[created\_by\]\[\]=504141 |
 | filter\[entity\] | string|array | Фильтр по типу сущности, передаются в виде массива. Возможные параметры – lead, contact, company,customer, task, catalog\_{CATALOG\_ID}. Например, filter\[entity\]\[\]=lead&filter\[entity\]\[\]=contact&filter\[entity\]\[\]=catalog\_1075 |
 | filter\[entity\_id\] | int|array | Фильтр по ID сущности, передаются до 10-ти ID в виде массива. Для использования данного фильтра обязательна передача фильтра filter\[entity\] и не более 1 сущности в нём. Например,filter\[entity\]=lead&filter\[entity\_id\]\[\]=648533 |
-| filter\[type\] | string|array | Фильтр по типу событий. Типы перечисляются в виде массива, [подробней о возможных типах](#events-types) |
-| filter\[value\_before\] | string|array | Фильтр по значению до. Подробней о возможных значения и ограничениях читайте – [тут](#events-filter-params) |
-| filter\[value\_after\] | string|array | Фильтр по значению до. Подробней о возможных значения и ограничениях читайте – [тут](#events-filter-params) |
+| filter\[type\] | string|array | Фильтр по типу событий. Типы перечисляются в виде массива, [подробней о возможных типах](/crm_platform/events-and-notes#events-types.html) |
+| filter\[value\_before\] | string|array | Фильтр по значению до. Подробней о возможных значения и ограничениях читайте – [тут](/crm_platform/events-and-notes#events-filter-params.html) |
+| filter\[value\_after\] | string|array | Фильтр по значению до. Подробней о возможных значения и ограничениях читайте – [тут](/crm_platform/events-and-notes#events-filter-params.html) |
 
 #### Заголовок типа данных при успешном результате
 
@@ -88,59 +88,61 @@ _Content-Type: application/problem+json_
 | entity\_type | string | Сущность события |
 | created\_by | int | ID пользователя, создавший событие |
 | created\_at | int | Дата создания события, передается в Unix Timestamp |
-| value\_after | array | Массив с изменениями по событию. Подробней о свойствах изменения читайте [тут](#events-params) |
-| value\_before | array | Массив с изменениями по событию. Подробней о свойствах изменения читайте [тут](#events-params) |
+| value\_after | array | Массив с изменениями по событию. Подробней о свойствах изменения читайте [тут](/crm_platform/events-and-notes#events-params.html) |
+| value\_before | array | Массив с изменениями по событию. Подробней о свойствах изменения читайте [тут](/crm_platform/events-and-notes#events-params.html) |
 | account\_id | int | ID аккаунта, в котором находится событие |
 
 #### Пример ответа
 
-    {
-        "_page": 1,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/events?limit=1&page=1"
-            },
-            "next": {
-                "href": "https://example.amocrm.ru/api/v4/events?limit=1&page=2"
-            }
+```json
+{
+    "_page": 1,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/events?limit=1&page=1"
         },
-        "_embedded": {
-            "events": [
-                {
-                    "id": "01pz58t6p04ymgsgfbmfyfy1mf",
-                    "type": "lead_added",
-                    "entity_id": 26060763,
-                    "entity_type": "lead",
-                    "created_by": 939801,
-                    "created_at": 1888888888,
-                    "value_after": [
-                        {
-                            "note": {
-                                "id": 42743871
-                            }
+        "next": {
+            "href": "https://example.amocrm.ru/api/v4/events?limit=1&page=2"
+        }
+    },
+    "_embedded": {
+        "events": [
+            {
+                "id": "01pz58t6p04ymgsgfbmfyfy1mf",
+                "type": "lead_added",
+                "entity_id": 26060763,
+                "entity_type": "lead",
+                "created_by": 939801,
+                "created_at": 1888888888,
+                "value_after": [
+                    {
+                        "note": {
+                            "id": 42743871
                         }
-                    ],
-                    "value_before": [],
-                    "account_id": 17079858,
-                    "_links": {
-                        "self": {
-                            "href": https://example.amocrm.ru/api/v4/events/01pz58t6p04ymgsgfbmfyfy1mf"
-                        }
-                    },
-                    "_embedded": {
-                        "entity": {
-                            "id": 26060763,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/leads/26060763"
-                                }
+                    }
+                ],
+                "value_before": [],
+                "account_id": 17079858,
+                "_links": {
+                    "self": {
+                        "href": https://example.amocrm.ru/api/v4/events/01pz58t6p04ymgsgfbmfyfy1mf"
+                    }
+                },
+                "_embedded": {
+                    "entity": {
+                        "id": 26060763,
+                        "_links": {
+                            "self": {
+                                "href": "https://example.amocrm.ru/api/v4/leads/26060763"
                             }
                         }
                     }
                 }
-            ]
-        }
+            }
+        ]
     }
+}
+```
 
 #### Параметры для GET-параметра with
 
@@ -171,7 +173,7 @@ _GET /api/v4/events/{id}_
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры.](#with-4330ca9b-11f2-4afb-858f-6e90d14bef43-params) |
+| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры.](/crm_platform/events-and-notes#with-4330ca9b-11f2-4afb-858f-6e90d14bef43-params.html) |
 
 #### Заголовок типа данных при успешном результате
 
@@ -201,44 +203,46 @@ _Content-Type: application/problem+json_
 | entity\_type | string | Сущность события |
 | created\_by | int | ID пользователя, создавший событие |
 | created\_at | int | Дата создания события, передается в Unix Timestamp |
-| value\_after | array | Массив с изменениями по событию. Подробней о свойствах изменения читайте [тут](#events-params) |
-| value\_before | array | Массив с изменениями по событию. Подробней о свойствах изменения читайте [тут](#events-params) |
+| value\_after | array | Массив с изменениями по событию. Подробней о свойствах изменения читайте [тут](/crm_platform/events-and-notes#events-params.html) |
+| value\_before | array | Массив с изменениями по событию. Подробней о свойствах изменения читайте [тут](/crm_platform/events-and-notes#events-params.html) |
 | account\_id | int | ID аккаунта, в котором находится событие |
 
 #### Пример ответа
 
-    {
-        "id": "01pz58t6p04ymgsgfbmfyfy1mf",
-        "type": "lead_added",
-        "entity_id": 26060763,
-        "entity_type": "lead",
-        "created_by": 939801,
-        "created_at": 1888888888,
-        "value_after": [
-            {
-                "note": {
-                    "id": 42743871
-                }
+```json
+{
+    "id": "01pz58t6p04ymgsgfbmfyfy1mf",
+    "type": "lead_added",
+    "entity_id": 26060763,
+    "entity_type": "lead",
+    "created_by": 939801,
+    "created_at": 1888888888,
+    "value_after": [
+        {
+            "note": {
+                "id": 42743871
             }
-        ],
-        "value_before": [],
-        "account_id": 17079858,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/events/01pz58t6p04ymgsgfbmfyfy1mf"
-            }
-        },
-        "_embedded": {
-            "entity": {
-                "id": 26060763,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/26060763"
-                    }
+        }
+    ],
+    "value_before": [],
+    "account_id": 17079858,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/events/01pz58t6p04ymgsgfbmfyfy1mf"
+        }
+    },
+    "_embedded": {
+        "entity": {
+            "id": 26060763,
+            "_links": {
+                "self": {
+                    "href": "https://example.amocrm.ru/api/v4/leads/26060763"
                 }
             }
         }
     }
+}
+```
 
 #### Параметры для GET-параметра with
 
@@ -254,15 +258,15 @@ _Content-Type: application/problem+json_
 
 В данный момент для фильтра по значению до/после доступны следующие значения:
 
-*   [leads\_statuses](#value_after_before_filter_leads_statuses) – фильтр по статусу сделки, доступен для события lead\_status\_changed
+*   [leads\_statuses](/crm_platform/events-and-notes#value_after_before_filter_leads_statuses.html) – фильтр по статусу сделки, доступен для события lead\_status\_changed
     
-*   [customers\_statuses](#value_after_before_filter_customers_statuses) – фильтр по статусу покупателя, доступен для события customer\_status\_changed
+*   [customers\_statuses](/crm_platform/events-and-notes#value_after_before_filter_customers_statuses.html) – фильтр по статусу покупателя, доступен для события customer\_status\_changed
     
-*   [responsible\_user\_id](#value_after_before_filter_responsible_user_id) – фильтр по ответственному пользователю, доступен для события entity\_responsible\_changed
+*   [responsible\_user\_id](/crm_platform/events-and-notes#value_after_before_filter_responsible_user_id.html) – фильтр по ответственному пользователю, доступен для события entity\_responsible\_changed
     
-*   [custom\_field\_values](#value_after_before_filter_custom_field_values) – фильтр по enum значению поля, доступен для события custom\_field\_{FIELD\_ID}\_value\_changed, в одном запросе должно передаваться не более 1 типа события.
+*   [custom\_field\_values](/crm_platform/events-and-notes#value_after_before_filter_custom_field_values.html) – фильтр по enum значению поля, доступен для события custom\_field\_{FIELD\_ID}\_value\_changed, в одном запросе должно передаваться не более 1 типа события.
     
-*   [value](#value_after_before_filter_value) – фильтр по точному значению, доступен для событий nps\_rate\_added, sale\_field\_changed, name\_field\_changed, ltv\_field\_changed, custom\_field\_value\_changed
+*   [value](/crm_platform/events-and-notes#value_after_before_filter_value.html) – фильтр по точному значению, доступен для событий nps\_rate\_added, sale\_field\_changed, name\_field\_changed, ltv\_field\_changed, custom\_field\_value\_changed
     
 
 ##### Описание фильтра по значению до/после – leads\_statuses
@@ -271,32 +275,36 @@ _Content-Type: application/problem+json_
 
 Запрос должен быть составлен следующим образом:
 
-    filter[value_after][leads_statuses][0][pipeline_id]=13513&filter[value_after][leads_statuses][0][status_id]=17079863
+```json
+filter[value_after][leads_statuses][0][pipeline_id]=13513&filter[value_after][leads_statuses][0][status_id]=17079863
+```
 
 В примере мы получим все события смены статуса этапа сделки, где сделка перешла в этап 17079863 воронки 13513.
 
 Вы можете передать несколько значений в фильтр. Ниже приведен пример по формированию такого фильтра используя язык PHP:
 
-        $filter = [
-            'filter' => [
-                'value_after' => [
-                    'leads_statuses' => [
-                        [
-                            'pipeline_id' => 13513,
-                            'status_id' => 17079863,
-                        ],
-                        [
-                            'pipeline_id' => 13513,
-                            'status_id' => 17079860,
-                        ],
+```php
+$filter = [
+        'filter' => [
+            'value_after' => [
+                'leads_statuses' => [
+                    [
+                        'pipeline_id' => 13513,
+                        'status_id' => 17079863,
+                    ],
+                    [
+                        'pipeline_id' => 13513,
+                        'status_id' => 17079860,
                     ],
                 ],
             ],
-        ];
-    
-        $filterUri = http_build_query($filter);
-    
-        //filter%5Bvalue_after%5D%5Bleads_statuses%5D%5B0%5D%5Bpipeline_id%5D=13513&filter%5Bvalue_after%5D%5Bleads_statuses%5D%5B0%5D%5Bstatus_id%5D=17079863&filter%5Bvalue_after%5D%5Bleads_statuses%5D%5B1%5D%5Bpipeline_id%5D=13513&filter%5Bvalue_after%5D%5Bleads_statuses%5D%5B1%5D%5Bstatus_id%5D=17079860
+        ],
+    ];
+
+    $filterUri = http_build_query($filter);
+
+    //filter%5Bvalue_after%5D%5Bleads_statuses%5D%5B0%5D%5Bpipeline_id%5D=13513&filter%5Bvalue_after%5D%5Bleads_statuses%5D%5B0%5D%5Bstatus_id%5D=17079863&filter%5Bvalue_after%5D%5Bleads_statuses%5D%5B1%5D%5Bpipeline_id%5D=13513&filter%5Bvalue_after%5D%5Bleads_statuses%5D%5B1%5D%5Bstatus_id%5D=17079860
+```
 
 ##### Описание фильтра по значению до/после – customers\_statuses
 
@@ -304,30 +312,34 @@ _Content-Type: application/problem+json_
 
 Запрос должен быть составлен следующим образом:
 
-    filter[value_after][customers_statuses][0][status_id]=135751
+```json
+filter[value_after][customers_statuses][0][status_id]=135751
+```
 
 В примере мы получим все события смены статуса этапа покупателя, где покупатель перешел в этап 135751.
 
 Вы можете передать несколько значений в фильтр. Ниже приведен пример по формированию такого фильтра используя язык PHP:
 
-        $filter = [
-            'filter' => [
-                'value_after' => [
-                    'customers_statuses' => [
-                        [
-                            'status_id' => 135751,
-                        ],
-                        [
-                            'status_id' => 135754,
-                        ],
+```php
+$filter = [
+        'filter' => [
+            'value_after' => [
+                'customers_statuses' => [
+                    [
+                        'status_id' => 135751,
+                    ],
+                    [
+                        'status_id' => 135754,
                     ],
                 ],
             ],
-        ];
-    
-        $filterUri = http_build_query($filter);
-    
-        //filter%5Bvalue_after%5D%5Bcustomers_statuses%5D%5B0%5D%5Bstatus_id%5D=135751&filter%5Bvalue_after%5D%5Bcustomers_statuses%5D%5B1%5D%5Bstatus_id%5D=135754
+        ],
+    ];
+
+    $filterUri = http_build_query($filter);
+
+    //filter%5Bvalue_after%5D%5Bcustomers_statuses%5D%5B0%5D%5Bstatus_id%5D=135751&filter%5Bvalue_after%5D%5Bcustomers_statuses%5D%5B1%5D%5Bstatus_id%5D=135754
+```
 
 ##### Описание фильтра по значению до/после – responsible\_user\_id
 
@@ -335,23 +347,27 @@ _Content-Type: application/problem+json_
 
 Запрос должен быть составлен следующим образом:
 
-        filter[value_after][responsible_user_id]=32321
+```php
+filter[value_after][responsible_user_id]=32321
+```
 
 В примере мы получим все события смены ответственного пользователя, где ID пользователя 448292.
 
 Вы можете передать несколько значений в фильтр. Ниже приведен пример по формированию такого фильтра используя язык PHP:
 
-        $filter = [
-            'filter' => [
-                'value_after' => [
-                    'responsible_user_id' => '3231,412314',
-                ],
+```php
+$filter = [
+        'filter' => [
+            'value_after' => [
+                'responsible_user_id' => '3231,412314',
             ],
-        ];
-    
-        $filterUri = http_build_query($filter);
-    
-        //filter%5Bvalue_after%5D%5Bresponsible_user_id%5D=3221%2C412314
+        ],
+    ];
+
+    $filterUri = http_build_query($filter);
+
+    //filter%5Bvalue_after%5D%5Bresponsible_user_id%5D=3221%2C412314
+```
 
 ##### Описание фильтра по значению до/после – custom\_field\_values
 
@@ -361,24 +377,28 @@ _Content-Type: application/problem+json_
 
 Запрос должен быть составлен следующим образом:
 
-    filter[value_after][custom_field_values]=145&filter[type]=custom_field_57832_value_changed
+```json
+filter[value_after][custom_field_values]=145&filter[type]=custom_field_57832_value_changed
+```
 
 В примере мы получим все события смены значения поля с ID 57832, где ID **enum** равен 145.
 
 Вы можете передать несколько значений в фильтр. Ниже приведен пример по формированию такого фильтра используя язык PHP:
 
-        $filter = [
-            'filter' => [
-                'value_after' => [
-                    'custom_field_values' => '145,157,202',
-                ],
-                'type' => 'custom_field_57832_value_changed',
+```php
+$filter = [
+        'filter' => [
+            'value_after' => [
+                'custom_field_values' => '145,157,202',
             ],
-        ];
-    
-        $filterUri = http_build_query($filter);
-    
-        filter%5Bvalue_after%5D%5Bcustom_field_values%5D=145%2C157%2C202&filter%5Btype%5D=custom_field_57832_value_changed
+            'type' => 'custom_field_57832_value_changed',
+        ],
+    ];
+
+    $filterUri = http_build_query($filter);
+
+    filter%5Bvalue_after%5D%5Bcustom_field_values%5D=145%2C157%2C202&filter%5Btype%5D=custom_field_57832_value_changed
+```
 
 ##### Описание фильтра по значению до/после – value
 
@@ -386,25 +406,29 @@ _Content-Type: application/problem+json_
 
 Запрос должен быть составлен следующим образом:
 
-    filter[value_after][value]=155&filter[type]=sale_field_changed&filter[entity]=lead
+```json
+filter[value_after][value]=155&filter[type]=sale_field_changed&filter[entity]=lead
+```
 
 В примере мы получим все события смены изменения бюджета, где бюджет сделок стал равен 155.
 
 Ниже приведен пример по формированию такого фильтра используя язык PHP:
 
-        $filter = [
-            'filter' => [
-                'value_after' => [
-                    'value' => '155',
-                ],
-                'type' => 'sale_field_changed',
-                'entity' => 'lead',
+```php
+$filter = [
+        'filter' => [
+            'value_after' => [
+                'value' => '155',
             ],
-        ];
-    
-        $filterUri = http_build_query($filter);
-    
-        //filter%5Bvalue_after%5D%5Bvalue%5D=155&filter%5Btype%5D=sale_field_changed&filter%5Bentity%5D=lead
+            'type' => 'sale_field_changed',
+            'entity' => 'lead',
+        ],
+    ];
+
+    $filterUri = http_build_query($filter);
+
+    //filter%5Bvalue_after%5D%5Bvalue%5D=155&filter%5Btype%5D=sale_field_changed&filter%5Bentity%5D=lead
+```
 
 ### Структуры данных в полях value\_after и value\_before
 
@@ -416,10 +440,12 @@ _Content-Type: application/problem+json_
 | --- | --- | --- |
 | value\_after|value\_before | array | Пустой массив |
 
-    {
-        "value_after": [],
-        "value_before": []
-    }
+```json
+{
+    "value_after": [],
+    "value_before": []
+}
+```
 
 Тип события: **task\_text\_changed**
 
@@ -430,22 +456,24 @@ _Content-Type: application/problem+json_
 | value\_after|value\_before\[0\]\[task\] | object | Объект с данными изменения задачи |
 | value\_after|value\_before\[0\]\[task\]\[text\] | string | Текст задачи |
 
-    {
-        "value_after": [
-              {
-                "task": {
-                  "text": "задача"
-                }
-              }
-            ],
-        "value_before": [
-              {
-                "task": {
-                  "text": "задача old"
-                }
-              }
-            ],
-    }
+```json
+{
+    "value_after": [
+          {
+            "task": {
+              "text": "задача"
+            }
+          }
+        ],
+    "value_before": [
+          {
+            "task": {
+              "text": "задача old"
+            }
+          }
+        ],
+}
+```
 
 Тип событий: **robot\_replie и intent\_identified**
 
@@ -456,15 +484,17 @@ _Content-Type: application/problem+json_
 | value\_after\[0\]\[helpbot\] | object | Объект с данными интента, который сработал |
 | value\_after\[0\]\[helpbot\]\[id\] | int | ID интента |
 
-    {
-        "value_after": [
-              {
-                "helpbot": {
-                  "id": 145
-                }
-              }
-            ]
-    }
+```json
+{
+    "value_after": [
+          {
+            "helpbot": {
+              "id": 145
+            }
+          }
+        ]
+}
+```
 
 Тип события: **transaction\_added**
 
@@ -475,15 +505,17 @@ _Content-Type: application/problem+json_
 | value\_after\[0\]\[transaction\] | object | Объект с данными транзакции |
 | value\_after\[0\]\[transaction\]\[id\] | int | ID транзакции |
 
-    {
-        "value_after": [
-              {
-                "transaction": {
-                  "id": 33675
-                }
-              }
-            ]
-    }
+```json
+{
+    "value_after": [
+          {
+            "transaction": {
+              "id": 33675
+            }
+          }
+        ]
+}
+```
 
 Тип событий: **lead\_added, contact\_added, company\_added, customer\_added, common\_note\_added, common\_note\_deleted, attachment\_note\_added, targeting\_in\_note\_added, targeting\_out\_note\_added, geo\_note\_added, service\_note\_added, site\_visit\_note\_added, message\_to\_cashier\_note\_added, incoming\_call, outgoing\_call, incoming\_sms, outgoing\_sms, link\_followed, task\_result\_added**
 
@@ -494,15 +526,17 @@ _Content-Type: application/problem+json_
 | value\_after\[0\]\[note\] | object | Объект с данными примечания |
 | value\_after\[0\]\[note\]\[id\] | int | ID примечания |
 
-    {
-        "value_after": [
-              {
-                "note": {
-                  "id": 7422564
-                }
-              }
-            ]
-    }
+```json
+{
+    "value_after": [
+          {
+            "note": {
+              "id": 7422564
+            }
+          }
+        ]
+}
+```
 
 Тип события: **nps\_rate\_added**
 
@@ -513,15 +547,17 @@ _Content-Type: application/problem+json_
 | value\_after\[0\]\[nps\] | object | Объект с данными оценки |
 | value\_after\[0\]\[nps\]\[rate\] | int | Оценка от 0 до 10 |
 
-    {
-        "value_after": [
-              {
-                "nps": {
-                  "rate": 7
-                }
-              }
-            ]
-    }
+```json
+{
+    "value_after": [
+          {
+            "nps": {
+              "rate": 7
+            }
+          }
+        ]
+}
+```
 
 Тип событий: **incoming\_chat\_message, outgoing\_chat\_message, entity\_direct\_message**
 
@@ -532,15 +568,17 @@ _Content-Type: application/problem+json_
 | value\_after\[0\]\[message\] | object | Объект с данными сообщения |
 | value\_after\[0\]\[message\]\[id\] | string | ID сообщения |
 
-    {
-        "value_after": [
-              {
-                "message": {
-                  "id": "1508b51c-aab0-428e-9322-611d847ae747"
-                }
-              }
-            ]
-    }
+```json
+{
+    "value_after": [
+          {
+            "message": {
+              "id": "1508b51c-aab0-428e-9322-611d847ae747"
+            }
+          }
+        ]
+}
+```
 
 Тип событий: **entity\_tag\_added и entity\_tag\_deleted**
 
@@ -551,27 +589,29 @@ _Content-Type: application/problem+json_
 | value\_after|value\_before\[0\]\[tag\] | object | Объект с данными тега |
 | value\_after|value\_before\[0\]\[tag\]\[name\] | string | Название тега |
 
-    {
-        "value_after": [
-              {
-                "tag": {
-                  "name": "тег1"
-                }
-              }
-            ],
-        "value_before": [
-              {
-                "tag": {
-                  "name": "тег2"
-                }
-              },
-              {
-                "tag": {
-                  "name": "тег2"
-                }
-              }
-            ]
-    }
+```json
+{
+    "value_after": [
+          {
+            "tag": {
+              "name": "тег1"
+            }
+          }
+        ],
+    "value_before": [
+          {
+            "tag": {
+              "name": "тег2"
+            }
+          },
+          {
+            "tag": {
+              "name": "тег2"
+            }
+          }
+        ]
+}
+```
 
 Тип события: **lead\_status\_changed**
 
@@ -583,24 +623,26 @@ _Content-Type: application/problem+json_
 | value\_after|value\_before\[0\]\[lead\_status\]\[id\] | int | ID статуса |
 | value\_after|value\_before\[0\]\[lead\_status\]\[pipeline\_id\] | int | ID воронки |
 
-    {
-        "value_after": [
-              {
-                "lead_status": {
-                  "id": 5233224,
-                  "pipeline_id": 437642,
-                }
-              }
-            ],
-        "value_before": [
-              {
-                "lead_status": {
-                  "id": 5233224,
-                  "pipeline_id": 437642,
-                }
-              }
-            ]
-    }
+```json
+{
+    "value_after": [
+          {
+            "lead_status": {
+              "id": 5233224,
+              "pipeline_id": 437642,
+            }
+          }
+        ],
+    "value_before": [
+          {
+            "lead_status": {
+              "id": 5233224,
+              "pipeline_id": 437642,
+            }
+          }
+        ]
+}
+```
 
 Тип события: **customer\_status\_changed**
 
@@ -611,22 +653,24 @@ _Content-Type: application/problem+json_
 | value\_after|value\_before\[0\]\[customer\_status\] | object | Объект с данными статуса |
 | value\_after|value\_before\[0\]\[customer\_status\]\[id\] | int | ID статуса |
 
-    {
-        "value_after": [
-              {
-                "customer_status": {
-                  "id": 43832
-                }
-              }
-            ],
-        "value_before": [
-              {
-                "customer_status": {
-                  "id": 53791
-                }
-              }
-            ]
-    }
+```json
+{
+    "value_after": [
+          {
+            "customer_status": {
+              "id": 43832
+            }
+          }
+        ],
+    "value_before": [
+          {
+            "customer_status": {
+              "id": 53791
+            }
+          }
+        ]
+}
+```
 
 Тип событий: **customer\_linked, customer\_unlinked, company\_linked, company\_unlinked, contact\_linked, contact\_unlinked, lead\_linked, lead\_unlinked, entity\_linked, entity\_unlinked**
 
@@ -639,19 +683,21 @@ _Content-Type: application/problem+json_
 | value\_after|value\_before\[0\]\[link|unlink\]\[entity\]\[type\] | string | Тип сущности |
 | value\_after|value\_before\[0\]\[link|unlink\]\[entity\]\[id\] | int | ID сущности |
 
-    {
-        "value_after": [
-              {
-                "link": {
-                  "entity": {
-                    "type": "lead",
-                    "id": 6232965
-                  }
-                }
+```json
+{
+    "value_after": [
+          {
+            "link": {
+              "entity": {
+                "type": "lead",
+                "id": 6232965
               }
-            ],
-        "value_before": []
-    }
+            }
+          }
+        ],
+    "value_before": []
+}
+```
 
 Тип события: **entity\_responsible\_changed**
 
@@ -662,22 +708,24 @@ _Content-Type: application/problem+json_
 | value\_after|value\_before\[0\]\[responsible\_user\] | object | Объект с данными пользователя |
 | value\_after|value\_before\[0\]\[responsible\_user\]\[id\] | int | ID пользователя |
 
-    {
-        "value_after": [
-              {
-                "responsible_user": {
-                  "id": 504329
-                }
-              }
-            ],
-        "value_before": [
-              {
-                "responsible_user": {
-                  "id": 37268
-                }
-              }
-            ]
-    }
+```json
+{
+    "value_after": [
+          {
+            "responsible_user": {
+              "id": 504329
+            }
+          }
+        ],
+    "value_before": [
+          {
+            "responsible_user": {
+              "id": 37268
+            }
+          }
+        ]
+}
+```
 
 Тип события: **task\_deadline\_changed**
 
@@ -688,22 +736,24 @@ _Content-Type: application/problem+json_
 | value\_after|value\_before\[0\]\[task\_deadline\] | object | Объект с данными срока выполнения задачи |
 | value\_after|value\_before\[0\]\[task\_deadline\]\[timestamp\] | int | Timestamp срока выполнения задачи |
 
-    {
-        "value_after": [
-              {
-                "task_deadline": {
-                  "timestamp": 1573595900
-                }
-              }
-            ],
-        "value_before": [
-              {
-                "task_deadline": {
-                  "timestamp": 1573578700
-                }
-              }
-            ]
-    }
+```json
+{
+    "value_after": [
+          {
+            "task_deadline": {
+              "timestamp": 1573595900
+            }
+          }
+        ],
+    "value_before": [
+          {
+            "task_deadline": {
+              "timestamp": 1573578700
+            }
+          }
+        ]
+}
+```
 
 Тип события: **task\_type\_changed**
 
@@ -714,22 +764,24 @@ _Content-Type: application/problem+json_
 | value\_after|value\_before\[0\]\[task\_type\] | object | Объект с данными типа задачи |
 | value\_after|value\_before\[0\]\[task\_type\]\[id\] | int | ID типа задачи |
 
-    {
-        "value_after": [
-              {
-                "task_type": {
-                  "id": 504329
-                }
-              }
-            ],
-        "value_before": [
-              {
-                "task_type": {
-                  "id": 37268
-                }
-              }
-            ]
-    }
+```json
+{
+    "value_after": [
+          {
+            "task_type": {
+              "id": 504329
+            }
+          }
+        ],
+    "value_before": [
+          {
+            "task_type": {
+              "id": 37268
+            }
+          }
+        ]
+}
+```
 
 Тип события: **custom\_field\_value\_changed**
 
@@ -743,36 +795,38 @@ _Content-Type: application/problem+json_
 | value\_after|value\_before\[0\]\[custom\_field\_value\]\[enum\_id\] | int|null | ID enum значения поля, null, если у поля нет enum значений |
 | value\_after|value\_before\[0\]\[custom\_field\_value\]\[text\] | string | Текст значения поля |
 
-    {
-        "value_after": [
-            {
-              "custom_field_value": {
-                "field_id": 53728,
-                "field_type": 8,
-                "enum_id": 2352876,
-                "text": "example1@test.com"
-              }
-            },
-            {
-              "custom_field_value": {
-                "field_id": 53728,
-                "field_type": 8,
-                "enum_id": 2352876,
-                "text": "example@test.com"
-              }
-            }
-        ],
-        "value_before": [
-          {
-              "custom_field_value": {
-                "field_id": 53728,
-                "field_type": 8,
-                "enum_id": 193200,
-                "text": "example@test.com"
-            }
+```json
+{
+    "value_after": [
+        {
+          "custom_field_value": {
+            "field_id": 53728,
+            "field_type": 8,
+            "enum_id": 2352876,
+            "text": "example1@test.com"
           }
-        ]
-    }
+        },
+        {
+          "custom_field_value": {
+            "field_id": 53728,
+            "field_type": 8,
+            "enum_id": 2352876,
+            "text": "example@test.com"
+          }
+        }
+    ],
+    "value_before": [
+      {
+          "custom_field_value": {
+            "field_id": 53728,
+            "field_type": 8,
+            "enum_id": 193200,
+            "text": "example@test.com"
+        }
+      }
+    ]
+}
+```
 
 ### Типы событий
 
@@ -890,29 +944,31 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_total_items": 35,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/events/types?limit=6"
-            }
-        },
-        "_embedded": {
-            "events_types": [
-                {
-                    "key": "lead_added",
-                    "type": 1,
-                    "lang": "Новая сделка"
-                },
-                {
-                    "key": "lead_deleted",
-                    "type": 7,
-                    "lang": "Сделка удалена"
-                },
-                ...
-            ]
+```json
+{
+    "_total_items": 35,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/events/types?limit=6"
         }
+    },
+    "_embedded": {
+        "events_types": [
+            {
+                "key": "lead_added",
+                "type": 1,
+                "lang": "Новая сделка"
+            },
+            {
+                "key": "lead_deleted",
+                "type": 7,
+                "lang": "Сделка удалена"
+            },
+            ...
+        ]
     }
+}
+```
 
 ### Особенности фильтрации событий по связанным сущностям
 
@@ -959,84 +1015,86 @@ _GET /api/v4/events?filter\[entity\]\[\]=contact_
 
 #### Типы примечаний, для которых обязателен массив params
 
-    Тип примечания - common
-    
-    "params": {
-       "text": "Обычное примечание"
-    }
-    
-    Тип примечания - call_in
-    
-    "params": {
-       "uniq": "8f52d38a-5fb3-406d-93a3-a4832dc28f8b",
-       "duration": 60,
-       "source": "onlinePBX",
-       "link": "https://example.com",
-       "phone": "+79999999999",
-       "call_responsible": "Василий"
-    }
-    
-    Тип примечания - call_out
-    
-    "params": {
-       "uniq": "8f52d38a-5fb3-406d-93a3-a4832dc28f8b",
-       "duration": 60,
-       "source": "onlinePBX",
-       "link": "https://example.com",
-       "phone": "+79999999999",
-       "call_responsible": 504141
-    }
-    
-    Тип примечания - service_message и extended_service_message
-    
-    "params": {
-       "service": "Сервис для примера",
-       "text": "Текст для примечания"
-    }
-    
-    Тип примечания - message_cashier
-    
-    "params": {
-        // Статус может быть один из следующих:
-        // - created
-        // - shown
-        // - canceled
-        "status": "created",
-        "text": "Текст для примечания"
-    }
-    
-    Тип примечания - geolocation
-    
-    "params": {
-       "text": "Геолокация",
-       "address": "ул. Пушкина, дом Колотушкина",
-       // долгота
-       "longitude": "-13",
-       // широта
-       "latitude": "32"
-    }
-    
-    Тип примечания - sms_in
-    
-    "params": {
-      "text": "Новое входящие сообщение",
-      "phone": "+79999999999"
-    }
-    
-    Тип примечания - sms_out
-    
-    "params": {
-      "text": "Новое исходящие сообщение",
-      "phone": "+79999999999"
-    }
-    
-    Тип примечания - attachment
-    
-    "params": {
-      "version_uuid": "5e316440-4122-4cad-b121-9709882b4cc1", // версия файла, можно не передавать, будет использована последняя версия
-      "file_uuid": "9905db7c-3a29-4d30-8953-bac68c05e8e8",
-      "file_name": "изображение.png", // название файла, которое будет отображаться в примечании
-    }
+```json
+Тип примечания - common
+
+"params": {
+   "text": "Обычное примечание"
+}
+
+Тип примечания - call_in
+
+"params": {
+   "uniq": "8f52d38a-5fb3-406d-93a3-a4832dc28f8b",
+   "duration": 60,
+   "source": "onlinePBX",
+   "link": "https://example.com",
+   "phone": "+79999999999",
+   "call_responsible": "Василий"
+}
+
+Тип примечания - call_out
+
+"params": {
+   "uniq": "8f52d38a-5fb3-406d-93a3-a4832dc28f8b",
+   "duration": 60,
+   "source": "onlinePBX",
+   "link": "https://example.com",
+   "phone": "+79999999999",
+   "call_responsible": 504141
+}
+
+Тип примечания - service_message и extended_service_message
+
+"params": {
+   "service": "Сервис для примера",
+   "text": "Текст для примечания"
+}
+
+Тип примечания - message_cashier
+
+"params": {
+    // Статус может быть один из следующих:
+    // - created
+    // - shown
+    // - canceled
+    "status": "created",
+    "text": "Текст для примечания"
+}
+
+Тип примечания - geolocation
+
+"params": {
+   "text": "Геолокация",
+   "address": "ул. Пушкина, дом Колотушкина",
+   // долгота
+   "longitude": "-13",
+   // широта
+   "latitude": "32"
+}
+
+Тип примечания - sms_in
+
+"params": {
+  "text": "Новое входящие сообщение",
+  "phone": "+79999999999"
+}
+
+Тип примечания - sms_out
+
+"params": {
+  "text": "Новое исходящие сообщение",
+  "phone": "+79999999999"
+}
+
+Тип примечания - attachment
+
+"params": {
+  "version_uuid": "5e316440-4122-4cad-b121-9709882b4cc1", // версия файла, можно не передавать, будет использована последняя версия
+  "file_uuid": "9905db7c-3a29-4d30-8953-bac68c05e8e8",
+  "file_name": "изображение.png", // название файла, которое будет отображаться в примечании
+}
+```
 
 ### Список примечаний по типу сущности
 
@@ -1101,71 +1159,73 @@ _Content-Type: application/problem+json_
 | responsible\_user\_id | int | ID пользователя, ответственного за примечание |
 | group\_id | int | ID группы, в которой состоит ответственны пользователь за примечание |
 | note\_type | string | Тип примечания |
-| params | object | Свойства примечания, зависят от типа примечания. Подробней о свойствах читайте [тут](#notes-params-info) |
+| params | object | Свойства примечания, зависят от типа примечания. Подробней о свойствах читайте [тут](/crm_platform/events-and-notes#notes-params-info.html) |
 | account\_id | int | ID аккаунта, в котором находится примечание |
 
 #### Пример ответа
 
-    {
-        "_page": 1,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads/notes?filter%5Bid%5D%5B0%5D=42709325&filter%5Bid%5D%5B1%5D=42709842&page=1&limit=50"
-            },
-            "next": {
-                "href": "https://example.amocrm.ru/api/v4/leads/notes?filter%5Bid%5D%5B0%5D=42709325&filter%5Bid%5D%5B1%5D=42709842&page=2&limit=50"
-            }
+```json
+{
+    "_page": 1,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads/notes?filter%5Bid%5D%5B0%5D=42709325&filter%5Bid%5D%5B1%5D=42709842&page=1&limit=50"
         },
-        "_embedded": {
-            "notes": [
-                {
-                    "id": 42709325,
-                    "entity_id": 26050861,
-                    "created_by": 940088,
-                    "updated_by": 940088,
-                    "created_at": 1540407495,
-                    "updated_at": 1540408317,
-                    "responsible_user_id": 939801,
-                    "group_id": 0,
-                    "note_type": "common",
-                    "params": {
-                        "text": "Текст примечания"
-                    },
-                    "account_id": 17079858,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/26050861/notes/42709325"
-                        }
-                    }
+        "next": {
+            "href": "https://example.amocrm.ru/api/v4/leads/notes?filter%5Bid%5D%5B0%5D=42709325&filter%5Bid%5D%5B1%5D=42709842&page=2&limit=50"
+        }
+    },
+    "_embedded": {
+        "notes": [
+            {
+                "id": 42709325,
+                "entity_id": 26050861,
+                "created_by": 940088,
+                "updated_by": 940088,
+                "created_at": 1540407495,
+                "updated_at": 1540408317,
+                "responsible_user_id": 939801,
+                "group_id": 0,
+                "note_type": "common",
+                "params": {
+                    "text": "Текст примечания"
                 },
-                {
-                    "id": 42709842,
-                    "entity_id": 26053794,
-                    "created_by": 939801,
-                    "updated_by": 939801,
-                    "created_at": 1548280113,
-                    "updated_at": 1548280115,
-                    "responsible_user_id": 939801,
-                    "group_id": 0,
-                    "note_type": "attachment",
-                    "params": {
-                        "is_drive_attachment": true,
-                        "text": "Снимок экрана 2022-12-12 в 20.11.45 (1).jpg",
-                        "original_name": "Снимок экрана 2022-12-12 в 20.11.45 (1).jpg",
-                        "file_uuid": "6905db7c-3a29-4d30-8953-bac68c05e8e8",
-                        "version_uuid": "4e316440-4122-4cad-b121-9709882b4cc1",
-                        "file_name": "Snimok_ekrana_2022-12-12_v_20.11.45_1_.jpg"
-                    },
-                    "account_id": 17079858,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/26053794/notes/42709842"
-                        }
+                "account_id": 17079858,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/26050861/notes/42709325"
                     }
                 }
-            ]
-        }
+            },
+            {
+                "id": 42709842,
+                "entity_id": 26053794,
+                "created_by": 939801,
+                "updated_by": 939801,
+                "created_at": 1548280113,
+                "updated_at": 1548280115,
+                "responsible_user_id": 939801,
+                "group_id": 0,
+                "note_type": "attachment",
+                "params": {
+                    "is_drive_attachment": true,
+                    "text": "Снимок экрана 2022-12-12 в 20.11.45 (1).jpg",
+                    "original_name": "Снимок экрана 2022-12-12 в 20.11.45 (1).jpg",
+                    "file_uuid": "6905db7c-3a29-4d30-8953-bac68c05e8e8",
+                    "version_uuid": "4e316440-4122-4cad-b121-9709882b4cc1",
+                    "file_name": "Snimok_ekrana_2022-12-12_v_20.11.45_1_.jpg"
+                },
+                "account_id": 17079858,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/26053794/notes/42709842"
+                    }
+                }
+            }
+        ]
     }
+}
+```
 
 ### Список примечаний по конкретной сущности, по ID сущности
 
@@ -1229,66 +1289,68 @@ _Content-Type: application/problem+json_
 | responsible\_user\_id | int | ID пользователя, ответственного за примечание |
 | group\_id | int | ID группы, в которой состоит ответственны пользователь за примечание |
 | note\_type | string | Тип примечания |
-| params | object | Свойства примечания, зависят от типа примечания. Подробней о свойствах читайте [тут](#notes-params-info) |
+| params | object | Свойства примечания, зависят от типа примечания. Подробней о свойствах читайте [тут](/crm_platform/events-and-notes#notes-params-info.html) |
 | account\_id | int | ID аккаунта, в котором находится примечание |
 
 #### Пример ответа
 
-    {
-        "_page": 1,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads/26050861/notes?limit=2&page=1"
-            },
-            "next": {
-                "href": "https://example.amocrm.ru/api/v4/leads/26050861/notes?limit=2&page=2"
-            }
+```json
+{
+    "_page": 1,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads/26050861/notes?limit=2&page=1"
         },
-        "_embedded": {
-            "notes": [
-                {
-                    "id": 42709325,
-                    "entity_id": 26050861,
-                    "created_by": 940088,
-                    "updated_by": 940088,
-                    "created_at": 1540407495,
-                    "updated_at": 1540408317,
-                    "responsible_user_id": 939801,
-                    "group_id": 0,
-                    "note_type": "common",
-                    "params": {
-                        "text": "Текст примечания 2"
-                    },
-                    "account_id": 17079858,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/26050861/notes/42709325"
-                        }
-                    }
+        "next": {
+            "href": "https://example.amocrm.ru/api/v4/leads/26050861/notes?limit=2&page=2"
+        }
+    },
+    "_embedded": {
+        "notes": [
+            {
+                "id": 42709325,
+                "entity_id": 26050861,
+                "created_by": 940088,
+                "updated_by": 940088,
+                "created_at": 1540407495,
+                "updated_at": 1540408317,
+                "responsible_user_id": 939801,
+                "group_id": 0,
+                "note_type": "common",
+                "params": {
+                    "text": "Текст примечания 2"
                 },
-                {
-                    "id": 42736075,
-                    "entity_id": 26050861,
-                    "created_by": 939801,
-                    "updated_by": 939801,
-                    "created_at": 1587555198,
-                    "updated_at": 1587555199,
-                    "responsible_user_id": 939801,
-                    "group_id": 0,
-                    "note_type": "common",
-                    "params": {
-                        "text": "Текст примечания"
-                    },
-                    "account_id": 17079858,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/26050861/notes/42736075"
-                        }
+                "account_id": 17079858,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/26050861/notes/42709325"
                     }
                 }
-            ]
-        }
+            },
+            {
+                "id": 42736075,
+                "entity_id": 26050861,
+                "created_by": 939801,
+                "updated_by": 939801,
+                "created_at": 1587555198,
+                "updated_at": 1587555199,
+                "responsible_user_id": 939801,
+                "group_id": 0,
+                "note_type": "common",
+                "params": {
+                    "text": "Текст примечания"
+                },
+                "account_id": 17079858,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/26050861/notes/42736075"
+                    }
+                }
+            }
+        ]
     }
+}
+```
 
 ### Получение примечания по ID
 
@@ -1337,31 +1399,33 @@ _Content-Type: application/problem+json_
 | responsible\_user\_id | int | ID пользователя, ответственного за примечание |
 | group\_id | int | ID группы, в которой состоит ответственны пользователь за примечание |
 | note\_type | string | Тип примечания |
-| params | object | Свойства примечания, зависят от типа примечания. Подробней о свойствах читайте [тут](#notes-params-info) |
+| params | object | Свойства примечания, зависят от типа примечания. Подробней о свойствах читайте [тут](/crm_platform/events-and-notes#notes-params-info.html) |
 | account\_id | int | ID аккаунта, в котором находится примечание |
 
 #### Пример ответа
 
-    {
-        "id": 42709325,
-        "entity_id": 26050861,
-        "created_by": 940088,
-        "updated_by": 940088,
-        "created_at": 1540407495,
-        "updated_at": 1540408317,
-        "responsible_user_id": 939801,
-        "group_id": 0,
-        "note_type": "common",
-        "params": {
-            "text": "Текст примечания"
-        },
-        "account_id": 17079858,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads/26050861/notes/42709325"
-            }
+```json
+{
+    "id": 42709325,
+    "entity_id": 26050861,
+    "created_by": 940088,
+    "updated_by": 940088,
+    "created_at": 1540407495,
+    "updated_at": 1540408317,
+    "responsible_user_id": 939801,
+    "group_id": 0,
+    "note_type": "common",
+    "params": {
+        "text": "Текст примечания"
+    },
+    "account_id": 17079858,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads/26050861/notes/42709325"
         }
     }
+}
+```
 
 ### Добавление примечаний
 
@@ -1389,83 +1453,87 @@ _Content-Type: application/json_
 | --- | --- | --- |
 | entity\_id | int | ID сущности, в которую добавляется примечание. Обязателен при использовании метода создания примечания в сущности, если создание идет через метод /api/v4/{entity\_type}/{entity\_id}/notes, то данный параметр передавать не нужно |
 | created\_by | int | ID пользователя, от имени которого добавляется примечание. При добавлении звонка, в таймлайне карточки, пользователь будет отображен как автор звонка или как принимающий, в зависимости от типа звонка |
-| note\_type | string | Тип примечания. [Возможные типы примечаний](#notes-types) |
+| note\_type | string | Тип примечания. [Возможные типы примечаний](/crm_platform/events-and-notes#notes-types.html) |
 | responsible\_user\_id | int | ID пользователя, ответственного за примечание. Необязательный параметр. |
-| params | object | Свойства примечания, зависят от типа примечания. Подробней о свойствах читайте [тут](#notes-params-info) |
+| params | object | Свойства примечания, зависят от типа примечания. Подробней о свойствах читайте [тут](/crm_platform/events-and-notes#notes-params-info.html) |
 | request\_id | string | Поле, которое вернется вам в ответе без изменений и не будет сохранено. Необязательный параметр |
 | is\_need\_to\_trigger\_digital\_pipeline | bool | Нужно ли отправлять события в Digital Pipeline. Необязательный параметр. Если флаг не передан или передан со значением true, триггеры Digital Pipeline отрабатывать будут, если передано false – не будут. Влияет такие триггеры: счет оплачен, звонок соверешен и другие, которые запускаются при добавлении примечания. |
 
 #### Пример запроса
 
-    [
-        {
-            "entity_id": 167353,
-            "note_type": "call_in",
-            "responsible_user_id": 8238874,
-            "params": {
-                "uniq": "8f52d38a-5fb3-406d-93a3-a4832dc28f8b",
-                "duration": 60,
-                "source": "onlinePBX",
-                "link": "https://example.com",
-                "phone": "+79999999999"
-            }
-        },
-        {
-            "entity_id": 167353,
-            "note_type": "call_out",
-            "responsible_user_id": 8238874,
-            "params": {
-                "uniq": "8f52d38a-5fb3-406d-93a3-a4832dc28f8b",
-                "duration": 60,
-                "source": "onlinePBX",
-                "link": "https://example.com",
-                "phone": "+79999999999"
-            }
-        },
-        {
-            "entity_id": 167353,
-            "note_type": "geolocation",
-            "responsible_user_id": 8238874,
-            "params": {
-                "text": "Примечание с геолокацией",
-                "address": "ул. Пушкина, дом Колотушкина, квартира Вольнова",
-                "longitude": "53.714816",
-                "latitude": "91.423146"
-            }
+```json
+[
+    {
+        "entity_id": 167353,
+        "note_type": "call_in",
+        "responsible_user_id": 8238874,
+        "params": {
+            "uniq": "8f52d38a-5fb3-406d-93a3-a4832dc28f8b",
+            "duration": 60,
+            "source": "onlinePBX",
+            "link": "https://example.com",
+            "phone": "+79999999999"
         }
-    ]
+    },
+    {
+        "entity_id": 167353,
+        "note_type": "call_out",
+        "responsible_user_id": 8238874,
+        "params": {
+            "uniq": "8f52d38a-5fb3-406d-93a3-a4832dc28f8b",
+            "duration": 60,
+            "source": "onlinePBX",
+            "link": "https://example.com",
+            "phone": "+79999999999"
+        }
+    },
+    {
+        "entity_id": 167353,
+        "note_type": "geolocation",
+        "responsible_user_id": 8238874,
+        "params": {
+            "text": "Примечание с геолокацией",
+            "address": "ул. Пушкина, дом Колотушкина, квартира Вольнова",
+            "longitude": "53.714816",
+            "latitude": "91.423146"
+        }
+    }
+]
+```
 
 #### Пример запроса для отображения в разделе "Аналитика" для примечаний типа call\_in и call\_out.
 
 Для того, чтобы в разделе "Аналитика" по указанному user\_id отображались звонки, необходимо передавать следующие параметры.  
 При этом responsible\_user\_id и created\_by **должны быть одинаковыми**
 
-    [
-      {
-        "note_type": "call_in",
-        "created_by": 32321,
-        "responsible_user_id": 32321,
-        "params": {
-          "uniq": "8f52d38a-5fb3-406d-93a3-a4832dc28f8b",
-          "duration": 60,
-          "source": "onlinePBX",
-          "link": "https://example.com",
-          "phone": "+79999999999"
-        }
-      },
-      {
-        "note_type": "call_out",
-        "created_by": 32321,
-        "responsible_user_id": 32321,
-        "params": {
-          "uniq": "8f52d38a-5fb3-406d-93a3-a4832dc28f8b",
-          "duration": 60,
-          "source": "onlinePBX",
-          "link": "https://example.com",
-          "phone": "+79999999999"
-        }
-      }
-    ]
+```json
+[
+  {
+    "note_type": "call_in",
+    "created_by": 32321,
+    "responsible_user_id": 32321,
+    "params": {
+      "uniq": "8f52d38a-5fb3-406d-93a3-a4832dc28f8b",
+      "duration": 60,
+      "source": "onlinePBX",
+      "link": "https://example.com",
+      "phone": "+79999999999"
+    }
+  },
+  {
+    "note_type": "call_out",
+    "created_by": 32321,
+    "responsible_user_id": 32321,
+    "params": {
+      "uniq": "8f52d38a-5fb3-406d-93a3-a4832dc28f8b",
+      "duration": 60,
+      "source": "onlinePBX",
+      "link": "https://example.com",
+      "phone": "+79999999999"
+    }
+  }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -1496,57 +1564,59 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_links": {
-            "self": {
-                "href": "http://example.amocrm.ru/api/v4/leads/notes"
-            }
-        },
-        "_embedded": {
-            "notes": [
-                {
-                    "id": 76787983,
-                    "entity_id": 167353,
-                    "request_id": "0",
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/167353/notes/76787983"
-                        }
-                    }
-                },
-                {
-                    "id": 76787985,
-                    "entity_id": 167353,
-                    "request_id": "1",
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/167353/notes/76787985"
-                        }
-                    }
-                },
-                {
-                    "id": 76787987,
-                    "entity_id": 167353,
-                    "request_id": "2",
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/167353/notes/76787987"
-                        }
-                    }
-                },
-                {
-                    "id": 76787989,
-                    "entity_id": 167353,
-                    "request_id": "3",
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/167353/notes/76787989"
-                        }
+```json
+{
+    "_links": {
+        "self": {
+            "href": "http://example.amocrm.ru/api/v4/leads/notes"
+        }
+    },
+    "_embedded": {
+        "notes": [
+            {
+                "id": 76787983,
+                "entity_id": 167353,
+                "request_id": "0",
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/167353/notes/76787983"
                     }
                 }
-            ]
-        }
+            },
+            {
+                "id": 76787985,
+                "entity_id": 167353,
+                "request_id": "1",
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/167353/notes/76787985"
+                    }
+                }
+            },
+            {
+                "id": 76787987,
+                "entity_id": 167353,
+                "request_id": "2",
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/167353/notes/76787987"
+                    }
+                }
+            },
+            {
+                "id": 76787989,
+                "entity_id": 167353,
+                "request_id": "3",
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/167353/notes/76787989"
+                    }
+                }
+            }
+        ]
     }
+}
+```
 
 ### Редактирование примечаний
 
@@ -1577,30 +1647,31 @@ _Content-Type: application/json_
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
 | entity\_id | int | ID сущности, в которую добавляется примечание. Обязателен при использовании метода создания примечания в сущности, если создание идет через метод /api/v4/{entity\_type}/{entity\_id}/notes, то данный параметр передавать не нужно |
-| note\_type | string | Тип примечания. [Возможные типы примечаний](#notes-types) |
-| params | object | Свойства примечания, зависят от типа примечания. Подробней о свойствах читайте [тут](#notes-params-info) |
+| note\_type | string | Тип примечания. [Возможные типы примечаний](/crm_platform/events-and-notes#notes-types.html) |
+| params | object | Свойства примечания, зависят от типа примечания. Подробней о свойствах читайте [тут](/crm_platform/events-and-notes#notes-params-info.html) |
 
 #### Пример запроса
 
-    [
-        {
-            "id": 76610421,
-            "note_type": "sms_in",
-            "params": {
-                "text": "Новое входящие SMS",
-                "phone": "+79999999999"
-            }
-        },
-        {
-            "id": 76610423,
-            "note_type": "sms_out",
-            "params": {
-                "text": "Новое исходящие SMS",
-                "phone": "+79999999999"
-            }
+```json
+[
+    {
+        "id": 76610421,
+        "note_type": "sms_in",
+        "params": {
+            "text": "Новое входящие SMS",
+            "phone": "+79999999999"
         }
-    ]
-    
+    },
+    {
+        "id": 76610423,
+        "note_type": "sms_out",
+        "params": {
+            "text": "Новое исходящие SMS",
+            "phone": "+79999999999"
+        }
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -1624,34 +1695,36 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads/notes"
-            }
-        },
-        "_embedded": {
-            "notes": [
-                {
-                    "id": 76610421,
-                    "entity_id": 167353,
-                    "updated_at": 1588841241,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/167353/notes/76610421"
-                        }
-                    }
-                },
-                {
-                    "id": 76610423,
-                    "entity_id": 167353,
-                    "updated_at": 1588841241,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/167353/notes/76610423"
-                        }
+```json
+{
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads/notes"
+        }
+    },
+    "_embedded": {
+        "notes": [
+            {
+                "id": 76610421,
+                "entity_id": 167353,
+                "updated_at": 1588841241,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/167353/notes/76610421"
                     }
                 }
-            ]
-        }
+            },
+            {
+                "id": 76610423,
+                "entity_id": 167353,
+                "updated_at": 1588841241,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/167353/notes/76610423"
+                    }
+                }
+            }
+        ]
     }
+}
+```

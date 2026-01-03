@@ -1,8 +1,6 @@
 <!-- https://www.amocrm.ru/developers/content/web_sdk/dashboard -->
 
-# https://www.amocrm.ru/developers/content/web_sdk/dashboard
-
-Рабочий стол
+# Рабочий стол
 
 Для рабочего стола на тарифах “Расширенный” и “Профессиональный” есть возможность создания собственных отчетов.
 

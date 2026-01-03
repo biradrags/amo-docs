@@ -1,8 +1,8 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/error-codes -->
 
-# Справочник ошибок и ответов API
+# Коды ошибок
 
-Коды ошибок
+### Справочник ошибок и ответов API
 
 При выполнении некорректного запроса к системе наше API может вернуть код ошибки, в случае же верного запроса, API вернёт ответ. Вы, конечно, уже обрабатывали ответ сервера в ходе отладки своих виджетов или написании скриптов, взаимодействующих с нашей системой. Для Вашего удобства, мы решили систематизировать все возможные ответы и ошибки, отдаваемые нашей системой и разместить их на отдельной странице. Надеемся это облегчит и ускорит интеграцию Ваших проектов с amoCRM.
 
@@ -12,30 +12,30 @@
 
 #### Пример ошибки валидации данных
 
-    
-    {
-        "validation-errors": [
-            {
-                "request_id": "0",
-                "errors": [
-                    {
-                        "code": "NotSupportedChoice",
-                        "path": "custom_fields_values.0.field_id",
-                        "detail": "The value you selected is not a valid choice."
-                    }
-                ]
-            }
-        ],
-        "title": "Bad Request",
-        "type": "https://httpstatus.es/400",
-        "status": 400,
-        "detail": "Request validation failed"
-    }
-    
+```
+{
+    "validation-errors": [
+        {
+            "request_id": "0",
+            "errors": [
+                {
+                    "code": "NotSupportedChoice",
+                    "path": "custom_fields_values.0.field_id",
+                    "detail": "The value you selected is not a valid choice."
+                }
+            ]
+        }
+    ],
+    "title": "Bad Request",
+    "type": "https://httpstatus.es/400",
+    "status": 400,
+    "detail": "Request validation failed"
+}
+```
 
 #### Ответы при авторизации
 
-Подробнее об авторизации читайте [здесь](https://www.amocrm.ru/developers/content/api/auth)
+Подробнее об авторизации читайте [здесь](/api/auth.html)
 
 | Код | HTTP код | Описание |
 | --- | --- | --- |
@@ -47,7 +47,7 @@
 
 #### Ответы при работе с контактами
 
-Подробнее о работе с контактами читайте [здесь](/developers/content/crm_platform/contacts-and-companies)
+Подробнее о работе с контактами читайте [здесь](/crm_platform/contacts-and-companies.html)
 
 | Код | Описание |
 | --- | --- |
@@ -60,7 +60,7 @@
 
 #### Ответы при работе со сделками
 
-Подробнее о работе со сделками читайте [здесь](/developers/content/crm_platform/leads-api)
+Подробнее о работе со сделками читайте [здесь](/crm_platform/leads-api.html)
 
 | Код | Описание |
 | --- | --- |
@@ -68,7 +68,7 @@
 
 #### Ответы при работе с событиями
 
-Подробнее о работе с событиями читайте [здесь](/developers/content/crm_platform/events-and-notes)
+Подробнее о работе с событиями читайте [здесь](/crm_platform/events-and-notes.html)
 
 | Код | Описание |
 | --- | --- |
@@ -77,7 +77,7 @@
 
 #### Ответы при работе с задачами
 
-Подробнее о работе с задачами читайте [здесь](/developers/content/crm_platform/tasks-api)
+Подробнее о работе с задачами читайте [здесь](/crm_platform/tasks-api.html)
 
 | Код | Описание |
 | --- | --- |
@@ -91,7 +91,7 @@
 
 #### Ответы при работе со списками
 
-Подробнее о работе со списками читайте [здесь](/developers/content/crm_platform/catalogs-api)
+Подробнее о работе со списками читайте [здесь](/crm_platform/catalogs-api.html)
 
 | Код | Описание |
 | --- | --- |
@@ -101,7 +101,7 @@
 
 #### Ответы при работе с элементами каталога
 
-Подробнее о работе с элементами каталога читайте [здесь](/developers/content/crm_platform/catalogs-api)
+Подробнее о работе с элементами каталога читайте [здесь](/crm_platform/catalogs-api.html)
 
 | Код | Описание |
 | --- | --- |
@@ -113,7 +113,7 @@
 
 #### Ответы при работе с покупателями
 
-Подробнее о работе с покупателями читайте [здесь](/developers/content/crm_platform/customers-api)
+Подробнее о работе с покупателями читайте [здесь](/crm_platform/customers-api.html)
 
 | Код | Описание |
 | --- | --- |

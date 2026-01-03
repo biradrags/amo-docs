@@ -1,8 +1,6 @@
 <!-- https://www.amocrm.ru/developers/content/oauth/scopes -->
 
-# https://www.amocrm.ru/developers/content/oauth/scopes
-
-Разрешения и права
+# Разрешения и права
 
 Scope (список разрешений) – Действие или набор действий от имени пользователя, которые доступны для интеграции по протоколу OAuth.
 
@@ -36,5 +34,5 @@ Scope (список разрешений) – Действие или набор
 
 #### Смотрите также
 
-*   [Обзор oAuth 2.0](https://www.amocrm.ru/developers/content/oauth/oauth)
-*   [Пример по шагам](https://www.amocrm.ru/developers/content/oauth/step-by-step)
+*   [Обзор oAuth 2.0](/oauth/oauth.html)
+*   [Пример по шагам](/oauth/step-by-step.html)

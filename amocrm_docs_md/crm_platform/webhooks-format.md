@@ -1,8 +1,6 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/webhooks-format -->
 
-# https://www.amocrm.ru/developers/content/crm_platform/webhooks-format
-
-Webhooks
+# Webhooks
 
 WebHooks – это уведомление сторонних приложений посредством отправки уведомлений о событиях, произошедших в amoCRM. Вы можете настроить HTTP адреса ваших приложений и связанные с ними рабочие правила в настройках своего аккаунта в разделе **амоМаркет**.
 
@@ -74,413 +72,433 @@ WebHook отправляется в формате **x-www-form-urlencoded** н�
 
 #### Пример массива
 
-    {
-      "leads": {
-        "status": {
-          "0": {
-            "id": "25399013",
-            "name": "Lead title",
-            "old_status_id": "7039101",
-            "status_id": "142",
-            "price": "0",
-            "responsible_user_id": "123123",
-            "last_modified": "1413554372",
-            "modified_user_id": "123123",
-            "created_user_id": "123123",
-            "date_create": "1413554349",
-            "account_id": "7039099",
-            "custom_fields": [
-              {
-                "id": "427183",
-                "name": "Checkbox custom field",
-                "values": ["1"]
-              },
-              {
-                "id": "427271",
-                "name": "Date custom field",
-                "values": ["1412380800"]
-              },
-              {
-                "id": "1069602",
-                "name": "Checkbox custom field",
-                "values": ["0"]
-              },
-              {
-                "id": "427661",
-                "name": "Text custom field",
-                "values": ["Валера"]
-              },
-              {
-                "id": "1075272",
-                "name": "Date custom field",
-                "values": ["1413331200"]
-              }
-            ]
+```json
+{
+  "leads": {
+    "status": {
+      "0": {
+        "id": "25399013",
+        "name": "Lead title",
+        "old_status_id": "7039101",
+        "status_id": "142",
+        "price": "0",
+        "responsible_user_id": "123123",
+        "last_modified": "1413554372",
+        "modified_user_id": "123123",
+        "created_user_id": "123123",
+        "date_create": "1413554349",
+        "account_id": "7039099",
+        "custom_fields": [
+          {
+            "id": "427183",
+            "name": "Checkbox custom field",
+            "values": ["1"]
+          },
+          {
+            "id": "427271",
+            "name": "Date custom field",
+            "values": ["1412380800"]
+          },
+          {
+            "id": "1069602",
+            "name": "Checkbox custom field",
+            "values": ["0"]
+          },
+          {
+            "id": "427661",
+            "name": "Text custom field",
+            "values": ["Валера"]
+          },
+          {
+            "id": "1075272",
+            "name": "Date custom field",
+            "values": ["1413331200"]
           }
-        }
+        ]
       }
     }
+  }
+}
+```
 
 #### Пример создания контакта
 
 При создании и удалении сущностей контакт или компания во избежание проблем с обратной совместимостью есть ключ type, который дает понимание по какой сущности пришел вебхук.
 
-    {
-      "contacts": {
-        "add": [
+```json
+{
+  "contacts": {
+    "add": [
+      {
+        "id": "10952709",
+        "name": "Контакт",
+        "responsible_user_id": "123123",
+        "date_create": "1684402722",
+        "last_modified": "1684402722",
+        "created_user_id": "123123",
+        "modified_user_id": "123123",
+        "company_name": "Company",
+        "linked_company_id": "10857345",
+        "account_id": "7039099",
+        "custom_fields": [
           {
-            "id": "10952709",
-            "name": "Контакт",
-            "responsible_user_id": "123123",
-            "date_create": "1684402722",
-            "last_modified": "1684402722",
-            "created_user_id": "123123",
-            "modified_user_id": "123123",
-            "company_name": "Company",
-            "linked_company_id": "10857345",
-            "account_id": "7039099",
-            "custom_fields": [
+            "id": "575809",
+            "name": "Телефон",
+            "values": [
               {
-                "id": "575809",
-                "name": "Телефон",
-                "values": [
-                  {
-                    "value": "+76665554433",
-                    "enum": "311321"
-                  }
-                ],
-                "code": "PHONE"
+                "value": "+76665554433",
+                "enum": "311321"
               }
             ],
-            "linked_leads_id": {
-              "7551167": {
-                "ID": "7551167"
-              }
-            },
-            "created_at": "1684402722",
-            "updated_at": "1684402722",
-            "type": "contact"
+            "code": "PHONE"
           }
-        ]
+        ],
+        "linked_leads_id": {
+          "7551167": {
+            "ID": "7551167"
+          }
+        },
+        "created_at": "1684402722",
+        "updated_at": "1684402722",
+        "type": "contact"
       }
-    }
+    ]
+  }
+}
+```
 
 #### Пример создания компании
 
-    {
-      "contacts": {
-        "add": [
-          {
-            "id": "10959143",
-            "name": "Компания",
-            "responsible_user_id": "123123",
-            "date_create": "1684402979",
-            "last_modified": "1684402979",
-            "created_user_id": "123123",
-            "modified_user_id": "123123",
-            "account_id": "7039099",
-            "linked_leads_id": {
-              "7480363": {
-                "ID": "7480363"
-              }
-            },
-            "created_at": "1684402979",
-            "updated_at": "1684402979",
-            "type": "company"
+```json
+{
+  "contacts": {
+    "add": [
+      {
+        "id": "10959143",
+        "name": "Компания",
+        "responsible_user_id": "123123",
+        "date_create": "1684402979",
+        "last_modified": "1684402979",
+        "created_user_id": "123123",
+        "modified_user_id": "123123",
+        "account_id": "7039099",
+        "linked_leads_id": {
+          "7480363": {
+            "ID": "7480363"
           }
-        ]
+        },
+        "created_at": "1684402979",
+        "updated_at": "1684402979",
+        "type": "company"
       }
-    }
+    ]
+  }
+}
+```
 
 #### Пример массива для задач
 
 Если завершать задачи из раздела задач с результатом, то придет 2 события: закрытие задачи и добавление результата. В случае завершении задачи из карточки, приходит 1 событие о завершении задачи с результатом.
 
-    {
-      "task": {
-        "update": [
-          {
-            "0": {
-              "id": "11122233",
-              "element_id": "33322211",
-              "element_type": "2",
-              "task_type": "1",
-              "date_create": "2017-07-20 15:00:00",
-              "text": "Follow-up",
-              "status": "1", // 0 - не завершена, 1 - завершена
-              "account_id": "77711122",
-              "created_user_id": "123123",
-              "last_modified": "2017-07-21 19:00:00",
-              "responsible_user_id": "123123",
-              "complete_till": "2017-07-22 23:59:00",
-              "action_close": "1", // Параметр только для обновления задач. 1 - при текущем обновлении задача была завершена, 0 - не была завершена
-              "result": {
-                // Результат по задаче приходит, если он был указан.
-                "id": "155155155",
-                "text": "Success"
-              }
-            }
+```json
+{
+  "task": {
+    "update": [
+      {
+        "0": {
+          "id": "11122233",
+          "element_id": "33322211",
+          "element_type": "2",
+          "task_type": "1",
+          "date_create": "2017-07-20 15:00:00",
+          "text": "Follow-up",
+          "status": "1", // 0 - не завершена, 1 - завершена
+          "account_id": "77711122",
+          "created_user_id": "123123",
+          "last_modified": "2017-07-21 19:00:00",
+          "responsible_user_id": "123123",
+          "complete_till": "2017-07-22 23:59:00",
+          "action_close": "1", // Параметр только для обновления задач. 1 - при текущем обновлении задача была завершена, 0 - не была завершена
+          "result": {
+            // Результат по задаче приходит, если он был указан.
+            "id": "155155155",
+            "text": "Success"
           }
-        ]
-      },
-      "account": {
-        "subdomain": "test"
+        }
       }
-    }
+    ]
+  },
+  "account": {
+    "subdomain": "test"
+  }
+}
+```
 
 #### Примеры массивов неразобранного
 
 Добавление неразобранного:
 
-    {
-      "unsorted": {
-        "add": [
-          {
-            "uid": "40789acb990dbb9754dc234e18d2325470612b2284880504d78f258d8f77",
-            "category": "forms",
-            "account_id": "1312313",
-            "user_id": "123123",
-            "source": "Заявка с сайта №441310 из формы <<Форма #1548921297>>",
-            "pipeline_id": "142141",
-            "source_data": {
-              "name_1": {
-                "type": "text",
-                "id": "name_1",
-                "element_type": "1",
-                "name": "ФИО",
-                "value": "Валерий"
-              },
-              "23424_1": {
-                "type": "multitext",
-                "id": "23424_1",
-                "element_type": "1",
-                "name": "Телефон",
-                "value": "23424"
-              },
-              "form_id": "243222",
-              "form_type": "1",
-              "date": "156232405",
-              "from": "Заявка с сайта №441310 из формы <<Форма #1548921297>>",
-              "origin": {
-                "ip": "12.123.123.12",
-                "datetime": "Wed Sep 04 2019 19:54:55 GMT+0300 (Москва, стандартное время)",
-                "referer": "https://test.amocrm.ru/settings/pipeline/leads/1232432",
-                "country": "Russian Federation",
-                "city": "Moscow",
-                "continent_code": "EU",
-                "visitor_uid": "202273f9-03cc-42b5-aa4d-71e2ead59ec4"
-              }
-            },
-            "data": {
-              "leads": [
+```json
+{
+  "unsorted": {
+    "add": [
+      {
+        "uid": "40789acb990dbb9754dc234e18d2325470612b2284880504d78f258d8f77",
+        "category": "forms",
+        "account_id": "1312313",
+        "user_id": "123123",
+        "source": "Заявка с сайта №441310 из формы <<Форма #1548921297>>",
+        "pipeline_id": "142141",
+        "source_data": {
+          "name_1": {
+            "type": "text",
+            "id": "name_1",
+            "element_type": "1",
+            "name": "ФИО",
+            "value": "Валерий"
+          },
+          "23424_1": {
+            "type": "multitext",
+            "id": "23424_1",
+            "element_type": "1",
+            "name": "Телефон",
+            "value": "23424"
+          },
+          "form_id": "243222",
+          "form_type": "1",
+          "date": "156232405",
+          "from": "Заявка с сайта №441310 из формы <<Форма #1548921297>>",
+          "origin": {
+            "ip": "12.123.123.12",
+            "datetime": "Wed Sep 04 2019 19:54:55 GMT+0300 (Москва, стандартное время)",
+            "referer": "https://test.amocrm.ru/settings/pipeline/leads/1232432",
+            "country": "Russian Federation",
+            "city": "Moscow",
+            "continent_code": "EU",
+            "visitor_uid": "202273f9-03cc-42b5-aa4d-71e2ead59ec4"
+          }
+        },
+        "data": {
+          "leads": [
+            {
+              "date_create": "156232405",
+              "visitor_uid": "202273f9-03cc-42b5-aa4d-71e2ead59ec4",
+              "created_user_id": "0",
+              "modified_user_id": "0",
+              "main_user_id": "0",
+              "tags": "Заявка с сайта"
+            }
+          ],
+          "contacts": [
+            {
+              "name": "contact",
+              "custom_fields": [
                 {
-                  "date_create": "156232405",
-                  "visitor_uid": "202273f9-03cc-42b5-aa4d-71e2ead59ec4",
-                  "created_user_id": "0",
-                  "modified_user_id": "0",
-                  "main_user_id": "0",
-                  "tags": "Заявка с сайта"
+                  "id": "121507",
+                  "values": [
+                    {
+                      "enum": "223111",
+                      "value": "23424"
+                    }
+                  ]
                 }
               ],
-              "contacts": [
-                {
-                  "name": "contact",
-                  "custom_fields": [
-                    {
-                      "id": "121507",
-                      "values": [
-                        {
-                          "enum": "223111",
-                          "value": "23424"
-                        }
-                      ]
-                    }
-                  ],
-                  "date_create": "156232405",
-                  "visitor_uid": "202273f9-03cc-42b5-aa4d-71e2ead59ec4",
-                  "created_user_id": "0",
-                  "modified_user_id": "0",
-                  "main_user_id": "0",
-                  "tags": " Заявка с сайта"
-                }
-              ]
+              "date_create": "156232405",
+              "visitor_uid": "202273f9-03cc-42b5-aa4d-71e2ead59ec4",
+              "created_user_id": "0",
+              "modified_user_id": "0",
+              "main_user_id": "0",
+              "tags": " Заявка с сайта"
             }
-          }
-        ]
-      },
-      "account": {
-        "subdomain": "test",
-        "id": "1312313",
-        "_links": {
-          "self": "https://test.amocrm.ru"
+          ]
         }
       }
+    ]
+  },
+  "account": {
+    "subdomain": "test",
+    "id": "1312313",
+    "_links": {
+      "self": "https://test.amocrm.ru"
     }
+  }
+}
+```
 
 Обновление неразобранного:
 
-    {
-      "unsorted": {
-        "update": [
-          {
-            "uid": "40789acb990dbb9754dc234e18d2325470612b2284880504d78f258d8f77",
-            "category": "forms",
-            "account_id": "1312313",
-            "user_id": "123123",
-            "source": "Заявка с сайта №441310 из формы <<Форма #1548921297>>",
-            "pipeline_id": "142141",
-            "source_data": {
-              "form_id": "243222",
-              "form_type": "1",
-              "date": "156232405",
-              "from": "Заявка с сайта №441310 из формы <<Форма #1548921297>>",
-              "form_name": "Сайт",
-              "date": "1567619168",
-              "source_uid": "232323",
-              "source": "2423424",
-              "uid": "24242432",
-              "origin": {
-                "ip": "12.123.123.12",
-                "referer": "https://test.amocrm.ru/settings/pipeline/leads/1541752",
-                "visitor_uid": "202273f9-03cc-42b5-aa4d-71e2ead59ec4",
-                "datetime": "1567619168"
-              }
-            },
-            "data": {
-              "leads": [
-                {
-                  "id": "24242432",
-                  "status_id": "424232222",
-                  "pipeline_id": "4353222",
-                  "name": "Сделка",
-                  "created_user_id": "0",
-                  "date_create": "156760055"
-                }
-              ],
-              "pipeline_id": "4353222",
-              "source": "2423424",
-              "source_uid": "232323",
-              "created_at": "156760055"
-            }
+```json
+{
+  "unsorted": {
+    "update": [
+      {
+        "uid": "40789acb990dbb9754dc234e18d2325470612b2284880504d78f258d8f77",
+        "category": "forms",
+        "account_id": "1312313",
+        "user_id": "123123",
+        "source": "Заявка с сайта №441310 из формы <<Форма #1548921297>>",
+        "pipeline_id": "142141",
+        "source_data": {
+          "form_id": "243222",
+          "form_type": "1",
+          "date": "156232405",
+          "from": "Заявка с сайта №441310 из формы <<Форма #1548921297>>",
+          "form_name": "Сайт",
+          "date": "1567619168",
+          "source_uid": "232323",
+          "source": "2423424",
+          "uid": "24242432",
+          "origin": {
+            "ip": "12.123.123.12",
+            "referer": "https://test.amocrm.ru/settings/pipeline/leads/1541752",
+            "visitor_uid": "202273f9-03cc-42b5-aa4d-71e2ead59ec4",
+            "datetime": "1567619168"
           }
-        ]
-      },
-      "account": {
-        "subdomain": "test",
-        "id": "1312313",
-        "_links": {
-          "self": "https://test.amocrm.ru"
+        },
+        "data": {
+          "leads": [
+            {
+              "id": "24242432",
+              "status_id": "424232222",
+              "pipeline_id": "4353222",
+              "name": "Сделка",
+              "created_user_id": "0",
+              "date_create": "156760055"
+            }
+          ],
+          "pipeline_id": "4353222",
+          "source": "2423424",
+          "source_uid": "232323",
+          "created_at": "156760055"
         }
       }
+    ]
+  },
+  "account": {
+    "subdomain": "test",
+    "id": "1312313",
+    "_links": {
+      "self": "https://test.amocrm.ru"
     }
+  }
+}
+```
 
 Принятие и отклонение неразобранного считается как их удаление, поэтому при этих действиях будет приходить webhook на удаление неразобранного. Их можно отличить по двум параметрам: в action будет указанно **decline** если было отклонение или **accept** если принятие, а так же различается название параметра с id сущностей неразобранного, **decline\_result** и **accept\_result**. Ниже приведены примеры данных webhook.
 
 При отклонении:
 
-    {
-      "unsorted": {
-        "delete": [
-          {
-            "action": "decline",
-            "uid": "40789acb990dbb9754dc234e18d2325470612b2284880504d78f258d8f77",
-            "category": "forms",
-            "created_at": "124242341",
-            "decline_result": {
-              "leads": ["2132111"]
-            }
-          }
-        ]
-      },
-      "account": {
-        "subdomain": "test",
-        "id": "1312313",
-        "_links": {
-          "self": "https://test.amocrm.ru"
+```json
+{
+  "unsorted": {
+    "delete": [
+      {
+        "action": "decline",
+        "uid": "40789acb990dbb9754dc234e18d2325470612b2284880504d78f258d8f77",
+        "category": "forms",
+        "created_at": "124242341",
+        "decline_result": {
+          "leads": ["2132111"]
         }
       }
+    ]
+  },
+  "account": {
+    "subdomain": "test",
+    "id": "1312313",
+    "_links": {
+      "self": "https://test.amocrm.ru"
     }
+  }
+}
+```
 
 При принятии:
 
-    {
-      "unsorted": {
-        "delete": [
-          {
-            "action": "accept",
-            "uid": "40789acb990dbb9754dc234e18d2325470612b2284880504d78f258d8f77",
-            "category": "forms",
-            "created_at": "124242341",
-            "accept_result": {
-              "leads": ["2132111"],
-              "contacts": ["3454532"]
-            }
-          }
-        ]
-      },
-      "account": {
-        "subdomain": "test",
-        "id": "1312313",
-        "_links": {
-          "self": "https://test.amocrm.ru"
+```json
+{
+  "unsorted": {
+    "delete": [
+      {
+        "action": "accept",
+        "uid": "40789acb990dbb9754dc234e18d2325470612b2284880504d78f258d8f77",
+        "category": "forms",
+        "created_at": "124242341",
+        "accept_result": {
+          "leads": ["2132111"],
+          "contacts": ["3454532"]
         }
       }
+    ]
+  },
+  "account": {
+    "subdomain": "test",
+    "id": "1312313",
+    "_links": {
+      "self": "https://test.amocrm.ru"
     }
+  }
+}
+```
 
 #### Пример массива при входящем сообщении:
 
-    {
-      "message": {
-          "add": {
-              [
-                  "id": "amo12345-31ed-41af-am23-conf1504",
-                  "chat_id": "2f61amo-c914-r429-m4f1-4005c15o5n0f",
-                  "author": {
-                      "id": "7a389amo2-cr65-46m6-8216-06f39w12q3d8s",
-                      "name": "Ivan Ivanov"
-                  },
-                  "text": "Hello World!",
-                  "created_at": "1580116931",
-                  "origin": "telegram",
-                  "attachment": {
-                      "type": "picture",
-                      "link": "https://amojo.amocrm.ru/attachments/db6a2cea-197b-4993-afd3-c0cdfc4cef7b/cc9a7fca-6f5f-4d6f-b39f-6f62ce20d432/amocrm.gif"
-                  },
-                  "element_id": "123456789",
-                  "element_type": "1"
-              ]
-          }
+```json
+{
+  "message": {
+      "add": {
+          [
+              "id": "amo12345-31ed-41af-am23-conf1504",
+              "chat_id": "2f61amo-c914-r429-m4f1-4005c15o5n0f",
+              "author": {
+                  "id": "7a389amo2-cr65-46m6-8216-06f39w12q3d8s",
+                  "name": "Ivan Ivanov"
+              },
+              "text": "Hello World!",
+              "created_at": "1580116931",
+              "origin": "telegram",
+              "attachment": {
+                  "type": "picture",
+                  "link": "https://amojo.amocrm.ru/attachments/db6a2cea-197b-4993-afd3-c0cdfc4cef7b/cc9a7fca-6f5f-4d6f-b39f-6f62ce20d432/amocrm.gif"
+              },
+              "element_id": "123456789",
+              "element_type": "1"
+          ]
       }
-    }
+  }
+}
+```
 
 #### Пример массива при отправке шаблона WhatsApp на одобрение
 
+```json
+{
+  "add": [
     {
-      "add": [
+      "id": "6955",
+      "type": "waba",
+      "account_id": "31089582",
+      "name": "wabaTemplate",
+      "content": "wabaTemplate",
+      "created_at": "1698238241",
+      "updated_at": "1698238241",
+      "is_editable": "1",
+      "reviews": [
         {
-          "id": "6955",
-          "type": "waba",
-          "account_id": "31089582",
-          "name": "wabaTemplate",
-          "content": "wabaTemplate",
-          "created_at": "1698238241",
-          "updated_at": "1698238241",
-          "is_editable": "1",
-          "reviews": [
-            {
-              "id": "15",
-              "source_id": "20826950",
-              "status": "review",
-              "reject_reason": ""
-            }
-          ],
-          "is_on_review": "1",
-          "waba_footer": "wabaFooter",
-          "waba_category": "UTILITY",
-          "waba_language": "ru"
+          "id": "15",
+          "source_id": "20826950",
+          "status": "review",
+          "reject_reason": ""
         }
-      ]
+      ],
+      "is_on_review": "1",
+      "waba_footer": "wabaFooter",
+      "waba_category": "UTILITY",
+      "waba_language": "ru"
     }
+  ]
+}
+```
 
 #### Обработка ответа от хука
 

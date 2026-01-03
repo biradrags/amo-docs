@@ -1,10 +1,10 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/calls-api -->
 
-# Общая информация
-
-Добавление звонков
+# Добавление звонков
 
 В данном разделе описывается работа с методом добавления звонков
+
+### Общая информация
 
 При использовании метода добавления звонков, система автоматически находит контакт или компанию с указанным номером телефона, а также все связанные сделки и покупатели и добавляет звонок в одну из них по следующему алгоритму:
 
@@ -56,18 +56,20 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    [
-      {
-        "duration": 10,
-        "source": "example_integration",
-        "phone": "123123",
-        "link": "https://example.com/audio.mp3",
-        "direction": "inbound",
-        "call_result": "Успешный разговор",
-        "call_status": 4,
-        "call_responsible": 504141
-      }
-    ]
+```json
+[
+  {
+    "duration": 10,
+    "source": "example_integration",
+    "phone": "123123",
+    "link": "https://example.com/audio.mp3",
+    "direction": "inbound",
+    "call_result": "Успешный разговор",
+    "call_status": 4,
+    "call_responsible": 504141
+  }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -102,28 +104,30 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_total_items": 1,
-        "errors": [],
-        "_embedded": {
-            "calls": [
-                {
-                    "id": 37512063,
-                    "entity_id": 11070881,
-                    "entity_type": "contact",
-                    "account_id": 28805383,
-                    "request_id": "0",
-                    "_embedded": {
-                        "entity": {
-                            "id": 11070881,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/contacts/11070881"
-                                }
+```json
+{
+    "_total_items": 1,
+    "errors": [],
+    "_embedded": {
+        "calls": [
+            {
+                "id": 37512063,
+                "entity_id": 11070881,
+                "entity_type": "contact",
+                "account_id": 28805383,
+                "request_id": "0",
+                "_embedded": {
+                    "entity": {
+                        "id": 11070881,
+                        "_links": {
+                            "self": {
+                                "href": "https://example.amocrm.ru/api/v4/contacts/11070881"
                             }
                         }
                     }
                 }
-            ]
-        }
+            }
+        ]
     }
+}
+```

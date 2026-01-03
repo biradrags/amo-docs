@@ -1,21 +1,21 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/users-api -->
 
-# Оглавление
-
-Пользователи
+# Пользователи
 
 В данном разделе описываются доступные методы для работы с пользователями аккаунта и их ролями
 
-*   [Список пользователей](#users-list)
-*   [Получение пользователя по ID](#user-detail)
-*   [Добавление пользователей](#users-add)
-*   [Список ролей пользователей](#roles-list)
-*   [Получение роли по ID](#role-detail)
-*   [Добавление ролей](#roles-add)
-*   [Редактирование роли](#role-edit)
-*   [Удаление роли](#role-delete)
-*   [Общие обозначения прав пользователей](#common-rights)
-*   [Зависимости прав пользователей](#rights-dependence)
+### Оглавление
+
+*   [Список пользователей](/crm_platform/users-api#users-list.html)
+*   [Получение пользователя по ID](/crm_platform/users-api#user-detail.html)
+*   [Добавление пользователей](/crm_platform/users-api#users-add.html)
+*   [Список ролей пользователей](/crm_platform/users-api#roles-list.html)
+*   [Получение роли по ID](/crm_platform/users-api#role-detail.html)
+*   [Добавление ролей](/crm_platform/users-api#roles-add.html)
+*   [Редактирование роли](/crm_platform/users-api#role-edit.html)
+*   [Удаление роли](/crm_platform/users-api#role-delete.html)
+*   [Общие обозначения прав пользователей](/crm_platform/users-api#common-rights.html)
+*   [Зависимости прав пользователей](/crm_platform/users-api#rights-dependence.html)
 
 ### Список пользователей
 
@@ -35,7 +35,7 @@ GET /api/v4/users
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры](#with-3b4e201a-ba14-4f06-880e-987e2c091855-params). |
+| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры](/crm_platform/users-api#with-3b4e201a-ba14-4f06-880e-987e2c091855-params.html). |
 | page | int | Страница выборки |
 | limit | int | Количество возвращаемых сущностей за один запрос (Максимум – 250) |
 
@@ -87,158 +87,158 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
-    
-    {
-      "_total_items": 2,
-      "_page": 1,
-      "_page_count": 1,
-      "_links": {
-        "self": {
-          "href": "https://example.amocrm.ru/api/v4/users/?with=role%2Cgroup"
+```json
+{
+  "_total_items": 2,
+  "_page": 1,
+  "_page_count": 1,
+  "_links": {
+    "self": {
+      "href": "https://example.amocrm.ru/api/v4/users/?with=role%2Cgroup"
+    }
+  },
+  "_embedded": {
+    "users": [
+      {
+        "id": 123123,
+        "name": "Пользователь для примера 2",
+        "email": "example2@mail.com",
+        "lang": "en",
+        "rights": {
+          "leads": {
+            "view": "A",
+            "edit": "A",
+            "add": "A",
+            "delete": "A",
+            "export": "A"
+          },
+          "contacts": {
+            "view": "A",
+            "edit": "A",
+            "add": "A",
+            "delete": "A",
+            "export": "A"
+          },
+          "companies": {
+            "view": "A",
+            "edit": "A",
+            "add": "A",
+            "delete": "A",
+            "export": "A"
+          },
+          "tasks": {
+            "edit": "A",
+            "delete": "A"
+          },
+          "mail_access": false,
+          "catalog_access": false,
+          "status_rights": [
+            {
+              "entity_type": "leads",
+              "pipeline_id": 2194576,
+              "status_id": 30846277,
+              "rights": {
+                "view": "A",
+                "edit": "A",
+                "delete": "A"
+              }
+            },
+            {
+              "entity_type": "leads",
+              "pipeline_id": 2212201,
+              "status_id": 30965377,
+              "rights": {
+                "view": "A",
+                "edit": "A",
+                "delete": "A"
+              }
+            }
+          ],
+          "is_admin": false,
+          "is_free": false,
+          "is_active": true,
+          "group_id": null,
+          "role_id": null
+        },
+        "_links": {
+          "self": {
+            "href": "https://example.amocrm.ru/api/v4/users/123123/"
+          }
+        },
+        "_embedded": {
+          "roles": [
+            {
+              "id": 3141,
+              "name": "Менеджер",
+              "_links": {
+                "self": {
+                  "href": "https://example.amocrm.ru/api/v4/roles/3141"
+                }
+              }
+            }
+          ],
+          "groups": [
+            {
+              "id": 267688,
+              "name": "Менеджеры"
+            }
+          ]
         }
       },
-      "_embedded": {
-        "users": [
-          {
-            "id": 123123,
-            "name": "Пользователь для примера 2",
-            "email": "example2@mail.com",
-            "lang": "en",
-            "rights": {
-              "leads": {
-                "view": "A",
-                "edit": "A",
-                "add": "A",
-                "delete": "A",
-                "export": "A"
-              },
-              "contacts": {
-                "view": "A",
-                "edit": "A",
-                "add": "A",
-                "delete": "A",
-                "export": "A"
-              },
-              "companies": {
-                "view": "A",
-                "edit": "A",
-                "add": "A",
-                "delete": "A",
-                "export": "A"
-              },
-              "tasks": {
-                "edit": "A",
-                "delete": "A"
-              },
-              "mail_access": false,
-              "catalog_access": false,
-              "status_rights": [
-                {
-                  "entity_type": "leads",
-                  "pipeline_id": 2194576,
-                  "status_id": 30846277,
-                  "rights": {
-                    "view": "A",
-                    "edit": "A",
-                    "delete": "A"
-                  }
-                },
-                {
-                  "entity_type": "leads",
-                  "pipeline_id": 2212201,
-                  "status_id": 30965377,
-                  "rights": {
-                    "view": "A",
-                    "edit": "A",
-                    "delete": "A"
-                  }
-                }
-              ],
-              "is_admin": false,
-              "is_free": false,
-              "is_active": true,
-              "group_id": null,
-              "role_id": null
-            },
-            "_links": {
-              "self": {
-                "href": "https://example.amocrm.ru/api/v4/users/123123/"
-              }
-            },
-            "_embedded": {
-              "roles": [
-                {
-                  "id": 3141,
-                  "name": "Менеджер",
-                  "_links": {
-                    "self": {
-                      "href": "https://example.amocrm.ru/api/v4/roles/3141"
-                    }
-                  }
-                }
-              ],
-              "groups": [
-                {
-                  "id": 267688,
-                  "name": "Менеджеры"
-                }
-              ]
-            }
+      {
+        "id": 321321,
+        "name": "Пользователь для примера 2",
+        "email": "example2@mail.com",
+        "lang": "ru",
+        "rights": {
+          "leads": {
+            "view": "A",
+            "edit": "A",
+            "add": "G",
+            "delete": "D",
+            "export": "M"
           },
-          {
-            "id": 321321,
-            "name": "Пользователь для примера 2",
-            "email": "example2@mail.com",
-            "lang": "ru",
-            "rights": {
-              "leads": {
-                "view": "A",
-                "edit": "A",
-                "add": "G",
-                "delete": "D",
-                "export": "M"
-              },
-              "contacts": {
-                "view": "A",
-                "edit": "A",
-                "add": "G",
-                "delete": "M",
-                "export": "D"
-              },
-              "companies": {
-                "view": "A",
-                "edit": "G",
-                "add": "G",
-                "delete": "D",
-                "export": "D"
-              },
-              "tasks": {
-                "edit": "A",
-                "delete": "A"
-              },
-              "mail_access": true,
-              "catalog_access": true,
-              "status_rights": null,
-              "is_admin": true,
-              "is_free": false,
-              "is_active": true,
-              "group_id": null,
-              "role_id": null
-            },
-            "_links": {
-              "self": {
-                "href": "https://example.amocrm.ru/api/v4/users/321321"
-              }
-            },
-            "_embedded": {
-              "roles": [],
-              "groups": []
-            }
+          "contacts": {
+            "view": "A",
+            "edit": "A",
+            "add": "G",
+            "delete": "M",
+            "export": "D"
+          },
+          "companies": {
+            "view": "A",
+            "edit": "G",
+            "add": "G",
+            "delete": "D",
+            "export": "D"
+          },
+          "tasks": {
+            "edit": "A",
+            "delete": "A"
+          },
+          "mail_access": true,
+          "catalog_access": true,
+          "status_rights": null,
+          "is_admin": true,
+          "is_free": false,
+          "is_active": true,
+          "group_id": null,
+          "role_id": null
+        },
+        "_links": {
+          "self": {
+            "href": "https://example.amocrm.ru/api/v4/users/321321"
           }
-        ]
+        },
+        "_embedded": {
+          "roles": [],
+          "groups": []
+        }
       }
-    }
-    
+    ]
+  }
+}
+```
 
 #### Параметры для GET-параметра with
 
@@ -269,7 +269,7 @@ GET /api/v4/users/{id}
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры](#with-29e6f481-152c-48d0-8523-bc4f3874753e-params). |
+| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры](/crm_platform/users-api#with-29e6f481-152c-48d0-8523-bc4f3874753e-params.html). |
 
 #### Заголовок типа данных при успешном результате
 
@@ -319,86 +319,86 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
-    
-    {
-      "id": 185848,
-      "name": "Алексей Поимцев",
-      "email": "test@example.com",
-      "lang": "ru",
-      "rights": {
-        "leads": {
-          "view": "M",
-          "edit": "M",
-          "add": "D",
-          "delete": "M",
-          "export": "M"
-        },
-        "contacts": {
-          "view": "M",
-          "edit": "M",
-          "add": "D",
-          "delete": "M",
-          "export": "M"
-        },
-        "companies": {
-          "view": "M",
-          "edit": "M",
-          "add": "D",
-          "delete": "M",
-          "export": "M"
-        },
-        "tasks": {
-          "edit": "A",
-          "delete": "A"
-        },
-        "mail_access": false,
-        "catalog_access": true,
-        "status_rights": [
-          {
-            "entity_type": "leads",
-            "pipeline_id": 3166396,
-            "status_id": 142,
-            "rights": {
-              "view": "D",
-              "edit": "D",
-              "delete": "D",
-              "export": "D"
-            }
-          },
-          {
-            "entity_type": "leads",
-            "pipeline_id": 3166396,
-            "status_id": 32311027,
-            "rights": {
-              "view": "D",
-              "edit": "D",
-              "delete": "D"
-            }
-          },
-          {
-            "entity_type": "leads",
-            "pipeline_id": 3104455,
-            "status_id": 31881115,
-            "rights": {
-              "view": "D",
-              "edit": "D",
-              "delete": "D"
-            }
-          }
-        ],
-        "is_admin": false,
-        "is_free": false,
-        "is_active": true,
-        "group_id": null,
-        "role_id": null
+```json
+{
+  "id": 185848,
+  "name": "Алексей Поимцев",
+  "email": "test@example.com",
+  "lang": "ru",
+  "rights": {
+    "leads": {
+      "view": "M",
+      "edit": "M",
+      "add": "D",
+      "delete": "M",
+      "export": "M"
+    },
+    "contacts": {
+      "view": "M",
+      "edit": "M",
+      "add": "D",
+      "delete": "M",
+      "export": "M"
+    },
+    "companies": {
+      "view": "M",
+      "edit": "M",
+      "add": "D",
+      "delete": "M",
+      "export": "M"
+    },
+    "tasks": {
+      "edit": "A",
+      "delete": "A"
+    },
+    "mail_access": false,
+    "catalog_access": true,
+    "status_rights": [
+      {
+        "entity_type": "leads",
+        "pipeline_id": 3166396,
+        "status_id": 142,
+        "rights": {
+          "view": "D",
+          "edit": "D",
+          "delete": "D",
+          "export": "D"
+        }
       },
-      "_links": {
-        "self": {
-          "href": "https://example.amocrm.ru/api/v4/users/185848"
+      {
+        "entity_type": "leads",
+        "pipeline_id": 3166396,
+        "status_id": 32311027,
+        "rights": {
+          "view": "D",
+          "edit": "D",
+          "delete": "D"
+        }
+      },
+      {
+        "entity_type": "leads",
+        "pipeline_id": 3104455,
+        "status_id": 31881115,
+        "rights": {
+          "view": "D",
+          "edit": "D",
+          "delete": "D"
         }
       }
+    ],
+    "is_admin": false,
+    "is_free": false,
+    "is_active": true,
+    "group_id": null,
+    "role_id": null
+  },
+  "_links": {
+    "self": {
+      "href": "https://example.amocrm.ru/api/v4/users/185848"
     }
-    
+  }
+}
+```
 
 #### Параметры для GET-параметра with
 
@@ -440,7 +440,7 @@ Content-Type: application/json
 *   В случае передачи значение null в поле rights\[group\_id\], пользователь будет добавлен в группу по-умолчанию – "Отдел продаж"
 *   "Администратор" и "Бесплатные пользователи" не являются ролями, для обозначения заведены отдельные флаги rights\[is\_free\] и rights\[is\_admin\]
 *   Если передать поле rights\[status\_rights\] со значением null, пользователь получит права на статусы неразобранного без доступа к ним
-*   Поля rights\[leads\], rights\[tasks\], rights\[contacts\], rights\[companies\] должны учитывать [зависимость прав](#rights-dependence).
+*   Поля rights\[leads\], rights\[tasks\], rights\[contacts\], rights\[companies\] должны учитывать [зависимость прав](/crm_platform/users-api#rights-dependence.html).
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
@@ -463,32 +463,32 @@ Content-Type: application/json
 
 #### Пример запроса
 
-    
-    [
-      {
-        "name": "Иван Иванов",
-        "email": "user_add-test@team.amocrm.com",
-        "password": "aBcde1@345",
-        "lang": "ru",
-        "rights": {
-          "leads": {
-            "view": "A",
-            "edit": "A",
-            "add": "A",
-            "delete": "A",
-            "export": "D"
-          },
-          "contacts": {
-            "view": "A",
-            "edit": "A",
-            "add": "A",
-            "delete": "A",
-            "export": "D"
-          }
-        }
+```json
+[
+  {
+    "name": "Иван Иванов",
+    "email": "user_add-test@team.amocrm.com",
+    "password": "aBcde1@345",
+    "lang": "ru",
+    "rights": {
+      "leads": {
+        "view": "A",
+        "edit": "A",
+        "add": "A",
+        "delete": "A",
+        "export": "D"
+      },
+      "contacts": {
+        "view": "A",
+        "edit": "A",
+        "add": "A",
+        "delete": "A",
+        "export": "D"
       }
-    ]
-    
+    }
+  }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -513,83 +513,83 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
-    
-    {
-      "_total_items": 1,
-      "_embedded": {
-        "users": [
-          {
-            "id": 6029791,
-            "name": "testUser",
-            "email": "user_add-test@team.amocrm.com",
-            "lang": "en",
-            "rights": {
-              "leads": {
-                "view": "A",
-                "edit": "A",
-                "add": "A",
-                "delete": "A",
-                "export": "D"
-              },
-              "contacts": {
-                "view": "A",
-                "edit": "A",
-                "add": "A",
-                "delete": "A",
-                "export": "D"
-              },
-              "companies": {
-                "view": "A",
-                "edit": "A",
-                "add": "A",
-                "delete": "A",
-                "export": "D"
-              },
-              "tasks": {
-                "edit": "A",
-                "delete": "A"
-              },
-              "mail_access": false,
-              "catalog_access": false,
-              "status_rights": [
-                {
-                  "entity_type": "leads",
-                  "pipeline_id": 2020444,
-                  "status_id": 29652544,
-                  "rights": {
-                    "view": "D",
-                    "edit": "D",
-                    "delete": "D"
-                  }
-                },
-                {
-                  "entity_type": "leads",
-                  "pipeline_id": 2275606,
-                  "status_id": 31411840,
-                  "rights": {
-                    "view": "D",
-                    "edit": "D",
-                    "delete": "D"
-                  }
-                }
-              ],
-              "is_admin": false,
-              "role_id": null,
-              "is_free": false,
-              "group_id": null,
-              "is_active": true
+```json
+{
+  "_total_items": 1,
+  "_embedded": {
+    "users": [
+      {
+        "id": 6029791,
+        "name": "testUser",
+        "email": "user_add-test@team.amocrm.com",
+        "lang": "en",
+        "rights": {
+          "leads": {
+            "view": "A",
+            "edit": "A",
+            "add": "A",
+            "delete": "A",
+            "export": "D"
+          },
+          "contacts": {
+            "view": "A",
+            "edit": "A",
+            "add": "A",
+            "delete": "A",
+            "export": "D"
+          },
+          "companies": {
+            "view": "A",
+            "edit": "A",
+            "add": "A",
+            "delete": "A",
+            "export": "D"
+          },
+          "tasks": {
+            "edit": "A",
+            "delete": "A"
+          },
+          "mail_access": false,
+          "catalog_access": false,
+          "status_rights": [
+            {
+              "entity_type": "leads",
+              "pipeline_id": 2020444,
+              "status_id": 29652544,
+              "rights": {
+                "view": "D",
+                "edit": "D",
+                "delete": "D"
+              }
             },
-            "request_id": "1",
-            "_links": {
-              "self": {
-                "href": "https://test.amocrm.ru/api/v4/users/6029791"
+            {
+              "entity_type": "leads",
+              "pipeline_id": 2275606,
+              "status_id": 31411840,
+              "rights": {
+                "view": "D",
+                "edit": "D",
+                "delete": "D"
               }
             }
+          ],
+          "is_admin": false,
+          "role_id": null,
+          "is_free": false,
+          "group_id": null,
+          "is_active": true
+        },
+        "request_id": "1",
+        "_links": {
+          "self": {
+            "href": "https://test.amocrm.ru/api/v4/users/6029791"
           }
-        ]
+        }
       }
-    }
-    
+    ]
+  }
+}
+```
 
 ### Список ролей пользователей
 
@@ -609,7 +609,7 @@ GET /api/v4/roles
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры](#with-7a3ab670-d2c6-11ed-afa1-0242ac120002-params). |
+| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры](/crm_platform/users-api#with-7a3ab670-d2c6-11ed-afa1-0242ac120002-params.html). |
 | page | int | Страница выборки |
 | limit | int | Количество возвращаемых сущностей за один запрос (Максимум – 250) |
 
@@ -660,85 +660,85 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
-    
-    {
-      "_total_items": 1,
-      "_page": 1,
-      "_page_count": 1,
-      "_links": {
-        "self": {
-          "href": "https://example.amocrm.ru/api/v4/roles?with=users&page=1&limit=50"
-        }
-      },
-      "_embedded": {
-        "roles": [
-          {
-            "id": 107995,
-            "name": "Моя супер роль",
-            "rights": {
-              "leads": {
+```json
+{
+  "_total_items": 1,
+  "_page": 1,
+  "_page_count": 1,
+  "_links": {
+    "self": {
+      "href": "https://example.amocrm.ru/api/v4/roles?with=users&page=1&limit=50"
+    }
+  },
+  "_embedded": {
+    "roles": [
+      {
+        "id": 107995,
+        "name": "Моя супер роль",
+        "rights": {
+          "leads": {
+            "view": "A",
+            "edit": "A",
+            "add": "A",
+            "delete": "A",
+            "export": "A"
+          },
+          "contacts": {
+            "view": "A",
+            "edit": "A",
+            "add": "A",
+            "delete": "A",
+            "export": "A"
+          },
+          "companies": {
+            "view": "A",
+            "edit": "A",
+            "add": "A",
+            "delete": "A",
+            "export": "A"
+          },
+          "tasks": {
+            "edit": "A",
+            "delete": "A"
+          },
+          "mail_access": false,
+          "catalog_access": false,
+          "status_rights": [
+            {
+              "entity_type": "leads",
+              "pipeline_id": 3104455,
+              "status_id": 31881115,
+              "rights": {
+                "edit": "A",
                 "view": "A",
-                "edit": "A",
-                "add": "A",
-                "delete": "A",
-                "export": "A"
-              },
-              "contacts": {
-                "view": "A",
-                "edit": "A",
-                "add": "A",
-                "delete": "A",
-                "export": "A"
-              },
-              "companies": {
-                "view": "A",
-                "edit": "A",
-                "add": "A",
-                "delete": "A",
-                "export": "A"
-              },
-              "tasks": {
-                "edit": "A",
                 "delete": "A"
-              },
-              "mail_access": false,
-              "catalog_access": false,
-              "status_rights": [
-                {
-                  "entity_type": "leads",
-                  "pipeline_id": 3104455,
-                  "status_id": 31881115,
-                  "rights": {
-                    "edit": "A",
-                    "view": "A",
-                    "delete": "A"
-                  }
-                },
-                {
-                  "entity_type": "leads",
-                  "pipeline_id": 3166396,
-                  "status_id": 32311027,
-                  "rights": {
-                    "edit": "A",
-                    "view": "A",
-                    "delete": "A"
-                  }
-                }
-              ]
-            },
-            "_links": {
-              "self": {
-                "href": "https://example.amocrm.ru/api/v4/roles/107995"
               }
             },
-            "_embedded": {
-              "users": []
+            {
+              "entity_type": "leads",
+              "pipeline_id": 3166396,
+              "status_id": 32311027,
+              "rights": {
+                "edit": "A",
+                "view": "A",
+                "delete": "A"
+              }
             }
+          ]
+        },
+        "_links": {
+          "self": {
+            "href": "https://example.amocrm.ru/api/v4/roles/107995"
           }
-        ]
+        },
+        "_embedded": {
+          "users": []
+        }
       }
-    }
-    
+    ]
+  }
+}
+```
 
 #### Параметры для GET-параметра with
 
@@ -764,7 +764,7 @@ GET /api/v4/roles/{id}
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры](#with-e69df6b0-d2c6-11ed-afa1-0242ac120002-params). |
+| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. Данный метод поддерживает [следующие параметры](/crm_platform/users-api#with-e69df6b0-d2c6-11ed-afa1-0242ac120002-params.html). |
 
 #### Заголовок типа данных при успешном результате
 
@@ -813,68 +813,68 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
-    
-    {
-      "id": 107995,
-      "name": "Роль",
-      "rights": {
-        "leads": {
+```json
+{
+  "id": 107995,
+  "name": "Роль",
+  "rights": {
+    "leads": {
+      "view": "A",
+      "edit": "A",
+      "add": "A",
+      "delete": "A",
+      "export": "A"
+    },
+    "contacts": {
+      "view": "A",
+      "edit": "A",
+      "add": "A",
+      "delete": "A",
+      "export": "A"
+    },
+    "companies": {
+      "view": "A",
+      "edit": "A",
+      "add": "A",
+      "delete": "A",
+      "export": "A"
+    },
+    "tasks": {
+      "edit": "A",
+      "delete": "A"
+    },
+    "mail_access": false,
+    "catalog_access": false,
+    "status_rights": [
+      {
+        "entity_type": "leads",
+        "pipeline_id": 3104455,
+        "status_id": 31881115,
+        "rights": {
+          "edit": "A",
           "view": "A",
-          "edit": "A",
-          "add": "A",
-          "delete": "A",
-          "export": "A"
-        },
-        "contacts": {
-          "view": "A",
-          "edit": "A",
-          "add": "A",
-          "delete": "A",
-          "export": "A"
-        },
-        "companies": {
-          "view": "A",
-          "edit": "A",
-          "add": "A",
-          "delete": "A",
-          "export": "A"
-        },
-        "tasks": {
-          "edit": "A",
           "delete": "A"
-        },
-        "mail_access": false,
-        "catalog_access": false,
-        "status_rights": [
-          {
-            "entity_type": "leads",
-            "pipeline_id": 3104455,
-            "status_id": 31881115,
-            "rights": {
-              "edit": "A",
-              "view": "A",
-              "delete": "A"
-            }
-          },
-          {
-            "entity_type": "leads",
-            "pipeline_id": 3166396,
-            "status_id": 32311027,
-            "rights": {
-              "edit": "A",
-              "view": "A",
-              "delete": "A"
-            }
-          }
-        ]
+        }
       },
-      "_links": {
-        "self": {
-          "href": "https://shard151.amocrm.ru/api/v4/roles/107995"
+      {
+        "entity_type": "leads",
+        "pipeline_id": 3166396,
+        "status_id": 32311027,
+        "rights": {
+          "edit": "A",
+          "view": "A",
+          "delete": "A"
         }
       }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "https://shard151.amocrm.ru/api/v4/roles/107995"
     }
-    
+  }
+}
+```
 
 #### Параметры для GET-параметра with
 
@@ -917,53 +917,53 @@ Content-Type: application/json
 
 #### Пример запроса
 
-    
-    {
-      "name": "role 3",
-      "rights": {
-        "leads": {
-          "add": "A",
-          "edit": "G",
-          "view": "G",
-          "delete": "G",
-          "export": "G"
-        },
-        "tasks": {
-          "edit": "A",
-          "delete": "A"
-        },
-        "contacts": {
-          "add": "A",
+```json
+{
+  "name": "role 3",
+  "rights": {
+    "leads": {
+      "add": "A",
+      "edit": "G",
+      "view": "G",
+      "delete": "G",
+      "export": "G"
+    },
+    "tasks": {
+      "edit": "A",
+      "delete": "A"
+    },
+    "contacts": {
+      "add": "A",
+      "edit": "A",
+      "view": "A",
+      "delete": "A",
+      "export": "A"
+    },
+    "companies": {
+      "add": "A",
+      "edit": "A",
+      "view": "A",
+      "delete": "A",
+      "export": "A"
+    },
+    "mail_access": true,
+    "status_rights": [
+      {
+        "entity_type": "leads",
+        "pipeline_id": 16056,
+        "status_id": 20542166,
+        "rights": {
           "edit": "A",
           "view": "A",
           "delete": "A",
           "export": "A"
-        },
-        "companies": {
-          "add": "A",
-          "edit": "A",
-          "view": "A",
-          "delete": "A",
-          "export": "A"
-        },
-        "mail_access": true,
-        "status_rights": [
-          {
-            "entity_type": "leads",
-            "pipeline_id": 16056,
-            "status_id": 20542166,
-            "rights": {
-              "edit": "A",
-              "view": "A",
-              "delete": "A",
-              "export": "A"
-            }
-          }
-        ],
-        "catalog_access": true
+        }
       }
-    }
-    
+    ],
+    "catalog_access": true
+  }
+}
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -988,76 +988,76 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
-    
-    {
-      "_total_items": 1,
-      "_embedded": {
-        "roles": [
-          {
-            "id": 901,
-            "name": "role 3",
-            "rights": {
-              "leads": {
-                "add": "A",
-                "edit": "G",
-                "view": "G",
-                "delete": "G",
-                "export": "G"
-              },
-              "tasks": {
-                "edit": "A",
-                "delete": "A"
-              },
-              "contacts": {
-                "add": "A",
+```json
+{
+  "_total_items": 1,
+  "_embedded": {
+    "roles": [
+      {
+        "id": 901,
+        "name": "role 3",
+        "rights": {
+          "leads": {
+            "add": "A",
+            "edit": "G",
+            "view": "G",
+            "delete": "G",
+            "export": "G"
+          },
+          "tasks": {
+            "edit": "A",
+            "delete": "A"
+          },
+          "contacts": {
+            "add": "A",
+            "edit": "A",
+            "view": "A",
+            "delete": "A",
+            "export": "A"
+          },
+          "companies": {
+            "add": "A",
+            "edit": "A",
+            "view": "A",
+            "delete": "A",
+            "export": "A"
+          },
+          "mail_access": true,
+          "status_rights": [
+            {
+              "entity_type": "leads",
+              "pipeline_id": 12730,
+              "status_id": 20542166,
+              "rights": {
                 "edit": "A",
                 "view": "A",
                 "delete": "A",
                 "export": "A"
-              },
-              "companies": {
-                "add": "A",
-                "edit": "A",
-                "view": "A",
-                "delete": "A",
-                "export": "A"
-              },
-              "mail_access": true,
-              "status_rights": [
-                {
-                  "entity_type": "leads",
-                  "pipeline_id": 12730,
-                  "status_id": 20542166,
-                  "rights": {
-                    "edit": "A",
-                    "view": "A",
-                    "delete": "A",
-                    "export": "A"
-                  }
-                },
-                {
-                  "entity_type": "leads",
-                  "pipeline_id": 16056,
-                  "status_id": 20583101,
-                  "rights": {
-                    "edit": "D",
-                    "view": "D",
-                    "delete": "D"
-                  }
-                }
-              ],
-              "catalog_access": true
+              }
             },
-            "_links": {
-              "self": {
-                "href": "https://test.amocrm.ru/api/v4/roles/901/"
+            {
+              "entity_type": "leads",
+              "pipeline_id": 16056,
+              "status_id": 20583101,
+              "rights": {
+                "edit": "D",
+                "view": "D",
+                "delete": "D"
               }
             }
+          ],
+          "catalog_access": true
+        },
+        "_links": {
+          "self": {
+            "href": "https://test.amocrm.ru/api/v4/roles/901/"
           }
-        ]
+        }
       }
-    }
-    
+    ]
+  }
+}
+```
 
 ### Редактирование роли
 
@@ -1098,21 +1098,21 @@ Content-Type: application/json
 
 #### Пример запроса
 
-    
-    {
-      "name": "role 3 modified",
-      "rights": {
-        "contacts": {
-          "add": "A",
-          "edit": "D",
-          "view": "D",
-          "delete": "D",
-          "export": "D"
-        },
-        "status_rights": null
-      }
-    }
-    
+```json
+{
+  "name": "role 3 modified",
+  "rights": {
+    "contacts": {
+      "add": "A",
+      "edit": "D",
+      "view": "D",
+      "delete": "D",
+      "export": "D"
+    },
+    "status_rights": null
+  }
+}
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -1137,58 +1137,58 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
-    
-    {
-      "id": 901,
-      "name": "role 3 modified",
-      "rights": {
-        "leads": {
-          "add": "A",
-          "edit": "G",
-          "view": "G",
-          "delete": "G",
-          "export": "G"
-        },
-        "tasks": {
-          "edit": "A",
-          "delete": "A"
-        },
-        "contacts": {
-          "add": "A",
+```json
+{
+  "id": 901,
+  "name": "role 3 modified",
+  "rights": {
+    "leads": {
+      "add": "A",
+      "edit": "G",
+      "view": "G",
+      "delete": "G",
+      "export": "G"
+    },
+    "tasks": {
+      "edit": "A",
+      "delete": "A"
+    },
+    "contacts": {
+      "add": "A",
+      "edit": "D",
+      "view": "D",
+      "delete": "D",
+      "export": "D"
+    },
+    "companies": {
+      "add": "A",
+      "edit": "A",
+      "view": "A",
+      "delete": "A",
+      "export": "A"
+    },
+    "mail_access": true,
+    "status_rights": [
+      {
+        "entity_type": "leads",
+        "pipeline_id": 16056,
+        "status_id": 20583101,
+        "rights": {
           "edit": "D",
           "view": "D",
-          "delete": "D",
-          "export": "D"
-        },
-        "companies": {
-          "add": "A",
-          "edit": "A",
-          "view": "A",
-          "delete": "A",
-          "export": "A"
-        },
-        "mail_access": true,
-        "status_rights": [
-          {
-            "entity_type": "leads",
-            "pipeline_id": 16056,
-            "status_id": 20583101,
-            "rights": {
-              "edit": "D",
-              "view": "D",
-              "delete": "D"
-            }
-          }
-        ],
-        "catalog_access": true
-      },
-      "_links": {
-        "self": {
-          "href": "https://test.amocrm.ru/api/v4/roles/901/"
+          "delete": "D"
         }
       }
+    ],
+    "catalog_access": true
+  },
+  "_links": {
+    "self": {
+      "href": "https://test.amocrm.ru/api/v4/roles/901/"
     }
-    
+  }
+}
+```
 
 ### Удаление роли
 

@@ -1,17 +1,17 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/tasks-api -->
 
-# Оглавление
-
-Задачи
+# Задачи
 
 В данном разделе описывается работа с задачами через API
 
-*   [Общая информация](#common-info)
-*   [Список задач](#tasks-list)
-*   [Получение задачи по ID](#task-detail)
-*   [Добавление задач](#tasks-add)
-*   [Редактирование задач](#tasks-edit)
-*   [Выполнение задачи](#tasks-complete)
+### Оглавление
+
+*   [Общая информация](/crm_platform/tasks-api#common-info.html)
+*   [Список задач](/crm_platform/tasks-api#tasks-list.html)
+*   [Получение задачи по ID](/crm_platform/tasks-api#task-detail.html)
+*   [Добавление задач](/crm_platform/tasks-api#tasks-add.html)
+*   [Редактирование задач](/crm_platform/tasks-api#tasks-edit.html)
+*   [Выполнение задачи](/crm_platform/tasks-api#tasks-complete.html)
 
 ### Общая информация
 
@@ -58,9 +58,9 @@ _GET /api/v4/tasks_
 
 В следующем примере мы получим все завершенные задачи с типом 2 (Встреча) с ограничением выборки в 2 строки.
 
-        `https://example.amocrm.ru/api/v4/tasks?filter[task_type][]=2&filter[is_completed][]=1&limit=2`
-        
-    
+```
+https://example.amocrm.ru/api/v4/tasks?filter[task_type][]=2&filter[is_completed][]=1&limit=2
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -103,9 +103,69 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-        `{     "_page": 1,     "_links": {         "self": {             "href": "https://example.amocrm.ru/api/v4/tasks?filter[task_type][]=2&filter[is_completed][]=1&limit=2&page=1"         },         "next": {             "href": "https://example.amocrm.ru/api/v4/tasks?filter[task_type][]=2&filter[is_completed][]=1&limit=2&page=2"         }     },     "_embedded": {         "tasks": [             {                 "id": 7087,                 "created_by": 3987910,                 "updated_by": 3987910,                 "created_at": 1575364000,                 "updated_at": 1575364851,                 "responsible_user_id": 123123,                 "group_id": 0,                 "entity_id": 167353,                 "entity_type": "leads",                 "duration": 0,                 "is_completed": true,                 "task_type_id": 2,                 "text": "Пригласить на бесплатную тренировку",                 "result": [],                 "complete_till": 1575665940,                 "account_id": 321321,                 "_links": {                     "self": {                         "href": "https://example.amocrm.ru/api/v4/tasks/7087"                     }                 }             },             {                 "id": 215089,                 "created_by": 0,                 "updated_by": 3987910,                 "created_at": 1576767879,                 "updated_at": 1576767914,                 "responsible_user_id": 123123,                 "group_id": 0,                 "entity_id": 1035487,                 "entity_type": "leads",                 "duration": 0,                 "is_completed": true,                 "task_type_id": 2,                 "text": "Назначить встречу с клиентом",                 "result": [],                 "complete_till": 1576768179,                 "account_id": 321312,                 "_links": {                     "self": {                         "href": "https://example.amocrm.ru/api/v4/tasks/215089"                     }                 }             }         ]     } }`
-        
-    
+```
+{
+    "_page": 1,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/tasks?filter[task_type][]=2&filter[is_completed][]=1&limit=2&page=1"
+        },
+        "next": {
+            "href": "https://example.amocrm.ru/api/v4/tasks?filter[task_type][]=2&filter[is_completed][]=1&limit=2&page=2"
+        }
+    },
+    "_embedded": {
+        "tasks": [
+            {
+                "id": 7087,
+                "created_by": 3987910,
+                "updated_by": 3987910,
+                "created_at": 1575364000,
+                "updated_at": 1575364851,
+                "responsible_user_id": 123123,
+                "group_id": 0,
+                "entity_id": 167353,
+                "entity_type": "leads",
+                "duration": 0,
+                "is_completed": true,
+                "task_type_id": 2,
+                "text": "Пригласить на бесплатную тренировку",
+                "result": [],
+                "complete_till": 1575665940,
+                "account_id": 321321,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/tasks/7087"
+                    }
+                }
+            },
+            {
+                "id": 215089,
+                "created_by": 0,
+                "updated_by": 3987910,
+                "created_at": 1576767879,
+                "updated_at": 1576767914,
+                "responsible_user_id": 123123,
+                "group_id": 0,
+                "entity_id": 1035487,
+                "entity_type": "leads",
+                "duration": 0,
+                "is_completed": true,
+                "task_type_id": 2,
+                "text": "Назначить встречу с клиентом",
+                "result": [],
+                "complete_till": 1576768179,
+                "account_id": 321312,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/tasks/215089"
+                    }
+                }
+            }
+        ]
+    }
+}
+```
 
 ### Получение задачи по ID
 
@@ -162,9 +222,33 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-        `{     "id": 56981,     "created_by": 54224,     "updated_by": 3987910,     "created_at": 1575910123,     "updated_at": 1576767989,     "responsible_user_id": 123123,     "group_id": 0,     "entity_id": 180765,     "entity_type": "leads",     "duration": 0,     "is_completed": true,     "task_type_id": 2,     "text": "Назначить встречу с клиентом",     "result": {         "text": "Результат есть"     },     "complete_till": 1575910423,     "account_id": 321312,     "_links": {         "self": {             "href": "https://example.amocrm.ru/api/v4/tasks/56981"         }     } }`
-        
-    
+```
+{
+    "id": 56981,
+    "created_by": 54224,
+    "updated_by": 3987910,
+    "created_at": 1575910123,
+    "updated_at": 1576767989,
+    "responsible_user_id": 123123,
+    "group_id": 0,
+    "entity_id": 180765,
+    "entity_type": "leads",
+    "duration": 0,
+    "is_completed": true,
+    "task_type_id": 2,
+    "text": "Назначить встречу с клиентом",
+    "result": {
+        "text": "Результат есть"
+    },
+    "complete_till": 1575910423,
+    "account_id": 321312,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/tasks/56981"
+        }
+    }
+}
+```
 
 ### Добавление задач
 
@@ -208,9 +292,18 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-        `[     {         "task_type_id": 1,         "text": "Встретиться с клиентом Иван Иванов",         "complete_till": 1588885140,         "entity_id": 9785993,         "entity_type": "leads",         "request_id": "example"     } ]`
-        
-    
+```
+[
+    {
+        "task_type_id": 1,
+        "text": "Встретиться с клиентом Иван Иванов",
+        "complete_till": 1588885140,
+        "entity_id": 9785993,
+        "entity_type": "leads",
+        "request_id": "example"
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -239,9 +332,28 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-        `{     "_links": {         "self": {             "href": "https://example.amocrm.ru/api/v4/tasks"         }     },     "_embedded": {         "tasks": [             {                 "id": 4745251,                 "request_id": "example",                 "_links": {                     "self": {                         "href": "https://example.amocrm.ru/api/v4/tasks/4745251"                     }                 }             }         ]     } }`
-        
-    
+```
+{
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/tasks"
+        }
+    },
+    "_embedded": {
+        "tasks": [
+            {
+                "id": 4745251,
+                "request_id": "example",
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/tasks/4745251"
+                    }
+                }
+            }
+        ]
+    }
+}
+```
 
 ### Редактирование задач
 
@@ -285,9 +397,22 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-        `[     {         "id": 4745251,         "task_type_id": 2,         "text": "Новое название для задачи",         "complete_till": 1588885140     },     {         "id": 4747929,         "task_type_id": 1,         "text": "Новое название для задачи 2",         "complete_till": 1588885140     } ]`
-        
-    
+```
+[
+    {
+        "id": 4745251,
+        "task_type_id": 2,
+        "text": "Новое название для задачи",
+        "complete_till": 1588885140
+    },
+    {
+        "id": 4747929,
+        "task_type_id": 1,
+        "text": "Новое название для задачи 2",
+        "complete_till": 1588885140
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -311,9 +436,39 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-        `{     "_links": {         "self": {             "href": "https://example.amocrm.ru/api/v4/tasks"         }     },     "_embedded": {         "tasks": [             {                 "id": 4745251,                 "updated_at": 1588760725,                 "request_id": "0",                 "_links": {                     "self": {                         "href": "https://example.amocrm.ru/api/v4/tasks/4745251"                     }                 }             },             {                 "id": 4747929,                 "updated_at": 1588760725,                 "request_id": "1",                 "_links": {                     "self": {                         "href": "https://example.amocrm.ru/api/v4/tasks/4747929"                     }                 }             }         ]     } }`
-        
-    
+```
+{
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/tasks"
+        }
+    },
+    "_embedded": {
+        "tasks": [
+            {
+                "id": 4745251,
+                "updated_at": 1588760725,
+                "request_id": "0",
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/tasks/4745251"
+                    }
+                }
+            },
+            {
+                "id": 4747929,
+                "updated_at": 1588760725,
+                "request_id": "1",
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/tasks/4747929"
+                    }
+                }
+            }
+        ]
+    }
+}
+```
 
 ### Выполнение задачи
 
@@ -350,9 +505,14 @@ _Content-Type: application/json_
 
 В примере ниже выполним одну задачу запросом на метод /api/v4/tasks/4747929
 
-        `{     "is_completed": true,     "result": {         "text": "Удалось связаться с клиентом"     } }`
-        
-    
+```
+{
+    "is_completed": true,
+    "result": {
+        "text": "Удалось связаться с клиентом"
+    }
+}
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -376,4 +536,15 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-        `{     "id": 4747929,     "updated_at": 1588770600,     "request_id": "0",     "_links": {         "self": {             "href": "https://example.amocrm.ru/api/v4/tasks/4747929"         }     } }`
+```
+{
+    "id": 4747929,
+    "updated_at": 1588770600,
+    "request_id": "0",
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/tasks/4747929"
+        }
+    }
+}
+```

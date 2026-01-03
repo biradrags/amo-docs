@@ -1,8 +1,8 @@
 <!-- https://www.amocrm.ru/developers/content/integrations/sdk_card -->
 
-# Функции и принципы взаимодействия с SDK карточки.
+# SDK карточки
 
-SDK карточки
+### Функции и принципы взаимодействия с SDK карточки.
 
 #### Что такое SDK?
 
@@ -38,29 +38,33 @@ SDK карточки позволяет разработчикам виджет�
 
 Метод должен возвращать объект типа [Promise](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Promise), который, по выполнении вашего запроса вернет массив \[Obj1,Obj2, … ObjN\], где Obj — объект, описывающий элемент в формате:
 
-    {
-        id: {number},
-        sku: {string},
-        name: {string},
-        price: {string}
-    }
+```
+{
+    id: {number},
+    sku: {string},
+    name: {string},
+    price: {string}
+}
+```
 
 Пример реализации метода:
 
-    loadPreloadedData: function () {
-            return new Promise(_.bind(function (resolve, reject) {
-                //Сделаем запрос на удаленный сервер
-                self.crm_post(
-                    'http://my.sdk.api.com',
-                    {},
-                    function (msg) {
-                        //Приведем элементы к нужному формату и зарезолвим
-                        resolve(msg);
-                    },
-                    'json'
-                );
-            }), this);
-        }
+```
+loadPreloadedData: function () {
+        return new Promise(_.bind(function (resolve, reject) {
+            //Сделаем запрос на удаленный сервер
+            self.crm_post(
+                'http://my.sdk.api.com',
+                {},
+                function (msg) {
+                    //Приведем элементы к нужному формату и зарезолвим
+                    resolve(msg);
+                },
+                'json'
+            );
+        }), this);
+    }
+```
 
 #### Метод loadElements(type, id)
 
@@ -70,13 +74,15 @@ SDK карточки позволяет разработчикам виджет�
 
 Метод должен возвращать объект типа [Promise](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Promise), который, по выполнении вашего запроса вернет массив \[Obj1,Obj2, … ObjN\], где Obj — объект, описывающий элемент в формате:
 
-    {
-        id: {number},
-        sku: {string},
-        name: {string},
-        price: {string},
-        quantity: {number}
-    }
+```
+{
+    id: {number},
+    sku: {string},
+    name: {string},
+    price: {string},
+    quantity: {number}
+}
+```
 
 #### Параметры метода:
 
@@ -91,20 +97,22 @@ SDK карточки позволяет разработчикам виджет�
 
 #### Пример реализации метода:
 
-     loadElements: function (type, id) {
-            return new Promise(_.bind(function (resolve, reject) {
-                //Сделаем запрос на удаленный сервер
-                self.crm_post(
-                    'http://my.sdk.api.com',
-                    {},
-                    function (msg) {
-                        //Приведем элементы к нужному формату и зарезолвим
-                        resolve(msg);
-                    },
-                    'json'
-                );
-            }), this);
-        }
+```
+loadElements: function (type, id) {
+        return new Promise(_.bind(function (resolve, reject) {
+            //Сделаем запрос на удаленный сервер
+            self.crm_post(
+                'http://my.sdk.api.com',
+                {},
+                function (msg) {
+                    //Приведем элементы к нужному формату и зарезолвим
+                    resolve(msg);
+                },
+                'json'
+            );
+        }), this);
+    }
+```
 
 #### Метод linkCard(links)
 
@@ -137,21 +145,23 @@ SDK карточки позволяет разработчикам виджет�
 
 #### Пример реализации метода:
 
-     linkCard: function (links) {
-            return new Promise(_.bind(function (resolve, reject) {
-                //Сделаем запрос на удаленный сервер
-                self.crm_post(
-                    'http://my.sdk.api.com/sdk_back/link.php',
-                    links,
-                    function () {
-                        //Мы не обрабатываем ошибки, которые могли произойти на вашей стороне, в данном блоке Вы можете выполнить Ваш код
-                    },
-                    'json'
-                );
-                
-                resolve();
-            }), this);
-        }
+```
+linkCard: function (links) {
+        return new Promise(_.bind(function (resolve, reject) {
+            //Сделаем запрос на удаленный сервер
+            self.crm_post(
+                'http://my.sdk.api.com/sdk_back/link.php',
+                links,
+                function () {
+                    //Мы не обрабатываем ошибки, которые могли произойти на вашей стороне, в данном блоке Вы можете выполнить Ваш код
+                },
+                'json'
+            );
+            
+            resolve();
+        }), this);
+    }
+```
 
 #### Метод searchDataInCard(query, type, id)
 
@@ -161,12 +171,14 @@ SDK карточки позволяет разработчикам виджет�
 
 Метод должен возвращать объект типа [Promise](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Promise), который, после выполнения вашего запроса, вернет массив \[Obj1,Obj2, … ObjN\], где Obj — объект, описывающий элемент в формате:
 
-    {
-        id: {number},
-        sku: {string},
-        name: {string},
-        price: {string}
-    }
+```
+{
+    id: {number},
+    sku: {string},
+    name: {string},
+    price: {string}
+}
+```
 
 #### Параметры метода
 
@@ -178,22 +190,24 @@ SDK карточки позволяет разработчикам виджет�
 
 #### Пример реализации метода:
 
-    searchDataInCard: function (query, type, id) {
-            return new Promise(_.bind(function (resolve, reject) {
-                self.crm_post(
-                    'http://my.sdk.api.com/sdk_back/search.php',
-                    {
-                        query: query,
-                        type: type,
-                        id: id
-                    },
-                    function (msg) {
-                        resolve(msg);
-                    },
-                    'json'
-                );
-            }), this);
-        }
+```
+searchDataInCard: function (query, type, id) {
+        return new Promise(_.bind(function (resolve, reject) {
+            self.crm_post(
+                'http://my.sdk.api.com/sdk_back/search.php',
+                {
+                    query: query,
+                    type: type,
+                    id: id
+                },
+                function (msg) {
+                    resolve(msg);
+                },
+                'json'
+            );
+        }), this);
+    }
+```
 
 #### Пример виджета (JS-часть), который взаимодействует с PHP приложением, описаным ниже
 
@@ -262,4 +276,4 @@ SDK карточки позволяет разработчикам виджет�
 
 [Скачать](/static/assets/developers/sdk_back.zip)
 
-[Области подключения виджетов](/developers/content/integrations/areas)
+[Области подключения виджетов](/integrations/areas.html)

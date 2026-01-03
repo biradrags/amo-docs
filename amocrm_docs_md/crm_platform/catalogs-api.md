@@ -1,20 +1,20 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/catalogs-api -->
 
-# Оглавление
-
-Списки
+# Списки
 
 В данном разделе описываются доступные методы для работы с сущностью списков
 
-*   [Общая информация](#Общая-информация)
-*   [Доступные списки](#Доступные-списки)
-*   [Получение списка по ID](#Получение-списка-по-ID)
-*   [Добавление списков](#Добавление-списков)
-*   [Редактирование списков](#Редактирование-списков)
-*   [Доступные элементы списка](#Доступные-элементы-списка)
-*   [Получение элемента списка по ID](#Получение-элемента-списка-по-ID)
-*   [Добавление элементов списков](#Добавление-элементов-списков)
-*   [Редактирование элементов списков](#Редактирование-элементов-списков)
+### Оглавление
+
+*   [Общая информация](/crm_platform/catalogs-api#%D0%9E%D0%B1%D1%89%D0%B0%D1%8F-%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D1%8F.html)
+*   [Доступные списки](/crm_platform/catalogs-api#%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D1%8B%D0%B5-%D1%81%D0%BF%D0%B8%D1%81%D0%BA%D0%B8.html)
+*   [Получение списка по ID](/crm_platform/catalogs-api#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D1%81%D0%BF%D0%B8%D1%81%D0%BA%D0%B0-%D0%BF%D0%BE-ID.html)
+*   [Добавление списков](/crm_platform/catalogs-api#%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D1%81%D0%BF%D0%B8%D1%81%D0%BA%D0%BE%D0%B2.html)
+*   [Редактирование списков](/crm_platform/catalogs-api#%D0%A0%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D1%81%D0%BF%D0%B8%D1%81%D0%BA%D0%BE%D0%B2.html)
+*   [Доступные элементы списка](/crm_platform/catalogs-api#%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D1%8B%D0%B5-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D1%8B-%D1%81%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.html)
+*   [Получение элемента списка по ID](/crm_platform/catalogs-api#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D0%B0-%D1%81%D0%BF%D0%B8%D1%81%D0%BA%D0%B0-%D0%BF%D0%BE-ID.html)
+*   [Добавление элементов списков](/crm_platform/catalogs-api#%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D0%BE%D0%B2-%D1%81%D0%BF%D0%B8%D1%81%D0%BA%D0%BE%D0%B2.html)
+*   [Редактирование элементов списков](/crm_platform/catalogs-api#%D0%A0%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D0%BE%D0%B2-%D1%81%D0%BF%D0%B8%D1%81%D0%BA%D0%BE%D0%B2.html)
 
 ### Общая информация
 
@@ -82,84 +82,86 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_page": 1,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/catalogs?page=1&limit=50"
-            },
-            "next": {
-                "href": "https://example.amocrm.ru/api/v4/catalogs?page=2&limit=50"
-            }
+```json
+{
+    "_page": 1,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/catalogs?page=1&limit=50"
         },
-        "_embedded": {
-            "catalogs": [
-                {
-                    "id": 4589,
-                    "name": "Просто список",
-                    "created_by": 504141,
-                    "updated_by": 504141,
-                    "created_at": 1590742040,
-                    "updated_at": 1590742040,
-                    "sort": 10,
-                    "type": "regular",
-                    "can_add_elements": true,
-                    "can_show_in_cards": false,
-                    "can_link_multiple": true,
-                    "can_be_deleted": true,
-                    "sdk_widget_code": null,
-                    "account_id": 28805383,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/catalogs/4589"
-                        }
-                    }
-                },
-                {
-                    "id": 4521,
-                    "name": "Товары",
-                    "created_by": 504141,
-                    "updated_by": 504141,
-                    "created_at": 1589390310,
-                    "updated_at": 1590742040,
-                    "sort": 20,
-                    "type": "products",
-                    "can_add_elements": true,
-                    "can_show_in_cards": false,
-                    "can_link_multiple": true,
-                    "can_be_deleted": false,
-                    "sdk_widget_code": null,
-                    "account_id": 28805383,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/catalogs/4521"
-                        }
-                    }
-                },
-                {
-                    "id": 4517,
-                    "name": "Счета",
-                    "created_by": 504141,
-                    "updated_by": 504141,
-                    "created_at": 1589379462,
-                    "updated_at": 1590742040,
-                    "sort": 30,
-                    "type": "invoices",
-                    "can_add_elements": false,
-                    "can_show_in_cards": false,
-                    "can_link_multiple": true,
-                    "can_be_deleted": true,
-                    "sdk_widget_code": null,
-                    "account_id": 28805383,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/catalogs/4517"
-                        }
+        "next": {
+            "href": "https://example.amocrm.ru/api/v4/catalogs?page=2&limit=50"
+        }
+    },
+    "_embedded": {
+        "catalogs": [
+            {
+                "id": 4589,
+                "name": "Просто список",
+                "created_by": 504141,
+                "updated_by": 504141,
+                "created_at": 1590742040,
+                "updated_at": 1590742040,
+                "sort": 10,
+                "type": "regular",
+                "can_add_elements": true,
+                "can_show_in_cards": false,
+                "can_link_multiple": true,
+                "can_be_deleted": true,
+                "sdk_widget_code": null,
+                "account_id": 28805383,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/catalogs/4589"
                     }
                 }
-            ]
-        }
+            },
+            {
+                "id": 4521,
+                "name": "Товары",
+                "created_by": 504141,
+                "updated_by": 504141,
+                "created_at": 1589390310,
+                "updated_at": 1590742040,
+                "sort": 20,
+                "type": "products",
+                "can_add_elements": true,
+                "can_show_in_cards": false,
+                "can_link_multiple": true,
+                "can_be_deleted": false,
+                "sdk_widget_code": null,
+                "account_id": 28805383,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/catalogs/4521"
+                    }
+                }
+            },
+            {
+                "id": 4517,
+                "name": "Счета",
+                "created_by": 504141,
+                "updated_by": 504141,
+                "created_at": 1589379462,
+                "updated_at": 1590742040,
+                "sort": 30,
+                "type": "invoices",
+                "can_add_elements": false,
+                "can_show_in_cards": false,
+                "can_link_multiple": true,
+                "can_be_deleted": true,
+                "sdk_widget_code": null,
+                "account_id": 28805383,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/catalogs/4517"
+                    }
+                }
+            }
+        ]
     }
+}
+```
 
 ### Получение списка по ID
 
@@ -213,27 +215,29 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "id": 4589,
-        "name": "Просто список",
-        "created_by": 504141,
-        "updated_by": 504141,
-        "created_at": 1590742040,
-        "updated_at": 1590742040,
-        "sort": 10,
-        "type": "regular",
-        "can_add_elements": true,
-        "can_show_in_cards": false,
-        "can_link_multiple": true,
-        "can_be_deleted": true,
-        "sdk_widget_code": null,
-        "account_id": 28805383,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/catalogs/4589"
-            }
+```json
+{
+    "id": 4589,
+    "name": "Просто список",
+    "created_by": 504141,
+    "updated_by": 504141,
+    "created_at": 1590742040,
+    "updated_at": 1590742040,
+    "sort": 10,
+    "type": "regular",
+    "can_add_elements": true,
+    "can_show_in_cards": false,
+    "can_link_multiple": true,
+    "can_be_deleted": true,
+    "sdk_widget_code": null,
+    "account_id": 28805383,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/catalogs/4589"
         }
     }
+}
+```
 
 ### Добавление списков
 
@@ -266,14 +270,16 @@ _Content-Type: application/json_
 
 #### Пример запроса
 
-    [
-        {
-            "name": "Тестовый список",
-            "can_add_elements": true,
-            "can_link_multiple": false,
-            "request_id": "123"
-        }
-    ]
+```json
+[
+    {
+        "name": "Тестовый список",
+        "can_add_elements": true,
+        "can_link_multiple": false,
+        "request_id": "123"
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -298,38 +304,40 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/catalogs"
-            }
-        },
-        "_embedded": {
-            "catalogs": [
-                {
-                    "id": 5785,
-                    "name": "Тестовый список",
-                    "created_by": 3944275,
-                    "updated_by": 3944275,
-                    "created_at": 1589397957,
-                    "updated_at": 1589397957,
-                    "sort": 10,
-                    "type": "regular",
-                    "can_add_elements": true,
-                    "can_show_in_cards": false,
-                    "can_link_multiple": false,
-                    "can_be_deleted": true,
-                    "account_id": 123123,
-                    "request_id": "123",
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/catalogs/5785"
-                        }
+```json
+{
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/catalogs"
+        }
+    },
+    "_embedded": {
+        "catalogs": [
+            {
+                "id": 5785,
+                "name": "Тестовый список",
+                "created_by": 3944275,
+                "updated_by": 3944275,
+                "created_at": 1589397957,
+                "updated_at": 1589397957,
+                "sort": 10,
+                "type": "regular",
+                "can_add_elements": true,
+                "can_show_in_cards": false,
+                "can_link_multiple": false,
+                "can_be_deleted": true,
+                "account_id": 123123,
+                "request_id": "123",
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/catalogs/5785"
                     }
                 }
-            ]
-        }
+            }
+        ]
     }
+}
+```
 
 ### Редактирование списков
 
@@ -364,11 +372,13 @@ _Content-Type: application/json_
 
 В данном примере мы обновим 1 список запросом на /api/v4/catalogs/5787.
 
-    {
-        "name": "Новое имя списка",
-        "can_add_elements": true,
-        "can_link_multiple": false
-    }
+```json
+{
+    "name": "Новое имя списка",
+    "can_add_elements": true,
+    "can_link_multiple": false
+}
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -392,27 +402,29 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "id": 5787,
-        "name": "Новое имя списка",
-        "created_by": 3944275,
-        "updated_by": 3944275,
-        "created_at": 1589399557,
-        "updated_at": 1589399886,
-        "sort": 30,
-        "type": "regular",
-        "can_add_elements": true,
-        "can_show_in_cards": false,
-        "can_link_multiple": false,
-        "can_be_deleted": true,
-        "account_id": 123123,
-        "request_id": "5787",
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/catalogs/5787"
-            }
+```json
+{
+    "id": 5787,
+    "name": "Новое имя списка",
+    "created_by": 3944275,
+    "updated_by": 3944275,
+    "created_at": 1589399557,
+    "updated_at": 1589399886,
+    "sort": 30,
+    "type": "regular",
+    "can_add_elements": true,
+    "can_show_in_cards": false,
+    "can_link_multiple": false,
+    "can_be_deleted": true,
+    "account_id": 123123,
+    "request_id": "5787",
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/catalogs/5787"
         }
     }
+}
+```
 
 ### Доступные элементы списка
 
@@ -439,7 +451,7 @@ int | Поисковый запрос (Осуществляет поиск по 
 | filter | object | Фильтр |
 | filter\[id\] | int  
 array | Фильтр по ID элемента. Можно передать как один ID, так и массив из нескольких ID |
-| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](#with-9e488259-aebd-4dec-82eb-8b97e8ca451a-params) |
+| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](/crm_platform/catalogs-api#with-9e488259-aebd-4dec-82eb-8b97e8ca451a-params.html) |
 
 #### Заголовок типа данных при успешном результате
 
@@ -478,84 +490,86 @@ null | Предупреждение о наличии перерасчета в 
 
 #### Пример ответа
 
-    {
-        "_page": 1,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/catalogs/4521/elements?page=1&limit=50"
-            },
-            "next": {
-                "href": "https://example.amocrm.ru/api/v4/catalogs/4521/elements?page=2&limit=50"
-            }
+```json
+{
+    "_page": 1,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/catalogs/4521/elements?page=1&limit=50"
         },
-        "_embedded": {
-            "elements": [
-                {
-                    "id": 525439,
-                    "name": "Элемент",
-                    "created_by": 504141,
-                    "updated_by": 504141,
-                    "created_at": 1589390333,
-                    "updated_at": 1590683336,
-                    "is_deleted": null,
-                    "custom_fields_values": [
-                        {
-                            "field_id": 271207,
-                            "field_name": "Артикул",
-                            "field_code": "SKU",
-                            "field_type": "text",
-                            "values": [
-                                {
-                                    "value": "dsg"
-                                }
-                            ]
-                        },
-                        {
-                            "field_id": 271209,
-                            "field_name": "Описание",
-                            "field_code": "DESCRIPTION",
-                            "field_type": "textarea",
-                            "values": [
-                                {
-                                    "value": "Описание"
-                                }
-                            ]
-                        },
-                        {
-                            "field_id": 271211,
-                            "field_name": "Цена",
-                            "field_code": "PRICE",
-                            "field_type": "numeric",
-                            "values": [
-                                {
-                                    "value": "12"
-                                }
-                            ]
-                        },
-                        {
-                            "field_id": 271213,
-                            "field_name": "Группа",
-                            "field_code": "GROUP",
-                            "field_type": "category",
-                            "values": [
-                                {
-                                    "value": "Телефоны",
-                                    "enum_id": 10663
-                                }
-                            ]
-                        }
-                    ],
-                    "catalog_id": 4521,
-                    "account_id": 28805383,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/catalogs/4521/elements/525439"
-                        }
+        "next": {
+            "href": "https://example.amocrm.ru/api/v4/catalogs/4521/elements?page=2&limit=50"
+        }
+    },
+    "_embedded": {
+        "elements": [
+            {
+                "id": 525439,
+                "name": "Элемент",
+                "created_by": 504141,
+                "updated_by": 504141,
+                "created_at": 1589390333,
+                "updated_at": 1590683336,
+                "is_deleted": null,
+                "custom_fields_values": [
+                    {
+                        "field_id": 271207,
+                        "field_name": "Артикул",
+                        "field_code": "SKU",
+                        "field_type": "text",
+                        "values": [
+                            {
+                                "value": "dsg"
+                            }
+                        ]
+                    },
+                    {
+                        "field_id": 271209,
+                        "field_name": "Описание",
+                        "field_code": "DESCRIPTION",
+                        "field_type": "textarea",
+                        "values": [
+                            {
+                                "value": "Описание"
+                            }
+                        ]
+                    },
+                    {
+                        "field_id": 271211,
+                        "field_name": "Цена",
+                        "field_code": "PRICE",
+                        "field_type": "numeric",
+                        "values": [
+                            {
+                                "value": "12"
+                            }
+                        ]
+                    },
+                    {
+                        "field_id": 271213,
+                        "field_name": "Группа",
+                        "field_code": "GROUP",
+                        "field_type": "category",
+                        "values": [
+                            {
+                                "value": "Телефоны",
+                                "enum_id": 10663
+                            }
+                        ]
+                    }
+                ],
+                "catalog_id": 4521,
+                "account_id": 28805383,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/catalogs/4521/elements/525439"
                     }
                 }
-            ]
-        }
+            }
+        ]
     }
+}
+```
 
 #### Параметры для GET-параметра with
 
@@ -581,7 +595,7 @@ _GET /api/v4/catalogs/{catalog\_id}/elements/{id}_
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](#with-2ab53b94-2dd7-425b-b546-ca591f170a82-params) |
+| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](/crm_platform/catalogs-api#with-2ab53b94-2dd7-425b-b546-ca591f170a82-params.html) |
 
 #### Заголовок типа данных при успешном результате
 
@@ -620,69 +634,71 @@ null | Предупреждение о наличии перерасчета в 
 
 #### Пример ответа
 
-    {
-        "id": 525439,
-        "name": "Элемент",
-        "created_by": 504141,
-        "updated_by": 504141,
-        "created_at": 1589390333,
-        "updated_at": 1590683336,
-        "is_deleted": null,
-        "custom_fields_values": [
-            {
-                "field_id": 271207,
-                "field_name": "Артикул",
-                "field_code": "SKU",
-                "field_type": "text",
-                "values": [
-                    {
-                        "value": "dsg"
-                    }
-                ]
-            },
-            {
-                "field_id": 271209,
-                "field_name": "Описание",
-                "field_code": "DESCRIPTION",
-                "field_type": "textarea",
-                "values": [
-                    {
-                        "value": "Супер телефон"
-                    }
-                ]
-            },
-            {
-                "field_id": 271211,
-                "field_name": "Цена",
-                "field_code": "PRICE",
-                "field_type": "numeric",
-                "values": [
-                    {
-                        "value": "12"
-                    }
-                ]
-            },
-            {
-                "field_id": 271213,
-                "field_name": "Группа",
-                "field_code": "GROUP",
-                "field_type": "category",
-                "values": [
-                    {
-                        "value": "Телефоны",
-                        "enum_id": 10663
-                    }
-                ]
-            }
-        ],
-        "catalog_id": 4521,
-        "account_id": 28805383,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/catalogs/4521/elements/525439"
-            }
+```json
+{
+    "id": 525439,
+    "name": "Элемент",
+    "created_by": 504141,
+    "updated_by": 504141,
+    "created_at": 1589390333,
+    "updated_at": 1590683336,
+    "is_deleted": null,
+    "custom_fields_values": [
+        {
+            "field_id": 271207,
+            "field_name": "Артикул",
+            "field_code": "SKU",
+            "field_type": "text",
+            "values": [
+                {
+                    "value": "dsg"
+                }
+            ]
+        },
+        {
+            "field_id": 271209,
+            "field_name": "Описание",
+            "field_code": "DESCRIPTION",
+            "field_type": "textarea",
+            "values": [
+                {
+                    "value": "Супер телефон"
+                }
+            ]
+        },
+        {
+            "field_id": 271211,
+            "field_name": "Цена",
+            "field_code": "PRICE",
+            "field_type": "numeric",
+            "values": [
+                {
+                    "value": "12"
+                }
+            ]
+        },
+        {
+            "field_id": 271213,
+            "field_name": "Группа",
+            "field_code": "GROUP",
+            "field_type": "category",
+            "values": [
+                {
+                    "value": "Телефоны",
+                    "enum_id": 10663
+                }
+            ]
+        }
+    ],
+    "catalog_id": 4521,
+    "account_id": 28805383,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/catalogs/4521/elements/525439"
         }
     }
+}
+```
 
 #### Параметры для GET-параметра with
 
@@ -713,66 +729,68 @@ _Content-Type: application/json_
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
 | name | string | Название элемента списка. Обязательный параметр |
-| custom\_fields\_values | array | Массив, содержащий информацию по значениям дополнительных полей, заданных для данного элемента. [Примеры заполнения полей](/developers/content/crm_platform/custom-fields#cf-fill-examples) |
+| custom\_fields\_values | array | Массив, содержащий информацию по значениям дополнительных полей, заданных для данного элемента. [Примеры заполнения полей](/crm_platform/custom-fields#cf-fill-examples.html) |
 | request\_id | string | Поле, которое вернется вам в ответе без изменений и не будет сохранено. Необязательный параметр |
 
 #### Пример запроса
 
-    [
-        {
-            "name": "Покупка #11111",
-            "custom_fields_values": [
-                {
-                    "field_id": 1107159,
-                    "values": [
-                        {
-                            "value": {
-                                "name": "Новый покупатель #1",
-                                "address": "Москва, Вымышленная набережная, дом 1"
-                            }
+```json
+[
+    {
+        "name": "Покупка #11111",
+        "custom_fields_values": [
+            {
+                "field_id": 1107159,
+                "values": [
+                    {
+                        "value": {
+                            "name": "Новый покупатель #1",
+                            "address": "Москва, Вымышленная набережная, дом 1"
                         }
-                    ]
-                },
-                {
-                    "field_id": 1107155,
-                    "values": [
-                        {
-                            "enum_id": 1302891
+                    }
+                ]
+            },
+            {
+                "field_id": 1107155,
+                "values": [
+                    {
+                        "enum_id": 1302891
+                    }
+                ]
+            },
+            {
+                "field_id": 1107157,
+                "values": [
+                    {
+                        "value": {
+                            "entity_id": 1163189
                         }
-                    ]
-                },
-                {
-                    "field_id": 1107157,
-                    "values": [
-                        {
-                            "value": {
-                                "entity_id": 1163189
-                            }
+                    }
+                ]
+            },
+            {
+                "field_id": 1107165,
+                "values": [
+                    {
+                        "value": {
+                            "sku": "34N4124",
+                            "description": "Товар #1",
+                            "unit_price": 10,
+                            "quantity": 5,
+                            "unit_type": "шт.",
+                            "discount": {
+                                "type": "amount",
+                                "value": 25
+                            },
+                            "vat_rate_id": 18
                         }
-                    ]
-                },
-                {
-                    "field_id": 1107165,
-                    "values": [
-                        {
-                            "value": {
-                                "sku": "34N4124",
-                                "description": "Товар #1",
-                                "unit_price": 10,
-                                "quantity": 5,
-                                "unit_type": "шт.",
-                                "discount": {
-                                    "type": "amount",
-                                    "value": 25
-                                },
-                                "vat_rate_id": 18
-                            }
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+                    }
+                ]
+            }
+        ]
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -797,107 +815,109 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/catalogs/1209/elements"
-            }
-        },
-        "_embedded": {
-            "elements": [
-                {
-                    "id": 1163197,
-                    "name": "Покупка #11111",
-                    "created_by": 3944275,
-                    "updated_by": 3944275,
-                    "created_at": 1589294541,
-                    "updated_at": 1589294541,
-                    "is_deleted": false,
-                    "custom_fields_values": [
-                        {
-                            "field_id": 1107159,
-                            "field_name": "Плательщик",
-                            "field_code": "PAYER",
-                            "field_type": "payer",
-                            "values": [
-                                {
-                                    "value": {
-                                        "name": "Новый покупатель #1",
-                                        "address": "Москва, Вымышленная набережная, дом 1"
-                                    }
+```json
+{
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/catalogs/1209/elements"
+        }
+    },
+    "_embedded": {
+        "elements": [
+            {
+                "id": 1163197,
+                "name": "Покупка #11111",
+                "created_by": 3944275,
+                "updated_by": 3944275,
+                "created_at": 1589294541,
+                "updated_at": 1589294541,
+                "is_deleted": false,
+                "custom_fields_values": [
+                    {
+                        "field_id": 1107159,
+                        "field_name": "Плательщик",
+                        "field_code": "PAYER",
+                        "field_type": "payer",
+                        "values": [
+                            {
+                                "value": {
+                                    "name": "Новый покупатель #1",
+                                    "address": "Москва, Вымышленная набережная, дом 1"
                                 }
-                            ]
-                        },
-                        {
-                            "field_id": 1107155,
-                            "field_name": "Статус",
-                            "field_code": "BILL_STATUS",
-                            "field_type": "select",
-                            "values": [
-                                {
-                                    "value": "Создан",
-                                    "enum_id": 1302891,
-                                    "enum_code": "created"
+                            }
+                        ]
+                    },
+                    {
+                        "field_id": 1107155,
+                        "field_name": "Статус",
+                        "field_code": "BILL_STATUS",
+                        "field_type": "select",
+                        "values": [
+                            {
+                                "value": "Создан",
+                                "enum_id": 1302891,
+                                "enum_code": "created"
+                            }
+                        ]
+                    },
+                    {
+                        "field_id": 1107157,
+                        "field_name": "Поставщик",
+                        "field_code": "SUPPLIER",
+                        "field_type": "supplier",
+                        "values": [
+                            {
+                                "value": {
+                                    "entity_id": 1163189
                                 }
-                            ]
-                        },
-                        {
-                            "field_id": 1107157,
-                            "field_name": "Поставщик",
-                            "field_code": "SUPPLIER",
-                            "field_type": "supplier",
-                            "values": [
-                                {
-                                    "value": {
-                                        "entity_id": 1163189
-                                    }
+                            }
+                        ]
+                    },
+                    {
+                        "field_id": 1107165,
+                        "field_name": "Позиции счета",
+                        "field_code": "ITEMS",
+                        "field_type": "items",
+                        "values": [
+                            {
+                                "value": {
+                                    "sku": "34N4124",
+                                    "product_id": null,
+                                    "description": "Товар #1",
+                                    "unit_price": 10.0,
+                                    "unit_type": "шт.",
+                                    "quantity": 5.0,
+                                    "discount": {
+                                        "type": "amount",
+                                        "value": 25.0
+                                    },
+                                    "vat_rate_id": 18,
+                                    "vat_rate_value": 0,
+                                    "bonus_points_per_purchase": 0.0,
+                                    "external_uid": "",
+                                    "metadata": [],
+                                    "is_discount_recalculated": false,
+                                    "is_total_sum_recalculated": false,
+                                    "total_sum": 25.0
                                 }
-                            ]
-                        },
-                        {
-                            "field_id": 1107165,
-                            "field_name": "Позиции счета",
-                            "field_code": "ITEMS",
-                            "field_type": "items",
-                            "values": [
-                                {
-                                    "value": {
-                                        "sku": "34N4124",
-                                        "product_id": null,
-                                        "description": "Товар #1",
-                                        "unit_price": 10.0,
-                                        "unit_type": "шт.",
-                                        "quantity": 5.0,
-                                        "discount": {
-                                            "type": "amount",
-                                            "value": 25.0
-                                        },
-                                        "vat_rate_id": 18,
-                                        "vat_rate_value": 0,
-                                        "bonus_points_per_purchase": 0.0,
-                                        "external_uid": "",
-                                        "metadata": [],
-                                        "is_discount_recalculated": false,
-                                        "is_total_sum_recalculated": false,
-                                        "total_sum": 25.0
-                                    }
-                                }
-                            ]
-                        }
-                    ],
-                    "catalog_id": 1209,
-                    "account_id": 123123,
-                    "request_id": 0,
-                    "invoice_link": "https://pay.amocrm.ru/rqPf8Z8igH",
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/catalogs/1209/elements/1163197"
-                        }
+                            }
+                        ]
+                    }
+                ],
+                "catalog_id": 1209,
+                "account_id": 123123,
+                "request_id": 0,
+                "invoice_link": "https://pay.amocrm.ru/rqPf8Z8igH",
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/catalogs/1209/elements/1163197"
                     }
                 }
-            ]
-        }
+            }
+        ]
     }
+}
+```
 
 ### Редактирование элементов списков
 
@@ -924,21 +944,23 @@ _Content-Type: application/json_
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
 | name | string | Название элемента списка. Обязательный параметр |
-| custom\_fields\_values | array | Массив, содержащий информацию по значениям дополнительных полей, заданных для данного элемента. [Примеры заполнения полей](/developers/content/crm_platform/custom-fields#cf-fill-examples) |
+| custom\_fields\_values | array | Массив, содержащий информацию по значениям дополнительных полей, заданных для данного элемента. [Примеры заполнения полей](/crm_platform/custom-fields#cf-fill-examples.html) |
 | request\_id | string | Поле, которое вернется вам в ответе без изменений и не будет сохранено. Необязательный параметр |
 
 #### Пример запроса
 
-    [
-        {
-            "id": 986757,
-            "name": "Новое имя элемента"
-        },
-        {
-            "id": 986753,
-            "name": "Новое имя элемента 2"
-        }
-    ]
+```json
+[
+    {
+        "id": 986757,
+        "name": "Новое имя элемента"
+    },
+    {
+        "id": 986753,
+        "name": "Новое имя элемента 2"
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -963,52 +985,54 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/catalogs/1209/elements"
-            }
-        },
-        "_embedded": {
-            "elements": [
-                {
-                    "id": 986757,
-                    "name": "Новое имя элемента",
-                    "created_by": 3944275,
-                    "updated_by": 3944275,
-                    "created_at": 1589294541,
-                    "updated_at": 1589295769,
-                    "is_deleted": false,
-                    "custom_fields_values": [ ],
-                    "catalog_id": 1209,
-                    "account_id": 123123,
-                    "request_id": 986757,
-                    "invoice_link": null,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/catalogs/1209/elements/986757"
-                        }
-                    }
-                },
-                {
-                    "id": 986753,
-                    "name": "Новое имя элемента 2",
-                    "created_by": 3944275,
-                    "updated_by": 3944275,
-                    "created_at": 1589294429,
-                    "updated_at": 1589295769,
-                    "is_deleted": false,
-                    "custom_fields_values": [],
-                    "catalog_id": 1209,
-                    "account_id": 123123,
-                    "request_id": 986753,
-                    "invoice_link": null,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/catalogs/1209/elements/986753"
-                        }
+```json
+{
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/catalogs/1209/elements"
+        }
+    },
+    "_embedded": {
+        "elements": [
+            {
+                "id": 986757,
+                "name": "Новое имя элемента",
+                "created_by": 3944275,
+                "updated_by": 3944275,
+                "created_at": 1589294541,
+                "updated_at": 1589295769,
+                "is_deleted": false,
+                "custom_fields_values": [ ],
+                "catalog_id": 1209,
+                "account_id": 123123,
+                "request_id": 986757,
+                "invoice_link": null,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/catalogs/1209/elements/986757"
                     }
                 }
-            ]
-        }
+            },
+            {
+                "id": 986753,
+                "name": "Новое имя элемента 2",
+                "created_by": 3944275,
+                "updated_by": 3944275,
+                "created_at": 1589294429,
+                "updated_at": 1589295769,
+                "is_deleted": false,
+                "custom_fields_values": [],
+                "catalog_id": 1209,
+                "account_id": 123123,
+                "request_id": 986753,
+                "invoice_link": null,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/catalogs/1209/elements/986753"
+                    }
+                }
+            }
+        ]
     }
+}
+```

@@ -1,16 +1,16 @@
 <!-- https://www.amocrm.ru/developers/content/crm_platform/leads-api -->
 
-# Оглавление
-
-Сделки
+# Сделки
 
 В данном разделе описываются доступные методы для работы с сущностью сделки
 
-*   [Список сделок](#leads-list)
-*   [Получение сделки по ID](#lead-detail)
-*   [Добавление сделок](#leads-add)
-*   [Комплексное добавление сделок с контактом и компанией](#leads-complex-add)
-*   [Редактирование сделок](#leads-edit)
+### Оглавление
+
+*   [Список сделок](/crm_platform/leads-api#leads-list.html)
+*   [Получение сделки по ID](/crm_platform/leads-api#lead-detail.html)
+*   [Добавление сделок](/crm_platform/leads-api#leads-add.html)
+*   [Комплексное добавление сделок с контактом и компанией](/crm_platform/leads-api#leads-complex-add.html)
+*   [Редактирование сделок](/crm_platform/leads-api#leads-edit.html)
 
 ### Список сделок
 
@@ -30,12 +30,12 @@ _GET /api/v4/leads_
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](#with-a3787974-9c44-475e-8e7a-0b6888e81695-params) |
+| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](/crm_platform/leads-api#with-a3787974-9c44-475e-8e7a-0b6888e81695-params.html) |
 | page | int | Страница выборки |
 | limit | int | Количество возвращаемых сущностей за один запрос (Максимум – 250) |
 | query | string  
 int | Поисковый запрос (Осуществляет поиск по заполненным полям сущности) |
-| filter | object | Фильтр. Подробней про фильтры читайте в [отдельной статье](/developers/content/crm_platform/filters-api) |
+| filter | object | Фильтр. Подробней про фильтры читайте в [отдельной статье](/crm_platform/filters-api.html) |
 | order | object | Сортировка результатов списка.  
 Доступные поля для сортировки: created\_at, updated\_at, id.  
 Доступные значения для сортировки: asc, desc.  
@@ -116,87 +116,89 @@ float | Количество элементов у сделки |
 
 #### Пример ответа
 
-    {
-        "_page": 2,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads?limit=2&page=2"
-            },
-            "next": {
-                "href": "https://example.amocrm.ru/api/v4/leads?limit=2&page=3"
-            },
-            "first": {
-                "href": "https://example.amocrm.ru/api/v4/leads?limit=2&page=1"
-            },
-            "prev": {
-                "href": "https://example.amocrm.ru/api/v4/leads?limit=2&page=1"
-            }
+```json
+{
+    "_page": 2,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads?limit=2&page=2"
         },
-        "_embedded": {
-            "leads": [
-                {
-                    "id": 19619,
-                    "name": "Сделка для примера",
-                    "price": 46333,
-                    "responsible_user_id": 123321,
-                    "group_id": 625,
-                    "status_id": 142,
-                    "pipeline_id": 1300,
-                    "loss_reason_id": null,
-                    "source_id": null,
-                    "created_by": 321123,
-                    "updated_by": 321123,
-                    "created_at": 1453279607,
-                    "updated_at": 1502193501,
-                    "closed_at": 1483005931,
-                    "closest_task_at": null,
-                    "is_deleted": false,
-                    "custom_fields_values": null,
-                    "score": null,
-                    "account_id": 5135160,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/19619"
-                        }
-                    },
-                    "_embedded": {
-                        "tags": [],
-                        "companies": []
+        "next": {
+            "href": "https://example.amocrm.ru/api/v4/leads?limit=2&page=3"
+        },
+        "first": {
+            "href": "https://example.amocrm.ru/api/v4/leads?limit=2&page=1"
+        },
+        "prev": {
+            "href": "https://example.amocrm.ru/api/v4/leads?limit=2&page=1"
+        }
+    },
+    "_embedded": {
+        "leads": [
+            {
+                "id": 19619,
+                "name": "Сделка для примера",
+                "price": 46333,
+                "responsible_user_id": 123321,
+                "group_id": 625,
+                "status_id": 142,
+                "pipeline_id": 1300,
+                "loss_reason_id": null,
+                "source_id": null,
+                "created_by": 321123,
+                "updated_by": 321123,
+                "created_at": 1453279607,
+                "updated_at": 1502193501,
+                "closed_at": 1483005931,
+                "closest_task_at": null,
+                "is_deleted": false,
+                "custom_fields_values": null,
+                "score": null,
+                "account_id": 5135160,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/19619"
                     }
                 },
-                {
-                    "id": 14460,
-                    "name": "Сделка для примера 2",
-                    "price": 655,
-                    "responsible_user_id": 123321,
-                    "group_id": 625,
-                    "status_id": 142,
-                    "pipeline_id": 1300,
-                    "loss_reason_id": null,
-                    "source_id": null,
-                    "created_by": 321123,
-                    "updated_by": 321123,
-                    "created_at": 1453279607,
-                    "updated_at": 1502193501,
-                    "closed_at": 1483005931,
-                    "closest_task_at": null,
-                    "is_deleted": false,
-                    "custom_fields_values": null,
-                    "score": null,
-                    "account_id": 1351360,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/14460"
-                        }
-                    },
-                    "_embedded": {
-                        "tags": [],
-                        "companies": []
-                    }
+                "_embedded": {
+                    "tags": [],
+                    "companies": []
                 }
-            ]
-        }
+            },
+            {
+                "id": 14460,
+                "name": "Сделка для примера 2",
+                "price": 655,
+                "responsible_user_id": 123321,
+                "group_id": 625,
+                "status_id": 142,
+                "pipeline_id": 1300,
+                "loss_reason_id": null,
+                "source_id": null,
+                "created_by": 321123,
+                "updated_by": 321123,
+                "created_at": 1453279607,
+                "updated_at": 1502193501,
+                "closed_at": 1483005931,
+                "closest_task_at": null,
+                "is_deleted": false,
+                "custom_fields_values": null,
+                "score": null,
+                "account_id": 1351360,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/14460"
+                    }
+                },
+                "_embedded": {
+                    "tags": [],
+                    "companies": []
+                }
+            }
+        ]
     }
+}
+```
 
 #### Параметры для GET-параметра with
 
@@ -228,7 +230,7 @@ _GET /api/v4/leads/{id}_
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](#with-4ddbc99f-7fb3-4c0c-83f5-c58ec7b924be-params) |
+| with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](/crm_platform/leads-api#with-4ddbc99f-7fb3-4c0c-83f5-c58ec7b924be-params.html) |
 
 #### Заголовок типа данных при успешном результате
 
@@ -305,90 +307,92 @@ float | Количество элементов у сделки |
 
 #### Пример ответа
 
-    {
-        "id": 3912171,
-        "name": "Example",
-        "price": 12,
-        "responsible_user_id": 504141,
-        "group_id": 0,
-        "status_id": 143,
-        "pipeline_id": 3104455,
-        "loss_reason_id": 4203748,
-        "source_id": null,
-        "created_by": 504141,
-        "updated_by": 504141,
-        "created_at": 1585299171,
-        "updated_at": 1590683337,
-        "closed_at": 1590683337,
-        "closest_task_at": null,
-        "is_deleted": false,
-        "custom_fields_values": null,
-        "score": null,
-        "account_id": 28805383,
-        "is_price_modified_by_robot": false,
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads/3912171"
+```json
+{
+    "id": 3912171,
+    "name": "Example",
+    "price": 12,
+    "responsible_user_id": 504141,
+    "group_id": 0,
+    "status_id": 143,
+    "pipeline_id": 3104455,
+    "loss_reason_id": 4203748,
+    "source_id": null,
+    "created_by": 504141,
+    "updated_by": 504141,
+    "created_at": 1585299171,
+    "updated_at": 1590683337,
+    "closed_at": 1590683337,
+    "closest_task_at": null,
+    "is_deleted": false,
+    "custom_fields_values": null,
+    "score": null,
+    "account_id": 28805383,
+    "is_price_modified_by_robot": false,
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads/3912171"
+        }
+    },
+    "_embedded": {
+        "tags": [
+            {
+                "id": 100667,
+                "name": "тест",
+                "color": null,
             }
-        },
-        "_embedded": {
-            "tags": [
-                {
-                    "id": 100667,
-                    "name": "тест",
-                    "color": null,
+        ],
+        "catalog_elements": [
+            {
+                "id": 525439,
+                "metadata": {
+                    "quantity": 1,
+                    "catalog_id": 4521
                 }
-            ],
-            "catalog_elements": [
-                {
-                    "id": 525439,
-                    "metadata": {
-                        "quantity": 1,
-                        "catalog_id": 4521
-                    }
-                }
-            ],
-            "loss_reason": [
-                {
-                    "id": 4203748,
-                    "name": "Пропала потребность",
-                    "sort": 100000,
-                    "created_at": 1582117280,
-                    "updated_at": 1582117280,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/loss_reasons/4203748"
-                        }
-                    }
-                }
-            ],
-            "companies": [
-                {
-                    "id": 10971463,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/companies/10971463"
-                        }
-                    }
-                }
-            ],
-            "contacts": [
-                {
-                    "id": 10971465,
-                    "is_main": true,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/contacts/10971465"
-                        }
-                    }
-                }
-            ],
-            "source": {
-              "id": 1876532,
-              "name": "API"
             }
+        ],
+        "loss_reason": [
+            {
+                "id": 4203748,
+                "name": "Пропала потребность",
+                "sort": 100000,
+                "created_at": 1582117280,
+                "updated_at": 1582117280,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/loss_reasons/4203748"
+                    }
+                }
+            }
+        ],
+        "companies": [
+            {
+                "id": 10971463,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/companies/10971463"
+                    }
+                }
+            }
+        ],
+        "contacts": [
+            {
+                "id": 10971465,
+                "is_main": true,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/contacts/10971465"
+                    }
+                }
+            }
+        ],
+        "source": {
+          "id": 1876532,
+          "name": "API"
         }
     }
+}
+```
 
 #### Параметры для GET-параметра with
 
@@ -437,7 +441,7 @@ _Content-Type: application/json_
 | updated\_at | int | Дата изменения сделки, передается в Unix Timestamp. Поле не является обязательным |
 | loss\_reason\_id | int | ID причины отказа. Поле не является обязательным |
 | responsible\_user\_id | int | ID пользователя, ответственного за сделку. Поле не является обязательным |
-| custom\_fields\_values | array | Массив, содержащий информацию по дополнительным полям, заданным для данной сделки. Поле не является обязательным. [Примеры заполнения полей](/developers/content/crm_platform/custom-fields#cf-fill-examples) |
+| custom\_fields\_values | array | Массив, содержащий информацию по дополнительным полям, заданным для данной сделки. Поле не является обязательным. [Примеры заполнения полей](/crm_platform/custom-fields#cf-fill-examples.html) |
 | tags\_to\_add | array | Массив тегов для добавления. |
 | tags\_to\_add\[0\] | object | Модель тега для добавления. |
 | tags\_to\_add\[0\]\[id\] | array | ID тега для добавления. Важно передать или id или name. |
@@ -454,7 +458,7 @@ null | Данные тегов, добавляемых к сделке |
 | \_embedded\[companies\] | array | Данные компании, которая будет прикреплена к сделке |
 | \_embedded\[companies\]\[0\] | object | Модель компании, добавляемой к сделке. Необходимо указать id |
 | \_embedded\[companies\]\[0\]\[id\] | int | ID компании |
-| \_embedded\[source\]\[external\_id\] | int | Внешний ID источника. Источник можно добавить с помощью [API Исчтоников](https://www.amocrm.ru/developers/content/crm_platform/sources-api). Если передан external\_id источника и не передан pipeline\_id, сделка будет добавлена в воронку, в которой находится источник. |
+| \_embedded\[source\]\[external\_id\] | int | Внешний ID источника. Источник можно добавить с помощью [API Исчтоников](/crm_platform/sources-api.html). Если передан external\_id источника и не передан pipeline\_id, сделка будет добавлена в воронку, в которой находится источник. |
 | \_embedded\[source\]\[type\] | string | Тип источника. Для сделок, добавляемых интеграциями, поддерживается только `widget` |
 
 #### Пример запроса
@@ -463,42 +467,44 @@ null | Данные тегов, добавляемых к сделке |
 Для первой мы зададим название, бюджет, создателя – робота, а также значение текстового поля.  
 Для второй сделки мы зададим название, бюджет и добавим тег.
 
-    [
-        {
-            "name": "Сделка для примера 1",
-            "created_by": 0,
-            "price": 20000,
-            "custom_fields_values": [
-                {
-                    "field_id": 294471,
-                    "values": [
-                        {
-                            "value": "Наш первый клиент"
-                        }
-                    ]
-                }
-            ],
-            "tags_to_add": [
-                {
-                  "name": "Первый тег"
-                },
-                {
-                  "id": 217261
-                }
-            ]
-        },
-        {
-            "name": "Сделка для примера 2",
-            "price": 10000,
-            "_embedded": {
-                "tags": [
+```json
+[
+    {
+        "name": "Сделка для примера 1",
+        "created_by": 0,
+        "price": 20000,
+        "custom_fields_values": [
+            {
+                "field_id": 294471,
+                "values": [
                     {
-                        "id": 2719
+                        "value": "Наш первый клиент"
                     }
                 ]
             }
+        ],
+        "tags_to_add": [
+            {
+              "name": "Первый тег"
+            },
+            {
+              "id": 217261
+            }
+        ]
+    },
+    {
+        "name": "Сделка для примера 2",
+        "price": 10000,
+        "_embedded": {
+            "tags": [
+                {
+                    "id": 2719
+                }
+            ]
         }
-    ]
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -527,35 +533,37 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads"
-            }
-        },
-        "_embedded": {
-            "leads": [
-                {
-                    "id": 10185151,
-                    "request_id": "0",
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/10185151"
-                        }
-                    }
-                },
-                {
-                    "id": 10185153,
-                    "request_id": "1",
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/10185153"
-                        }
+```json
+{
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads"
+        }
+    },
+    "_embedded": {
+        "leads": [
+            {
+                "id": 10185151,
+                "request_id": "0",
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/10185151"
                     }
                 }
-            ]
-        }
+            },
+            {
+                "id": 10185153,
+                "request_id": "1",
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/10185153"
+                    }
+                }
+            }
+        ]
     }
+}
+```
 
 ### Комплексное добавление сделок с контактом и компанией
 
@@ -565,14 +573,14 @@ _POST /api/v4/leads/complex_
 
 #### Описание
 
-Метод позволяет добавлять сделки c контактом и компанией в аккаунт пакетно. Добавляемые данные могут быть проверены в [контроле дублей](/developers/content/crm_platform/duplication-control).
+Метод позволяет добавлять сделки c контактом и компанией в аккаунт пакетно. Добавляемые данные могут быть проверены в [контроле дублей](/crm_platform/duplication-control.html).
 
 #### Ограничения
 
 Метод доступен в соответствии с правами пользователя.  
 Для одной сделки можно указать не более 1 связанного контакта и 1 связанной компании.  
 Для добавляемых сущностей (сделка, контакт, компания), можно передать не более 40 значений дополнительных полей.  
-Добавляемые данные участвуют в [контроле дублей](/developers/content/crm_platform/duplication-control), если он включен для интеграции, которая добавляет данные.  
+Добавляемые данные участвуют в [контроле дублей](/crm_platform/duplication-control.html), если он включен для интеграции, которая добавляет данные.  
 Метод не производит дедубликацию переданных данных, а только ищет дубли среди уже добавленных данных.  
 За один запрос можно передать не более 50 сделок.  
 При создании нового контакта и компании, они будут связаны между собой.
@@ -598,7 +606,7 @@ _Content-Type: application/json_
 | updated\_at | int | Дата изменения сделки, передается в Unix Timestamp. Поле не является обязательным |
 | loss\_reason\_id | int | ID причины отказа. Поле не является обязательным |
 | responsible\_user\_id | int | ID пользователя, ответственного за сделку. Поле не является обязательным |
-| custom\_fields\_values | array | Массив, содержащий информацию по дополнительным полям, заданным для данной сделки. Поле не является обязательным. [Примеры заполнения полей](/developers/content/crm_platform/custom-fields#cf-fill-examples)  
+| custom\_fields\_values | array | Массив, содержащий информацию по дополнительным полям, заданным для данной сделки. Поле не является обязательным. [Примеры заполнения полей](/crm_platform/custom-fields#cf-fill-examples.html)  
 Можно передать не более 40 полей для одной сделки. Если необходимо передать больше – вы можете выполнить операцию обновления после создания или создать через общий метод, который не производит контроля дублей |
 | tags\_to\_add | array | Массив тегов для добавления. |
 | tags\_to\_add\[0\] | object | Модель тега для добавления. |
@@ -616,123 +624,125 @@ null | Данные тегов, добавляемых к сделке |
 | \_embedded\[metadata\] | array | Массив, содержащий метаданные для заявки, создаваемой в неразобранном. Если переданы метаданные, мы считаем, что это неразобранное сделки и переданный статус, отличный от статус Неразобранное будет проигнорирован  
 Параметры аналогичны тем, что передаются при создании неразобранного, за исключением необходимости передачи дополнительного ключа category.Подробней о параметрах метаданных читайте [тут](https://amocrm.ru/developers/content/crm_platform/unsorted-api#metadata-description) |
 | \_embedded\[metadata\]\[category\] | string | Категория неразобранного. Допустимые варианты – sip, forms |
-| \_embedded\[source\]\[external\_id\] | int | Внешний ID источника. Источник можно добавить с помощью [API Исчтоников](https://www.amocrm.ru/developers/content/crm_platform/sources-api). Если передан external\_id источника и не передан pipeline\_id, сделка будет добавлена в воронку, в которой находится источник. |
+| \_embedded\[source\]\[external\_id\] | int | Внешний ID источника. Источник можно добавить с помощью [API Исчтоников](/crm_platform/sources-api.html). Если передан external\_id источника и не передан pipeline\_id, сделка будет добавлена в воронку, в которой находится источник. |
 | \_embedded\[source\]\[type\] | string | Тип источника. Для сделок, добавляемых интеграциями, поддерживается только `widget` |
 
 #### Пример запроса
 
 В данном примере мы создадим сделку с контактом и компанией, а также неразобранную сделку категории формы в статусе неразобранное с контактом.
 
-    [
-       {
-          "name": "Название сделки",
-          "price": 3422,
-          "_embedded":{
-             "contacts":[
-                {
-                   "first_name":"Екатерина",
-                   "created_at":1608905348,
-                   "responsible_user_id":2004184,
-                   "updated_by":0,
-                   "custom_fields_values":[
-                      {
-                         "field_id":66186,
-                         "values":[
-                            {
-                               "enum_id":193200,
-                               "value":"example@example.com"
-                            }
-                         ]
-                      },
-                      {
-                         "field_id":66192,
-                         "values":[
-                            {
-                               "enum_id":193226,
-                               "value":"+79123456789"
-                            }
-                         ]
-                      }
-                   ]
-                }
-             ],
-             "companies":[
-                {
-                   "name":"ООО Рога и Копыта"
-                }
-             ]
-          },
-          "created_at":1608905348,
-          "responsible_user_id":2004184,
-          "custom_fields_values":[
-             {
-                "field_id":1286573,
-                "values":[
-                   {
-                      "value":"Поле текст"
-                   }
-                ]
-             },
-             {
-                "field_id":1286575,
-                "values":[
-                   {
-                      "enum_id":2957741
-                   },
-                   {
-                      "enum_id":2957743
-                   }
-                ]
-             }
-          ],
-          "status_id":33929752,
-          "pipeline_id":3383152,
-          "request_id": "qweasd"
-       },
-       {
-          "name": "Название сделки",
-          "price": 3422,
-          "_embedded":{
-             "metadata":{
-                "category": "forms",
-                "form_id": 123,
-                "form_name": "Форма на сайте",
-                "form_page": "https://example.com",
-                "form_sent_at": 1608905348,
-                "ip": "8.8.8.8",
-                "referer": "https://example.com/form.html"
-             },
-             "contacts":[
-                {
-                   "first_name":"Евгений",
-                   "custom_fields_values":[
-                      {
-                         "field_code":"EMAIL",
-                         "values":[
-                            {
-                               "enum_code":"WORK",
-                               "value":"unsorted_example@example.com"
-                            }
-                         ]
-                      },
-                      {
-                         "field_code":"PHONE",
-                         "values":[
-                            {
-                               "enum_code":"WORK",
-                               "value":"+79129876543"
-                            }
-                         ]
-                      }
-                   ]
-                }
-             ]
-          },
-          "status_id":33929749,
-          "pipeline_id":3383152,
-          "request_id": "uns_qweasd"
-       }
-    ]
+```json
+[
+   {
+      "name": "Название сделки",
+      "price": 3422,
+      "_embedded":{
+         "contacts":[
+            {
+               "first_name":"Екатерина",
+               "created_at":1608905348,
+               "responsible_user_id":2004184,
+               "updated_by":0,
+               "custom_fields_values":[
+                  {
+                     "field_id":66186,
+                     "values":[
+                        {
+                           "enum_id":193200,
+                           "value":"example@example.com"
+                        }
+                     ]
+                  },
+                  {
+                     "field_id":66192,
+                     "values":[
+                        {
+                           "enum_id":193226,
+                           "value":"+79123456789"
+                        }
+                     ]
+                  }
+               ]
+            }
+         ],
+         "companies":[
+            {
+               "name":"ООО Рога и Копыта"
+            }
+         ]
+      },
+      "created_at":1608905348,
+      "responsible_user_id":2004184,
+      "custom_fields_values":[
+         {
+            "field_id":1286573,
+            "values":[
+               {
+                  "value":"Поле текст"
+               }
+            ]
+         },
+         {
+            "field_id":1286575,
+            "values":[
+               {
+                  "enum_id":2957741
+               },
+               {
+                  "enum_id":2957743
+               }
+            ]
+         }
+      ],
+      "status_id":33929752,
+      "pipeline_id":3383152,
+      "request_id": "qweasd"
+   },
+   {
+      "name": "Название сделки",
+      "price": 3422,
+      "_embedded":{
+         "metadata":{
+            "category": "forms",
+            "form_id": 123,
+            "form_name": "Форма на сайте",
+            "form_page": "https://example.com",
+            "form_sent_at": 1608905348,
+            "ip": "8.8.8.8",
+            "referer": "https://example.com/form.html"
+         },
+         "contacts":[
+            {
+               "first_name":"Евгений",
+               "custom_fields_values":[
+                  {
+                     "field_code":"EMAIL",
+                     "values":[
+                        {
+                           "enum_code":"WORK",
+                           "value":"unsorted_example@example.com"
+                        }
+                     ]
+                  },
+                  {
+                     "field_code":"PHONE",
+                     "values":[
+                        {
+                           "enum_code":"WORK",
+                           "value":"+79129876543"
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      "status_id":33929749,
+      "pipeline_id":3383152,
+      "request_id": "uns_qweasd"
+   }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -768,26 +778,28 @@ null | ID компании |
 
 #### Пример ответа
 
-    [
-       {
-          "id":15198335,
-          "contact_id":19663157,
-          "company_id":19663155,
-          "request_id":[
-             "qweasd"
-          ],
-          "merged":false
-       },
-       {
-          "id":15198337,
-          "contact_id":19663161,
-          "company_id":19663159,
-          "request_id":[
-             "uns_qweasd"
-          ],
-          "merged":false
-       }
-    ]
+```json
+[
+   {
+      "id":15198335,
+      "contact_id":19663157,
+      "company_id":19663155,
+      "request_id":[
+         "qweasd"
+      ],
+      "merged":false
+   },
+   {
+      "id":15198337,
+      "contact_id":19663161,
+      "company_id":19663159,
+      "request_id":[
+         "uns_qweasd"
+      ],
+      "merged":false
+   }
+]
+```
 
 ### Редактирование сделок
 
@@ -827,7 +839,7 @@ _Content-Type: application/json_
 | updated\_at | int | Дата изменения сделки, передается в Unix Timestamp. Поле не является обязательным |
 | loss\_reason\_id | int | ID причины отказа. Поле не является обязательным |
 | responsible\_user\_id | int | ID пользователя, ответственного за сделку. Поле не является обязательным |
-| custom\_fields\_values | array | Массив, содержащий информацию по дополнительным полям, заданным для данной сделки. Поле не является обязательным. [Примеры заполнения полей](/developers/content/crm_platform/custom-fields#cf-fill-examples) |
+| custom\_fields\_values | array | Массив, содержащий информацию по дополнительным полям, заданным для данной сделки. Поле не является обязательным. [Примеры заполнения полей](/crm_platform/custom-fields#cf-fill-examples.html) |
 | tags\_to\_add | array | Массив тегов для добавления. |
 | tags\_to\_add\[0\] | object | Модель тега для добавления. |
 | tags\_to\_add\[0\]\[id\] | array | ID тега для добавления. Важно передать или id или name. |
@@ -848,35 +860,37 @@ _Content-Type: application/json_
 Для первой мы изменим статус и воронку, добавим причину отказа, установим дату закрытия, а также добавим новый тег и удалим старый  
 Для второй сделки мы изменим бюджет, воронку и статус, а также удалим теги.
 
-    [
-        {
-            "id": 54886,
-            "pipeline_id": 47521,
-            "status_id": 143,
-            "closed_at": 1589297221,
-            "loss_reason_id": 7323,
-            "updated_by": 0,
-            "tags_to_add": [
-                {
-                    "name": "Второй тег"
-                }
-            ],
-            "tags_to_delete": [
-                {
-                    "name": "Первый тег"
-                }
-            ]
-        },
-        {
-            "id": 54884,
-            "price": 50000,
-            "pipeline_id": 47521,
-            "status_id": 525743,
-            "_embedded": {
-                "tags": null
+```json
+[
+    {
+        "id": 54886,
+        "pipeline_id": 47521,
+        "status_id": 143,
+        "closed_at": 1589297221,
+        "loss_reason_id": 7323,
+        "updated_by": 0,
+        "tags_to_add": [
+            {
+                "name": "Второй тег"
             }
+        ],
+        "tags_to_delete": [
+            {
+                "name": "Первый тег"
+            }
+        ]
+    },
+    {
+        "id": 54884,
+        "price": 50000,
+        "pipeline_id": 47521,
+        "status_id": 525743,
+        "_embedded": {
+            "tags": null
         }
-    ]
+    }
+]
+```
 
 #### Заголовок типа данных при успешном результате
 
@@ -905,32 +919,34 @@ _Content-Type: application/problem+json_
 
 #### Пример ответа
 
-    {
-        "_links": {
-            "self": {
-                "href": "https://example.amocrm.ru/api/v4/leads"
-            }
-        },
-        "_embedded": {
-            "leads": [
-                {
-                    "id": 54886,
-                    "updated_at": 1589556420,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/54886"
-                        }
-                    }
-                },
-                {
-                    "id": 54884,
-                    "updated_at": 1589556420,
-                    "_links": {
-                        "self": {
-                            "href": "https://example.amocrm.ru/api/v4/leads/54884"
-                        }
+```json
+{
+    "_links": {
+        "self": {
+            "href": "https://example.amocrm.ru/api/v4/leads"
+        }
+    },
+    "_embedded": {
+        "leads": [
+            {
+                "id": 54886,
+                "updated_at": 1589556420,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/54886"
                     }
                 }
-            ]
-        }
+            },
+            {
+                "id": 54884,
+                "updated_at": 1589556420,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/leads/54884"
+                    }
+                }
+            }
+        ]
     }
+}
+```

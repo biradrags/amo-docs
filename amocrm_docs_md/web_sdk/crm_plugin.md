@@ -1,51 +1,55 @@
 <!-- https://www.amocrm.ru/developers/content/web_sdk/crm_plugin -->
 
-# Оглавление
+# API CRM Plugin
 
-API CRM Plugin
+### Оглавление
 
-*   [Отобразить окно чата в произвольном элементе страницы](#Отобразить-окно-чата-в-произвольном-элементе-страницы)
-*   [Локализация](#Локализация)
-*   [Изменить внешний вид чата](#Изменить-внешний-вид-чата)
-*   [Изменить пользователя чата](#Изменить-пользователя-чата)
-*   [JavaScript методы](#JavaScript-методы)
-*   [Колбэки](#Колбэки)
-*   [JS Параметры в боте онлайн-чата](#JS-Параметры-в-боте-онлайн-чата)
-*   [Отправка ключевого действия с помощью хука](#Отправка-ключевого-действия-с-помощью-хука)
+*   [Отобразить окно чата в произвольном элементе страницы](/web_sdk/crm_plugin#%D0%9E%D1%82%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%B8%D1%82%D1%8C-%D0%BE%D0%BA%D0%BD%D0%BE-%D1%87%D0%B0%D1%82%D0%B0-%D0%B2-%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%BB%D1%8C%D0%BD%D0%BE%D0%BC-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D0%B5-%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D1%8B.html)
+*   [Локализация](/web_sdk/crm_plugin#%D0%9B%D0%BE%D0%BA%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F.html)
+*   [Изменить внешний вид чата](/web_sdk/crm_plugin#%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B8%D1%82%D1%8C-%D0%B2%D0%BD%D0%B5%D1%88%D0%BD%D0%B8%D0%B9-%D0%B2%D0%B8%D0%B4-%D1%87%D0%B0%D1%82%D0%B0.html)
+*   [Изменить пользователя чата](/web_sdk/crm_plugin#%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B8%D1%82%D1%8C-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F-%D1%87%D0%B0%D1%82%D0%B0.html)
+*   [JavaScript методы](/web_sdk/crm_plugin#JavaScript-%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D1%8B.html)
+*   [Колбэки](/web_sdk/crm_plugin#%D0%9A%D0%BE%D0%BB%D0%B1%D1%8D%D0%BA%D0%B8.html)
+*   [JS Параметры в боте онлайн-чата](/web_sdk/crm_plugin#JS-%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D1%8B-%D0%B2-%D0%B1%D0%BE%D1%82%D0%B5-%D0%BE%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD-%D1%87%D0%B0%D1%82%D0%B0.html)
+*   [Отправка ключевого действия с помощью хука](/web_sdk/crm_plugin#%D0%9E%D1%82%D0%BF%D1%80%D0%B0%D0%B2%D0%BA%D0%B0-%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%B2%D0%BE%D0%B3%D0%BE-%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F-%D1%81-%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E-%D1%85%D1%83%D0%BA%D0%B0.html)
 
 **Важно.** Все описанное в статье работает только с актуальным кодом размещения кнопки на сайте, скопированным в интерфейсе amoCRM.
 
 Для конфигурирования кнопки на сайте необходимо разместить объект настроек `window.amoSocialButtonConfig` в любом месте страницы **до** подключения кода самой кнопки.
 
-    window.amoSocialButtonConfig = {
-      hidden: false, // скрыть кнопку при загрузке страницы
-      color: '#000', // изменить цвет кнопки через, проигнорирует цвет настроенный в amoCRM
-    
-      onlinechat: {
-        mode: 'widget', // еще может быть 'frame', об этом ниже
-        user_id: '', // id пользователя онлайн-чата (необязательный параметр)
-    
-        locale: {
-          extends: "ru",
-          compose_placeholder: "Напишите ваш вопрос...",
-        },
-    
-        theme: {
-          header: false,
-        },
-      },
-    };
+```javascript
+window.amoSocialButtonConfig = {
+  hidden: false, // скрыть кнопку при загрузке страницы
+  color: '#000', // изменить цвет кнопки через, проигнорирует цвет настроенный в amoCRM
+
+  onlinechat: {
+    mode: 'widget', // еще может быть 'frame', об этом ниже
+    user_id: '', // id пользователя онлайн-чата (необязательный параметр)
+
+    locale: {
+      extends: "ru",
+      compose_placeholder: "Напишите ваш вопрос...",
+    },
+
+    theme: {
+      header: false,
+    },
+  },
+};
+```
 
 Остановимся более подробно на настройках онлайн-чата.
 
 ### Отобразить окно чата в произвольном элементе страницы
 
-    window.amoSocialButtonConfig = {
-      onlinechat: {
-        mode: 'frame',
-        container: '#custom_chat_holder',
-      },
-    };
+```javascript
+window.amoSocialButtonConfig = {
+  onlinechat: {
+    mode: 'frame',
+    container: '#custom_chat_holder',
+  },
+};
+```
 
 В данном случае при клике на иконку онлайн-чата в кнопке чат откроется не во всплывающем блоке рядом с кнопкой, а в произвольном элементе страницы, который указан в свойстве `container`.
 
@@ -55,22 +59,24 @@ API CRM Plugin
 
 Полный список строк, доступных для локализации:
 
-    window.amoSocialButtonConfig = {
-      onlinechat: {
-        locale: {
-          extends: 'ru',
-          date_format: 'dd.MM.YYYY',
-          time_format: 'HH:mm',
-          compose_placeholder: 'Написать сообщение...',
-          delivery_status_sending: 'Отправляется',
-          delivery_status_sent: 'Отправлено',
-          delivery_status_read: 'Прочитано',
-          delivery_status_error: 'Ошибка',
-          powered_by: 'Сделано в',
-          new_messages: 'Новые сообщения'
-        },
-      },
-    };
+```javascript
+window.amoSocialButtonConfig = {
+  onlinechat: {
+    locale: {
+      extends: 'ru',
+      date_format: 'dd.MM.YYYY',
+      time_format: 'HH:mm',
+      compose_placeholder: 'Написать сообщение...',
+      delivery_status_sending: 'Отправляется',
+      delivery_status_sent: 'Отправлено',
+      delivery_status_read: 'Прочитано',
+      delivery_status_error: 'Ошибка',
+      powered_by: 'Сделано в',
+      new_messages: 'Новые сообщения'
+    },
+  },
+};
+```
 
 Можно передать только нужные строки на перевод, при этом указать исходную локаль через `extends`, сейчас онлайн-чат "из коробки" поддерживает 4 локализации `ru`, `en`, `es`, `pt`.
 
@@ -78,28 +84,30 @@ API CRM Plugin
 
 ### Изменить внешний вид чата
 
-    window.amoSocialButtonConfig = {
-      onlinechat: {
-        theme: {
-          background: 'yellow', // фон
-          system_color: 'pink', // цвет системных текстов (статус доставки, дата)
-          header: { // можно указать header: false, тогда он вообще не будет отрисован
-            background: 'skyblue', // цвет фона верхней части чата
-            color: 'black', // цвет текста верхней части
-          },
-          message: {
-            outgoing_background: 'red', // фон сообщения пользователя
-            outgoing_color: 'white', // цвет текста сообщения пользователя
-            incoming_background: 'blue', // фон ответа оператора
-            incoming_color: 'white', // цвет текста ответа оператора
-          },
-          compose: {
-            height: 100, // минимальная высота в пикселях (максимальная 170px, изменить ее нельзя)
-            button_background: 'black', // фон кнопки отправки
-          }
-        },
+```javascript
+window.amoSocialButtonConfig = {
+  onlinechat: {
+    theme: {
+      background: 'yellow', // фон
+      system_color: 'pink', // цвет системных текстов (статус доставки, дата)
+      header: { // можно указать header: false, тогда он вообще не будет отрисован
+        background: 'skyblue', // цвет фона верхней части чата
+        color: 'black', // цвет текста верхней части
       },
-    };
+      message: {
+        outgoing_background: 'red', // фон сообщения пользователя
+        outgoing_color: 'white', // цвет текста сообщения пользователя
+        incoming_background: 'blue', // фон ответа оператора
+        incoming_color: 'white', // цвет текста ответа оператора
+      },
+      compose: {
+        height: 100, // минимальная высота в пикселях (максимальная 170px, изменить ее нельзя)
+        button_background: 'black', // фон кнопки отправки
+      }
+    },
+  },
+};
+```
 
 Все цвета должны быть указаны в формате, который может быть обработан с помощью CSS в браузере (строковым значением как в примере, hex-код, rgb, rgba).
 
@@ -116,11 +124,13 @@ API CRM Plugin
 
 **Настоятельно рекомендуем** для защиты от получения доступа к беседе путем перебора id, хешировать `user_id` с помощью любого, удобного для вас алгоритма шифрования (SHA-256, MD-5 и т.п.)
 
-    window.amoSocialButtonConfig = {
-      onlinechat: {
-        user_id: 'abc123'
-      },
-    };
+```javascript
+window.amoSocialButtonConfig = {
+  onlinechat: {
+    user_id: 'abc123'
+  },
+};
+```
 
 ### JavaScript методы
 
@@ -141,89 +151,97 @@ API CRM Plugin
 
 Также предусмотрены колбэки для реагирования на события, происходящие в кнопке и онлайн-чате.
 
-    amoSocialButton('onChatShow|onChatHide', function () {
-      // при открытии на открытие/закрытие чата
-    });
-    
-    amoSocialButton('onChatReady', function () {
-      // чат проинициализирован,
-      // можно с ним работать через JavaScript API
-      amoSocialButton('runChatShow');
-    });
-    
-    amoSocialButton('onButtonClick', function (service, link) {
-      // при клике на кнопку
-      // входящие параметры:
-      // код сервиса
-      // url ссылки, по которой кликнули
-    });
-    
-    amoSocialButton('onConversationsChange', function (conversations) {
-      // при изменении бесед
-      // 
-      // при выключенных мультибеседах ивент сработает 1 раз, 
-      // где conversations будет false
-      //
-      // входящие параметры:
-      // conversations - массив видимых бесед 
-    
-      // формат беседы
-      //
-      // {
-      //   name: 'A123',
-      //   is_closed: true | false,
-      //   last_message: {
-      //     media: {
-      //       url: 'https://path_to_resource.mp4',
-      //       thumbnail: 'https://path_to_preview.jpg',
-      //     } | undefined,
-      //     created_at: 1655283158457,
-      //     is_out: true | false,
-      //     text: 'Hello',
-      //     type: 'text' | 'video' | 'photo',
-      //     author: {
-      //       name: author.name,
-      //     } | undefined,
-      //   },
-      // },
-    });
+```javascript
+amoSocialButton('onChatShow|onChatHide', function () {
+  // при открытии на открытие/закрытие чата
+});
+
+amoSocialButton('onChatReady', function () {
+  // чат проинициализирован,
+  // можно с ним работать через JavaScript API
+  amoSocialButton('runChatShow');
+});
+
+amoSocialButton('onButtonClick', function (service, link) {
+  // при клике на кнопку
+  // входящие параметры:
+  // код сервиса
+  // url ссылки, по которой кликнули
+});
+
+amoSocialButton('onConversationsChange', function (conversations) {
+  // при изменении бесед
+  // 
+  // при выключенных мультибеседах ивент сработает 1 раз, 
+  // где conversations будет false
+  //
+  // входящие параметры:
+  // conversations - массив видимых бесед 
+
+  // формат беседы
+  //
+  // {
+  //   name: 'A123',
+  //   is_closed: true | false,
+  //   last_message: {
+  //     media: {
+  //       url: 'https://path_to_resource.mp4',
+  //       thumbnail: 'https://path_to_preview.jpg',
+  //     } | undefined,
+  //     created_at: 1655283158457,
+  //     is_out: true | false,
+  //     text: 'Hello',
+  //     type: 'text' | 'video' | 'photo',
+  //     author: {
+  //       name: author.name,
+  //     } | undefined,
+  //   },
+  // },
+});
+```
 
 ### JS Параметры в боте онлайн-чата
 
 В бота онлайн-чата можно передать произвольные параметры с помощью метода amo\_social\_button.setMeta и, исходя из этих параметров, строить разные цепочки поведения бота. Например, пользователь авторизован у вас на сайте и вы хотели бы в поприветствовать его по имени. В таком случае на у вас на сайте нужно вызвать следующий код:
 
-    var USER_NAME = "<?= $username ?>";
-    
-    amo_social_button.setMeta({
-      bot_params: {
-        username: USER_NAME
-      }
-    });
+```javascript
+var USER_NAME = "<?= $username ?>";
+
+amo_social_button.setMeta({
+  bot_params: {
+    username: USER_NAME
+  }
+});
+```
 
 В приветственном сообщении бота онлайн чата напишите `привет, {{bot_params.username}}`.
 
 Также бот онлайн-чата поддерживает условие с проверкой bot\_params в первом шаге, поэтому легко можно реализовать, например, мультиязычность в приветственном сообщении. У себя на сайте необходимо пробросить параметр с текущей локалью пользователя:
 
-    var LOCALE = "ru"; // достаем локаль через geoip, либо API браузера
-    
-    amo_social_button.setMeta({
-      bot_params: {
-        locale: LOCALE
-      }
-    });
+```javascript
+var LOCALE = "ru"; // достаем локаль через geoip, либо API браузера
+
+amo_social_button.setMeta({
+  bot_params: {
+    locale: LOCALE
+  }
+});
+```
 
 В боте ставим на первое место условие, в текстовой области условия добавляем следующий код:
 
-    // как видно, здесь массив,
-    // поэтому условий "и"
-    // может быть несколько
-    [
-      {
-        "term1": "{{bot_params.locale}}",
-        "term2": "ru",
-        "operation": "="
-      }
-    ]
+```javascript
+// как видно, здесь массив,
+// поэтому условий "и"
+// может быть несколько
+[
+  {
+    "term1": "{{bot_params.locale}}",
+    "term2": "ru",
+    "operation": "="
+  }
+]
+```
 
 Теперь если пользователь зашел на сайт и мы определили у него русский язык, то поведем его по ветке бота с русским языком.
 
@@ -233,4 +251,6 @@ API CRM Plugin
 
 Чтобы отправить собственный хук для срабатывания ключевого действия необходимо в любом месте после подключения кода кнопки, либо по какому-то браузерному событию (например, по клику на кнопку) выполнить следующий код:
 
-    amoSocialButton('sendKeyActionHook', 'Название хука'); // которое вы задали в условии срабатывания ключевого действия в пункте "собственный хук"
+```javascript
+amoSocialButton('sendKeyActionHook', 'Название хука'); // которое вы задали в условии срабатывания ключевого действия в пункте "собственный хук"
+```

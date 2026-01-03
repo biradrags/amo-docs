@@ -1,8 +1,6 @@
 <!-- https://www.amocrm.ru/developers/content/chats/chat-start -->
 
-# Оглавление
-
-Начало работы
+# Начало работы
 
 В данной статье мы рассмотрим основные шаги, которые нам необходимо сделать, чтобы начать разрабатывать интеграцию с API чатов.
 
@@ -12,16 +10,18 @@
 *   Зарегистрированный канал чатов для использования в API чатов.
 *   Открытый публичный endpoint на вашем сервере, куда будут приходить уведомления о новых сообщениях из интерфейса amoCRM
 
-*   [Регистрация канала](#Регистрация-канала)
-*   [Авторизация](#Авторизация)
-*   [Общие требования к запросам](#Общие-требования-к-запросам)
-*   [Получение ID аккаунта в сервисе чатов](#Получение-ID-аккаунта-в-сервисе-чатов)
-*   [Получение ID пользователей в сервисе чатов](#Получение-ID-пользователей-в-сервисе-чатов)
-*   [Подключение канала к аккаунту](#Подключение-канала-к-аккаунту)
+### Оглавление
+
+*   [Регистрация канала](/chats/chat-start#%D0%A0%D0%B5%D0%B3%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%B0.html)
+*   [Авторизация](/chats/chat-start#%D0%90%D0%B2%D1%82%D0%BE%D1%80%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F.html)
+*   [Общие требования к запросам](/chats/chat-start#%D0%9E%D0%B1%D1%89%D0%B8%D0%B5-%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC.html)
+*   [Получение ID аккаунта в сервисе чатов](/chats/chat-start#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-ID-%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D0%B0-%D0%B2-%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%B5-%D1%87%D0%B0%D1%82%D0%BE%D0%B2.html)
+*   [Получение ID пользователей в сервисе чатов](/chats/chat-start#%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-ID-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D0%B5%D0%B9-%D0%B2-%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%B5-%D1%87%D0%B0%D1%82%D0%BE%D0%B2.html)
+*   [Подключение канала к аккаунту](/chats/chat-start#%D0%9F%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%B0-%D0%BA-%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D1%83.html)
 
 ### Регистрация канала
 
-В рамках [amoCRM](/developers/content/crm_platform/platform-abilities) за управление чатами, каналами, сообщениями отвечает API Чатов.  
+В рамках [amoCRM](/crm_platform/platform-abilities.html) за управление чатами, каналами, сообщениями отвечает API Чатов.  
 За управление сделками, контактами, задачами и другими сущностями, в том числе источниками отвечает непосредственно сама платформа amoCRM.
 
 По-умолчанию, мы считаем, что канал представляет собой подключение одного типа чата (WhatsApp, Viber, Facebook, Онлайн-чат на cайт и другие)  
@@ -56,7 +56,7 @@
 10.  Планируете ли вы тиражировать решение на всех пользователей amoCRM?
      1.  Есть ли уже подобное решение в amoCRM?
      2.  Если подобное решение есть, в чем уникальность вашего?
-11.  Хранит ли интеграция файлы? (Необходимо для определения, занимается ли интеграция хранением на своей стороне файлов, которые отправляются в API чатов amoCRM. От этой настройки зависит поведение функционала по [отложенной загрузке](https://www.amocrm.ru/support/vaultfile/download_files). **Важно! Файл должен быть доступен по ссылке, отправленной [в хуке](https://www.amocrm.ru/developers/content/chats/chat-webhooks)**)
+11.  Хранит ли интеграция файлы? (Необходимо для определения, занимается ли интеграция хранением на своей стороне файлов, которые отправляются в API чатов amoCRM. От этой настройки зависит поведение функционала по [отложенной загрузке](https://www.amocrm.ru/support/vaultfile/download_files). **Важно! Файл должен быть доступен по ссылке, отправленной [в хуке](/chats/chat-webhooks.html)**)
 12.  Есть ли поддержка реакций? (Если интеграция поддерживает не все, а определенные реакции, то прислать в формате: 👍😳)
 13.  Есть ли поддержка цитирования сообщений?
 14.  Есть ли поддержка голосовых сообщений?
@@ -113,72 +113,74 @@
 
 Пример формирования запроса на PHP:
 
-    <?php
-    
-    $secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
-    $method = 'POST';
-    $contentType = 'application/json';
-    $date = date(DateTimeInterface::RFC2822);
-    $path = '/v2/origin/custom/f90ba33d-c9d9-44da-b76c-c349b0ecbe41/connect';
-    
-    $url = "https://amojo.amocrm.ru" . $path;
-    
-    $body = [
-        'account_id' => 'af9945ff-1490-4cad-807d-945c15d88bec',
-        'title' => 'ScopeTitle', //Название вашего канала, отображаемое пользователю
-        'hook_api_version' => 'v2',
-    ];
-    $requestBody = json_encode($body);
-    $checkSum = md5($requestBody);
-    
-    $str = implode("\n", [
-        strtoupper($method),
-        $checkSum,
-        $contentType,
-        $date,
-        $path,
-    ]);
-    
-    $signature = hash_hmac('sha1', $str, $secret);
-    
-    $headers = [
-        'Date' => $date,
-        'Content-Type' => $contentType,
-        'Content-MD5' => strtolower($checkSum),
-        'X-Signature' => strtolower($signature),
-    ];
-    
-    $curlHeaders = [];
-    foreach ($headers as $name => $value) {
-        $curlHeaders[] = $name . ": " . $value;
-    }
-    
-    echo $method . ' ' . $url . PHP_EOL;
-    foreach ($curlHeaders as $header) {
-        echo $header . PHP_EOL;
-    }
-    echo PHP_EOL . $requestBody . PHP_EOL;
-    
-    $curl = curl_init();
-    curl_setopt_array($curl, [
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 5,
-        CURLOPT_CUSTOMREQUEST => $method,
-        CURLOPT_POSTFIELDS => $requestBody,
-        CURLOPT_HTTPHEADER => $curlHeaders,
-    ]);
-    
-    $response = curl_exec($curl);
-    $err = curl_error($curl);
-    $info = curl_getinfo($curl);
-    curl_close($curl);
-    if ($err) {
-        $result = "cURL Error #:" . $err;
-    } else {
-        echo "Status: " . $info['http_code'] . PHP_EOL;
-        echo $response . PHP_EOL;
-    }
+```php
+<?php
+
+$secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
+$method = 'POST';
+$contentType = 'application/json';
+$date = date(DateTimeInterface::RFC2822);
+$path = '/v2/origin/custom/f90ba33d-c9d9-44da-b76c-c349b0ecbe41/connect';
+
+$url = "https://amojo.amocrm.ru" . $path;
+
+$body = [
+    'account_id' => 'af9945ff-1490-4cad-807d-945c15d88bec',
+    'title' => 'ScopeTitle', //Название вашего канала, отображаемое пользователю
+    'hook_api_version' => 'v2',
+];
+$requestBody = json_encode($body);
+$checkSum = md5($requestBody);
+
+$str = implode("\n", [
+    strtoupper($method),
+    $checkSum,
+    $contentType,
+    $date,
+    $path,
+]);
+
+$signature = hash_hmac('sha1', $str, $secret);
+
+$headers = [
+    'Date' => $date,
+    'Content-Type' => $contentType,
+    'Content-MD5' => strtolower($checkSum),
+    'X-Signature' => strtolower($signature),
+];
+
+$curlHeaders = [];
+foreach ($headers as $name => $value) {
+    $curlHeaders[] = $name . ": " . $value;
+}
+
+echo $method . ' ' . $url . PHP_EOL;
+foreach ($curlHeaders as $header) {
+    echo $header . PHP_EOL;
+}
+echo PHP_EOL . $requestBody . PHP_EOL;
+
+$curl = curl_init();
+curl_setopt_array($curl, [
+    CURLOPT_URL => $url,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_TIMEOUT => 5,
+    CURLOPT_CUSTOMREQUEST => $method,
+    CURLOPT_POSTFIELDS => $requestBody,
+    CURLOPT_HTTPHEADER => $curlHeaders,
+]);
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+$info = curl_getinfo($curl);
+curl_close($curl);
+if ($err) {
+    $result = "cURL Error #:" . $err;
+} else {
+    echo "Status: " . $info['http_code'] . PHP_EOL;
+    echo $response . PHP_EOL;
+}
+```
 
 **Комментарий для действующих интеграций:**  
 Ранее подпись запроса рассчитывалась по другой схеме, но она не позволяла авторизовать запросы без тела. Старая схема подписи продолжает действовать для существующих подключений и методов, в которых она использовалась.  
@@ -208,48 +210,54 @@
 Данный способ может использоваться интеграцией с загруженным архивом.  
 Для получения ID аккаунта в сервисе чатов нужно выполнить следующий скрипт:
 
-    APP.constant('account').amojo_id
+```js
+APP.constant('account').amojo_id
+```
 
 #### API
 
 Идентификатор аккаунта в API Чатов можно также получить через API сделав GET запрос на метод  
-информации об аккаунте – [/api/v4/account?with=amojo\_id](/developers/content/crm_platform/account-info)
+информации об аккаунте – [/api/v4/account?with=amojo\_id](/crm_platform/account-info.html)
 
 Пример получения с использованием библиотеки amoCRM.
 
-    <?php
-    /**
-     * Получение id аккаунта для работы с online чатами
-     */
-    
-    // composer require amocrm/amocrm-api-library
-    
-    require __DIR__ . '/vendor/autoload.php';
-    
-    $clientId = 'dbcb764d-b02d-4a3b-bc4d-25e1d80fdcad';
-    $clientSecret = 'BbL70GJrKcBlg8cag9VaXKxrzUnxiaPOG4XU3Sc6ddFj9GxOStKryI4wOK4g9kjo';
-    $redirectUri = 'https://example.com/sample-integration';
-    $baseDomain = 'subdomain.amocrm.ru';
-    $code = <<<EOF
-    def50200189...<код авторизации интеграции>...159f568
-    EOF;
-    
-    $apiClient = new \AmoCRM\Client\AmoCRMApiClient($clientId, $clientSecret, $redirectUri);
-    $apiClient->setAccountBaseDomain($baseDomain);
-    try {
-        $accessToken = $apiClient->getOAuthClient()->getAccessTokenByCode($code);
-    
-        $apiClient->setAccessToken($accessToken);
-    
-        $account = $apiClient->account()->getCurrent([\AmoCRM\Models\AccountModel::AMOJO_ID]);
-        echo "amojoId: " . $account->getAmojoId() . PHP_EOL;
-    } catch (\Exception $e) {
-        die((string)$e);
-    }
+```php
+<?php
+/**
+ * Получение id аккаунта для работы с online чатами
+ */
+
+// composer require amocrm/amocrm-api-library
+
+require __DIR__ . '/vendor/autoload.php';
+
+$clientId = 'dbcb764d-b02d-4a3b-bc4d-25e1d80fdcad';
+$clientSecret = 'BbL70GJrKcBlg8cag9VaXKxrzUnxiaPOG4XU3Sc6ddFj9GxOStKryI4wOK4g9kjo';
+$redirectUri = 'https://example.com/sample-integration';
+$baseDomain = 'subdomain.amocrm.ru';
+$code = <<<EOF
+def50200189...<код авторизации интеграции>...159f568
+EOF;
+
+$apiClient = new \AmoCRM\Client\AmoCRMApiClient($clientId, $clientSecret, $redirectUri);
+$apiClient->setAccountBaseDomain($baseDomain);
+try {
+    $accessToken = $apiClient->getOAuthClient()->getAccessTokenByCode($code);
+
+    $apiClient->setAccessToken($accessToken);
+
+    $account = $apiClient->account()->getCurrent([\AmoCRM\Models\AccountModel::AMOJO_ID]);
+    echo "amojoId: " . $account->getAmojoId() . PHP_EOL;
+} catch (\Exception $e) {
+    die((string)$e);
+}
+```
 
 Пример выполнения кода:
 
-    amojoId: 52a350c1-b0e1-4e38-ab2e-125e5f046dfa
+```text
+amojoId: 52a350c1-b0e1-4e38-ab2e-125e5f046dfa
+```
 
 ### Получение ID пользователей в сервисе чатов
 
@@ -266,50 +274,56 @@
 Данный способ может использоваться интеграцией с загруженным архивом.  
 Для получения ID аккаунта в сервисе чатов нужно выполнить следующий скрипт:
 
-    APP.constant('user').amojo_id
+```js
+APP.constant('user').amojo_id
+```
 
 #### API
 
 Идентификаторы пользователей в API Чатов можно также получить через API сделав GET запрос на метод  
-получения списка пользователей – [/api/v4/users?with=amojo\_id](/developers/content/crm_platform/users-api)
+получения списка пользователей – [/api/v4/users?with=amojo\_id](/crm_platform/users-api.html)
 
 Пример получения с использованием библиотеки amoCRM.
 
-    <?php
-    /**
-     * Получение id аккаунта для работы с online чатами
-     */
-    
-    // composer require amocrm/amocrm-api-library
-    
-    require __DIR__ . '/vendor/autoload.php';
-    
-    $clientId = 'dbcb764d-b02d-4a3b-bc4d-25e1d80fdcad';
-    $clientSecret = 'BbL70GJrKcBlg8cag9VaXKxrzUnxiaPOG4XU3Sc6ddFj9GxOStKryI4wOK4g9kjo';
-    $redirectUri = 'https://example.com/sample-integration';
-    $baseDomain = 'subdomain.amocrm.ru';
-    $code = <<<EOF
-    def50200189...<код авторизации интеграции>...159f568
-    EOF;
-    
-    $apiClient = new \AmoCRM\Client\AmoCRMApiClient($clientId, $clientSecret, $redirectUri);
-    $apiClient->setAccountBaseDomain($baseDomain);
-    try {
-        $accessToken = $apiClient->getOAuthClient()->getAccessTokenByCode($code);
-    
-        $apiClient->setAccessToken($accessToken);
-    
-        $users = $apiClient->users()->get(null, [\AmoCRM\Models\UserModel::AMOJO_ID]);
-        foreach ($users as $user) {
-            echo "amojoId: " . $user->getAmojoId() . PHP_EOL;
-        }
-    } catch (\Exception $e) {
-        die((string)$e);
+```php
+<?php
+/**
+ * Получение id аккаунта для работы с online чатами
+ */
+
+// composer require amocrm/amocrm-api-library
+
+require __DIR__ . '/vendor/autoload.php';
+
+$clientId = 'dbcb764d-b02d-4a3b-bc4d-25e1d80fdcad';
+$clientSecret = 'BbL70GJrKcBlg8cag9VaXKxrzUnxiaPOG4XU3Sc6ddFj9GxOStKryI4wOK4g9kjo';
+$redirectUri = 'https://example.com/sample-integration';
+$baseDomain = 'subdomain.amocrm.ru';
+$code = <<<EOF
+def50200189...<код авторизации интеграции>...159f568
+EOF;
+
+$apiClient = new \AmoCRM\Client\AmoCRMApiClient($clientId, $clientSecret, $redirectUri);
+$apiClient->setAccountBaseDomain($baseDomain);
+try {
+    $accessToken = $apiClient->getOAuthClient()->getAccessTokenByCode($code);
+
+    $apiClient->setAccessToken($accessToken);
+
+    $users = $apiClient->users()->get(null, [\AmoCRM\Models\UserModel::AMOJO_ID]);
+    foreach ($users as $user) {
+        echo "amojoId: " . $user->getAmojoId() . PHP_EOL;
     }
+} catch (\Exception $e) {
+    die((string)$e);
+}
+```
 
 Пример выполнения кода:
 
-    amojoId: 31fc2bea-902f-925c-6a3d-dcdac4766090
+```text
+amojoId: 31fc2bea-902f-925c-6a3d-dcdac4766090
+```
 
 ### Подключение канала к аккаунту
 
@@ -319,8 +333,8 @@
 передав в теле запроса amojo\_id подключаемого аккаунта.  
 В ответ вы получите уникальный **scope\_id** аккаунта для этого канала, который будет использоваться в дальнейшем при отправке сообщений.
 
-[Подробнее о методе подключения](/developers/content/chats/chat-api-reference#Подключение-канала-чата-в-аккаунте)
+[Подробнее о методе подключения](/chats/chat-api-reference#%D0%9F%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%B0-%D1%87%D0%B0%D1%82%D0%B0-%D0%B2-%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D0%B5.html)
 
 * * *
 
-После подключения канала к аккаунту разберем несколько вариантов интеграции в [примерах по шагам](/developers/content/chats/chat-step-by-step)
+После подключения канала к аккаунту разберем несколько вариантов интеграции в [примерах по шагам](/chats/chat-step-by-step.html)
