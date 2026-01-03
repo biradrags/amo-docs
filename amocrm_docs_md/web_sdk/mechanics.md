@@ -1,26 +1,26 @@
+<!-- https://www.amocrm.ru/developers/content/web_sdk/mechanics -->
+
 # https://www.amocrm.ru/developers/content/web_sdk/mechanics
 
 Механика работы
 
 **Базовая структура** виджета выглядит следующим образом:
 
-```
-./
-├── i18n  
-|  └── ru.json  
-|  
-├── images  
-|  ├── logo.png  
-|  ├── logo_min.png  
-|  └── logo_main.png  
-|  
-├── templates  
-|  └── page.twig  
-|  
-├── manifest.json  
-├── style.css  
-└── script.js
-```
+    ./
+    ├── i18n  
+    |  └── ru.json  
+    |  
+    ├── images  
+    |  ├── logo.png  
+    |  ├── logo_min.png  
+    |  └── logo_main.png  
+    |  
+    ├── templates  
+    |  └── page.twig  
+    |  
+    ├── manifest.json  
+    ├── style.css  
+    └── script.js
 
 | Файл | Описание |
 | --- | --- |
@@ -33,45 +33,43 @@
 
 Рассмотрим простейший пример виджета, он представляет из себя JS файл, следующего содержания:
 
-```
-define(['jquery'], function($) {
-  'use strict';
-
-  return function() {
-    var self = this;
-
-    this.callbacks = {
-      render: function() {
-        return true;
-      },
-      bind_actions: function() {
-        return true;
-      },
-      init: function() {
-        return true;
-      },
-      destroy: function() {
-        // ...
-      },
-      settings: function() {
-        // ...
-      },
-      onSave: function() {
-        return true;
-      }
-    };
-
-    return this;
-  };
-});
-```
+    define(['jquery'], function($) {
+      'use strict';
+    
+      return function() {
+        var self = this;
+    
+        this.callbacks = {
+          render: function() {
+            return true;
+          },
+          bind_actions: function() {
+            return true;
+          },
+          init: function() {
+            return true;
+          },
+          destroy: function() {
+            // ...
+          },
+          settings: function() {
+            // ...
+          },
+          onSave: function() {
+            return true;
+          }
+        };
+    
+        return this;
+      };
+    });
 
 При заходе, например, в карточку сделки будет выполнена следующая цепочка вызовов:
 
-1. сначала будет вызван колбэк render, который должен обязательно в итоге вернуть true
-   * в этом колбэке виджет должен отрисовать свои необходимые элементы (например, собственный блок в правой колонке виджетов в карточке, используя метод **this.render\_template**)
-2. одновременно с ним вызывается колбэк bind\_actions, в нем виджет может добавить необходимые слушатели событий как на собственные элементы, которые только что были отрисованы, так и на какие-то элементы в системе
-3. следом за ними будет вызван колбэк **init**, в котором можно делать какие-то действия, когда мы уверены, что виджет уже отрисовал все необходимое и все обработчики тоже готовы к работе
+1.  сначала будет вызван колбэк render, который должен обязательно в итоге вернуть true
+    *   в этом колбэке виджет должен отрисовать свои необходимые элементы (например, собственный блок в правой колонке виджетов в карточке, используя метод **this.render\_template**)
+2.  одновременно с ним вызывается колбэк bind\_actions, в нем виджет может добавить необходимые слушатели событий как на собственные элементы, которые только что были отрисованы, так и на какие-то элементы в системе
+3.  следом за ними будет вызван колбэк **init**, в котором можно делать какие-то действия, когда мы уверены, что виджет уже отрисовал все необходимое и все обработчики тоже готовы к работе
 
 Все три колбэка **обязательно** должны присутствовать в объекте this.callbacks, без них виджет не будет функционировать в указанных областях видимости.
 
@@ -95,23 +93,19 @@ define(['jquery'], function($) {
 
 Пример ответа:
 
-```
-{
-  area: "ccard" ,
-  amouser_id: "103586" ,
-  amouser: "testuser@amocrm.ru"
-}
-```
+    {
+      area: "ccard" ,
+      amouser_id: "103586" ,
+      amouser: "testuser@amocrm.ru"
+    }
 
 **self.set\_settings();** Метод set\_settings() позволяет добавлять виджету свойства.
 
-```
-//создается свойство с именем par1 и значением text
-self.set_settings({ par1: "text" });
-
-// в ответ придет объект с уже созданным свойством
-self.get_settings();
-```
+    //создается свойство с именем par1 и значением text
+    self.set_settings({ par1: "text" });
+    
+    // в ответ придет объект с уже созданным свойством
+    self.get_settings();
 
 **self.get\_settings();**
 
@@ -137,10 +131,10 @@ self.get_settings();
 
 Отправляет POST-запрос на внешний сервис, пропуская запрос через amoCRM. Принимает следующие аргументы:
 
-* host – url на который надо отправить запрос
-* data – данные, которые отправляем
-* callback – выполняется в случае успеха
-* type – тип возвращаемых данных (по умолчанию text)
+*   host – url на который надо отправить запрос
+*   data – данные, которые отправляем
+*   callback – выполняется в случае успеха
+*   type – тип возвращаемых данных (по умолчанию text)
 
 Данный метод не может выполняться чаще одного раза в секунду, если вызовы будут чаще, то отправка запроса будет откладываться на время соразмерное время. То есть если отправить одновременно 5 запросов, то пятый отправится только через 5 секунд. Все остальное время он будет ожидать своей очереди.
 
@@ -148,143 +142,131 @@ self.get_settings();
 
 Тут остановимся подробнее, у данного метода есть несколько вариантов использования.
 
-Начать стоит с того, что в системе мы используем twig в качестве основного шаблонизатора, поэтому, если ранее с ним не сталкивались, советуем ознакомиться с [документацией](https://twig.symfony.com/doc/2.x/). В качестве js реализации работает библиотека <https://github.com/twigjs/twig.js>.
+Начать стоит с того, что в системе мы используем twig в качестве основного шаблонизатора, поэтому, если ранее с ним не сталкивались, советуем ознакомиться с [документацией](https://twig.symfony.com/doc/2.x/). В качестве js реализации работает библиотека [https://github.com/twigjs/twig.js](https://github.com/twigjs/twig.js).
 
 Первый вариант, и тут мы можем шаблон передать строкой и сразу его отрендерить, выглядеть это будет так:
 
-```
-self.render({
-  data: 'The {{ baked_good }} is a lie.'
-}, {
-  baked_good: 'cupcake'
-});
-```
+    self.render({
+      data: 'The {{ baked_good }} is a lie.'
+    }, {
+      baked_good: 'cupcake'
+    });
 
 В результате этого вызова получим строку: “The cupcake is a lie.”. Данный метод иногда может пригодиться, но все-таки он не очень удобен из-за того, что шаблон нам по сути надо хранить в виде строки прямо в script.js. Лучше шаблоны отделять от логики виджета и класть в отдельные twig-файлы, таким образом ваш виджет не превратится не нагроможденное месиво из всего подряд.
 
 Поэтому рассмотрим следующие два варианта, они как раз позволяют нам вынести шаблоны в отдельные файлы. Создадим рядом с файлом script.js файл template.twig и перепишем наш render в такой вид:
 
-```
-self.render({
-  href: '/template.twig',
-  base_path: self.params.path,
-  v: self.get_version(),
-  load: function (template) {
-    template.render({
-      baked_good: 'cupcake'
+    self.render({
+      href: '/template.twig',
+      base_path: self.params.path,
+      v: self.get_version(),
+      load: function (template) {
+        template.render({
+          baked_good: 'cupcake'
+        });
+      }
     });
-  }
-});
-```
 
 В данном случае мы подгрузим из сети файл template.twig, после чего отрисуем его. Важный момент, как можно заметить, теперь для того, чтобы шаблон отрисовать надо сначала его загрузить, поэтому метод стал асинхронным.
 
 Ну и третий вариант, в нем отличие от третьего только в том, что с render мы можем работать как с объектом типа promise, поэтому вызов может выглядеть вот так:
 
-```
-self.render({
-  href: '/template.twig',
-  base_path: self.params.path,
-  v: self.get_version(),
-  promised: true
-}).then(function () {
-  template.render({
-    baked_good: 'cupcake'
-  });
-});
-```
+    self.render({
+      href: '/template.twig',
+      base_path: self.params.path,
+      v: self.get_version(),
+      promised: true
+    }).then(function () {
+      template.render({
+        baked_good: 'cupcake'
+      });
+    });
 
 Так как у вас может быть много шаблонов, чтобы каждый раз не прописывать кучу параметров в вызове метода render можно воспользоваться следующим модулем (**templates.js**):
 
-```
-define(function() {
-  'use strict';
-
-  var instance = null;
-
-  return function(context) {
-    if (!instance && context) {
-      instance = context;
-    }
-
-    // вспомогательный хелпер для
-    // работы с шаблонами, нужно вызвать
-    // один раз с контекстом виджета
-
-    return function(template) {
-      return instance.render({
-        href: '/templates/' + template + '.twig',
-        base_path: instance.params.path,
-        v: instance.get_version(),
-        promised: true
-      });
-    };
-  };
-});
-```
+    define(function() {
+      'use strict';
+    
+      var instance = null;
+    
+      return function(context) {
+        if (!instance && context) {
+          instance = context;
+        }
+    
+        // вспомогательный хелпер для
+        // работы с шаблонами, нужно вызвать
+        // один раз с контекстом виджета
+    
+        return function(template) {
+          return instance.render({
+            href: '/templates/' + template + '.twig',
+            base_path: instance.params.path,
+            v: instance.get_version(),
+            promised: true
+          });
+        };
+      };
+    });
 
 Script.js при этом может выглядеть вот так:
 
-```
-define(['./templates.js'], function(createTemplatesRenderer) {
-  'use strict';
-
-  return function() {
-    var self = this;
-
-    // создаем инстанс
-    var getTemplate = createTemplatesRenderer(self);
-
-    this.callbacks = {
-      init: function() {
-        return true;
-      },
-
-      render: function() {
-        getTemplate('users').then(function(template) {
-          // делаем что-то с template
-        });
-
-        return true;
-      },
-
-      bind_actions: function() {
-        return true;
-      }
-    };
-
-    return this;
-  };
-});
-```
+    define(['./templates.js'], function(createTemplatesRenderer) {
+      'use strict';
+    
+      return function() {
+        var self = this;
+    
+        // создаем инстанс
+        var getTemplate = createTemplatesRenderer(self);
+    
+        this.callbacks = {
+          init: function() {
+            return true;
+          },
+    
+          render: function() {
+            getTemplate('users').then(function(template) {
+              // делаем что-то с template
+            });
+    
+            return true;
+          },
+    
+          bind_actions: function() {
+            return true;
+          }
+        };
+    
+        return this;
+      };
+    });
 
 Тут мы подключили модуль templates.js к своему виджету, создали инстанс шаблонов и в методе render вызов getTemplate(‘users’) подгрузит файл users.twig из папки templates виджета и в случае успеха передаст его в then.
 
 Мы хотим, чтобы виджеты выглядели как можно более нативно, поэтому предусмотрели возможность отрисовки стандартных контролов amoCRM в шаблонах виджетов, ниже приведены возможные для использования контролы:
 
-* textarea
-* suggest
-* select
-* radio
-* multiselect
-* date\_field
-* checkbox
-* checkboxes\_dropdown
-* button
-* input
+*   textarea
+*   suggest
+*   select
+*   radio
+*   multiselect
+*   date\_field
+*   checkbox
+*   checkboxes\_dropdown
+*   button
+*   input
 
 Для использования данных контролов внутри шаблонов виджета предусмотрена специальная функция в twig **include\_control**.
 
 Пример с рендерингом шаблона input:
 
-```
-{{ include_control('input', {
-  class_name: 'widget_custom_class_name',
-  name: 'widget_input',
-  placeholder: 'Поле для заполнения',
-  value: 'Сохраненное значение'
-}) }}
-```
+    {{ include_control('input', {
+      class_name: 'widget_custom_class_name',
+      name: 'widget_input',
+      placeholder: 'Поле для заполнения',
+      value: 'Сохраненное значение'
+    }) }}
 
 Первый параметр (строка) – код шаблона контрола #TEMPLATE\_NAME#.
 
@@ -296,21 +278,19 @@ define(['./templates.js'], function(createTemplatesRenderer) {
 
 Данный метод используется для отрисовки блока виджета в правой панели в карточке и списках. Пример вызова с возможными параметрами:
 
-```
-self.render_template({
-  caption: {
-    class_name: 'js-zoom-caption',
-    html: '<image src="' + self.params.path + '/images/logo.png?v=' + self.get_version() + '"/>'
-  },
-  body: '<link type="text/css" rel="stylesheet" href="' + self.params.path + '/style.css?v=' + self.get_version() + '">',
-  render: '<div class="zoom-form">' +
-    '<div class="zoom-form-button create_meeting">' + lang['buttonText_createMeeting'] + '</div>' +
-    '<div class="zoom-copy-link zoom-text"></div>' +
-    '<div class="zoom-copy-start-link zoom-text"></div>' +
-    '<div class="zoom-copy-password zoom-text"></div>' +
-  '</div>'
-});
-```
+    self.render_template({
+      caption: {
+        class_name: 'js-zoom-caption',
+        html: '<image src="' + self.params.path + '/images/logo.png?v=' + self.get_version() + '"/>'
+      },
+      body: '<link type="text/css" rel="stylesheet" href="' + self.params.path + '/style.css?v=' + self.get_version() + '">',
+      render: '<div class="zoom-form">' +
+        '<div class="zoom-form-button create_meeting">' + lang['buttonText_createMeeting'] + '</div>' +
+        '<div class="zoom-copy-link zoom-text"></div>' +
+        '<div class="zoom-copy-start-link zoom-text"></div>' +
+        '<div class="zoom-copy-password zoom-text"></div>' +
+      '</div>'
+    });
 
 **self.get\_current\_card\_contacts\_data()**
 
@@ -318,18 +298,16 @@ self.render_template({
 
 Данные возвращаемые методом:
 
-```
-      [
-        {
-          id: number,
-          name: string, 
-          first_name: string, 
-          last_name: string, 
-          phones: [], 
-          emails: []
-        }
-      ];
-```
+          [
+            {
+              id: number,
+              name: string, 
+              first_name: string, 
+              last_name: string, 
+              phones: [], 
+              emails: []
+            }
+          ];
 
 Метод возвращает промис.
 
@@ -337,43 +315,41 @@ self.render_template({
 
 Метод отправки ajax-запроса с временным токеном авторизации для текущего пользователя. В запрос добавляется заголовок [X-Auth-Token](/developers/content/oauth/disposable-tokens), удаленный сервер должен разрешить получение запросов с домена аккаунта (настроить [CORS](https://developer.mozilla.org/ru/docs/Web/HTTP/CORS)). Наследует все входящие параметры функции [$.ajax](https://api.jquery.com/jquery.ajax/), в ответ также возвращает полностью совместимый с ответом метода $.ajax объект типа [$.Deferred](https://api.jquery.com/jQuery.Deferred/). Пример вызова:
 
-```
-define([], function() {
-  'use strict';
-
-  return function() {
-    var self = this;
-
-    this.callbacks = {
-      init: function() {
-        return true;
-      },
-      render: function() {
-        self.$authorizedAjax({
-          url: 'https://example.com/'
-        }).done(function (response) {
-          console.log('success', response);
-        }).fail(function (err) {
-          console.log('error', err);
-        });
-        return true;
-      },
-      bind_actions: function() {
-        return true;
-      }
-    };
-    return this;
-  };
-});
-```
+    define([], function() {
+      'use strict';
+    
+      return function() {
+        var self = this;
+    
+        this.callbacks = {
+          init: function() {
+            return true;
+          },
+          render: function() {
+            self.$authorizedAjax({
+              url: 'https://example.com/'
+            }).done(function (response) {
+              console.log('success', response);
+            }).fail(function (err) {
+              console.log('error', err);
+            });
+            return true;
+          },
+          bind_actions: function() {
+            return true;
+          }
+        };
+        return this;
+      };
+    });
 
 **self.listenSocketChannel(channel\_name, array\_keys, callback)**
 
 Данный метод используется для подписки на сокет и прослушивания определенных сообщений, которые появляются в канале. Метод возвращает функцию отписки от канала. Принимает следующие аргументы:
 
-* channel\_name (строка) – название канала, который хотим прослушивать
-* array\_keys (массив) – массив ключей для фильтрации, если сообщение имеет данные ключи, то оно будет доступно после фильтрации (по умолчанию пустой массив [])
-* callback (функция) – функция обработки сообщений сокета (через параметр функции – message передается payload сообщений, которые прошли фильтрацию исходя из array\_keys)
+*   channel\_name (строка) – название канала, который хотим прослушивать
+*   array\_keys (массив) – массив ключей для фильтрации, если сообщение имеет данные ключи, то оно будет доступно после фильтрации (по умолчанию пустой массив \[\])
+*   callback (функция) – функция обработки сообщений сокета (через параметр функции – message передается payload сообщений, которые прошли фильтрацию исходя из array\_keys)
 
 Доступные каналы для прослушивания:
 
@@ -389,23 +365,19 @@ define([], function() {
 
 Пример подписки:
 
-```
-const channel_name = `${entity[entity_type]}:card:${entity_id}`;
-const array_keys = ['body', 'payload', 'data', 'params'];
-
-const callback = (message) => {
-  const path = message.data.params;
-
-  if (path.old_value) {
-    console.log(path.old_value);
-  }
-};
-
-self.subscription = self.listenSocketChannel(channel_name, array_keys, callback);
-```
+    const channel_name = `${entity[entity_type]}:card:${entity_id}`;
+    const array_keys = ['body', 'payload', 'data', 'params'];
+    
+    const callback = (message) => {
+      const path = message.data.params;
+    
+      if (path.old_value) {
+        console.log(path.old_value);
+      }
+    };
+    
+    self.subscription = self.listenSocketChannel(channel_name, array_keys, callback);
 
 Пример отписки:
 
-```
-self.subscription();
-```
+    self.subscription();

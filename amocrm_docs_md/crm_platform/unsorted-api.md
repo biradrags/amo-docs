@@ -1,39 +1,39 @@
-# https://www.amocrm.ru/developers/content/crm_platform/unsorted-api
+<!-- https://www.amocrm.ru/developers/content/crm_platform/unsorted-api -->
+
+# Оглавление
 
 Неразобранное
 
 В данном разделе описывается работа с неразобранным через API.
 
-### Оглавление
-
-* [Общая информация](#common-info)
-* [Список неразобранного](#unsorted-list)
-* [Получение неразобранного по UID](#unsorted-detail)
-* [Добавление неразобранного типа звонок](#unsorted-add-sip)
-* [Добавление неразобранного типа форма](#unsorted-add-form)
-* [Принятие неразобранного](#unsorted-accept)
-* [Отклонение неразобранного](#unsorted-decline)
-* [Привязка неразобранного](#unsorted-link)
-* [Сводная информация о неразобранных сделках](#unsorted-summary)
-* [Описание объектов metadata](#metadata-description)
+*   [Общая информация](#common-info)
+*   [Список неразобранного](#unsorted-list)
+*   [Получение неразобранного по UID](#unsorted-detail)
+*   [Добавление неразобранного типа звонок](#unsorted-add-sip)
+*   [Добавление неразобранного типа форма](#unsorted-add-form)
+*   [Принятие неразобранного](#unsorted-accept)
+*   [Отклонение неразобранного](#unsorted-decline)
+*   [Привязка неразобранного](#unsorted-link)
+*   [Сводная информация о неразобранных сделках](#unsorted-summary)
+*   [Описание объектов metadata](#metadata-description)
 
 ### Общая информация
 
-* Неразобранное является системным статусом воронки сделок, который имеет дополнительные возможности
-* Задача данного статуса – накапливать лиды из разных источников для их разбора менеджерами
-* У неразобранного есть несколько категорий – чаты, формы, звонки, почта
-* Через API доступны для создания только 2 типа неразобранного: формы и звонки
-* Неразобранное типа чаты и почта добавляются встроенными средствами (интеграция с чатами и почтой)
-* При создании неразобранной сделки, можно передать данные о контакте, компании и метаданные (например: звонок, информацию о форме)
-* До принятия неразобранной сделки, контакты и компании недоступны в соответствующих разделах
-* В неразобранном не может оказаться 2 одинаковых сущности, в случае попытки уже добавленных ранее данных, вы получите ошибку
-* Неразобранное может быть принято, отклонено, а также привязано к существующей сделке или покупателю. Привязывать можно только неразобранное типа Чат
+*   Неразобранное является системным статусом воронки сделок, который имеет дополнительные возможности
+*   Задача данного статуса – накапливать лиды из разных источников для их разбора менеджерами
+*   У неразобранного есть несколько категорий – чаты, формы, звонки, почта
+*   Через API доступны для создания только 2 типа неразобранного: формы и звонки
+*   Неразобранное типа чаты и почта добавляются встроенными средствами (интеграция с чатами и почтой)
+*   При создании неразобранной сделки, можно передать данные о контакте, компании и метаданные (например: звонок, информацию о форме)
+*   До принятия неразобранной сделки, контакты и компании недоступны в соответствующих разделах
+*   В неразобранном не может оказаться 2 одинаковых сущности, в случае попытки уже добавленных ранее данных, вы получите ошибку
+*   Неразобранное может быть принято, отклонено, а также привязано к существующей сделке или покупателю. Привязывать можно только неразобранное типа Чат
 
 ### Список неразобранного
 
 #### Метод
 
-*GET /api/v4/leads/unsorted*
+_GET /api/v4/leads/unsorted_
 
 #### Описание
 
@@ -50,26 +50,27 @@
 | page | int | Страница выборки |
 | limit | int | Количество возвращаемых сущностей за один запрос (Максимум – 250) |
 | filter | object | Фильтр |
-| filter[uid] | string|array | Фильтр по UID неразобранного. Можно передать как один UID, так и массив из нескольких UID |
-| filter[category] | array | Массив, содержащий в себе категории, по которым необходима выборка (sip, mail, forms, chats) |
-| filter[pipeline\_id] | int | Фильтр по ID воронки |
-| order | object | Сортировка результатов списка. Доступные поля для сортировки: created\_at, updated\_at. |
+| filter\[uid\] | string|array | Фильтр по UID неразобранного. Можно передать как один UID, так и массив из нескольких UID |
+| filter\[category\] | array | Массив, содержащий в себе категории, по которым необходима выборка (sip, mail, forms, chats) |
+| filter\[pipeline\_id\] | int | Фильтр по ID воронки |
+| order | object | Сортировка результатов списка.  
+Доступные поля для сортировки: created\_at, updated\_at.  
+Доступные значения для сортировки: asc, desc.  
+Пример: /api/v4/tasks?order\[created\_at\]=asc |
 
 #### Пример запроса
 
 В следующем примере мы получим список с одним неразобранным.
 
-```
-https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a5d3980a2a2d108037
-```
+    https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a5d3980a2a2d108037
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -93,83 +94,81 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 | metadata | object | Метаданные заявки, каждый тип заявки имеет свой набор данных. Подробней [тут](#metadata-description) |
 | account\_id | int | ID аккаунта, в котором находится неразобранное |
 | \_embedded | object | Данные вложенных сущностей. |
-| \_embedded[contacts] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда 1 объект |
-| \_embedded[contacts][0] | object | Модель контакта |
-| \_embedded[contacts][0][id] | int | ID контакта |
-| \_embedded[companies] | array | Данные связанной с неразобранным компании. В массиве всегда 1 объект |
-| \_embedded[companies][0] | object | Модель компании |
-| \_embedded[companies][0][id] | int | ID компании |
-| \_embedded[leads] | array | Данные сделки. Так как неразобранное является сделка, то оно связано со сделкой. В массиве всегда 1 объект |
-| \_embedded[leads][0] | object | Модель сделки |
-| \_embedded[leads][0][id] | int | ID сделки |
+| \_embedded\[contacts\] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда 1 объект |
+| \_embedded\[contacts\]\[0\] | object | Модель контакта |
+| \_embedded\[contacts\]\[0\]\[id\] | int | ID контакта |
+| \_embedded\[companies\] | array | Данные связанной с неразобранным компании. В массиве всегда 1 объект |
+| \_embedded\[companies\]\[0\] | object | Модель компании |
+| \_embedded\[companies\]\[0\]\[id\] | int | ID компании |
+| \_embedded\[leads\] | array | Данные сделки. Так как неразобранное является сделка, то оно связано со сделкой. В массиве всегда 1 объект |
+| \_embedded\[leads\]\[0\] | object | Модель сделки |
+| \_embedded\[leads\]\[0\]\[id\] | int | ID сделки |
 
 #### Пример ответа
 
-```
-{
-    "_page": 1,
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a5d3980a2a2d108037"
-        }
-    },
-    "_embedded": {
-        "unsorted": [
-            {
-                "uid": "98fb033cefde74f5de1a5d3980a2a2d108037",
-                "source_uid": null,
-                "source_name": "UIS",
-                "category": "sip",
-                "pipeline_id": 2194576,
-                "created_at": 1583156937,
-                "metadata": {
-                    "from": "7999999999",
-                    "phone": 7999999999,
-                    "called_at": 1583156916,
-                    "duration": "0",
-                    "link": null,
-                    "service_code": "uis_widget"
-                },
-                "account_id": 123312,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/unsorted/98fb033cefde74f5de1a5d3980a2a2d108037"
-                    }
-                },
-                "_embedded": {
-                    "contacts": [
-                        {
-                            "id": 13176707,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/contacts/13176707"
-                                }
-                            }
-                        }
-                    ],
-                    "leads": [
-                        {
-                            "id": 7002787,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/leads/7002787"
-                                }
-                            }
-                        }
-                    ],
-                    "companies": []
-                }
+    {
+        "_page": 1,
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a5d3980a2a2d108037"
             }
-        ]
+        },
+        "_embedded": {
+            "unsorted": [
+                {
+                    "uid": "98fb033cefde74f5de1a5d3980a2a2d108037",
+                    "source_uid": null,
+                    "source_name": "UIS",
+                    "category": "sip",
+                    "pipeline_id": 2194576,
+                    "created_at": 1583156937,
+                    "metadata": {
+                        "from": "7999999999",
+                        "phone": 7999999999,
+                        "called_at": 1583156916,
+                        "duration": "0",
+                        "link": null,
+                        "service_code": "uis_widget"
+                    },
+                    "account_id": 123312,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/unsorted/98fb033cefde74f5de1a5d3980a2a2d108037"
+                        }
+                    },
+                    "_embedded": {
+                        "contacts": [
+                            {
+                                "id": 13176707,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/contacts/13176707"
+                                    }
+                                }
+                            }
+                        ],
+                        "leads": [
+                            {
+                                "id": 7002787,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/leads/7002787"
+                                    }
+                                }
+                            }
+                        ],
+                        "companies": []
+                    }
+                }
+            ]
+        }
     }
-}
-```
 
 ### Получение неразобранного по UID
 
 #### Метод
 
-*GET /api/v4/leads/unsorted/{uid}*
+_GET /api/v4/leads/unsorted/{uid}_
 
 #### Описание
 
@@ -181,11 +180,11 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -209,72 +208,70 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 | metadata | object | Метаданные заявки, каждый тип заявки имеет свой набор данных. Подробней [тут](#metadata-description) |
 | account\_id | int | ID аккаунта, в котором находится неразобранное |
 | \_embedded | object | Данные вложенных сущностей. |
-| \_embedded[contacts] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда 1 объект |
-| \_embedded[contacts][0] | object | Модель контакта |
-| \_embedded[contacts][0][id] | int | ID контакта |
-| \_embedded[companies] | array | Данные связанной с неразобранным компании. В массиве всегда 1 объект |
-| \_embedded[companies][0] | object | Модель компании |
-| \_embedded[companies][0][id] | int | ID компании |
-| \_embedded[leads] | array | Данные сделки. В массиве всегда 1 объект |
-| \_embedded[leads][0] | object | Модель сделки |
-| \_embedded[leads][0][id] | int | ID сделки |
+| \_embedded\[contacts\] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда 1 объект |
+| \_embedded\[contacts\]\[0\] | object | Модель контакта |
+| \_embedded\[contacts\]\[0\]\[id\] | int | ID контакта |
+| \_embedded\[companies\] | array | Данные связанной с неразобранным компании. В массиве всегда 1 объект |
+| \_embedded\[companies\]\[0\] | object | Модель компании |
+| \_embedded\[companies\]\[0\]\[id\] | int | ID компании |
+| \_embedded\[leads\] | array | Данные сделки. В массиве всегда 1 объект |
+| \_embedded\[leads\]\[0\] | object | Модель сделки |
+| \_embedded\[leads\]\[0\]\[id\] | int | ID сделки |
 
 #### Пример ответа
 
-```
-{
-    "uid": "aa401affb0094076b7449008363c1dc77d6790ad13fb5b08176dc46daa18",
-    "source_uid": "my_unique_uid",
-    "source_name": "Название источника",
-    "category": "forms",
-    "pipeline_id": 3166396,
-    "created_at": 1588840852,
-    "metadata": {
-        "form_id": "my_best_form",
-        "form_name": "Обратная связь",
-        "form_page": "https://example.com/form",
-        "ip": "192.0.2.0",
-        "form_sent_at": "1570178452",
-        "referer": "https://google.com/search",
-        "visitor_uid": null
-    },
-    "account_id": 28805383,
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/leads/unsorted/aa401affb0094076b7449008363c1dc77d6790ad13fb5b08176dc46daa18"
+    {
+        "uid": "aa401affb0094076b7449008363c1dc77d6790ad13fb5b08176dc46daa18",
+        "source_uid": "my_unique_uid",
+        "source_name": "Название источника",
+        "category": "forms",
+        "pipeline_id": 3166396,
+        "created_at": 1588840852,
+        "metadata": {
+            "form_id": "my_best_form",
+            "form_name": "Обратная связь",
+            "form_page": "https://example.com/form",
+            "ip": "192.0.2.0",
+            "form_sent_at": "1570178452",
+            "referer": "https://google.com/search",
+            "visitor_uid": null
+        },
+        "account_id": 28805383,
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/leads/unsorted/aa401affb0094076b7449008363c1dc77d6790ad13fb5b08176dc46daa18"
+            }
+        },
+        "_embedded": {
+            "contacts": [
+                {
+                    "id": 9567221,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/contacts/9567221"
+                        }
+                    }
+                }
+            ],
+            "leads": [
+                {
+                    "id": 6414851,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/6414851"
+                        }
+                    }
+                }
+            ],
+            "companies": []
         }
-    },
-    "_embedded": {
-        "contacts": [
-            {
-                "id": 9567221,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/contacts/9567221"
-                    }
-                }
-            }
-        ],
-        "leads": [
-            {
-                "id": 6414851,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/6414851"
-                    }
-                }
-            }
-        ],
-        "companies": []
     }
-}
-```
 
 ### Добавление неразобранного типа звонок
 
 #### Метод
 
-*POST /api/v4/leads/unsorted/sip*
+_POST /api/v4/leads/unsorted/sip_
 
 #### Описание
 
@@ -286,7 +283,7 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -301,80 +298,78 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 | created\_at | int | Дата создания неразобранного в Unix Timestamp |
 | metadata | object | Метаданные заявки, каждый тип заявки имеет свой набор данных. Подробней [тут](#metadata-description) |
 | \_embedded | object | Данные вложенных сущностей. |
-| \_embedded[contacts] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда 1 объект |
-| \_embedded[contacts][0] | object | Модель контакта, соответствует той, что передается при [создании контакта](/developers/content/crm_platform/contacts-api#contacts-add) |
-| \_embedded[companies] | array | Данные связанной с неразобранным компании. В массиве всегда 1 объект |
-| \_embedded[companies][0] | object | Модель компании, соответствует той, что передается при [создании компании](/developers/content/crm_platform/companies-api#companies-add) |
-| \_embedded[leads] | array | Данные сделки. Так как неразобранное является сделка, то оно связано со сделкой. В массиве всегда 1 объект |
-| \_embedded[leads][0] | object | Модель сделки, соответствует той, что передается при [создании сделки](/developers/content/crm_platform/leads-api#leads-add) |
+| \_embedded\[contacts\] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда 1 объект |
+| \_embedded\[contacts\]\[0\] | object | Модель контакта, соответствует той, что передается при [создании контакта](/developers/content/crm_platform/contacts-api#contacts-add) |
+| \_embedded\[companies\] | array | Данные связанной с неразобранным компании. В массиве всегда 1 объект |
+| \_embedded\[companies\]\[0\] | object | Модель компании, соответствует той, что передается при [создании компании](/developers/content/crm_platform/companies-api#companies-add) |
+| \_embedded\[leads\] | array | Данные сделки. Так как неразобранное является сделка, то оно связано со сделкой. В массиве всегда 1 объект |
+| \_embedded\[leads\]\[0\] | object | Модель сделки, соответствует той, что передается при [создании сделки](/developers/content/crm_platform/leads-api#leads-add) |
 | request\_id | string | Поле, которое вернется вам в ответе без изменений и не будет сохранено. Параметр не является обязательным |
 
 #### Пример запроса
 
-```
-[
-    {
-        "request_id": "123",
-        "source_name": "ОАО Коспромсервис",
-        "source_uid": "a1fee7c0fc436088e64ba2e8822ba2b3",
-        "pipeline_id": 2194576,
-        "created_at": 1510261200,
-        "_embedded": {
-            "leads": [
-                {
-                    "name": "Тех обслуживание",
-                    "price": 5000,
-                    "custom_fields_values": [
-                        {
-                            "field_id": 284785,
-                            "values": [
+    [
+        {
+            "request_id": "123",
+            "source_name": "ОАО Коспромсервис",
+            "source_uid": "a1fee7c0fc436088e64ba2e8822ba2b3",
+            "pipeline_id": 2194576,
+            "created_at": 1510261200,
+            "_embedded": {
+                "leads": [
+                    {
+                        "name": "Тех обслуживание",
+                        "price": 5000,
+                        "custom_fields_values": [
+                            {
+                                "field_id": 284785,
+                                "values": [
+                                    {
+                                        "value": "Кастомное поле"
+                                    }
+                                ]
+                            }
+                        ],
+                        "_embedded": {
+                            "tags": [
                                 {
-                                    "value": "Кастомное поле"
+                                    "id": 263809
                                 }
                             ]
                         }
-                    ],
-                    "_embedded": {
-                        "tags": [
-                            {
-                                "id": 263809
-                            }
-                        ]
                     }
-                }
-            ],
-            "contacts": [
-                {
-                    "name": "Контакт для примера"
-                }
-            ],
-            "companies": [
-                {
-                    "name": "ОАО Коспромсервис"
-                }
-            ]
-        },
-        "metadata": {
-            "is_call_event_needed": true,
-            "uniq": "a1fe231cc88e64ba2e8822ba2b3ewrw",
-            "duration": 54,
-            "service_code": "CkAvbEwPam6sad",
-            "link": "https://example.com",
-            "phone": 79998888888,
-            "called_at": 1510261200,
-            "from": "onlinePBX"
+                ],
+                "contacts": [
+                    {
+                        "name": "Контакт для примера"
+                    }
+                ],
+                "companies": [
+                    {
+                        "name": "ОАО Коспромсервис"
+                    }
+                ]
+            },
+            "metadata": {
+                "is_call_event_needed": true,
+                "uniq": "a1fe231cc88e64ba2e8822ba2b3ewrw",
+                "duration": 54,
+                "service_code": "CkAvbEwPam6sad",
+                "link": "https://example.com",
+                "phone": 79998888888,
+                "called_at": 1510261200,
+                "from": "onlinePBX"
+            }
         }
-    }
-]
-```
+    ]
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -393,67 +388,65 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 | uid | string | UID неразобранного |
 | account\_id | int | ID аккаунта |
 | \_embedded | object | Данные вложенных сущностей. |
-| \_embedded[contacts] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда не более 1 объекта |
-| \_embedded[contacts][0] | object | Модель контакта |
-| \_embedded[contacts][0][id] | int | ID контакта |
-| \_embedded[companies] | array | Данные связанной с неразобранным компании. В данный момент в массиве всегда не более 1 объекта |
-| \_embedded[companies][0] | object | Модель компании |
-| \_embedded[companies][0][id] | int | ID компании |
-| \_embedded[leads] | array | Данные сделки. В массиве всегда 1 объект |
-| \_embedded[leads][0] | object | Модель сделки |
-| \_embedded[leads][0][id] | int | ID сделки |
+| \_embedded\[contacts\] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда не более 1 объекта |
+| \_embedded\[contacts\]\[0\] | object | Модель контакта |
+| \_embedded\[contacts\]\[0\]\[id\] | int | ID контакта |
+| \_embedded\[companies\] | array | Данные связанной с неразобранным компании. В данный момент в массиве всегда не более 1 объекта |
+| \_embedded\[companies\]\[0\] | object | Модель компании |
+| \_embedded\[companies\]\[0\]\[id\] | int | ID компании |
+| \_embedded\[leads\] | array | Данные сделки. В массиве всегда 1 объект |
+| \_embedded\[leads\]\[0\] | object | Модель сделки |
+| \_embedded\[leads\]\[0\]\[id\] | int | ID сделки |
 | request\_id | string | Строка переданная при запросе или порядковый указатель, если параметр не передан |
 
 #### Пример ответа
 
-```
-{
-    "_total_items": 1,
-    "_embedded": {
-        "unsorted": [
-            {
-                "uid": "aa401affb0094076b74442bc3f401d53e103f264d6668fd3ecfd5acef42f",
-                "account_id": 28805383,
-                "request_id": "123",
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/unsorted/aa401affb0094076b74442bc3f401d53e103f264d6668fd3ecfd5acef42f"
+    {
+        "_total_items": 1,
+        "_embedded": {
+            "unsorted": [
+                {
+                    "uid": "aa401affb0094076b74442bc3f401d53e103f264d6668fd3ecfd5acef42f",
+                    "account_id": 28805383,
+                    "request_id": "123",
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/unsorted/aa401affb0094076b74442bc3f401d53e103f264d6668fd3ecfd5acef42f"
+                        }
+                    },
+                    "_embedded": {
+                        "contacts": [
+                            {
+                                "id": 11075541,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/contacts/11075541"
+                                    }
+                                }
+                            }
+                        ],
+                        "leads": [
+                            {
+                                "id": 7706509,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/leads/7706509"
+                                    }
+                                }
+                            }
+                        ],
+                        "companies": []
                     }
-                },
-                "_embedded": {
-                    "contacts": [
-                        {
-                            "id": 11075541,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/contacts/11075541"
-                                }
-                            }
-                        }
-                    ],
-                    "leads": [
-                        {
-                            "id": 7706509,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/leads/7706509"
-                                }
-                            }
-                        }
-                    ],
-                    "companies": []
                 }
-            }
-        ]
+            ]
+        }
     }
-}
-```
 
 ### Добавление неразобранного типа форма
 
 #### Метод
 
-*POST /api/v4/leads/unsorted/forms*
+_POST /api/v4/leads/unsorted/forms_
 
 #### Описание
 
@@ -465,7 +458,7 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -479,91 +472,89 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 | created\_at | int | Дата создания неразобранного в Unix Timestamp |
 | metadata | object | Метаданные заявки, каждый тип заявки имеет свой набор данных. Подробней [тут](#metadata-description) |
 | \_embedded | object | Данные вложенных сущностей. |
-| \_embedded[contacts] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда 1 объект |
-| \_embedded[contacts][0] | object | Модель контакта, соответствует той, что передается при [создании контакта](/developers/content/crm_platform/contacts-api#contacts-add) |
-| \_embedded[companies] | array | Данные связанной с неразобранным компании. В массиве всегда 1 объект |
-| \_embedded[companies][0] | object | Модель компании, соответствует той, что передается при [создании компании](/developers/content/crm_platform/companies-api#companies-add) |
-| \_embedded[leads] | array | Данные сделки. Так как неразобранное является сделка, то оно связано со сделкой. В массиве всегда 1 объект |
-| \_embedded[leads][0] | object | Модель сделки, соответствует той, что передается при [создании сделки](/developers/content/crm_platform/leads-api#leads-add) |
+| \_embedded\[contacts\] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда 1 объект |
+| \_embedded\[contacts\]\[0\] | object | Модель контакта, соответствует той, что передается при [создании контакта](/developers/content/crm_platform/contacts-api#contacts-add) |
+| \_embedded\[companies\] | array | Данные связанной с неразобранным компании. В массиве всегда 1 объект |
+| \_embedded\[companies\]\[0\] | object | Модель компании, соответствует той, что передается при [создании компании](/developers/content/crm_platform/companies-api#companies-add) |
+| \_embedded\[leads\] | array | Данные сделки. Так как неразобранное является сделка, то оно связано со сделкой. В массиве всегда 1 объект |
+| \_embedded\[leads\]\[0\] | object | Модель сделки, соответствует той, что передается при [создании сделки](/developers/content/crm_platform/leads-api#leads-add) |
 | request\_id | string | Поле, которое вернется вам в ответе без изменений и не будет сохранено. Параметр не является обязательным |
 
 #### Пример запроса
 
-```
-[
-    {
-        "request_id": "123",
-        "source_name": "ОАО Коспромсервис",
-        "source_uid": "a1fee7c0fc436088e64ba2e8822ba2b3",
-        "pipeline_id": 2194576,
-        "created_at": 1590830520,
-        "_embedded": {
-            "leads": [
-                {
-                    "name": "Тех обслуживание",
-                    "visitor_uid": "5692210d-58d0-468c-acb2-dce7f93eef87",
-                    "price": 5000,
-                    "custom_fields_values": [
-                        {
-                            "field_id": 284785,
-                            "values": [
+    [
+        {
+            "request_id": "123",
+            "source_name": "ОАО Коспромсервис",
+            "source_uid": "a1fee7c0fc436088e64ba2e8822ba2b3",
+            "pipeline_id": 2194576,
+            "created_at": 1590830520,
+            "_embedded": {
+                "leads": [
+                    {
+                        "name": "Тех обслуживание",
+                        "visitor_uid": "5692210d-58d0-468c-acb2-dce7f93eef87",
+                        "price": 5000,
+                        "custom_fields_values": [
+                            {
+                                "field_id": 284785,
+                                "values": [
+                                    {
+                                        "value": "Дополнительное поле"
+                                    }
+                                ]
+                            }
+                        ],
+                        "_embedded": {
+                            "tags": [
                                 {
-                                    "value": "Дополнительное поле"
+                                    "name": "Тег для примера"
                                 }
                             ]
                         }
-                    ],
-                    "_embedded": {
-                        "tags": [
+                    }
+                ],
+                "contacts": [
+                    {
+                        "name": 234,
+                        "first_name": "123213",
+                        "last_name": 234,
+                        "custom_fields_values": [
                             {
-                                "name": "Тег для примера"
+                                "field_code": "PHONE",
+                                "values": [
+                                    {
+                                        "value": "+7912321323"
+                                    }
+                                ]
                             }
                         ]
                     }
-                }
-            ],
-            "contacts": [
-                {
-                    "name": 234,
-                    "first_name": "123213",
-                    "last_name": 234,
-                    "custom_fields_values": [
-                        {
-                            "field_code": "PHONE",
-                            "values": [
-                                {
-                                    "value": "+7912321323"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "companies": [
-                {
-                    "name": "ОАО Коспромсервис"
-                }
-            ]
-        },
-        "metadata": {
-            "ip": "123.222.2.22",
-            "form_id": "a1fee7c0fc436088e64ba2e8822ba2b3ewrw",
-            "form_sent_at": 1590830520,
-            "form_name": "Форма заявки для полёта в космос",
-            "form_page": "https://example.com",
-            "referer": "https://www.google.com/search?&q=elon+musk"
+                ],
+                "companies": [
+                    {
+                        "name": "ОАО Коспромсервис"
+                    }
+                ]
+            },
+            "metadata": {
+                "ip": "123.222.2.22",
+                "form_id": "a1fee7c0fc436088e64ba2e8822ba2b3ewrw",
+                "form_sent_at": 1590830520,
+                "form_name": "Форма заявки для полёта в космос",
+                "form_page": "https://example.com",
+                "referer": "https://www.google.com/search?&q=elon+musk"
+            }
         }
-    }
-]
-```
+    ]
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -582,67 +573,65 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 | uid | string | UID неразобранного |
 | account\_id | int | ID аккаунта |
 | \_embedded | object | Данные вложенных сущностей. |
-| \_embedded[contacts] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда не более 1 объекта |
-| \_embedded[contacts][0] | object | Модель контакта |
-| \_embedded[contacts][0][id] | int | ID контакта |
-| \_embedded[companies] | array | Данные связанной с неразобранным компании. В данный момент в массиве всегда не более 1 объекта |
-| \_embedded[companies][0] | object | Модель компании |
-| \_embedded[companies][0][id] | int | ID компании |
-| \_embedded[leads] | array | Данные сделки. В массиве всегда 1 объект |
-| \_embedded[leads][0] | object | Модель сделки |
-| \_embedded[leads][0][id] | int | ID сделки |
+| \_embedded\[contacts\] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда не более 1 объекта |
+| \_embedded\[contacts\]\[0\] | object | Модель контакта |
+| \_embedded\[contacts\]\[0\]\[id\] | int | ID контакта |
+| \_embedded\[companies\] | array | Данные связанной с неразобранным компании. В данный момент в массиве всегда не более 1 объекта |
+| \_embedded\[companies\]\[0\] | object | Модель компании |
+| \_embedded\[companies\]\[0\]\[id\] | int | ID компании |
+| \_embedded\[leads\] | array | Данные сделки. В массиве всегда 1 объект |
+| \_embedded\[leads\]\[0\] | object | Модель сделки |
+| \_embedded\[leads\]\[0\]\[id\] | int | ID сделки |
 | request\_id | string | Строка переданная при запросе или порядковый указатель, если параметр не передан |
 
 #### Пример ответа
 
-```
-{
-    "_total_items": 1,
-    "_embedded": {
-        "unsorted": [
-            {
-                "uid": "69035fda95c38bf3a281e846652217aade38692a5cf9d2b312e3724f78bc",
-                "account_id": 28805383,
-                "request_id": "123",
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/unsorted/69035fda95c38bf3a281e846652217aade38692a5cf9d2b312e3724f78bc"
+    {
+        "_total_items": 1,
+        "_embedded": {
+            "unsorted": [
+                {
+                    "uid": "69035fda95c38bf3a281e846652217aade38692a5cf9d2b312e3724f78bc",
+                    "account_id": 28805383,
+                    "request_id": "123",
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/unsorted/69035fda95c38bf3a281e846652217aade38692a5cf9d2b312e3724f78bc"
+                        }
+                    },
+                    "_embedded": {
+                        "contacts": [
+                            {
+                                "id": 11075543,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/contacts/11075543"
+                                    }
+                                }
+                            }
+                        ],
+                        "leads": [
+                            {
+                                "id": 7706511,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/leads/7706511"
+                                    }
+                                }
+                            }
+                        ],
+                        "companies": []
                     }
-                },
-                "_embedded": {
-                    "contacts": [
-                        {
-                            "id": 11075543,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/contacts/11075543"
-                                }
-                            }
-                        }
-                    ],
-                    "leads": [
-                        {
-                            "id": 7706511,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/leads/7706511"
-                                }
-                            }
-                        }
-                    ],
-                    "companies": []
                 }
-            }
-        ]
+            ]
+        }
     }
-}
-```
 
 ### Принятие неразобранного
 
 #### Метод
 
-*POST /api/v4/leads/unsorted/{uid}/accept*
+_POST /api/v4/leads/unsorted/{uid}/accept_
 
 #### Описание
 
@@ -654,7 +643,7 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -670,20 +659,18 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 В примере ниже будет принято неразобранное запросом на метод /api/v4/leads/unsorted/{uid}/accept.  
 Неразобранное будет принято от имени пользователя с ID 123123.
 
-```
-{
-   "user_id": 123123,
-   "status_id": 30846280
-}
-```
+    {
+       "user_id": 123123,
+       "status_id": 30846280
+    }
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -705,55 +692,53 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 | pipeline\_id | int | ID воронки, в которой находится неразобранное |
 | created\_at | int | Дата создания неразобранного в Unix Timestamp |
 | \_embedded | object | Данные вложенных сущностей. |
-| \_embedded[contacts] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда 1 объект |
-| \_embedded[contacts][0] | object | Модель контакта |
-| \_embedded[contacts][0][id] | int | ID контакта |
-| \_embedded[companies] | array | Данные связанной с неразобранным компании. В массиве всегда 1 объект |
-| \_embedded[companies][0] | object | Модель компании |
-| \_embedded[companies][0][id] | int | ID компании |
-| \_embedded[leads] | array | Данные сделки. В массиве всегда 1 объект |
-| \_embedded[leads][0] | object | Модель сделки |
-| \_embedded[leads][0][id] | int | ID сделки |
+| \_embedded\[contacts\] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда 1 объект |
+| \_embedded\[contacts\]\[0\] | object | Модель контакта |
+| \_embedded\[contacts\]\[0\]\[id\] | int | ID контакта |
+| \_embedded\[companies\] | array | Данные связанной с неразобранным компании. В массиве всегда 1 объект |
+| \_embedded\[companies\]\[0\] | object | Модель компании |
+| \_embedded\[companies\]\[0\]\[id\] | int | ID компании |
+| \_embedded\[leads\] | array | Данные сделки. В массиве всегда 1 объект |
+| \_embedded\[leads\]\[0\] | object | Модель сделки |
+| \_embedded\[leads\]\[0\]\[id\] | int | ID сделки |
 
 #### Пример ответа
 
-```
-{
-    "uid": "3cvd1de2ebfsd152fd6a465cd3e586cbdba6827",
-    "pipeline_id": 31634,
-    "category": "mail",
-    "created_at": 1589165593,
-    "_embedded": {
-        "leads": [
-            {
-                "id": 9944789,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/9944789"
+    {
+        "uid": "3cvd1de2ebfsd152fd6a465cd3e586cbdba6827",
+        "pipeline_id": 31634,
+        "category": "mail",
+        "created_at": 1589165593,
+        "_embedded": {
+            "leads": [
+                {
+                    "id": 9944789,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/9944789"
+                        }
                     }
                 }
-            }
-        ],
-        "contacts": [
-            {
-                "id": 16522451,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/contacts/16522451"
+            ],
+            "contacts": [
+                {
+                    "id": 16522451,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/contacts/16522451"
+                        }
                     }
                 }
-            }
-        ],
-        "companies": []
+            ],
+            "companies": []
+        }
     }
-}
-```
 
 ### Отклонение неразобранного
 
 #### Метод
 
-*DELETE /api/v4/leads/unsorted/{uid}/decline*
+_DELETE /api/v4/leads/unsorted/{uid}/decline_
 
 #### Описание
 
@@ -765,7 +750,7 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -777,11 +762,9 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 
 #### Пример запроса
 
-```
-{
-   "user_id": 123123
-}
-```
+    {
+       "user_id": 123123
+    }
 
 #### HTTP коды ответа
 
@@ -804,51 +787,49 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 | pipeline\_id | int | ID воронки, в которой находится неразобранное |
 | created\_at | int | Дата создания неразобранного в Unix Timestamp |
 | \_embedded | object | Данные вложенных сущностей. |
-| \_embedded[contacts] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда 1 объект |
-| \_embedded[contacts][0] | object | Модель контакта |
-| \_embedded[contacts][0][id] | int | ID контакта |
-| \_embedded[leads] | array | Данные сделки. В массиве всегда 1 объект |
-| \_embedded[leads][0] | object | Модель сделки |
-| \_embedded[leads][0][id] | int | ID сделки |
+| \_embedded\[contacts\] | array | Данные связанного с неразобранным контакта. В данный момент в массиве всегда 1 объект |
+| \_embedded\[contacts\]\[0\] | object | Модель контакта |
+| \_embedded\[contacts\]\[0\]\[id\] | int | ID контакта |
+| \_embedded\[leads\] | array | Данные сделки. В массиве всегда 1 объект |
+| \_embedded\[leads\]\[0\] | object | Модель сделки |
+| \_embedded\[leads\]\[0\]\[id\] | int | ID сделки |
 
 #### Пример ответа
 
-```
-{
-    "uid": "98bc1d1de2f960a2ad0e34b52823",
-    "pipeline_id": 1394576,
-    "category": "mail",
-    "created_at": 1589115506,
-    "_embedded": {
-        "leads": [
-            {
-                "id": 9937533,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/9937533"
+    {
+        "uid": "98bc1d1de2f960a2ad0e34b52823",
+        "pipeline_id": 1394576,
+        "category": "mail",
+        "created_at": 1589115506,
+        "_embedded": {
+            "leads": [
+                {
+                    "id": 9937533,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/9937533"
+                        }
                     }
                 }
-            }
-        ],
-        "contacts": [
-            {
-                "id": 163141,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/contacts/163141"
+            ],
+            "contacts": [
+                {
+                    "id": 163141,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/contacts/163141"
+                        }
                     }
                 }
-            }
-        ]
+            ]
+        }
     }
-}
-```
 
 ### Привязка неразобранного
 
 #### Метод
 
-*POST /api/v4/leads/unsorted/{uid}/link*
+_POST /api/v4/leads/unsorted/{uid}/link_
 
 #### Описание
 
@@ -856,12 +837,12 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 
 #### Ограничения
 
-* Метод доступен с правами пользователя
-* Метод доступен только для неразобранного типа чат
+*   Метод доступен с правами пользователя
+*   Метод доступен только для неразобранного типа чат
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -871,29 +852,27 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 | --- | --- | --- |
 | user\_id | int | ID пользователя, от имени которого будет выполнена привязка |
 | link | object | Объект, содержащий информацию о сущности, к которой выполняется привязка |
-| link[entity\_id] | int | ID сущности, к которой выполняется привязка |
-| link[entity\_type] | string | Тип сущности. Доступные варианты: leads, customers |
-| link[metadata] | object | Метаданные действия |
-| link[metadata][contact\_id] | int | ID контакта, к которому будет привязан контакт из неразобранного |
+| link\[entity\_id\] | int | ID сущности, к которой выполняется привязка |
+| link\[entity\_type\] | string | Тип сущности. Доступные варианты: leads, customers |
+| link\[metadata\] | object | Метаданные действия |
+| link\[metadata\]\[contact\_id\] | int | ID контакта, к которому будет привязан контакт из неразобранного |
 
 #### Пример запроса
 
-```
-{
-    "link": {
-        "entity_id": 93144801,
-        "entity_type": "leads"
+    {
+        "link": {
+            "entity_id": 93144801,
+            "entity_type": "leads"
+        }
     }
-}
-```
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -911,35 +890,33 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 | --- | --- | --- |
 | uid | string | UID неразобранного |
 | \_embedded | object | Данные вложенных сущностей. |
-| \_embedded[{entity\_type}] | array | Данные сущности, к которой выполнена привязка. В массиве всегда 1 объект |
-| \_embedded[{entity\_type}][0] | object | Модель сущности |
-| \_embedded[{entity\_type}][0][id] | int | ID сущности |
+| \_embedded\[{entity\_type}\] | array | Данные сущности, к которой выполнена привязка. В массиве всегда 1 объект |
+| \_embedded\[{entity\_type}\]\[0\] | object | Модель сущности |
+| \_embedded\[{entity\_type}\]\[0\]\[id\] | int | ID сущности |
 
 #### Пример ответа
 
-```
-{
-    "uid": "d7faa21ce091fe0da05d8d4c2075090c1e9bfd4",
-    "_embedded": {
-        "leads": [
-            {
-                "id": 93144801,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/93144801"
+    {
+        "uid": "d7faa21ce091fe0da05d8d4c2075090c1e9bfd4",
+        "_embedded": {
+            "leads": [
+                {
+                    "id": 93144801,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/93144801"
+                        }
                     }
                 }
-            }
-        ]
+            ]
+        }
     }
-}
-```
 
 ### Сводная информация о неразобранных сделках
 
 #### Метод
 
-*GET /api/v4/leads/unsorted/summary*
+_GET /api/v4/leads/unsorted/summary_
 
 #### Описание
 
@@ -954,23 +931,23 @@ https://example.amocrm.ru/api/v4/leads/unsorted?filter[uid]=98fb033cefde74f5de1a
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
 | filter | object | Фильтр |
-| filter[uid] | string|array | Фильтр по UID неразобранного. Можно передать как один UID, так и массив из нескольких UID |
-| filter[created\_at] | int|object | Фильтр по дате создания и дате принятия неразобранного.  Можно передать timestamp, в таком случае будут возвращены данные по неразобранным созданным и принятым c переданного timestamp.  Также можно передать объект вида filter[created\_at][from]=… и filter[created\_at][to]=…, для фильтрации по значениям ОТ и ДО. |
-| filter[pipeline\_id] | int | Фильтр по ID воронки |
+| filter\[uid\] | string|array | Фильтр по UID неразобранного. Можно передать как один UID, так и массив из нескольких UID |
+| filter\[created\_at\] | int|object | Фильтр по дате создания и дате принятия неразобранного.  
+Можно передать timestamp, в таком случае будут возвращены данные по неразобранным созданным и принятым c переданного timestamp.  
+Также можно передать объект вида filter\[created\_at\]\[from\]=… и filter\[created\_at\]\[to\]=…, для фильтрации по значениям ОТ и ДО. |
+| filter\[pipeline\_id\] | int | Фильтр по ID воронки |
 
 #### Пример запроса
 
-```
-https://example.amocrm.ru/api/v4/leads/unsorted/summary?filter[created_at][from]=1589176500&filter[created_at][to]=1589176560&filter[pipeline_id]=2194576
-```
+    https://example.amocrm.ru/api/v4/leads/unsorted/summary?filter[created_at][from]=1589176500&filter[created_at][to]=1589176560&filter[pipeline_id]=2194576
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -993,28 +970,26 @@ https://example.amocrm.ru/api/v4/leads/unsorted/summary?filter[created_at][from]
 
 #### Пример ответа
 
-```
-{
-    "total": 168,
-    "accepted": 6,
-    "declined": 2,
-    "average_sort_time": 34521,
-    "categories": {
-        "sip": {
-            "total": 31
-        },
-        "mail": {
-            "total": 41
-        },
-        "forms": {
-            "total": 27
-        },
-        "chats": {
-            "total": 69
+    {
+        "total": 168,
+        "accepted": 6,
+        "declined": 2,
+        "average_sort_time": 34521,
+        "categories": {
+            "sip": {
+                "total": 31
+            },
+            "mail": {
+                "total": 41
+            },
+            "forms": {
+                "total": 27
+            },
+            "chats": {
+                "total": 69
+            }
         }
     }
-}
-```
 
 ### Описание объектов metadata
 
@@ -1051,12 +1026,12 @@ https://example.amocrm.ru/api/v4/leads/unsorted/summary?filter[created_at][from]
 | received\_at | int | Когда получено сообщение от клиента. Данные в формате Unix Timestamp. |
 | service | string | Название сервиса, из которого получено сообщение |
 | client | object | Данные об авторе сообщения |
-| client[name] | string | Имя отправителя сообщения |
-| client[avatar] | string|null | Ссылка на аватар отправителя сообщения |
+| client\[name\] | string | Имя отправителя сообщения |
+| client\[avatar\] | string|null | Ссылка на аватар отправителя сообщения |
 | origin | object | Данные об источнике сообщения |
-| origin[chat\_id] | string | ID чата в сервисе чатов |
-| origin[ref] | string|null | Дополнительные данные из сервиса чатов |
-| origin[visitor\_uid] | string|null | UID пользователя, который написал сообщение |
+| origin\[chat\_id\] | string | ID чата в сервисе чатов |
+| origin\[ref\] | string|null | Дополнительные данные из сервиса чатов |
+| origin\[visitor\_uid\] | string|null | UID пользователя, который написал сообщение |
 | last\_message\_text | string|null | Последнее сообщение от пользователя |
 | source\_name | string | Название источника, из которого получено сообщение |
 
@@ -1065,8 +1040,8 @@ https://example.amocrm.ru/api/v4/leads/unsorted/summary?filter[created_at][from]
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
 | from | object | Информация об авторе письма |
-| from[email] | string | E-mail автора письма |
-| from[name] | string | Имя автора письма |
+| from\[email\] | string | E-mail автора письма |
+| from\[name\] | string | Имя автора письма |
 | received\_at | int | Когда получено письмо. Данные в формате Unix Timestamp. |
 | subject | string | Тема письма |
 | thread\_id | int | ID цепочки писем в сервисе почты |

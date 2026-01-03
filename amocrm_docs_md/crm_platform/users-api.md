@@ -1,21 +1,21 @@
-# https://www.amocrm.ru/developers/content/crm_platform/users-api
+<!-- https://www.amocrm.ru/developers/content/crm_platform/users-api -->
+
+# Оглавление
 
 Пользователи
 
 В данном разделе описываются доступные методы для работы с пользователями аккаунта и их ролями
 
-### Оглавление
-
-* [Список пользователей](#users-list)
-* [Получение пользователя по ID](#user-detail)
-* [Добавление пользователей](#users-add)
-* [Список ролей пользователей](#roles-list)
-* [Получение роли по ID](#role-detail)
-* [Добавление ролей](#roles-add)
-* [Редактирование роли](#role-edit)
-* [Удаление роли](#role-delete)
-* [Общие обозначения прав пользователей](#common-rights)
-* [Зависимости прав пользователей](#rights-dependence)
+*   [Список пользователей](#users-list)
+*   [Получение пользователя по ID](#user-detail)
+*   [Добавление пользователей](#users-add)
+*   [Список ролей пользователей](#roles-list)
+*   [Получение роли по ID](#role-detail)
+*   [Добавление ролей](#roles-add)
+*   [Редактирование роли](#role-edit)
+*   [Удаление роли](#role-delete)
+*   [Общие обозначения прав пользователей](#common-rights)
+*   [Зависимости прав пользователей](#rights-dependence)
 
 ### Список пользователей
 
@@ -58,7 +58,7 @@ Content-Type: application/problem+json
 #### Параметры ответа
 
 Метод возвращает коллекцию моделей пользователей, рассмотрим ниже свойства пользователя.  
-Объекты прав имеют общую структуру. В зависимости от типа сущности, имеют в себе доступные действия, как ключи, и право на действие, как значение. Например, rights[leads][view]=A.
+Объекты прав имеют общую структуру. В зависимости от типа сущности, имеют в себе доступные действия, как ключи, и право на действие, как значение. Например, rights\[leads\]\[view\]=A.
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
@@ -67,178 +67,178 @@ Content-Type: application/problem+json
 | email | string | E-mail пользователя |
 | lang | string | Язык пользователя. Один из вариантов: ru, en, es |
 | rights | object | Права пользователя |
-| rights[leads] | object | Объект прав доступа к сделкам |
-| rights[contacts] | object | Объект прав доступа к контактам |
-| rights[companies] | object | Объект прав доступа к компаниям |
-| rights[tasks] | object | Объект прав доступа к задачам |
-| rights[mail\_access] | bool | Доступ к функционалу почты |
-| rights[catalog\_access] | bool | Доступ к функционалу списков |
-| rights[is\_admin] | bool | Является ли пользователь администратором |
-| rights[is\_free] | bool | Является ли пользователь бесплатным |
-| rights[is\_active] | bool | Является ли пользователь активным |
-| rights[group\_id] | int/null | ID группы, к которой относится пользователь |
-| rights[role\_id] | int/null | ID роли, которая установлена у пользователя |
-| rights[status\_rights] | array | Массив из объектов, которые описывают права на статусы |
-| rights[status\_rights][0] | object | Объект прав на статус |
-| rights[status\_rights][0][entity\_type] | string | Тип сущности. В данный момент поддерживаются только сделки |
-| rights[status\_rights][0][pipeline\_id] | int | ID воронки, в которой находится статус |
-| rights[status\_rights][0][status\_id] | int | ID статуса |
-| rights[status\_rights][0][rights] | object | Объект прав |
+| rights\[leads\] | object | Объект прав доступа к сделкам |
+| rights\[contacts\] | object | Объект прав доступа к контактам |
+| rights\[companies\] | object | Объект прав доступа к компаниям |
+| rights\[tasks\] | object | Объект прав доступа к задачам |
+| rights\[mail\_access\] | bool | Доступ к функционалу почты |
+| rights\[catalog\_access\] | bool | Доступ к функционалу списков |
+| rights\[is\_admin\] | bool | Является ли пользователь администратором |
+| rights\[is\_free\] | bool | Является ли пользователь бесплатным |
+| rights\[is\_active\] | bool | Является ли пользователь активным |
+| rights\[group\_id\] | int/null | ID группы, к которой относится пользователь |
+| rights\[role\_id\] | int/null | ID роли, которая установлена у пользователя |
+| rights\[status\_rights\] | array | Массив из объектов, которые описывают права на статусы |
+| rights\[status\_rights\]\[0\] | object | Объект прав на статус |
+| rights\[status\_rights\]\[0\]\[entity\_type\] | string | Тип сущности. В данный момент поддерживаются только сделки |
+| rights\[status\_rights\]\[0\]\[pipeline\_id\] | int | ID воронки, в которой находится статус |
+| rights\[status\_rights\]\[0\]\[status\_id\] | int | ID статуса |
+| rights\[status\_rights\]\[0\]\[rights\] | object | Объект прав |
 
 #### Пример ответа
 
-```
-{
-  "_total_items": 2,
-  "_page": 1,
-  "_page_count": 1,
-  "_links": {
-    "self": {
-      "href": "https://example.amocrm.ru/api/v4/users/?with=role%2Cgroup"
-    }
-  },
-  "_embedded": {
-    "users": [
-      {
-        "id": 123123,
-        "name": "Пользователь для примера 2",
-        "email": "example2@mail.com",
-        "lang": "en",
-        "rights": {
-          "leads": {
-            "view": "A",
-            "edit": "A",
-            "add": "A",
-            "delete": "A",
-            "export": "A"
-          },
-          "contacts": {
-            "view": "A",
-            "edit": "A",
-            "add": "A",
-            "delete": "A",
-            "export": "A"
-          },
-          "companies": {
-            "view": "A",
-            "edit": "A",
-            "add": "A",
-            "delete": "A",
-            "export": "A"
-          },
-          "tasks": {
-            "edit": "A",
-            "delete": "A"
-          },
-          "mail_access": false,
-          "catalog_access": false,
-          "status_rights": [
-            {
-              "entity_type": "leads",
-              "pipeline_id": 2194576,
-              "status_id": 30846277,
-              "rights": {
-                "view": "A",
-                "edit": "A",
-                "delete": "A"
-              }
-            },
-            {
-              "entity_type": "leads",
-              "pipeline_id": 2212201,
-              "status_id": 30965377,
-              "rights": {
-                "view": "A",
-                "edit": "A",
-                "delete": "A"
-              }
-            }
-          ],
-          "is_admin": false,
-          "is_free": false,
-          "is_active": true,
-          "group_id": null,
-          "role_id": null
-        },
-        "_links": {
-          "self": {
-            "href": "https://example.amocrm.ru/api/v4/users/123123/"
-          }
-        },
-        "_embedded": {
-          "roles": [
-            {
-              "id": 3141,
-              "name": "Менеджер",
-              "_links": {
-                "self": {
-                  "href": "https://example.amocrm.ru/api/v4/roles/3141"
-                }
-              }
-            }
-          ],
-          "groups": [
-            {
-              "id": 267688,
-              "name": "Менеджеры"
-            }
-          ]
+    
+    {
+      "_total_items": 2,
+      "_page": 1,
+      "_page_count": 1,
+      "_links": {
+        "self": {
+          "href": "https://example.amocrm.ru/api/v4/users/?with=role%2Cgroup"
         }
       },
-      {
-        "id": 321321,
-        "name": "Пользователь для примера 2",
-        "email": "example2@mail.com",
-        "lang": "ru",
-        "rights": {
-          "leads": {
-            "view": "A",
-            "edit": "A",
-            "add": "G",
-            "delete": "D",
-            "export": "M"
+      "_embedded": {
+        "users": [
+          {
+            "id": 123123,
+            "name": "Пользователь для примера 2",
+            "email": "example2@mail.com",
+            "lang": "en",
+            "rights": {
+              "leads": {
+                "view": "A",
+                "edit": "A",
+                "add": "A",
+                "delete": "A",
+                "export": "A"
+              },
+              "contacts": {
+                "view": "A",
+                "edit": "A",
+                "add": "A",
+                "delete": "A",
+                "export": "A"
+              },
+              "companies": {
+                "view": "A",
+                "edit": "A",
+                "add": "A",
+                "delete": "A",
+                "export": "A"
+              },
+              "tasks": {
+                "edit": "A",
+                "delete": "A"
+              },
+              "mail_access": false,
+              "catalog_access": false,
+              "status_rights": [
+                {
+                  "entity_type": "leads",
+                  "pipeline_id": 2194576,
+                  "status_id": 30846277,
+                  "rights": {
+                    "view": "A",
+                    "edit": "A",
+                    "delete": "A"
+                  }
+                },
+                {
+                  "entity_type": "leads",
+                  "pipeline_id": 2212201,
+                  "status_id": 30965377,
+                  "rights": {
+                    "view": "A",
+                    "edit": "A",
+                    "delete": "A"
+                  }
+                }
+              ],
+              "is_admin": false,
+              "is_free": false,
+              "is_active": true,
+              "group_id": null,
+              "role_id": null
+            },
+            "_links": {
+              "self": {
+                "href": "https://example.amocrm.ru/api/v4/users/123123/"
+              }
+            },
+            "_embedded": {
+              "roles": [
+                {
+                  "id": 3141,
+                  "name": "Менеджер",
+                  "_links": {
+                    "self": {
+                      "href": "https://example.amocrm.ru/api/v4/roles/3141"
+                    }
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "id": 267688,
+                  "name": "Менеджеры"
+                }
+              ]
+            }
           },
-          "contacts": {
-            "view": "A",
-            "edit": "A",
-            "add": "G",
-            "delete": "M",
-            "export": "D"
-          },
-          "companies": {
-            "view": "A",
-            "edit": "G",
-            "add": "G",
-            "delete": "D",
-            "export": "D"
-          },
-          "tasks": {
-            "edit": "A",
-            "delete": "A"
-          },
-          "mail_access": true,
-          "catalog_access": true,
-          "status_rights": null,
-          "is_admin": true,
-          "is_free": false,
-          "is_active": true,
-          "group_id": null,
-          "role_id": null
-        },
-        "_links": {
-          "self": {
-            "href": "https://example.amocrm.ru/api/v4/users/321321"
+          {
+            "id": 321321,
+            "name": "Пользователь для примера 2",
+            "email": "example2@mail.com",
+            "lang": "ru",
+            "rights": {
+              "leads": {
+                "view": "A",
+                "edit": "A",
+                "add": "G",
+                "delete": "D",
+                "export": "M"
+              },
+              "contacts": {
+                "view": "A",
+                "edit": "A",
+                "add": "G",
+                "delete": "M",
+                "export": "D"
+              },
+              "companies": {
+                "view": "A",
+                "edit": "G",
+                "add": "G",
+                "delete": "D",
+                "export": "D"
+              },
+              "tasks": {
+                "edit": "A",
+                "delete": "A"
+              },
+              "mail_access": true,
+              "catalog_access": true,
+              "status_rights": null,
+              "is_admin": true,
+              "is_free": false,
+              "is_active": true,
+              "group_id": null,
+              "role_id": null
+            },
+            "_links": {
+              "self": {
+                "href": "https://example.amocrm.ru/api/v4/users/321321"
+              }
+            },
+            "_embedded": {
+              "roles": [],
+              "groups": []
+            }
           }
-        },
-        "_embedded": {
-          "roles": [],
-          "groups": []
-        }
+        ]
       }
-    ]
-  }
-}
-```
+    }
+    
 
 #### Параметры для GET-параметра with
 
@@ -290,7 +290,7 @@ Content-Type: application/problem+json
 #### Параметры ответа
 
 Метод возвращает модель пользователя, рассмотрим ниже свойства пользователя.  
-Объекты прав имеют общую структуру. В зависимости от типа сущности, имеют в себе доступные действия, как ключи, и право на действие, как значение. Например, rights[leads][view]=A.
+Объекты прав имеют общую структуру. В зависимости от типа сущности, имеют в себе доступные действия, как ключи, и право на действие, как значение. Например, rights\[leads\]\[view\]=A.
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
@@ -299,106 +299,106 @@ Content-Type: application/problem+json
 | email | string | E-mail пользователя |
 | lang | string | Язык пользователя. Один из вариантов: ru, en, es |
 | rights | object | Права пользователя |
-| rights[leads] | object | Объект прав доступа к сделкам |
-| rights[contacts] | object | Объект прав доступа к контактам |
-| rights[companies] | object | Объект прав доступа к компаниям |
-| rights[tasks] | object | Объект прав доступа к задачам |
-| rights[mail\_access] | bool | Доступ к функционалу почты |
-| rights[catalog\_access] | bool | Доступ к функционалу списков |
-| rights[is\_admin] | bool | Является ли пользователь администратором |
-| rights[is\_free] | bool | Является ли пользователь бесплатным |
-| rights[is\_active] | bool | Является ли пользователь активным |
-| rights[group\_id] | int/null | ID группы, к которой относится пользователь |
-| rights[role\_id] | int/null | ID роли, которая установлена у пользователя |
-| rights[status\_rights] | array | Массив из объектов, которые описывают права на статусы |
-| rights[status\_rights][0] | object | Объект прав на статус |
-| rights[status\_rights][0][entity\_type] | string | Тип сущности. В данный момент поддерживаются только сделки |
-| rights[status\_rights][0][pipeline\_id] | int | ID воронки, в которой находится статус |
-| rights[status\_rights][0][status\_id] | int | ID статуса |
-| rights[status\_rights][0][rights] | object | Объект прав |
+| rights\[leads\] | object | Объект прав доступа к сделкам |
+| rights\[contacts\] | object | Объект прав доступа к контактам |
+| rights\[companies\] | object | Объект прав доступа к компаниям |
+| rights\[tasks\] | object | Объект прав доступа к задачам |
+| rights\[mail\_access\] | bool | Доступ к функционалу почты |
+| rights\[catalog\_access\] | bool | Доступ к функционалу списков |
+| rights\[is\_admin\] | bool | Является ли пользователь администратором |
+| rights\[is\_free\] | bool | Является ли пользователь бесплатным |
+| rights\[is\_active\] | bool | Является ли пользователь активным |
+| rights\[group\_id\] | int/null | ID группы, к которой относится пользователь |
+| rights\[role\_id\] | int/null | ID роли, которая установлена у пользователя |
+| rights\[status\_rights\] | array | Массив из объектов, которые описывают права на статусы |
+| rights\[status\_rights\]\[0\] | object | Объект прав на статус |
+| rights\[status\_rights\]\[0\]\[entity\_type\] | string | Тип сущности. В данный момент поддерживаются только сделки |
+| rights\[status\_rights\]\[0\]\[pipeline\_id\] | int | ID воронки, в которой находится статус |
+| rights\[status\_rights\]\[0\]\[status\_id\] | int | ID статуса |
+| rights\[status\_rights\]\[0\]\[rights\] | object | Объект прав |
 
 #### Пример ответа
 
-```
-{
-  "id": 185848,
-  "name": "Алексей Поимцев",
-  "email": "test@example.com",
-  "lang": "ru",
-  "rights": {
-    "leads": {
-      "view": "M",
-      "edit": "M",
-      "add": "D",
-      "delete": "M",
-      "export": "M"
-    },
-    "contacts": {
-      "view": "M",
-      "edit": "M",
-      "add": "D",
-      "delete": "M",
-      "export": "M"
-    },
-    "companies": {
-      "view": "M",
-      "edit": "M",
-      "add": "D",
-      "delete": "M",
-      "export": "M"
-    },
-    "tasks": {
-      "edit": "A",
-      "delete": "A"
-    },
-    "mail_access": false,
-    "catalog_access": true,
-    "status_rights": [
-      {
-        "entity_type": "leads",
-        "pipeline_id": 3166396,
-        "status_id": 142,
-        "rights": {
-          "view": "D",
-          "edit": "D",
-          "delete": "D",
-          "export": "D"
-        }
+    
+    {
+      "id": 185848,
+      "name": "Алексей Поимцев",
+      "email": "test@example.com",
+      "lang": "ru",
+      "rights": {
+        "leads": {
+          "view": "M",
+          "edit": "M",
+          "add": "D",
+          "delete": "M",
+          "export": "M"
+        },
+        "contacts": {
+          "view": "M",
+          "edit": "M",
+          "add": "D",
+          "delete": "M",
+          "export": "M"
+        },
+        "companies": {
+          "view": "M",
+          "edit": "M",
+          "add": "D",
+          "delete": "M",
+          "export": "M"
+        },
+        "tasks": {
+          "edit": "A",
+          "delete": "A"
+        },
+        "mail_access": false,
+        "catalog_access": true,
+        "status_rights": [
+          {
+            "entity_type": "leads",
+            "pipeline_id": 3166396,
+            "status_id": 142,
+            "rights": {
+              "view": "D",
+              "edit": "D",
+              "delete": "D",
+              "export": "D"
+            }
+          },
+          {
+            "entity_type": "leads",
+            "pipeline_id": 3166396,
+            "status_id": 32311027,
+            "rights": {
+              "view": "D",
+              "edit": "D",
+              "delete": "D"
+            }
+          },
+          {
+            "entity_type": "leads",
+            "pipeline_id": 3104455,
+            "status_id": 31881115,
+            "rights": {
+              "view": "D",
+              "edit": "D",
+              "delete": "D"
+            }
+          }
+        ],
+        "is_admin": false,
+        "is_free": false,
+        "is_active": true,
+        "group_id": null,
+        "role_id": null
       },
-      {
-        "entity_type": "leads",
-        "pipeline_id": 3166396,
-        "status_id": 32311027,
-        "rights": {
-          "view": "D",
-          "edit": "D",
-          "delete": "D"
-        }
-      },
-      {
-        "entity_type": "leads",
-        "pipeline_id": 3104455,
-        "status_id": 31881115,
-        "rights": {
-          "view": "D",
-          "edit": "D",
-          "delete": "D"
+      "_links": {
+        "self": {
+          "href": "https://example.amocrm.ru/api/v4/users/185848"
         }
       }
-    ],
-    "is_admin": false,
-    "is_free": false,
-    "is_active": true,
-    "group_id": null,
-    "role_id": null
-  },
-  "_links": {
-    "self": {
-      "href": "https://example.amocrm.ru/api/v4/users/185848"
     }
-  }
-}
-```
+    
 
 #### Параметры для GET-параметра with
 
@@ -423,9 +423,9 @@ POST /api/v4/users
 
 #### Ограничения
 
-* Метод доступен только с правами администратора аккаунта.
-* Метод позволяет добавлять не более 10 пользователей за один запрос.
-* Метод становится недоступен, когда количество пользователей превышает 100.
+*   Метод доступен только с правами администратора аккаунта.
+*   Метод позволяет добавлять не более 10 пользователей за один запрос.
+*   Метод становится недоступен, когда количество пользователей превышает 100.
 
 #### Заголовок запроса
 
@@ -435,12 +435,12 @@ Content-Type: application/json
 
 В данном методе параметры запроса имеют зависимости:
 
-* Если передано валидное значение role\_id,то значения полей rights[leads], rights[tasks], rights[contacts], rights[companies], rights[status\_rights], rights[mail\_access], rights[catalog\_access] будут проигнорированы
-* Если передано значение true в поле is\_free, то значения полей rights[leads], rights[tasks], rights[contacts], rights[companies], rights[status\_rights], rights[mail\_access], rights[catalog\_access], rights[role\_id], rights[group\_id] будут проигнорированы
-* В случае передачи значение null в поле rights[group\_id], пользователь будет добавлен в группу по-умолчанию – "Отдел продаж"
-* "Администратор" и "Бесплатные пользователи" не являются ролями, для обозначения заведены отдельные флаги rights[is\_free] и rights[is\_admin]
-* Если передать поле rights[status\_rights] со значением null, пользователь получит права на статусы неразобранного без доступа к ним
-* Поля rights[leads], rights[tasks], rights[contacts], rights[companies] должны учитывать [зависимость прав](#rights-dependence).
+*   Если передано валидное значение role\_id,то значения полей rights\[leads\], rights\[tasks\], rights\[contacts\], rights\[companies\], rights\[status\_rights\], rights\[mail\_access\], rights\[catalog\_access\] будут проигнорированы
+*   Если передано значение true в поле is\_free, то значения полей rights\[leads\], rights\[tasks\], rights\[contacts\], rights\[companies\], rights\[status\_rights\], rights\[mail\_access\], rights\[catalog\_access\], rights\[role\_id\], rights\[group\_id\] будут проигнорированы
+*   В случае передачи значение null в поле rights\[group\_id\], пользователь будет добавлен в группу по-умолчанию – "Отдел продаж"
+*   "Администратор" и "Бесплатные пользователи" не являются ролями, для обозначения заведены отдельные флаги rights\[is\_free\] и rights\[is\_admin\]
+*   Если передать поле rights\[status\_rights\] со значением null, пользователь получит права на статусы неразобранного без доступа к ним
+*   Поля rights\[leads\], rights\[tasks\], rights\[contacts\], rights\[companies\] должны учитывать [зависимость прав](#rights-dependence).
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
@@ -449,46 +449,46 @@ Content-Type: application/json
 | password | string | Пароль пользователя, должно состоять минимум из 6 символов и иметь хотя бы 1 цифру, маленькую и заглавную букву. При создании нового пользователя, поле является обязательным |
 | lang | string | Язык пользователя. Выбор из вариантов: en, ru, es. Поле не является обязательным, по умолчанию – язык аккаунта (ru или en) |
 | rights | object | Права пользователя. Поле не является обязательным, по умолчанию все доступы запрещены |
-| rights[leads] | object | Права пользователя на сделки. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
-| rights[contacts] | object | Права пользователя на контакты. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
-| rights[companies] | object | Права пользователя на компании. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
-| rights[tasks] | object | Права пользователя на задачи. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
-| rights[status\_rights] | array/null | Права пользователя на статусы. Необязательное поле, по умолчанию: null |
-| rights[mail\_access] | bool | Доступ к функционалу почты. Необязательное поле, по умолчанию: false |
-| rights[catalog\_access] | bool | Доступ к функционалу списков. Необязательное поле, по умолчанию: false |
-| rights[is\_free] | bool | Показатель, является ли пользователь бесплатным. Необязательное поле, по умолчанию: false |
-| rights[role\_id] | int/null | ID роли, к которой принадлежит пользователь. Необязательное поле, по умолчанию: null |
-| rights[group\_id] | int/null | ID группы, к которой принадлежит пользователь. Необязательное поле, по умолчанию: null |
+| rights\[leads\] | object | Права пользователя на сделки. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
+| rights\[contacts\] | object | Права пользователя на контакты. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
+| rights\[companies\] | object | Права пользователя на компании. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
+| rights\[tasks\] | object | Права пользователя на задачи. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
+| rights\[status\_rights\] | array/null | Права пользователя на статусы. Необязательное поле, по умолчанию: null |
+| rights\[mail\_access\] | bool | Доступ к функционалу почты. Необязательное поле, по умолчанию: false |
+| rights\[catalog\_access\] | bool | Доступ к функционалу списков. Необязательное поле, по умолчанию: false |
+| rights\[is\_free\] | bool | Показатель, является ли пользователь бесплатным. Необязательное поле, по умолчанию: false |
+| rights\[role\_id\] | int/null | ID роли, к которой принадлежит пользователь. Необязательное поле, по умолчанию: null |
+| rights\[group\_id\] | int/null | ID группы, к которой принадлежит пользователь. Необязательное поле, по умолчанию: null |
 | request\_id | string | Поле, которое вернется вам в ответе без изменений и не будет сохранено. Необязательный параметр |
 
 #### Пример запроса
 
-```
-[
-  {
-    "name": "Иван Иванов",
-    "email": "user_add-test@team.amocrm.com",
-    "password": "aBcde1@345",
-    "lang": "ru",
-    "rights": {
-      "leads": {
-        "view": "A",
-        "edit": "A",
-        "add": "A",
-        "delete": "A",
-        "export": "D"
-      },
-      "contacts": {
-        "view": "A",
-        "edit": "A",
-        "add": "A",
-        "delete": "A",
-        "export": "D"
+    
+    [
+      {
+        "name": "Иван Иванов",
+        "email": "user_add-test@team.amocrm.com",
+        "password": "aBcde1@345",
+        "lang": "ru",
+        "rights": {
+          "leads": {
+            "view": "A",
+            "edit": "A",
+            "add": "A",
+            "delete": "A",
+            "export": "D"
+          },
+          "contacts": {
+            "view": "A",
+            "edit": "A",
+            "add": "A",
+            "delete": "A",
+            "export": "D"
+          }
+        }
       }
-    }
-  }
-]
-```
+    ]
+    
 
 #### Заголовок типа данных при успешном результате
 
@@ -513,83 +513,83 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
-```
-{
-  "_total_items": 1,
-  "_embedded": {
-    "users": [
-      {
-        "id": 6029791,
-        "name": "testUser",
-        "email": "user_add-test@team.amocrm.com",
-        "lang": "en",
-        "rights": {
-          "leads": {
-            "view": "A",
-            "edit": "A",
-            "add": "A",
-            "delete": "A",
-            "export": "D"
-          },
-          "contacts": {
-            "view": "A",
-            "edit": "A",
-            "add": "A",
-            "delete": "A",
-            "export": "D"
-          },
-          "companies": {
-            "view": "A",
-            "edit": "A",
-            "add": "A",
-            "delete": "A",
-            "export": "D"
-          },
-          "tasks": {
-            "edit": "A",
-            "delete": "A"
-          },
-          "mail_access": false,
-          "catalog_access": false,
-          "status_rights": [
-            {
-              "entity_type": "leads",
-              "pipeline_id": 2020444,
-              "status_id": 29652544,
-              "rights": {
-                "view": "D",
-                "edit": "D",
-                "delete": "D"
-              }
+    
+    {
+      "_total_items": 1,
+      "_embedded": {
+        "users": [
+          {
+            "id": 6029791,
+            "name": "testUser",
+            "email": "user_add-test@team.amocrm.com",
+            "lang": "en",
+            "rights": {
+              "leads": {
+                "view": "A",
+                "edit": "A",
+                "add": "A",
+                "delete": "A",
+                "export": "D"
+              },
+              "contacts": {
+                "view": "A",
+                "edit": "A",
+                "add": "A",
+                "delete": "A",
+                "export": "D"
+              },
+              "companies": {
+                "view": "A",
+                "edit": "A",
+                "add": "A",
+                "delete": "A",
+                "export": "D"
+              },
+              "tasks": {
+                "edit": "A",
+                "delete": "A"
+              },
+              "mail_access": false,
+              "catalog_access": false,
+              "status_rights": [
+                {
+                  "entity_type": "leads",
+                  "pipeline_id": 2020444,
+                  "status_id": 29652544,
+                  "rights": {
+                    "view": "D",
+                    "edit": "D",
+                    "delete": "D"
+                  }
+                },
+                {
+                  "entity_type": "leads",
+                  "pipeline_id": 2275606,
+                  "status_id": 31411840,
+                  "rights": {
+                    "view": "D",
+                    "edit": "D",
+                    "delete": "D"
+                  }
+                }
+              ],
+              "is_admin": false,
+              "role_id": null,
+              "is_free": false,
+              "group_id": null,
+              "is_active": true
             },
-            {
-              "entity_type": "leads",
-              "pipeline_id": 2275606,
-              "status_id": 31411840,
-              "rights": {
-                "view": "D",
-                "edit": "D",
-                "delete": "D"
+            "request_id": "1",
+            "_links": {
+              "self": {
+                "href": "https://test.amocrm.ru/api/v4/users/6029791"
               }
             }
-          ],
-          "is_admin": false,
-          "role_id": null,
-          "is_free": false,
-          "group_id": null,
-          "is_active": true
-        },
-        "request_id": "1",
-        "_links": {
-          "self": {
-            "href": "https://test.amocrm.ru/api/v4/users/6029791"
           }
-        }
+        ]
       }
-    ]
-  }
-}
-```
+    }
+    
 
 ### Список ролей пользователей
 
@@ -632,113 +632,113 @@ Content-Type: application/problem+json
 #### Параметры ответа
 
 Метод возвращает коллекцию моделей ролей, рассмотрим ниже свойства роли.  
-Объекты прав имеют общую структуру. В зависимости от типа сущности, имеют в себе доступные действия, как ключи, и право на действие, как значение. Например, rights[leads][view]=A.
+Объекты прав имеют общую структуру. В зависимости от типа сущности, имеют в себе доступные действия, как ключи, и право на действие, как значение. Например, rights\[leads\]\[view\]=A.
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
 | id | int | ID роли |
 | name | string | Название роли |
 | rights | object | Права пользователя |
-| rights[leads] | object | Объект прав доступа к сделкам |
-| rights[contacts] | object | Объект прав доступа к контактам |
-| rights[companies] | object | Объект прав доступа к компаниям |
-| rights[tasks] | object | Объект прав доступа к задачам |
-| rights[mail\_access] | bool | Доступ к функционалу почты |
-| rights[catalog\_access] | bool | Доступ к функционалу списков |
-| rights[is\_admin] | bool | Является ли пользователь администратором |
-| rights[is\_free] | bool | Является ли пользователь бесплатным |
-| rights[is\_active] | bool | Является ли пользователь активным |
-| rights[group\_id] | int/null | ID группы, к которой относится пользователь |
-| rights[role\_id] | int/null | ID роли, которая установлена у пользователя |
-| rights[status\_rights] | array | Массив из объектов, которые описывают права на статусы |
-| rights[status\_rights][0] | object | Объект прав на статус |
-| rights[status\_rights][0][entity\_type] | string | Тип сущности. В данный момент поддерживаются только сделки |
-| rights[status\_rights][0][pipeline\_id] | int | ID воронки, в которой находится статус |
-| rights[status\_rights][0][status\_id] | int | ID статуса |
-| rights[status\_rights][0][rights] | object | Объект прав |
-| \_embedded[users] | array | Массив, содержащий в себе ID пользователей, у которых установленная данная роль |
+| rights\[leads\] | object | Объект прав доступа к сделкам |
+| rights\[contacts\] | object | Объект прав доступа к контактам |
+| rights\[companies\] | object | Объект прав доступа к компаниям |
+| rights\[tasks\] | object | Объект прав доступа к задачам |
+| rights\[mail\_access\] | bool | Доступ к функционалу почты |
+| rights\[catalog\_access\] | bool | Доступ к функционалу списков |
+| rights\[is\_admin\] | bool | Является ли пользователь администратором |
+| rights\[is\_free\] | bool | Является ли пользователь бесплатным |
+| rights\[is\_active\] | bool | Является ли пользователь активным |
+| rights\[group\_id\] | int/null | ID группы, к которой относится пользователь |
+| rights\[role\_id\] | int/null | ID роли, которая установлена у пользователя |
+| rights\[status\_rights\] | array | Массив из объектов, которые описывают права на статусы |
+| rights\[status\_rights\]\[0\] | object | Объект прав на статус |
+| rights\[status\_rights\]\[0\]\[entity\_type\] | string | Тип сущности. В данный момент поддерживаются только сделки |
+| rights\[status\_rights\]\[0\]\[pipeline\_id\] | int | ID воронки, в которой находится статус |
+| rights\[status\_rights\]\[0\]\[status\_id\] | int | ID статуса |
+| rights\[status\_rights\]\[0\]\[rights\] | object | Объект прав |
+| \_embedded\[users\] | array | Массив, содержащий в себе ID пользователей, у которых установленная данная роль |
 
 #### Пример ответа
 
-```
-{
-  "_total_items": 1,
-  "_page": 1,
-  "_page_count": 1,
-  "_links": {
-    "self": {
-      "href": "https://example.amocrm.ru/api/v4/roles?with=users&page=1&limit=50"
-    }
-  },
-  "_embedded": {
-    "roles": [
-      {
-        "id": 107995,
-        "name": "Моя супер роль",
-        "rights": {
-          "leads": {
-            "view": "A",
-            "edit": "A",
-            "add": "A",
-            "delete": "A",
-            "export": "A"
-          },
-          "contacts": {
-            "view": "A",
-            "edit": "A",
-            "add": "A",
-            "delete": "A",
-            "export": "A"
-          },
-          "companies": {
-            "view": "A",
-            "edit": "A",
-            "add": "A",
-            "delete": "A",
-            "export": "A"
-          },
-          "tasks": {
-            "edit": "A",
-            "delete": "A"
-          },
-          "mail_access": false,
-          "catalog_access": false,
-          "status_rights": [
-            {
-              "entity_type": "leads",
-              "pipeline_id": 3104455,
-              "status_id": 31881115,
-              "rights": {
-                "edit": "A",
+    
+    {
+      "_total_items": 1,
+      "_page": 1,
+      "_page_count": 1,
+      "_links": {
+        "self": {
+          "href": "https://example.amocrm.ru/api/v4/roles?with=users&page=1&limit=50"
+        }
+      },
+      "_embedded": {
+        "roles": [
+          {
+            "id": 107995,
+            "name": "Моя супер роль",
+            "rights": {
+              "leads": {
                 "view": "A",
+                "edit": "A",
+                "add": "A",
+                "delete": "A",
+                "export": "A"
+              },
+              "contacts": {
+                "view": "A",
+                "edit": "A",
+                "add": "A",
+                "delete": "A",
+                "export": "A"
+              },
+              "companies": {
+                "view": "A",
+                "edit": "A",
+                "add": "A",
+                "delete": "A",
+                "export": "A"
+              },
+              "tasks": {
+                "edit": "A",
                 "delete": "A"
+              },
+              "mail_access": false,
+              "catalog_access": false,
+              "status_rights": [
+                {
+                  "entity_type": "leads",
+                  "pipeline_id": 3104455,
+                  "status_id": 31881115,
+                  "rights": {
+                    "edit": "A",
+                    "view": "A",
+                    "delete": "A"
+                  }
+                },
+                {
+                  "entity_type": "leads",
+                  "pipeline_id": 3166396,
+                  "status_id": 32311027,
+                  "rights": {
+                    "edit": "A",
+                    "view": "A",
+                    "delete": "A"
+                  }
+                }
+              ]
+            },
+            "_links": {
+              "self": {
+                "href": "https://example.amocrm.ru/api/v4/roles/107995"
               }
             },
-            {
-              "entity_type": "leads",
-              "pipeline_id": 3166396,
-              "status_id": 32311027,
-              "rights": {
-                "edit": "A",
-                "view": "A",
-                "delete": "A"
-              }
+            "_embedded": {
+              "users": []
             }
-          ]
-        },
-        "_links": {
-          "self": {
-            "href": "https://example.amocrm.ru/api/v4/roles/107995"
           }
-        },
-        "_embedded": {
-          "users": []
-        }
+        ]
       }
-    ]
-  }
-}
-```
+    }
+    
 
 #### Параметры для GET-параметра with
 
@@ -785,96 +785,96 @@ Content-Type: application/problem+json
 #### Параметры ответа
 
 Метод возвращает модель роли, рассмотрим ниже её свойства.  
-Объекты прав имеют общую структуру. В зависимости от типа сущности, имеют в себе доступные действия, как ключи, и право на действие, как значение. Например, rights[leads][view]=A.
+Объекты прав имеют общую структуру. В зависимости от типа сущности, имеют в себе доступные действия, как ключи, и право на действие, как значение. Например, rights\[leads\]\[view\]=A.
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
 | id | int | ID роли |
 | name | string | Название роли |
 | rights | object | Права пользователя |
-| rights[leads] | object | Объект прав доступа к сделкам |
-| rights[contacts] | object | Объект прав доступа к контактам |
-| rights[companies] | object | Объект прав доступа к компаниям |
-| rights[tasks] | object | Объект прав доступа к задачам |
-| rights[mail\_access] | bool | Доступ к функционалу почты |
-| rights[catalog\_access] | bool | Доступ к функционалу списков |
-| rights[is\_admin] | bool | Является ли пользователь администратором |
-| rights[is\_free] | bool | Является ли пользователь бесплатным |
-| rights[is\_active] | bool | Является ли пользователь активным |
-| rights[group\_id] | int/null | ID группы, к которой относится пользователь |
-| rights[role\_id] | int/null | ID роли, которая установлена у пользователя |
-| rights[status\_rights] | array | Массив из объектов, которые описывают права на статусы |
-| rights[status\_rights][0] | object | Объект прав на статус |
-| rights[status\_rights][0][entity\_type] | string | Тип сущности. В данный момент поддерживаются только сделки |
-| rights[status\_rights][0][pipeline\_id] | int | ID воронки, в которой находится статус |
-| rights[status\_rights][0][status\_id] | int | ID статуса |
-| rights[status\_rights][0][rights] | object | Объект прав |
-| \_embedded[users] | array | Массив, содержащий в себе ID пользователей, у которых установленная данная роль |
+| rights\[leads\] | object | Объект прав доступа к сделкам |
+| rights\[contacts\] | object | Объект прав доступа к контактам |
+| rights\[companies\] | object | Объект прав доступа к компаниям |
+| rights\[tasks\] | object | Объект прав доступа к задачам |
+| rights\[mail\_access\] | bool | Доступ к функционалу почты |
+| rights\[catalog\_access\] | bool | Доступ к функционалу списков |
+| rights\[is\_admin\] | bool | Является ли пользователь администратором |
+| rights\[is\_free\] | bool | Является ли пользователь бесплатным |
+| rights\[is\_active\] | bool | Является ли пользователь активным |
+| rights\[group\_id\] | int/null | ID группы, к которой относится пользователь |
+| rights\[role\_id\] | int/null | ID роли, которая установлена у пользователя |
+| rights\[status\_rights\] | array | Массив из объектов, которые описывают права на статусы |
+| rights\[status\_rights\]\[0\] | object | Объект прав на статус |
+| rights\[status\_rights\]\[0\]\[entity\_type\] | string | Тип сущности. В данный момент поддерживаются только сделки |
+| rights\[status\_rights\]\[0\]\[pipeline\_id\] | int | ID воронки, в которой находится статус |
+| rights\[status\_rights\]\[0\]\[status\_id\] | int | ID статуса |
+| rights\[status\_rights\]\[0\]\[rights\] | object | Объект прав |
+| \_embedded\[users\] | array | Массив, содержащий в себе ID пользователей, у которых установленная данная роль |
 
 #### Пример ответа
 
-```
-{
-  "id": 107995,
-  "name": "Роль",
-  "rights": {
-    "leads": {
-      "view": "A",
-      "edit": "A",
-      "add": "A",
-      "delete": "A",
-      "export": "A"
-    },
-    "contacts": {
-      "view": "A",
-      "edit": "A",
-      "add": "A",
-      "delete": "A",
-      "export": "A"
-    },
-    "companies": {
-      "view": "A",
-      "edit": "A",
-      "add": "A",
-      "delete": "A",
-      "export": "A"
-    },
-    "tasks": {
-      "edit": "A",
-      "delete": "A"
-    },
-    "mail_access": false,
-    "catalog_access": false,
-    "status_rights": [
-      {
-        "entity_type": "leads",
-        "pipeline_id": 3104455,
-        "status_id": 31881115,
-        "rights": {
-          "edit": "A",
+    
+    {
+      "id": 107995,
+      "name": "Роль",
+      "rights": {
+        "leads": {
           "view": "A",
+          "edit": "A",
+          "add": "A",
+          "delete": "A",
+          "export": "A"
+        },
+        "contacts": {
+          "view": "A",
+          "edit": "A",
+          "add": "A",
+          "delete": "A",
+          "export": "A"
+        },
+        "companies": {
+          "view": "A",
+          "edit": "A",
+          "add": "A",
+          "delete": "A",
+          "export": "A"
+        },
+        "tasks": {
+          "edit": "A",
           "delete": "A"
-        }
+        },
+        "mail_access": false,
+        "catalog_access": false,
+        "status_rights": [
+          {
+            "entity_type": "leads",
+            "pipeline_id": 3104455,
+            "status_id": 31881115,
+            "rights": {
+              "edit": "A",
+              "view": "A",
+              "delete": "A"
+            }
+          },
+          {
+            "entity_type": "leads",
+            "pipeline_id": 3166396,
+            "status_id": 32311027,
+            "rights": {
+              "edit": "A",
+              "view": "A",
+              "delete": "A"
+            }
+          }
+        ]
       },
-      {
-        "entity_type": "leads",
-        "pipeline_id": 3166396,
-        "status_id": 32311027,
-        "rights": {
-          "edit": "A",
-          "view": "A",
-          "delete": "A"
+      "_links": {
+        "self": {
+          "href": "https://shard151.amocrm.ru/api/v4/roles/107995"
         }
       }
-    ]
-  },
-  "_links": {
-    "self": {
-      "href": "https://shard151.amocrm.ru/api/v4/roles/107995"
     }
-  }
-}
-```
+    
 
 #### Параметры для GET-параметра with
 
@@ -906,64 +906,64 @@ Content-Type: application/json
 | --- | --- | --- |
 | name | string | Название роли |
 | rights | object | Права пользователя. Поле не является обязательным, по умолчанию все доступы запрещены |
-| rights[leads] | object | Права пользователя на сделки. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
-| rights[contacts] | object | Права пользователя на контакты. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
-| rights[companies] | object | Права пользователя на компании. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
-| rights[tasks] | object | Права пользователя на задачи. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
-| rights[status\_rights] | array/null | Права пользователя на статусы. Необязательное поле, по умолчанию: null |
-| rights[mail\_access] | bool | Доступ к функционалу почты. Необязательное поле, по умолчанию: false |
-| rights[catalog\_access] | bool | Доступ к функционалу списков. Необязательное поле, по умолчанию: false |
+| rights\[leads\] | object | Права пользователя на сделки. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
+| rights\[contacts\] | object | Права пользователя на контакты. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
+| rights\[companies\] | object | Права пользователя на компании. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
+| rights\[tasks\] | object | Права пользователя на задачи. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
+| rights\[status\_rights\] | array/null | Права пользователя на статусы. Необязательное поле, по умолчанию: null |
+| rights\[mail\_access\] | bool | Доступ к функционалу почты. Необязательное поле, по умолчанию: false |
+| rights\[catalog\_access\] | bool | Доступ к функционалу списков. Необязательное поле, по умолчанию: false |
 | request\_id | string | Поле, которое вернется вам в ответе без изменений и не будет сохранено. Необязательный параметр |
 
 #### Пример запроса
 
-```
-{
-  "name": "role 3",
-  "rights": {
-    "leads": {
-      "add": "A",
-      "edit": "G",
-      "view": "G",
-      "delete": "G",
-      "export": "G"
-    },
-    "tasks": {
-      "edit": "A",
-      "delete": "A"
-    },
-    "contacts": {
-      "add": "A",
-      "edit": "A",
-      "view": "A",
-      "delete": "A",
-      "export": "A"
-    },
-    "companies": {
-      "add": "A",
-      "edit": "A",
-      "view": "A",
-      "delete": "A",
-      "export": "A"
-    },
-    "mail_access": true,
-    "status_rights": [
-      {
-        "entity_type": "leads",
-        "pipeline_id": 16056,
-        "status_id": 20542166,
-        "rights": {
+    
+    {
+      "name": "role 3",
+      "rights": {
+        "leads": {
+          "add": "A",
+          "edit": "G",
+          "view": "G",
+          "delete": "G",
+          "export": "G"
+        },
+        "tasks": {
+          "edit": "A",
+          "delete": "A"
+        },
+        "contacts": {
+          "add": "A",
           "edit": "A",
           "view": "A",
           "delete": "A",
           "export": "A"
-        }
+        },
+        "companies": {
+          "add": "A",
+          "edit": "A",
+          "view": "A",
+          "delete": "A",
+          "export": "A"
+        },
+        "mail_access": true,
+        "status_rights": [
+          {
+            "entity_type": "leads",
+            "pipeline_id": 16056,
+            "status_id": 20542166,
+            "rights": {
+              "edit": "A",
+              "view": "A",
+              "delete": "A",
+              "export": "A"
+            }
+          }
+        ],
+        "catalog_access": true
       }
-    ],
-    "catalog_access": true
-  }
-}
-```
+    }
+    
 
 #### Заголовок типа данных при успешном результате
 
@@ -988,76 +988,76 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
-```
-{
-  "_total_items": 1,
-  "_embedded": {
-    "roles": [
-      {
-        "id": 901,
-        "name": "role 3",
-        "rights": {
-          "leads": {
-            "add": "A",
-            "edit": "G",
-            "view": "G",
-            "delete": "G",
-            "export": "G"
-          },
-          "tasks": {
-            "edit": "A",
-            "delete": "A"
-          },
-          "contacts": {
-            "add": "A",
-            "edit": "A",
-            "view": "A",
-            "delete": "A",
-            "export": "A"
-          },
-          "companies": {
-            "add": "A",
-            "edit": "A",
-            "view": "A",
-            "delete": "A",
-            "export": "A"
-          },
-          "mail_access": true,
-          "status_rights": [
-            {
-              "entity_type": "leads",
-              "pipeline_id": 12730,
-              "status_id": 20542166,
-              "rights": {
+    
+    {
+      "_total_items": 1,
+      "_embedded": {
+        "roles": [
+          {
+            "id": 901,
+            "name": "role 3",
+            "rights": {
+              "leads": {
+                "add": "A",
+                "edit": "G",
+                "view": "G",
+                "delete": "G",
+                "export": "G"
+              },
+              "tasks": {
+                "edit": "A",
+                "delete": "A"
+              },
+              "contacts": {
+                "add": "A",
                 "edit": "A",
                 "view": "A",
                 "delete": "A",
                 "export": "A"
-              }
+              },
+              "companies": {
+                "add": "A",
+                "edit": "A",
+                "view": "A",
+                "delete": "A",
+                "export": "A"
+              },
+              "mail_access": true,
+              "status_rights": [
+                {
+                  "entity_type": "leads",
+                  "pipeline_id": 12730,
+                  "status_id": 20542166,
+                  "rights": {
+                    "edit": "A",
+                    "view": "A",
+                    "delete": "A",
+                    "export": "A"
+                  }
+                },
+                {
+                  "entity_type": "leads",
+                  "pipeline_id": 16056,
+                  "status_id": 20583101,
+                  "rights": {
+                    "edit": "D",
+                    "view": "D",
+                    "delete": "D"
+                  }
+                }
+              ],
+              "catalog_access": true
             },
-            {
-              "entity_type": "leads",
-              "pipeline_id": 16056,
-              "status_id": 20583101,
-              "rights": {
-                "edit": "D",
-                "view": "D",
-                "delete": "D"
+            "_links": {
+              "self": {
+                "href": "https://test.amocrm.ru/api/v4/roles/901/"
               }
             }
-          ],
-          "catalog_access": true
-        },
-        "_links": {
-          "self": {
-            "href": "https://test.amocrm.ru/api/v4/roles/901/"
           }
-        }
+        ]
       }
-    ]
-  }
-}
-```
+    }
+    
 
 ### Редактирование роли
 
@@ -1081,38 +1081,38 @@ Content-Type: application/json
 
 Обязательных полей нет, но запрос не может быть пустым.
 
-Если параметр rights[status\_rights] имеет значение null или [], то права на статусы сделок для данной роли будут удалены.  
+Если параметр rights\[status\_rights\] имеет значение null или \[\], то права на статусы сделок для данной роли будут удалены.  
 В таком случае права на статусы неразобранного останутся и на каждое действие будет выставлено значение запрещено.
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
 | name | string | Название роли |
 | rights | object | Права пользователя. Поле не является обязательным, по умолчанию все доступы запрещены |
-| rights[leads] | object | Права пользователя на сделки. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
-| rights[contacts] | object | Права пользователя на контакты. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
-| rights[companies] | object | Права пользователя на компании. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
-| rights[tasks] | object | Права пользователя на задачи. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
-| rights[status\_rights] | array/null | Права пользователя на статусы. Необязательное поле, по умолчанию: null |
-| rights[mail\_access] | bool | Доступ к функционалу почты. Необязательное поле, по умолчанию: false |
-| rights[catalog\_access] | bool | Доступ к функционалу списков. Необязательное поле, по умолчанию: false |
+| rights\[leads\] | object | Права пользователя на сделки. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
+| rights\[contacts\] | object | Права пользователя на контакты. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
+| rights\[companies\] | object | Права пользователя на компании. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
+| rights\[tasks\] | object | Права пользователя на задачи. Обязательное поле, если нет role\_id и не выставлен флаг is\_free |
+| rights\[status\_rights\] | array/null | Права пользователя на статусы. Необязательное поле, по умолчанию: null |
+| rights\[mail\_access\] | bool | Доступ к функционалу почты. Необязательное поле, по умолчанию: false |
+| rights\[catalog\_access\] | bool | Доступ к функционалу списков. Необязательное поле, по умолчанию: false |
 
 #### Пример запроса
 
-```
-{
-  "name": "role 3 modified",
-  "rights": {
-    "contacts": {
-      "add": "A",
-      "edit": "D",
-      "view": "D",
-      "delete": "D",
-      "export": "D"
-    },
-    "status_rights": null
-  }
-}
-```
+    
+    {
+      "name": "role 3 modified",
+      "rights": {
+        "contacts": {
+          "add": "A",
+          "edit": "D",
+          "view": "D",
+          "delete": "D",
+          "export": "D"
+        },
+        "status_rights": null
+      }
+    }
+    
 
 #### Заголовок типа данных при успешном результате
 
@@ -1137,58 +1137,58 @@ Content-Type: application/problem+json
 
 #### Пример ответа
 
-```
-{
-  "id": 901,
-  "name": "role 3 modified",
-  "rights": {
-    "leads": {
-      "add": "A",
-      "edit": "G",
-      "view": "G",
-      "delete": "G",
-      "export": "G"
-    },
-    "tasks": {
-      "edit": "A",
-      "delete": "A"
-    },
-    "contacts": {
-      "add": "A",
-      "edit": "D",
-      "view": "D",
-      "delete": "D",
-      "export": "D"
-    },
-    "companies": {
-      "add": "A",
-      "edit": "A",
-      "view": "A",
-      "delete": "A",
-      "export": "A"
-    },
-    "mail_access": true,
-    "status_rights": [
-      {
-        "entity_type": "leads",
-        "pipeline_id": 16056,
-        "status_id": 20583101,
-        "rights": {
+    
+    {
+      "id": 901,
+      "name": "role 3 modified",
+      "rights": {
+        "leads": {
+          "add": "A",
+          "edit": "G",
+          "view": "G",
+          "delete": "G",
+          "export": "G"
+        },
+        "tasks": {
+          "edit": "A",
+          "delete": "A"
+        },
+        "contacts": {
+          "add": "A",
           "edit": "D",
           "view": "D",
-          "delete": "D"
+          "delete": "D",
+          "export": "D"
+        },
+        "companies": {
+          "add": "A",
+          "edit": "A",
+          "view": "A",
+          "delete": "A",
+          "export": "A"
+        },
+        "mail_access": true,
+        "status_rights": [
+          {
+            "entity_type": "leads",
+            "pipeline_id": 16056,
+            "status_id": 20583101,
+            "rights": {
+              "edit": "D",
+              "view": "D",
+              "delete": "D"
+            }
+          }
+        ],
+        "catalog_access": true
+      },
+      "_links": {
+        "self": {
+          "href": "https://test.amocrm.ru/api/v4/roles/901/"
         }
       }
-    ],
-    "catalog_access": true
-  },
-  "_links": {
-    "self": {
-      "href": "https://test.amocrm.ru/api/v4/roles/901/"
     }
-  }
-}
-```
+    
 
 ### Удаление роли
 
@@ -1232,23 +1232,23 @@ Content-Type: application/json
 
 У пользователей доступны следующие права:
 
-1. Создание
-2. Просмотр
-3. Редактирование
-4. Удаление
-5. Экспорт
+1.  Создание
+2.  Просмотр
+3.  Редактирование
+4.  Удаление
+5.  Экспорт
 
 Приоритет расчета прав идет в следующем порядке (на примере сделок):
 
-1. Сначала применяются общие права
-2. Затем применяются права на статусы (ограничивают/расширяют права)
-3. Затем права на просмотр могут быть расширены, если пользователь является подписчиком в чате сделки
+1.  Сначала применяются общие права
+2.  Затем применяются права на статусы (ограничивают/расширяют права)
+3.  Затем права на просмотр могут быть расширены, если пользователь является подписчиком в чате сделки
 
 #### Особенности
 
-* Права на создание и права на статусы могут иметь только одно из двух значений: A, D
-* Статусы неразобранного не имеют прав на экспорт
-* Права для покупателей наследуются от прав на сделки
+*   Права на создание и права на статусы могут иметь только одно из двух значений: A, D
+*   Статусы неразобранного не имеют прав на экспорт
+*   Права для покупателей наследуются от прав на сделки
 
 ### Зависимости прав пользователей
 

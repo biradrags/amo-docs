@@ -1,3 +1,5 @@
+<!-- https://www.amocrm.ru/developers/content/oauth/button -->
+
 # https://www.amocrm.ru/developers/content/oauth/button
 
 Кнопка на сайт
@@ -10,22 +12,21 @@
 
 Для установки кнопки на сайт для существующей интеграции необходимо разместить несколько строк JS кода в том месте, где вы хотите увидеть кнопку. Кнопка поддерживает параметры, которые описаны ниже.
 
-```
-
-<script
-  class="amocrm_oauth"
-  charset="utf-8"
-  data-client-id="xxxx"
-  data-title="Button"
-  data-compact="false"
-  data-class-name="className"
-  data-color="default"
-  data-state="state"
-  data-error-callback="functionName"
-  data-mode="popup"
-  src="https://www.amocrm.ru/auth/button.min.js"
-></script>
-```
+    
+    <script
+      class="amocrm_oauth"
+      charset="utf-8"
+      data-client-id="xxxx"
+      data-title="Button"
+      data-compact="false"
+      data-class-name="className"
+      data-color="default"
+      data-state="state"
+      data-error-callback="functionName"
+      data-mode="popup"
+      src="https://www.amocrm.ru/auth/button.min.js"
+    ></script>
+    
 
 #### Параметры
 
@@ -35,35 +36,45 @@
 | data-title | Текст, который будет отображаться пользователю на кнопку (по умолчанию “Авторизоваться через amoCRM”) |
 | data-compact | Если передано значение true, текст на кнопке не будет отображаться, будет отображаться только логотип amoCRM |
 | data-class-name | Класс, который будет установлен элементу кнопки на странице |
-| data-color | Цветовая схема кнопки, доступны следующие схемы:  * default – голубая * blue – синяя * violet – фиолетовая * green – зеленая * orange – оранжевый * red – красный || data-state | Параметр состояния, который будет передан в модальное окно |
+| data-color | Цветовая схема кнопки, доступны следующие схемы:
+*   default – голубая
+*   blue – синяя
+*   violet – фиолетовая
+*   green – зеленая
+*   orange – оранжевый
+*   red – красный
+
+ |
+| data-state | Параметр состояния, который будет передан в модальное окно |
 | data-error-callback | Название функции, которая должна быть в глобальной области видимости. Функция будет вызвана, если пользователь отказал в предоставлении доступа к приложению. На вход функция получит объект с ключами client\_id (id интеграции) и error (код ошибки). В данный момент доступен только один код ошибки – access\_denied, если пользователь отказался предоставлять доступы. |
-| data-mode | Доступные параметры: **popup** и **post\_message**. При параметре popup, открывшееся окно будет закрыто, а перенаправление на Redirect URI будет произведено в основном окне, из которого было вызвано модальное. |
+| data-mode | Доступные параметры: **popup** и **post\_message**.  
+При параметре popup, открывшееся окно будет закрыто, а перенаправление на Redirect URI будет произведено в основном окне, из которого было вызвано модальное.  
+При параметре post\_message перенаправление произойдет в окне, которое было открыто, после обработки кода авторизации вам нужно закрыть окно. Также можно сообщить информацию об успешности действия в основное окно с использованием функции [postMessage](https://developer.mozilla.org/ru/docs/Web/API/Window/postMessage). |
 
 Ниже рассмотрим кнопку с метаданными, необходимую для создания внешней интеграции. Такой механизм дистрибьюции подходит для небольших систем, у которых количество пользователей не превышает несколько десяткой клиентов. Для каждой установки будет создана отдельная интеграция, которой сможет управлять администратор аккаунта.
 
 Для установки кнопки на сайт для внешней интеграции необходимо разместить несколько строк JS кода в том месте, где вы хотите увидеть кнопку. Кнопка поддерживает параметры, которые описаны ниже.
 
-```
-
-<script
-  class="amocrm_oauth"
-  charset="utf-8"
-  data-name="Integration name"
-  data-description="Integration description"
-  data-redirect_uri="https://example.com"
-  data-secrets_uri="https://example.com/secrets"
-  data-logo="https://example.com/amocrm_logo.png"
-  data-scopes="crm,notifications"
-  data-title="Button"
-  data-compact="false"
-  data-class-name="className"
-  data-color="default"
-  data-state="state"
-  data-error-callback="functionName"
-  data-mode="popup"
-  src="https://www.amocrm.ru/auth/button.min.js"
-></script>
-```
+    
+    <script
+      class="amocrm_oauth"
+      charset="utf-8"
+      data-name="Integration name"
+      data-description="Integration description"
+      data-redirect_uri="https://example.com"
+      data-secrets_uri="https://example.com/secrets"
+      data-logo="https://example.com/amocrm_logo.png"
+      data-scopes="crm,notifications"
+      data-title="Button"
+      data-compact="false"
+      data-class-name="className"
+      data-color="default"
+      data-state="state"
+      data-error-callback="functionName"
+      data-mode="popup"
+      src="https://www.amocrm.ru/auth/button.min.js"
+    ></script>
+    
 
 #### Параметры
 
@@ -78,22 +89,24 @@
 | data-title | Текст, который будет отображаться пользователю на кнопку (по умолчанию “Авторизоваться через amoCRM”) |
 | data-compact | Если передано значение true, текст на кнопке не будет отображаться, будет отображаться только логотип amoCRM |
 | data-class-name | Класс, который будет установлен элементу кнопки на странице |
-| data-color | Цветовая схема кнопки, доступны следующие схемы: |
+| data-color | Цветовая схема кнопки, доступны следующие схемы:
+*   default – голубая
+*   blue – синяя
+*   violet – фиолетовая
+*   green – зеленая
+*   orange – оранжевый
+*   red – красный
 
-* default – голубая
-* blue – синяя
-* violet – фиолетовая
-* green – зеленая
-* orange – оранжевый
-* red – красный
-
+ |
 | data-state | Параметр состояния, который будет передан в модальное окно |
 | data-error-callback | Название функции, которая должна быть в глобальной области видимости. Функция будет вызвана, если пользователь отказал в предоставлении доступа к приложению. На вход функция получит объект с ключами client\_id (id интеграции) и error (код ошибки). В данный момент доступен только один код ошибки – access\_denied, если пользователь отказался предоставлять доступы. |
-| data-mode | Доступные параметры: **popup** и **post\_message**. При параметре popup, открывшееся окно будет закрыто, а перенаправление на Redirect URI будет произведено в основном окне, из которого было вызвано модальное. При параметре post\_message перенаправление произойдет в окне, которое было открыто, после обработки кода авторизации вам нужно закрыть окно. Также можно сообщить информацию об успешности действия в основное окно с использованием функции [postMessage](https://developer.mozilla.org/ru/docs/Web/API/Window/postMessage). |
+| data-mode | Доступные параметры: **popup** и **post\_message**.  
+При параметре popup, открывшееся окно будет закрыто, а перенаправление на Redirect URI будет произведено в основном окне, из которого было вызвано модальное.  
+При параметре post\_message перенаправление произойдет в окне, которое было открыто, после обработки кода авторизации вам нужно закрыть окно. Также можно сообщить информацию об успешности действия в основное окно с использованием функции [postMessage](https://developer.mozilla.org/ru/docs/Web/API/Window/postMessage). |
 
 Для того, чтобы вы могли самостоятельно использовать кнопку без самой механики открытия окна, либо изменять ее – мы делаем доступными ее исходники по [ссылке](https://www.amocrm.ru/auth/button.js?2).
 
----
+* * *
 
 #### Смотрите также
 

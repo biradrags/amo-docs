@@ -1,8 +1,8 @@
-# https://www.amocrm.ru/developers/content/integrations/areas
+<!-- https://www.amocrm.ru/developers/content/integrations/areas -->
+
+# Области подключения виджетов
 
 Области подключения
-
-### Области подключения виджетов
 
 Подключение виджетов по сути представляет собой подключение JS-скриптов на определенных страницах (интерфейсах) amoCRM. Сделать это можно не на всех, а только на определенном списке экранов.
 
@@ -30,23 +30,21 @@
 
 Например, данный виджет будет инициализироваться на странице настроек, в настройках digital воронки, в карточках и списках контактов и сделок, но использовать правую колонку будет только в указанных карточках:
 
-```
-"locations": [
-        "lcard-1",
-        "llist-0",
-        "ccard-1",
-        "clist-0",
-        "comcard-0",
-        "card_sdk",
-        "settings",
-        "digital_pipeline",
-        "lead_sources",
-        "whatsapp_modal",
-        "catalogs",
-        "advanced_settings",
-        "amoforms"
-    ]
-```
+    "locations": [
+            "lcard-1",
+            "llist-0",
+            "ccard-1",
+            "clist-0",
+            "comcard-0",
+            "card_sdk",
+            "settings",
+            "digital_pipeline",
+            "lead_sources",
+            "whatsapp_modal",
+            "catalogs",
+            "advanced_settings",
+            "amoforms"
+        ]
 
 Кроме того, указание true или false в блоке "init\_once" файла manifest.json регулирует возможность каждый раз при переходе из области в область вызывать функции init() и bind\_actions(), или вызвать их только один раз. К примеру, виджеты телефоний постоянно удерживают WebSocket соединение и его обрыва происходить не должно, поэтому init\_once должно иметь значение true. Если же общего для всех страниц контекста нет, то лучше ставить в false.
 
@@ -58,9 +56,7 @@
 
 Если ваш виджет имеет область видимости lead\_sources, то вы можете проверить, к какой воронке аккаунта он привязан с помощью HTTP-запроса или в [script.js вашего виджета](/developers/content/integrations/script_js#get_pipeline_id):
 
-```
-https://myaccount.amocrm.ru/api/v4/widgets/my_widget_code
-```
+    https://myaccount.amocrm.ru/api/v4/widgets/my_widget_code
 
 Для работы с SDK списков необходимо указать специальную область видимости "catalogs", id списка, с которым будет работать виджет, а также реализовать специальный callback loadCatalogElement. [Подробнее о SDK каталогов.](/developers/content/integrations/catalogs_sdk)
 

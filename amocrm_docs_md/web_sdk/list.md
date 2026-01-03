@@ -1,65 +1,61 @@
-# https://www.amocrm.ru/developers/content/web_sdk/list
+<!-- https://www.amocrm.ru/developers/content/web_sdk/list -->
+
+# Пользовательские списки
 
 Интерфейс списков
 
 Виджеты могут работать в интерфейсах списка сделок, контактов, компаний и покупателей для осуществления каких-то массовых действий над элементами данных списков. Возможные значения свойства **locations** в **manifest.json**:
 
-* **llist** – список сделок
-* **clist** – список контактов/компаний
-* **tlist** – список задач
-* **culist** – список покупателей
+*   **llist** – список сделок
+*   **clist** – список контактов/компаний
+*   **tlist** – список задач
+*   **culist** – список покупателей
 
 ![](/uploads/2020/06/image1-2-1024x650.png)
 
 Для данных областей видимости доступен метод **list\_selected**:
 
-```
 this.callbacks = {
   ...
 
   render: function () {
-    var selected_data = self.list_selected();
+    var selected\_data = self.list\_selected();
 
-    this.render_template({
+    this.render\_template({
       body: '<div class="widget-body-unique-class-name">' +
-        'Количество сделок: ' + selected_data.summary.items
+        'Количество сделок: ' + selected\_data.summary.items
       '</div>'
     });
   },
 
   ...
 }
-```
 
 В selected\_data будут храниться выбранные пользователем элементы, в которых будет id, тип сущности в которой пользователь находится и данные телефонов и email-ов выделенных контактов, либо контактов связанных с выделенными сделками/покупателями в соответствующих разделах. Для отрисовки виджета используется метод **render\_template**, параметры которого описаны на странице “[Интерфейс карточки](/developers/content/web_sdk/card)“. Пример результата выполнения метода **list\_selected**:
 
-```
 {
-  "selected": [{
+  "selected": \[{
     "id": 33378970,
     "type": "lead",
-    "emails": [],
-    "phones": []
+    "emails": \[\],
+    "phones": \[\]
   }, {
     "id": 33363766,
     "type": "lead",
-    "emails": [],
-    "phones": []
+    "emails": \[\],
+    "phones": \[\]
   }, {
     "id": 33363366,
     "type": "lead",
-    "emails": [],
-    "phones": ["+7963 715-34-37"]
-  }],
+    "emails": \[\],
+    "phones": \["+7963 715-34-37"\]
+  }\],
   "summary": {
     "items": 3,
     "emails": 0,
     "phones": 1
   }
 }
-```
-
-### Пользовательские списки
 
 Помимо данных интерфейсов списков в amoCRM существуют полноценные пользовательские списки, в которых может быть полностью собственный набор полей, а также собственная карточка элемента. То есть разработчик может полностью изменить внешний вид карточки элемента такого списка с помощью специального колбэка виджета.
 
@@ -69,24 +65,20 @@ this.callbacks = {
 
 **Пример:**
 
-```
-onSave: _.bind(function () {
-  this.setSdkCatalogId(this.get_settings().catalog_id);
+onSave: \_.bind(function () {
+  this.setSdkCatalogId(this.get\_settings().catalog\_id);
 
   return true;
 }, self),
-```
 
 После установки настроек, при попытке отредактировать элемент каталога, будет вызван callback виджета **loadCatalogElement**. При этом, стандартная карточка редактирования элемента списка **не откроется**, показ карточки нужно реализовывать самостоятельно, например, через базовый [компонент модального окна](/developers/content/web_sdk/system_modules) **lib/components/base/modal**.
 
-```
 this.callbacks = {
   ...
 
-  loadCatalogElement: function (catalog_element) {
-    console.log('Редактирование элемента каталога #' + catalog_element.id);
+  loadCatalogElement: function (catalog\_element) {
+    console.log('Редактирование элемента каталога #' + catalog\_element.id);
   },
 
   ...
 }
-```

@@ -1,3 +1,5 @@
+<!-- https://www.amocrm.ru/developers/content/crm_platform/products-api -->
+
 # https://www.amocrm.ru/developers/content/crm_platform/products-api
 
 Товары
@@ -11,11 +13,11 @@
 
 Элементы списка товаров содержат предустановленный набор полей, которые нельзя удалить:
 
-* – **sku** ( Артикул )
-* – **description** ( Описание )
-* – **price** ( Цена )
-* – **group** ( Группа )
-* – **external\_id** ( скрытое поле )
+*   – **sku** ( Артикул )
+*   – **description** ( Описание )
+*   – **price** ( Цена )
+*   – **group** ( Группа )
+*   – **external\_id** ( скрытое поле )
 
 Для товаров также доступны все **основные** методы для работы со [списками](/developers/content/crm_platform/catalog) такие как:
 

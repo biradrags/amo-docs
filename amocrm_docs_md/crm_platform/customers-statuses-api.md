@@ -1,39 +1,41 @@
-# https://www.amocrm.ru/developers/content/crm_platform/customers-statuses-api
+<!-- https://www.amocrm.ru/developers/content/crm_platform/customers-statuses-api -->
+
+# Оглавление
 
 Статусы и сегменты покупателей
 
 В данном разделе описываются доступные методы для работы с этапами и сегментами покупателей
 
-### Оглавление
-
-* [Общая информация](#common-info)
-* [Список статусов покупателей](#customers-statuses-list)
-* [Получение статуса покупателей по ID](#customer-status-detail)
-* [Добавление статусов в воронку](#customers-statuses-add)
-* [Редактирование статуса покупателей](#customers-status-edit)
-* [Удаление статуса покупателей](#customer-status-delete)
-* [Список сегментов покупателей](#segments-list)
-* [Получение сегмента покупателей по ID](#segment-detail)
-* [Добавление сегмента покупателей](#segment-add)
-* [Редактирование сегмента покупателей](#segment-edit)
-* [Удаление сегмента покупателей](#segment-delete)
-* [Доступные цвета статусов](#customers-statuses-colors)
-* [Доступные цвета сегментов](#segments-colors)
+*   [Общая информация](#common-info)
+*   [Список статусов покупателей](#customers-statuses-list)
+*   [Получение статуса покупателей по ID](#customer-status-detail)
+*   [Добавление статусов в воронку](#customers-statuses-add)
+*   [Редактирование статуса покупателей](#customers-status-edit)
+*   [Удаление статуса покупателей](#customer-status-delete)
+*   [Список сегментов покупателей](#segments-list)
+*   [Получение сегмента покупателей по ID](#segment-detail)
+*   [Добавление сегмента покупателей](#segment-add)
+*   [Редактирование сегмента покупателей](#segment-edit)
+*   [Удаление сегмента покупателей](#segment-delete)
+*   [Доступные цвета статусов](#customers-statuses-colors)
+*   [Доступные цвета сегментов](#segments-colors)
 
 ### Общая информация
 
 В покупателях доступно 2 режима – динамическая сегментация и периодичность.  
-При использовании периодичности покупатель находится только в 1 статусе и может переходить между ними в зависимости от условий, даты следующей покупки, ожидаемой суммы покупки.
+При использовании периодичности покупатель находится только в 1 статусе и может переходить между ними в зависимости от условий, даты следующей покупки, ожидаемой суммы покупки.  
+При использовании динамический сегментации покупатель может находится в нескольких сегментах одновременно. У каждого сегмента есть свои условия входа и выхода, а также дополнительные поля.  
+В данный момент недоступно редактирование и создание условий через API как для статусов, так и для сегментов.
 
-* При режиме периодичности доступно не более 30 статусов, включая системные.
-* При режиме сегментации доступно не более 100 сегментов.
-* У сегментов может быть не более 30 дополнительных полей.
+*   При режиме периодичности доступно не более 30 статусов, включая системные.
+*   При режиме сегментации доступно не более 100 сегментов.
+*   У сегментов может быть не более 30 дополнительных полей.
 
 ### Список статусов покупателей
 
 #### Метод
 
-*GET /api/v4/customers/statuses*
+_GET /api/v4/customers/statuses_
 
 #### Описание
 
@@ -45,11 +47,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -76,132 +78,15 @@
 
 #### Пример ответа
 
-```
-
+        `{     "_total_items": 6,     "_links": {         "self": {             "href": "https://example.amocrm.ru/api/v4/customers/statuses"         }     },     "_embedded": {         "statuses": [             {                 "id": 4740010,                 "name": "Recently purchased",                 "sort": 0,                 "is_default": true,                 "conditions": [],                 "color": "#ccff66",                 "type": 4,                 "account_id": 28805383,                 "_links": {                     "self": {                         "href": "https://example.amocrm.ru/api/v4/customers/statuses/4740010"                     }                 }             },             {                 "id": 4740013,                 "name": "Stage 1",                 "sort": 1,                 "is_default": false,                 "conditions": [],                 "color": "#fd5598",                 "type": 0,                 "account_id": 28805383,                 "_links": {                     "self": {                         "href": "https://example.amocrm.ru/api/v4/customers/statuses/4740013"                     }                 }             },             {                 "id": 4740025,                 "name": "Expected purchase",                 "sort": 2,                 "is_default": true,                 "conditions": [                     [                         {                             "type": "before_purchase",                             "match": {                                 "value": 0                             },                             "conditions": [                                 {                                     "value": 0                                 }                             ]                         }                     ]                 ],                 "color": "#99ccff",                 "type": 3,                 "account_id": 28805383,                 "_links": {                     "self": {                         "href": "https://example.amocrm.ru/api/v4/customers/statuses/4740025"                     }                 }             },             {                 "id": 4740028,                 "name": "Did not purchase",                 "sort": 4,                 "is_default": true,                 "conditions": [],                 "color": "#fd5598",                 "type": 2,                 "account_id": 28805383,                 "_links": {                     "self": {                         "href": "https://example.amocrm.ru/api/v4/customers/statuses/4740028"                     }                 }             },             {                 "id": 4740031,                 "name": "Closed",                 "sort": 5,                 "is_default": true,                 "conditions": [                     [                         {                             "type": "after_today",                             "match": {                                 "value": 60                             },                             "conditions": [                                 {                                     "value": 60                                 }                             ]                         }                     ]                 ],                 "color": "#d5d8db",                 "type": 3,                 "account_id": 28805383,                 "_links": {                     "self": {                         "href": "https://example.amocrm.ru/api/v4/customers/statuses/4740031"                     }                 }             }         ]     } }`
         
-{
-    "_total_items": 6,
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/customers/statuses"
-        }
-    },
-    "_embedded": {
-        "statuses": [
-            {
-                "id": 4740010,
-                "name": "Recently purchased",
-                "sort": 0,
-                "is_default": true,
-                "conditions": [],
-                "color": "#ccff66",
-                "type": 4,
-                "account_id": 28805383,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/statuses/4740010"
-                    }
-                }
-            },
-            {
-                "id": 4740013,
-                "name": "Stage 1",
-                "sort": 1,
-                "is_default": false,
-                "conditions": [],
-                "color": "#fd5598",
-                "type": 0,
-                "account_id": 28805383,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/statuses/4740013"
-                    }
-                }
-            },
-            {
-                "id": 4740025,
-                "name": "Expected purchase",
-                "sort": 2,
-                "is_default": true,
-                "conditions": [
-                    [
-                        {
-                            "type": "before_purchase",
-                            "match": {
-                                "value": 0
-                            },
-                            "conditions": [
-                                {
-                                    "value": 0
-                                }
-                            ]
-                        }
-                    ]
-                ],
-                "color": "#99ccff",
-                "type": 3,
-                "account_id": 28805383,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/statuses/4740025"
-                    }
-                }
-            },
-            {
-                "id": 4740028,
-                "name": "Did not purchase",
-                "sort": 4,
-                "is_default": true,
-                "conditions": [],
-                "color": "#fd5598",
-                "type": 2,
-                "account_id": 28805383,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/statuses/4740028"
-                    }
-                }
-            },
-            {
-                "id": 4740031,
-                "name": "Closed",
-                "sort": 5,
-                "is_default": true,
-                "conditions": [
-                    [
-                        {
-                            "type": "after_today",
-                            "match": {
-                                "value": 60
-                            },
-                            "conditions": [
-                                {
-                                    "value": 60
-                                }
-                            ]
-                        }
-                    ]
-                ],
-                "color": "#d5d8db",
-                "type": 3,
-                "account_id": 28805383,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/statuses/4740031"
-                    }
-                }
-            }
-        ]
-    }
-}
-        
-```
+    
 
 ### Получение статуса покупателей по ID
 
 #### Метод
 
-*GET /api/v4/customers/statuses/{id}*
+_GET /api/v4/customers/statuses/{id}_
 
 #### Описание
 
@@ -213,11 +98,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -244,56 +129,15 @@
 
 #### Пример ответа
 
-```
-
+        `{     "id": 4051135,     "name": "Статус покупателя для примера",     "sort": 2,     "is_default": false,     "conditions": [         [             {                 "type": "tag",                 "options": {                     "name": "Теги"                 },                 "logic_operator": "or",                 "conditions": [                     {                         "id": 174727,                         "name": "Условие"                     }                 ],                 "match": {                     "value": [                         174727                     ],                     "logic": "or"                 },                 "tmpl": "tag_customers"             }         ],         []     ],     "color": "#ccc8f9",     "type": 0,     "account_id": 321321,     "_links": {         "self": {             "href": "https://example.amocrm.ru/api/v4/customers/statuses/4051135"         }     } }`
         
-{
-    "id": 4051135,
-    "name": "Статус покупателя для примера",
-    "sort": 2,
-    "is_default": false,
-    "conditions": [
-        [
-            {
-                "type": "tag",
-                "options": {
-                    "name": "Теги"
-                },
-                "logic_operator": "or",
-                "conditions": [
-                    {
-                        "id": 174727,
-                        "name": "Условие"
-                    }
-                ],
-                "match": {
-                    "value": [
-                        174727
-                    ],
-                    "logic": "or"
-                },
-                "tmpl": "tag_customers"
-            }
-        ],
-        []
-    ],
-    "color": "#ccc8f9",
-    "type": 0,
-    "account_id": 321321,
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/customers/statuses/4051135"
-        }
-    }
-}
-        
-```
+    
 
 ### Добавление статусов в воронку
 
 #### Метод
 
-*POST /api/v4/customers/statuses*
+_POST /api/v4/customers/statuses_
 
 #### Описание
 
@@ -305,7 +149,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -318,31 +162,17 @@
 
 #### Пример запроса
 
-```
-
+        `[     {         "name": "Новый статус",         "sort": 100,         "color": "#fffeb2"     },     {         "name": "Новый статус 2",         "sort": 200,         "color": "#fffeb2"     } ]`
         
-[
-    {
-        "name": "Новый статус",
-        "sort": 100,
-        "color": "#fffeb2"
-    },
-    {
-        "name": "Новый статус 2",
-        "sort": 200,
-        "color": "#fffeb2"
-    }
-]
-        
-```
+    
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -365,47 +195,15 @@
 
 #### Пример ответа
 
-```
-
+        `{     "_total_items": 2,     "_links": {         "self": {             "href": "https://example.amocrm.ru/api/v4/customers/statuses"         }     },     "_embedded": {         "statuses": [             {                 "id": 5649280,                 "request_id": "0",                 "_links": {                     "self": {                         "href": "https://example.amocrm.ru/api/v4/customers/statuses/5649280"                     }                 }             },             {                 "id": 5649283,                 "request_id": "1",                 "_links": {                     "self": {                         "href": "https://example.amocrm.ru/api/v4/customers/statuses/5649283"                     }                 }             }         ]     } }`
         
-{
-    "_total_items": 2,
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/customers/statuses"
-        }
-    },
-    "_embedded": {
-        "statuses": [
-            {
-                "id": 5649280,
-                "request_id": "0",
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/statuses/5649280"
-                    }
-                }
-            },
-            {
-                "id": 5649283,
-                "request_id": "1",
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/statuses/5649283"
-                    }
-                }
-            }
-        ]
-    }
-}
-        
-```
+    
 
 ### Редактирование статуса покупателей
 
 #### Метод
 
-*PATCH /api/v4/customers/statuses/{id}*
+_PATCH /api/v4/customers/statuses/{id}_
 
 #### Описание
 
@@ -417,7 +215,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -432,23 +230,17 @@
 
 #### Пример запроса
 
-```
-
+        `{     "name": "Новое название для статуса",     "color": "#c1e0ff" }`
         
-{
-    "name": "Новое название для статуса",
-    "color": "#c1e0ff"
-}
-        
-```
+    
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -465,33 +257,15 @@
 
 #### Пример ответа
 
-```
-
+        `{     "id": 5649280,     "name": "Новое название для статуса",     "sort": 5,     "is_default": false,     "conditions": [],     "color": "#c1e0ff",     "type": 0,     "account_id": 28805383,     "request_id": "0",     "_links": {         "self": {             "href": "https://example.amocrm.ru/api/v4/customers/statuses/5649280"         }     } }`
         
-{
-    "id": 5649280,
-    "name": "Новое название для статуса",
-    "sort": 5,
-    "is_default": false,
-    "conditions": [],
-    "color": "#c1e0ff",
-    "type": 0,
-    "account_id": 28805383,
-    "request_id": "0",
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/customers/statuses/5649280"
-        }
-    }
-}
-        
-```
+    
 
 ### Удаление статуса покупателей
 
 #### Метод
 
-*DELETE /api/v4/customers/statuses/{id}*
+_DELETE /api/v4/customers/statuses/{id}_
 
 #### Описание
 
@@ -499,13 +273,13 @@
 
 #### Ограничения
 
-* Метод доступен только с правами администратора аккаунта
-* Для удаления не доступны системные статусы
-* Покупатели будут перенесены в другие статусы, в зависимости от условий, в течении некоторого времени, после удаления
+*   Метод доступен только с правами администратора аккаунта
+*   Для удаления не доступны системные статусы
+*   Покупатели будут перенесены в другие статусы, в зависимости от условий, в течении некоторого времени, после удаления
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -524,7 +298,7 @@
 
 #### Метод
 
-*GET /api/v4/customers/segments*
+_GET /api/v4/customers/segments_
 
 #### Описание
 
@@ -536,11 +310,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -568,102 +342,15 @@
 
 #### Пример ответа
 
-```
-
+        `{     "_total_items": 2,     "_page": 1,     "_page_count": 1,     "_links": {         "self": {             "href": "https://example.amocrm.ru/api/v4/customers/segments?page=1&limit=50"         }     },     "_embedded": {         "segments": [             {                 "id": 51,                 "created_at": 1589615328,                 "updated_at": 1591089010,                 "account_id": 28805383,                 "name": "Сегмент 1",                 "color": "6610f2",                 "available_products_price_types": [                     288891                 ],                 "customers_count": 0,                 "custom_fields_values": [                     {                         "values": [                             {                                 "value": true                             }                         ],                         "field_id": 269471,                         "field_name": "Поле Чекбокс",                         "field_code": "MYSUPERCHECKBOX",                         "field_type": "checkbox"                     },                     {                         "values": [                             {                                 "value": "Значение 1",                                 "enum_id": 381857                             }                         ],                         "field_id": 269473,                         "field_name": "Поле Список",                         "field_code": null,                         "field_type": "select"                     },                     {                         "values": [                             {                                 "value": "12424"                             }                         ],                         "field_id": 272427,                         "field_name": "Поле текст",                         "field_code": null,                         "field_type": "text"                     }                 ],                 "_links": {                     "self": {                         "href": "https://example.amocrm.ru/api/v4/customers/segments/51"                     }                 }             },             {                 "id": 21,                 "created_at": 1587376544,                 "updated_at": 1587376544,                 "account_id": 28805383,                 "name": "Сегмент 2",                 "color": "4a001f",                 "available_products_price_types": [                     271211                 ],                 "customers_count": 0,                 "custom_fields_values": [],                 "_links": {                     "self": {                         "href": "https://example.amocrm.ru/api/v4/customers/segments/21"                     }                 }             }         ]     } }`
         
-{
-    "_total_items": 2,
-    "_page": 1,
-    "_page_count": 1,
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/customers/segments?page=1&limit=50"
-        }
-    },
-    "_embedded": {
-        "segments": [
-            {
-                "id": 51,
-                "created_at": 1589615328,
-                "updated_at": 1591089010,
-                "account_id": 28805383,
-                "name": "Сегмент 1",
-                "color": "6610f2",
-                "available_products_price_types": [
-                    288891
-                ],
-                "customers_count": 0,
-                "custom_fields_values": [
-                    {
-                        "values": [
-                            {
-                                "value": true
-                            }
-                        ],
-                        "field_id": 269471,
-                        "field_name": "Поле Чекбокс",
-                        "field_code": "MYSUPERCHECKBOX",
-                        "field_type": "checkbox"
-                    },
-                    {
-                        "values": [
-                            {
-                                "value": "Значение 1",
-                                "enum_id": 381857
-                            }
-                        ],
-                        "field_id": 269473,
-                        "field_name": "Поле Список",
-                        "field_code": null,
-                        "field_type": "select"
-                    },
-                    {
-                        "values": [
-                            {
-                                "value": "12424"
-                            }
-                        ],
-                        "field_id": 272427,
-                        "field_name": "Поле текст",
-                        "field_code": null,
-                        "field_type": "text"
-                    }
-                ],
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/segments/51"
-                    }
-                }
-            },
-            {
-                "id": 21,
-                "created_at": 1587376544,
-                "updated_at": 1587376544,
-                "account_id": 28805383,
-                "name": "Сегмент 2",
-                "color": "4a001f",
-                "available_products_price_types": [
-                    271211
-                ],
-                "customers_count": 0,
-                "custom_fields_values": [],
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/segments/21"
-                    }
-                }
-            }
-        ]
-    }
-}
-        
-```
+    
 
 ### Получение сегмента покупателей по ID
 
 #### Метод
 
-*GET /api/v4/customers/segments/{id}*
+_GET /api/v4/customers/segments/{id}_
 
 #### Описание
 
@@ -675,11 +362,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -707,70 +394,15 @@
 
 #### Пример ответа
 
-```
-
+        `{     "id": 51,     "created_at": 1589615328,     "updated_at": 1591089010,     "account_id": 28805383,     "name": "Новый сегмент",     "color": "6610f2",     "available_products_price_types": [         288891     ],     "customers_count": 0,     "custom_fields_values": [         {             "values": [                 {                     "value": true                 }             ],             "field_id": 269471,             "field_name": "Поле Чекбокс",             "field_code": "MYSUPERCHECKBOX",             "field_type": "checkbox"         },         {             "values": [                 {                     "value": "Значение 1",                     "enum_id": 381857                 }             ],             "field_id": 269473,             "field_name": "Поле Список",             "field_code": null,             "field_type": "select"         },         {             "values": [                 {                     "value": "12424"                 }             ],             "field_id": 272427,             "field_name": "Поле текст",             "field_code": null,             "field_type": "text"         }     ],     "_links": {         "self": {             "href": "https://shard151.amocrm.ru/api/v4/customers/segments/51"         }     } }`
         
-{
-    "id": 51,
-    "created_at": 1589615328,
-    "updated_at": 1591089010,
-    "account_id": 28805383,
-    "name": "Новый сегмент",
-    "color": "6610f2",
-    "available_products_price_types": [
-        288891
-    ],
-    "customers_count": 0,
-    "custom_fields_values": [
-        {
-            "values": [
-                {
-                    "value": true
-                }
-            ],
-            "field_id": 269471,
-            "field_name": "Поле Чекбокс",
-            "field_code": "MYSUPERCHECKBOX",
-            "field_type": "checkbox"
-        },
-        {
-            "values": [
-                {
-                    "value": "Значение 1",
-                    "enum_id": 381857
-                }
-            ],
-            "field_id": 269473,
-            "field_name": "Поле Список",
-            "field_code": null,
-            "field_type": "select"
-        },
-        {
-            "values": [
-                {
-                    "value": "12424"
-                }
-            ],
-            "field_id": 272427,
-            "field_name": "Поле текст",
-            "field_code": null,
-            "field_type": "text"
-        }
-    ],
-    "_links": {
-        "self": {
-            "href": "https://shard151.amocrm.ru/api/v4/customers/segments/51"
-        }
-    }
-}
-        
-```
+    
 
 ### Добавление сегмента покупателей
 
 #### Метод
 
-*POST /api/v4/customers/segments*
+_POST /api/v4/customers/segments_
 
 #### Описание
 
@@ -782,7 +414,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -797,42 +429,17 @@
 
 #### Пример запроса
 
-```
-
+        `{     "name": "Сегмент для примера",     "color": "ae003f",     "custom_fields_values": [         {             "field_id": 245035,             "field_name": "Описание сегмента",             "values": [                 {                     "value": "Этот сегмент создан для примера"                 }             ]         },         {             "field_id": 245351,             "values": [                 {                     "enum_id": 387477                 }             ]         }     ] }`
         
-{
-    "name": "Сегмент для примера",
-    "color": "ae003f",
-    "custom_fields_values": [
-        {
-            "field_id": 245035,
-            "field_name": "Описание сегмента",
-            "values": [
-                {
-                    "value": "Этот сегмент создан для примера"
-                }
-            ]
-        },
-        {
-            "field_id": 245351,
-            "values": [
-                {
-                    "enum_id": 387477
-                }
-            ]
-        }
-    ]
-}
-        
-```
+    
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -849,57 +456,15 @@
 
 #### Пример ответа
 
-```
-
+        `{     "id": 17,     "created_at": 1589462149,     "updated_at": 1589462149,     "account_id": 123123,     "name": "Сегмент для примера",     "color": "ae003f",     "available_products_price_types": [],     "customers_count": 0,     "custom_fields_values": [         {             "values": [                 {                     "value": "Этот сегмент создан для примера"                 }             ],             "field_id": 245035,             "field_name": "Описание сегмента",             "field_code": null,             "field_type": "text"         },         {             "values": [                 {                     "value": "Значение мультиселекта",                     "enum_id": 387477                 }             ],             "field_id": 245351,             "field_name": "Мультиселект поле",             "field_code": null,             "field_type": "multiselect"         }     ],     "_links": {         "self": {             "href": "https://example.amocrm.ru/api/v4/customers/segments/17"         }     } }`
         
-{
-    "id": 17,
-    "created_at": 1589462149,
-    "updated_at": 1589462149,
-    "account_id": 123123,
-    "name": "Сегмент для примера",
-    "color": "ae003f",
-    "available_products_price_types": [],
-    "customers_count": 0,
-    "custom_fields_values": [
-        {
-            "values": [
-                {
-                    "value": "Этот сегмент создан для примера"
-                }
-            ],
-            "field_id": 245035,
-            "field_name": "Описание сегмента",
-            "field_code": null,
-            "field_type": "text"
-        },
-        {
-            "values": [
-                {
-                    "value": "Значение мультиселекта",
-                    "enum_id": 387477
-                }
-            ],
-            "field_id": 245351,
-            "field_name": "Мультиселект поле",
-            "field_code": null,
-            "field_type": "multiselect"
-        }
-    ],
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/customers/segments/17"
-        }
-    }
-}
-        
-```
+    
 
 ### Редактирование сегмента покупателей
 
 #### Метод
 
-*PATCH /api/v4/customers/segments/{id}*
+_PATCH /api/v4/customers/segments/{id}_
 
 #### Описание
 
@@ -911,7 +476,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -927,34 +492,17 @@
 
 #### Пример запроса
 
-```
-
+        `{     "name": "Новое имя для сегмента",     "color": "ae003f",     "custom_fields_values": [         {             "field_id": 245035,             "field_name": "Описание сегмента",             "values": [                 {                     "value": "Новое описание для сегмента"                 }             ]         }     ] }`
         
-{
-    "name": "Новое имя для сегмента",
-    "color": "ae003f",
-    "custom_fields_values": [
-        {
-            "field_id": 245035,
-            "field_name": "Описание сегмента",
-            "values": [
-                {
-                    "value": "Новое описание для сегмента"
-                }
-            ]
-        }
-    ]
-}
-        
-```
+    
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -971,45 +519,15 @@
 
 #### Пример ответа
 
-```
-
+        `{     "id": 17,     "created_at": 1589462149,     "updated_at": 1589463844,     "account_id": 123123,     "name": "Новое имя для сегмента",     "color": "ae003f",     "available_products_price_types": [],     "customers_count": 0,     "custom_fields_values": [         {             "values": [                 {                     "value": "Новое описание для сегмента"                 }             ],             "field_id": 245035,             "field_name": "Описание сегмента",             "field_code": null,             "field_type": "text"         },     ],     "_links": {         "self": {             "href": "https://example.amocrm.ru/api/v4/customers/segments/17"         }     } }`
         
-{
-    "id": 17,
-    "created_at": 1589462149,
-    "updated_at": 1589463844,
-    "account_id": 123123,
-    "name": "Новое имя для сегмента",
-    "color": "ae003f",
-    "available_products_price_types": [],
-    "customers_count": 0,
-    "custom_fields_values": [
-        {
-            "values": [
-                {
-                    "value": "Новое описание для сегмента"
-                }
-            ],
-            "field_id": 245035,
-            "field_name": "Описание сегмента",
-            "field_code": null,
-            "field_type": "text"
-        },
-    ],
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/customers/segments/17"
-        }
-    }
-}
-        
-```
+    
 
 ### Удаление сегмента покупателей
 
 #### Метод
 
-*DELETE /api/v4/customers/segments/{id}*
+_DELETE /api/v4/customers/segments/{id}_
 
 #### Описание
 
@@ -1021,7 +539,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 

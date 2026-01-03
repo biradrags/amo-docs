@@ -1,3 +1,5 @@
+<!-- https://www.amocrm.ru/developers/content/notifications/adding_notifications -->
+
 # https://www.amocrm.ru/developers/content/notifications/adding_notifications
 
 Добавление нотификаций
@@ -23,15 +25,13 @@ show\_message()
 
 #### Пример
 
-```
-var message_params = {
-    header: "Внимание",
-    text: "Соединение установлено",
-    date: 1534084500,
-    icon: "https://www.example.com/images/telephone.png"
-};
-APP.notifications.show_message(message_params);
-```
+    var message_params = {
+        header: "Внимание",
+        text: "Соединение установлено",
+        date: 1534084500,
+        icon: "https://www.example.com/images/telephone.png"
+    };
+    APP.notifications.show_message(message_params);
 
 #### Результат
 
@@ -56,13 +56,11 @@ show\_message\_error()
 
 #### Пример
 
-```
-var error_params = {
-    header: "Внимание",
-    text: "Соединение с сервером потеряно"
-};
-APP.notifications.show_message_error(error_params);
-```
+    var error_params = {
+        header: "Внимание",
+        text: "Соединение с сервером потеряно"
+    };
+    APP.notifications.show_message_error(error_params);
 
 #### Результат
 
@@ -88,16 +86,14 @@ show\_notification()
 
 #### Пример
 
-```
-var notification = {
-    text: {
-        header: "Исходящий звонок",
-        text: "Набор номера +79876543210"
-    },
-    type: "call"
-};
-APP.notifications.show_notification(notification);
-```
+    var notification = {
+        text: {
+            header: "Исходящий звонок",
+            text: "Набор номера +79876543210"
+        },
+        type: "call"
+    };
+    APP.notifications.show_notification(notification);
 
 #### Результат
 
@@ -105,16 +101,14 @@ APP.notifications.show_notification(notification);
 
 #### Пример
 
-```
-var notification = {
-    text: {
-        header: "Ошибка",
-        text: "Произошла ошибка в работе виджета"
-    },
-    type: "error"
-};
-APP.notifications.show_notification(notification);
-```
+    var notification = {
+        text: {
+            header: "Ошибка",
+            text: "Произошла ошибка в работе виджета"
+        },
+        type: "error"
+    };
+    APP.notifications.show_notification(notification);
 
 #### Результат
 
@@ -139,15 +133,13 @@ add\_error()
 
 #### Пример
 
-```
-var error_params = {
-    header: "Ошибка",
-    text: "Не удалось установить задачу! Контакт не найден!",
-    date: 1534085310,
-    link: "/contacts/list/?term=4951234567"
-};
-APP.notifications.add_error(error_params);
-```
+    var error_params = {
+        header: "Ошибка",
+        text: "Не удалось установить задачу! Контакт не найден!",
+        date: 1534085310,
+        link: "/contacts/list/?term=4951234567"
+    };
+    APP.notifications.add_error(error_params);
 
 #### Результат
 
@@ -186,32 +178,28 @@ add\_call()
 
 #### Примеры
 
-```
-var call_params = {
-    text: "Звонок от +7(999)888 55 33",
-    date: 1534084500,
-    from: "Петрова Анна",
-    to: "Смирнов Алексей",
-    element: {
-        id: 18221265,
-        type: "contact"
-    },
-    duration: 250,
-    link: "https://example.com/dialog.mp3"
-};
-APP.notifications.add_call(call_params);
-```
+    var call_params = {
+        text: "Звонок от +7(999)888 55 33",
+        date: 1534084500,
+        from: "Петрова Анна",
+        to: "Смирнов Алексей",
+        element: {
+            id: 18221265,
+            type: "contact"
+        },
+        duration: 250,
+        link: "https://example.com/dialog.mp3"
+    };
+    APP.notifications.add_call(call_params);
 
-```
-var call_params = {
-    text: "Звонок от +7(999)888 55 33",
-    date: 1534084500,
-    from: "Петрова Анна",
-    to: "Смирнов Алексей",
-    click_link: "/contacts/add/?phone=9191234567",
-};
-APP.notifications.add_call(call_params);
-```
+    var call_params = {
+        text: "Звонок от +7(999)888 55 33",
+        date: 1534084500,
+        from: "Петрова Анна",
+        to: "Смирнов Алексей",
+        click_link: "/contacts/add/?phone=9191234567",
+    };
+    APP.notifications.add_call(call_params);
 
 #### Результат
 

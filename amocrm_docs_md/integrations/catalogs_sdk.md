@@ -1,8 +1,8 @@
-# https://www.amocrm.ru/developers/content/integrations/catalogs_sdk
+<!-- https://www.amocrm.ru/developers/content/integrations/catalogs_sdk -->
+
+# JS методы для работы с SDK списков
 
 SDK списков
-
-### JS методы для работы с SDK списков
 
 В данном разделе описываются функции и последовательность действий, для работы с SDK списков
 
@@ -12,17 +12,13 @@ SDK списков
 
 Пример:
 
-```
-onSave: _.bind(function () {
-    this.setSdkCatalogId(this.params.catalog_id);
-    return true;
-}, self),
-```
+    onSave: _.bind(function () {
+        this.setSdkCatalogId(this.params.catalog_id);
+        return true;
+    }, self),
 
 После установки настроек, при попытке отредактировать элемент каталога, будет вызван callback виджета loadCatalogElement. При этом, стандартная карточка редактирования элемента списка не откроется.
 
-```
-loadCatalogElement: function (catalog_element) {
-    console.log('Редактирование элемента каталога #' + catalog_element.id);
-},
-```
+    loadCatalogElement: function (catalog_element) {
+        console.log('Редактирование элемента каталога #' + catalog_element.id);
+    },

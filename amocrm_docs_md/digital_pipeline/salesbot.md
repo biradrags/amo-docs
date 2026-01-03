@@ -1,14 +1,14 @@
-# https://www.amocrm.ru/developers/content/digital_pipeline/salesbot
+<!-- https://www.amocrm.ru/developers/content/digital_pipeline/salesbot -->
+
+# Оглавление
 
 Salesbot
 
-### Оглавление
-
-* [Начало работы с Salesbot](#Начало-работы-с-Salesbot)
-* [Язык Salesbot](#Язык-Salesbot)
-* [Обработчик ошибок Salesbot](#Обработчик-ошибок-Salesbot)
-* [Обработчики Salesbot](#Обработчики-Salesbot)
-* [Примеры](#Примеры)
+*   [Начало работы с Salesbot](#Начало-работы-с-Salesbot)
+*   [Язык Salesbot](#Язык-Salesbot)
+*   [Обработчик ошибок Salesbot](#Обработчик-ошибок-Salesbot)
+*   [Обработчики Salesbot](#Обработчики-Salesbot)
+*   [Примеры](#Примеры)
 
 ### Начало работы с Salesbot
 
@@ -51,45 +51,43 @@ Salesbot можно подключить двумя способами:
 
 #### Пример
 
-```
-[
-  {
-    "question": [
+    [
       {
-        "handler": "show",
-        "params": {
-          "type": "text",
-          "value": "Сообщите,пожалуйста, ваш номер телефона и e-mail"
-        }
-      },
-      {
-        "handler": "action",
-        "params": {
-          "name": "set_tag",
-          "params": {
-            "type": 2,
-            "value": "salesbot"
+        "question": [
+          {
+            "handler": "show",
+            "params": {
+              "type": "text",
+              "value": "Сообщите,пожалуйста, ваш номер телефона и e-mail"
+            }
+          },
+          {
+            "handler": "action",
+            "params": {
+              "name": "set_tag",
+              "params": {
+                "type": 2,
+                "value": "salesbot"
+              }
+            }
           }
-        }
-      }
-    ],
-    "answer": [
-      {
-        "handler": "preset",
-        "params": {
-          "name": "contacts.validate_base_info",
-          "params": {
-            "empty_email": "Пришлите,пожалуйста, ваш e-mail",
-            "empty_phone": "Пришлите,пожалуйста, ваш номер телефона",
-            "invalid_phone": "Нам кажется, что в номере телефона ошибка",
-            "success": "Спасибо"
+        ],
+        "answer": [
+          {
+            "handler": "preset",
+            "params": {
+              "name": "contacts.validate_base_info",
+              "params": {
+                "empty_email": "Пришлите,пожалуйста, ваш e-mail",
+                "empty_phone": "Пришлите,пожалуйста, ваш номер телефона",
+                "invalid_phone": "Нам кажется, что в номере телефона ошибка",
+                "success": "Спасибо"
+              }
+            }
           }
-        }
+        ]
       }
     ]
-  }
-]
-```
 
 В объекте должен быть ключ question, answer или finish.  
 Данные в объекте question отвечают за действия, которые будут происходить при отправке сообщения пользователю.  
@@ -100,43 +98,42 @@ Salesbot можно подключить двумя способами:
 
 В объекте question, answer и finish должны находится обработчки. Обработчиком является объект с ключами handler и params.
 
-Перед добавлением JSON объекта в бота, проверьте его на валидность. Также валидный объект можно получить, используя PHP. Вам необходимо создать массив Salesbot, а затем применить функцию *json\_encode c флагами JSON\_PRETTY\_PRINT и JSON\_UNESCAPED\_UNICODE*.
+Перед добавлением JSON объекта в бота, проверьте его на валидность. Также валидный объект можно получить, используя PHP. Вам необходимо создать массив Salesbot, а затем применить функцию _json\_encode c флагами JSON\_PRETTY\_PRINT и JSON\_UNESCAPED\_UNICODE_.
 
 #### Пример
 
-```
-$bot_text = 'Привет мир!';
-$salesbot = [
-    [
-        'question' =>
+    
+    $bot_text = 'Привет мир!';
+    $salesbot = [
         [
+            'question' =>
             [
-
-                'handler' =>
-                'show',
-                'params' => [
-                    'type' => 'text',
-                    'value' => $bot_text,
+                [
+    
+                    'handler' =>
+                    'show',
+                    'params' => [
+                        'type' => 'text',
+                        'value' => $bot_text,
+                    ],
+                ],
+            ],
+            'answer' =>
+            [
+                [
+    
+                    'handler' =>
+                    'preset',
+                    'params' => [
+                        'name' =>
+                        'contacts.get_base_info',
+                    ],
                 ],
             ],
         ],
-        'answer' =>
-        [
-            [
-
-                'handler' =>
-                'preset',
-                'params' => [
-                    'name' =>
-                    'contacts.get_base_info',
-                ],
-            ],
-        ],
-    ],
-];
-
-echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-```
+    ];
+    
+    echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 Результатом выполнения кода выше будет валидный JSON объект, готовый для вставки в Salesbot’а Digital воронки.
 
@@ -146,29 +143,27 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 #### Пример
 
-```
-{
-  "0": {
-    "question": [
-      ...
-    ],
-    "answer": [
-      ...
-    ]
-  },
-  "error": [
     {
-      "handler": "action",
-      "params": {
-        "name": "change_status",
-        "params": {
-          "value": 142
+      "0": {
+        "question": [
+          ...
+        ],
+        "answer": [
+          ...
+        ]
+      },
+      "error": [
+        {
+          "handler": "action",
+          "params": {
+            "name": "change_status",
+            "params": {
+              "value": 142
+            }
+          }
         }
-      }
+      ]
     }
-  ]
-}
-```
 
 ### Обработчики Salesbot
 
@@ -231,19 +226,17 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 #### Пример
 
-```
-{
-  "handler": "show",
-  "params": {
-    "type": "text",
-    "value": "Сообщите, пожалуйста, ваш номер телефона и e-mail",
-    "quick_replies": [
-      "user_phone_number",
-      "user_email"
-    ]
-  }
-}
-```
+    {
+      "handler": "show",
+      "params": {
+        "type": "text",
+        "value": "Сообщите, пожалуйста, ваш номер телефона и e-mail",
+        "quick_replies": [
+          "user_phone_number",
+          "user_email"
+        ]
+      }
+    }
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -255,19 +248,17 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 #### Пример
 
-```
-{
-  "handler": "show",
-  "params": {
-    "type": "buttons",
-    "value": "Выберите, пожалуйста, тип участия:",
-    "buttons": [
-      "Личное присутствие",
-      "Онлайн"
-    ]
-  }
-}
-```
+    {
+      "handler": "show",
+      "params": {
+        "type": "buttons",
+        "value": "Выберите, пожалуйста, тип участия:",
+        "buttons": [
+          "Личное присутствие",
+          "Онлайн"
+        ]
+      }
+    }
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -280,25 +271,23 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 #### Пример
 
-```
-{
-    "handler": "show",
-    "params": {
-        "type": "buttons_url",
-        "value": "Кнопки со ссылками",
-        "buttons": [
-            {
-                "text": "Яндекс",
-                "url": "https://yandex.ru"
-            },
-            {
-                "text": "Google",
-                "url": "https://google.ru"
-            }
-        ]
+    {
+        "handler": "show",
+        "params": {
+            "type": "buttons_url",
+            "value": "Кнопки со ссылками",
+            "buttons": [
+                {
+                    "text": "Яндекс",
+                    "url": "https://yandex.ru"
+                },
+                {
+                    "text": "Google",
+                    "url": "https://google.ru"
+                }
+            ]
+        }
     }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -308,11 +297,11 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 Если вы хотите отправить ссылки на социальные сети и что бы произошла автосклейка, ссылки должны быть следующего формата:
 
-* Facebook Messenger – https​://m.me/123/?ref=VisitorUid\_{{visitor\_uid}} , где 123 – id группы
-* VK – https​://vk.me/-63068509?ref=VisitorUid\_{{visitor\_uid}} , где 63068509 – id группы
-* Telegram – tg://resolve?domain=bot&start=VisitorUid\_{{visitor\_uid}} , где bot название бота
-* Viber – viber://pa?chatURI=bot&context=VisitorUid\_{{visitor\_uid}} ,  где bot название публичного аккаунта
-* WhatsApp – https​://wa.me/7895?text=ID:%20{{session\_id}} , где 7895 телефон WhatsApp, который подключен в аккаунте
+*   Facebook Messenger – https​://m.me/123/?ref=VisitorUid\_{{visitor\_uid}} , где 123 – id группы
+*   VK – https​://vk.me/-63068509?ref=VisitorUid\_{{visitor\_uid}} , где 63068509 – id группы
+*   Telegram – tg://resolve?domain=bot&start=VisitorUid\_{{visitor\_uid}} , где bot название бота
+*   Viber – viber://pa?chatURI=bot&context=VisitorUid\_{{visitor\_uid}} ,  где bot название публичного аккаунта
+*   WhatsApp – https​://wa.me/7895?text=ID:%20{{session\_id}} , где 7895 телефон WhatsApp, который подключен в аккаунте
 
 #### Обработчик buttons
 
@@ -320,35 +309,33 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 #### Пример
 
-```
-{
-  "handler": "buttons",
-  "params": [
     {
-      "value": "Личное присутствие",
+      "handler": "buttons",
       "params": [
         {
-          "handler": "...",
-          "params": {
-            ...
-          }
-        }
-      ]
-    },
-    {
-      "value": "Онлайн",
-      "params": [
+          "value": "Личное присутствие",
+          "params": [
+            {
+              "handler": "...",
+              "params": {
+                ...
+              }
+            }
+          ]
+        },
         {
-          "handler": "...",
-          "params": {
-            ...
-          }
+          "value": "Онлайн",
+          "params": [
+            {
+              "handler": "...",
+              "params": {
+                ...
+              }
+            }
+          ]
         }
       ]
     }
-  ]
-}
-```
 
 Обработчик buttons ожидает на вход в параметры массив объектов, в которых можно вызвать любой из обработчиков, указанных на этой странице
 
@@ -358,15 +345,13 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 #### Пример
 
-```
-{
-  "handler": "goto",
-  "params": {
-    "type": "question",
-    "step": 3
-  }
-}
-```
+    {
+      "handler": "goto",
+      "params": {
+        "type": "question",
+        "step": 3
+      }
+    }
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -379,15 +364,13 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 #### Пример
 
-```
-{
-  "handler": "wait_answer",
-  "params": {
-    "type": "question",
-    "step": 2
-  }
-}
-```
+    {
+      "handler": "wait_answer",
+      "params": {
+        "type": "question",
+        "step": 2
+      }
+    }
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -402,54 +385,52 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 #### Пример
 
-```
-{
-  "handler": "find",
-  "params": {
-    "type": "contact_double",
-    "params": {
-      "type": "name",
-      "actions": [
-        {
-          "handler": "show",
-          "params": {
-            "type": "buttons",
-            "value": "Это ваш номер {{contact_double.cf.3574}}?",
-            "buttons": [
-              "Да",
-              "Нет"
-            ]
-          }
+    {
+      "handler": "find",
+      "params": {
+        "type": "contact_double",
+        "params": {
+          "type": "name",
+          "actions": [
+            {
+              "handler": "show",
+              "params": {
+                "type": "buttons",
+                "value": "Это ваш номер {{contact_double.cf.3574}}?",
+                "buttons": [
+                  "Да",
+                  "Нет"
+                ]
+              }
+            }
+          ]
         }
-      ]
+      }
     }
-  }
-}
-
-{
-  "handler": "find",
-  "params": {
-  "type": "catalog_elements",
-    "params": {
-      "value": "Salesbot",
-      "catalog_id": "15123",
-      "actions": [
-        {
-          "handler": "show",
-          "params": {
-            "type": "buttons",
-            "value": "Найден элемент с ID - {{founded_id}}",
-            "buttons": [
-                "Да",
-                "Нет"
-            ]
-          }
+    
+    {
+      "handler": "find",
+      "params": {
+      "type": "catalog_elements",
+        "params": {
+          "value": "Salesbot",
+          "catalog_id": "15123",
+          "actions": [
+            {
+              "handler": "show",
+              "params": {
+                "type": "buttons",
+                "value": "Найден элемент с ID - {{founded_id}}",
+                "buttons": [
+                    "Да",
+                    "Нет"
+                ]
+              }
+            }
+          ]
         }
-      ]
+      }
     }
-  }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -464,30 +445,28 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 #### Пример
 
-```
-{
-  "handler": "filter",
-  "params": {
-    "type": 2,
-    "value": "{{lead.cf.111}}",
-    "custom_fields_id": 222,
-    "actions": [
-      {
-        "handler": "action",
-        "params": {
-          "name": "set_custom_fields",
-          "params": {
-            "type": 1,
-            "value": "{{external_contact.cf.333}}",
-            "custom_fields_id": 444,
-            "enum": "WORK"
+    {
+      "handler": "filter",
+      "params": {
+        "type": 2,
+        "value": "{{lead.cf.111}}",
+        "custom_fields_id": 222,
+        "actions": [
+          {
+            "handler": "action",
+            "params": {
+              "name": "set_custom_fields",
+              "params": {
+                "type": 1,
+                "value": "{{external_contact.cf.333}}",
+                "custom_fields_id": 444,
+                "enum": "WORK"
+              }
+            }
           }
-        }
+        ]
       }
-    ]
-  }
-}
-```
+    }
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -503,16 +482,14 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 #### Пример
 
-```
-{
-  "handler": "send_internal",
-  "params": {
-    "entity_id": "{{customer.id}}",
-    "entity_type": 12,
-    "message": "Всем привет"
-  }
-}
-```
+    {
+      "handler": "send_internal",
+      "params": {
+        "entity_id": "{{customer.id}}",
+        "entity_type": 12,
+        "message": "Всем привет"
+      }
+    }
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -549,25 +526,23 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 #### Пример
 
-```
-{
-  "handler": "action",
-  "params": {
-    "name": "unsorted",
-    "params": {
-      "value": "accept"
+    {
+      "handler": "action",
+      "params": {
+        "name": "unsorted",
+        "params": {
+          "value": "accept"
+        }
+      }
+    }, {
+      "handler": "action",
+      "params": {
+        "name": "unsorted",
+        "params": {
+          "value": "decline"
+        }
+      }
     }
-  }
-}, {
-  "handler": "action",
-  "params": {
-    "name": "unsorted",
-    "params": {
-      "value": "decline"
-    }
-  }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -579,17 +554,15 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 #### Пример
 
-```
-{
-  "handler": "action",
-  "params": {
-    "name": "change_status",
-    "params": {
-      "value": 142
+    {
+      "handler": "action",
+      "params": {
+        "name": "change_status",
+        "params": {
+          "value": 142
+        }
+      }
     }
-  }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -602,28 +575,26 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 #### Пример
 
-```
-{
-  "handler": "action",
-  "params": {
-    "name": "set_tag",
-    "params": {
-      "type": 2,
-      "value": "Salesbot"
+    {
+      "handler": "action",
+      "params": {
+        "name": "set_tag",
+        "params": {
+          "type": 2,
+          "value": "Salesbot"
+        }
+      }
+    },
+    {
+      "handler": "action",
+      "params": {
+        "name": "set_tag",
+        "params": {
+          "type": 2,
+          "value": "{{origin}}"
+        }
+      }
     }
-  }
-},
-{
-  "handler": "action",
-  "params": {
-    "name": "set_tag",
-    "params": {
-      "type": 2,
-      "value": "{{origin}}"
-    }
-  }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -636,18 +607,16 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 #### Пример
 
-```
-{
-  "handler": "action",
-  "params": {
-    "name": "unset_tag",
-    "params": {
-      "type": 2,
-      "value": "Salesbot"
+    {
+      "handler": "action",
+      "params": {
+        "name": "unset_tag",
+        "params": {
+          "type": 2,
+          "value": "Salesbot"
+        }
+      }
     }
-  }
-}
-```
 
 get\_base\_info
 
@@ -663,42 +632,40 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-```
-{
-  "handler": "action",
-  "params": {
-    "name": "set_custom_fields",
-    "params": {
-      "type": 2,
-      "value": "Значение поля",
-      "custom_fields_id": 123,
-      "option": "add"
+    {
+      "handler": "action",
+      "params": {
+        "name": "set_custom_fields",
+        "params": {
+          "type": 2,
+          "value": "Значение поля",
+          "custom_fields_id": 123,
+          "option": "add"
+        }
+      }
+    },
+    {
+      "handler": "action",
+      "params": {
+        "name": "set_custom_fields",
+        "params": {
+          "type": 2,
+          "value": "{{message_text}}",
+          "custom_fields_id": 987
+        }
+      }
+    },
+    {
+      "handler": "action",
+      "params": {
+        "name": "set_custom_fields",
+        "params": {
+          "type": "lead",
+          "value": "{{last_validation_result}}",
+          "custom_field": "{{cf.talk.nps}}"
+        }
+      }
     }
-  }
-},
-{
-  "handler": "action",
-  "params": {
-    "name": "set_custom_fields",
-    "params": {
-      "type": 2,
-      "value": "{{message_text}}",
-      "custom_fields_id": 987
-    }
-  }
-},
-{
-  "handler": "action",
-  "params": {
-    "name": "set_custom_fields",
-    "params": {
-      "type": "lead",
-      "value": "{{last_validation_result}}",
-      "custom_field": "{{cf.talk.nps}}"
-    }
-  }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -715,18 +682,16 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-```
-{
-  "handler": "action",
-  "params": {
-    "name": "subscribe",
-    "params": {
-      "type": "user",
-      "value": "{{lead.responsible_user_id}}"
+    {
+      "handler": "action",
+      "params": {
+        "name": "subscribe",
+        "params": {
+          "type": "user",
+          "value": "{{lead.responsible_user_id}}"
+        }
+      }
     }
-  }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -740,18 +705,16 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-```
-{
-  "handler": "action",
-  "params": {
-    "name": "unsubscribe",
-    "params": {
-      "type": "user",
-      "value": "{{lead.responsible_user_id}}"
+    {
+      "handler": "action",
+      "params": {
+        "name": "unsubscribe",
+        "params": {
+          "type": "user",
+          "value": "{{lead.responsible_user_id}}"
+        }
+      }
     }
-  }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -765,75 +728,73 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-```
-{
-  "handler": "action",
-  "params": {
-    "name": "add_lead_contact",
-    "params": {
-      "preset": "contacts.require_email_or_phone",
-      "lead": {
-        "name": "Lead name",
-        "status_id": 142,
-        "responsible_user_id": 123,
-        "price": 2000,
-        "tags": "",
-        "custom_fields": [
-          {
-            "id": 77744111,
-            "values": [
+    {
+      "handler": "action",
+      "params": {
+        "name": "add_lead_contact",
+        "params": {
+          "preset": "contacts.require_email_or_phone",
+          "lead": {
+            "name": "Lead name",
+            "status_id": 142,
+            "responsible_user_id": 123,
+            "price": 2000,
+            "tags": "",
+            "custom_fields": [
               {
-                "value": "{{contact.name}}"
+                "id": 77744111,
+                "values": [
+                  {
+                    "value": "{{contact.name}}"
+                  }
+                ]
+              },
+              {
+                "id": 77744222,
+                "values": [
+                  {
+                    "value": "{{lead.cf.77744222}}"
+                  }
+                ]
               }
             ]
           },
-          {
-            "id": 77744222,
-            "values": [
+          "contact": {
+            "name": "Contactname",
+            "responsible_user_id": 123,
+            "tags": "",
+            "custom_fields": [
               {
-                "value": "{{lead.cf.77744222}}"
+                "id": 77744333,
+                "values": [
+                  {
+                    "value": "{{rand}}"
+                  }
+                ]
+              },
+              {
+                "id": 77744444,
+                "values": [
+                  {
+                    "value": "{{message_text.email}}",
+                    "enum": "WORK"
+                  }
+                ]
+              },
+              {
+                "id": 77744555,
+                "values": [
+                  {
+                    "value": "{{message_text.phone}}",
+                    "enum": "WORK"
+                  }
+                ]
               }
             ]
           }
-        ]
-      },
-      "contact": {
-        "name": "Contactname",
-        "responsible_user_id": 123,
-        "tags": "",
-        "custom_fields": [
-          {
-            "id": 77744333,
-            "values": [
-              {
-                "value": "{{rand}}"
-              }
-            ]
-          },
-          {
-            "id": 77744444,
-            "values": [
-              {
-                "value": "{{message_text.email}}",
-                "enum": "WORK"
-              }
-            ]
-          },
-          {
-            "id": 77744555,
-            "values": [
-              {
-                "value": "{{message_text.phone}}",
-                "enum": "WORK"
-              }
-            ]
-          }
-        ]
+        }
       }
     }
-  }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -847,17 +808,15 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-```
-{
-  "handler": "action",
-  "params": {
-    "name": "set_budget",
-    "params": {
-      "value": "{{lead.cf.555123}}*{{lead.cf.555321}}"
+    {
+      "handler": "action",
+      "params": {
+        "name": "set_budget",
+        "params": {
+          "value": "{{lead.cf.555123}}*{{lead.cf.555321}}"
+        }
+      }
     }
-  }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -869,17 +828,15 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-```
-{
-  "handler": "action",
-  "params": {
-    "name": "add_linked_company",
-    "params": {
-      "name": "{{message_text}}"
+    {
+      "handler": "action",
+      "params": {
+        "name": "add_linked_company",
+        "params": {
+          "name": "{{message_text}}"
+        }
+      }
     }
-  }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -891,19 +848,17 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-```
-{
-  "handler": "action",
-  "params": {
-    "name": "add_note",
-    "params": {
-      "element_type": 1,
-      "note_type": 4,
-      "text": "Текст примечания"
+    {
+      "handler": "action",
+      "params": {
+        "name": "add_note",
+        "params": {
+          "element_type": 1,
+          "note_type": 4,
+          "text": "Текст примечания"
+        }
+      }
     }
-  }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -917,20 +872,18 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-```
-{
-  "handler": "action",
-  "params": {
-    "name": "link",
-    "params": {
-      "from": 2,
-      "to": 11,
-      "to_id": "{{founded_id}}",
-      "to_catalog_id": 123
+    {
+      "handler": "action",
+      "params": {
+        "name": "link",
+        "params": {
+          "from": 2,
+          "to": 11,
+          "to_id": "{{founded_id}}",
+          "to_catalog_id": 123
+        }
+      }
     }
-  }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -947,18 +900,16 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-```
-{
-  "handler": "action",
-  "params": {
-    "name": "change_responsible_user",
-    "params": {
-      "value": 123,
-      "type": 2
+    {
+      "handler": "action",
+      "params": {
+        "name": "change_responsible_user",
+        "params": {
+          "value": 123,
+          "type": 2
+        }
+      }
     }
-  }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -971,18 +922,16 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-```
-{
-  "handler": "action",
-  "params": {
-    "name": "link_to_unsorted",
-    "params": {
-      "entity_type": 2,
-      "entity_id": "12345"
+    {
+      "handler": "action",
+      "params": {
+        "name": "link_to_unsorted",
+        "params": {
+          "entity_type": 2,
+          "entity_id": "12345"
+        }
+      }
     }
-  }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -996,26 +945,24 @@ ID полей можно узнать в разделе Настройки->По
 
 Подробней о передаче meta-данных читайте в документации мессенджеров:
 
-* [Telegram](https://core.telegram.org/bots#deep-linking)
-* [Viber](https://developers.viber.com/tools/deep-links/index.html)
-* [Messenger](https://developers.facebook.com/docs/messenger-platform/referral-params)
+*   [Telegram](https://core.telegram.org/bots#deep-linking)
+*   [Viber](https://developers.viber.com/tools/deep-links/index.html)
+*   [Messenger](https://developers.facebook.com/docs/messenger-platform/referral-params)
 
 #### Пример
 
-```
-{
-  "handler": "meta",
-  "params": {
-    "delimiter": "-",
-    "values": [
-      "lead.tags",
-      "lead.custom_fields.123",
-      "lead.custom_fields.124",
-      "lead.tags"
-    ]
-  }
-}
-```
+    {
+      "handler": "meta",
+      "params": {
+        "delimiter": "-",
+        "values": [
+          "lead.tags",
+          "lead.custom_fields.123",
+          "lead.custom_fields.124",
+          "lead.tags"
+        ]
+      }
+    }
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -1028,27 +975,25 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-```
-{
-  "handler": "condition",
-  "params": {
-    "term1": "lead.tags",
-    "term2": "telegram",
-    "operation": "=",
-    "result": [
-      {
-        "handler": "action",
-        "params": {
-          "name": "change_status",
-          "params": {
-            "value": 123
+    {
+      "handler": "condition",
+      "params": {
+        "term1": "lead.tags",
+        "term2": "telegram",
+        "operation": "=",
+        "result": [
+          {
+            "handler": "action",
+            "params": {
+              "name": "change_status",
+              "params": {
+                "value": 123
+              }
+            }
           }
-        }
+        ]
       }
-    ]
-  }
-}
-```
+    }
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
@@ -1071,52 +1016,50 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-```
-{
-  "handler": "validations",
-  "params": {
-    "logic": "and",
-    "conditions": [
-      {
-        "client_value": "{{message_text}}",
-        "type": "regex",
-        "condition_value": "/[0-9]+/",
-        "operation": "contains"
-      },
-      {
-        "client_value": "{{message_text}}",
-        "type": "simple",
-        "condition_value": "654",
-        "operation": "equal"
-      },
-      {
-        "client_value": "{{message_text}}",
-        "type": "range_numbers",
-        "condition_value": {
-          "from": 123,
-          "to": 321
-        },
-        "operation": "contains"
-      },
-      {
-        "client_value": "{{message_text}}",
-        "type": "email",
-        "condition_value": "",
-        "operation": "contains"
+    {
+      "handler": "validations",
+      "params": {
+        "logic": "and",
+        "conditions": [
+          {
+            "client_value": "{{message_text}}",
+            "type": "regex",
+            "condition_value": "/[0-9]+/",
+            "operation": "contains"
+          },
+          {
+            "client_value": "{{message_text}}",
+            "type": "simple",
+            "condition_value": "654",
+            "operation": "equal"
+          },
+          {
+            "client_value": "{{message_text}}",
+            "type": "range_numbers",
+            "condition_value": {
+              "from": 123,
+              "to": 321
+            },
+            "operation": "contains"
+          },
+          {
+            "client_value": "{{message_text}}",
+            "type": "email",
+            "condition_value": "",
+            "operation": "contains"
+          }
+        ],
+        "result": [
+          {
+            "handler": "goto",
+            "params": {
+              "type": "question",
+              "step": 3
+            }
+          }
+        ]
       }
-    ],
-    "result": [
-      {
-        "handler": "goto",
-        "params": {
-          "type": "question",
-          "step": 3
-        }
-      }
-    ]
-  }
-}
-```
+    }
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
@@ -1130,14 +1073,12 @@ ID полей можно узнать в разделе Настройки->По
 
 ##### Пример
 
-```
-{
-  "client_value": "{{message_text}}",
-  "type": "simple",
-  "condition_value": "654",
-  "operation": "equal"
-}
-```
+    {
+      "client_value": "{{message_text}}",
+      "type": "simple",
+      "condition_value": "654",
+      "operation": "equal"
+    }
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
@@ -1152,14 +1093,12 @@ ID полей можно узнать в разделе Настройки->По
 
 ##### Пример
 
-```
-{
-  "client_value": "{{message_text}}",
-  "type": "simple",
-  "condition_value": "321",
-  "operation": "length"
-}
-```
+    {
+      "client_value": "{{message_text}}",
+      "type": "simple",
+      "condition_value": "321",
+      "operation": "length"
+    }
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
@@ -1174,14 +1113,12 @@ ID полей можно узнать в разделе Настройки->По
 
 ##### Пример
 
-```
-{
-  "client_value": "{{message_text}}",
-  "type": "email",
-  "condition_value": "",
-  "operation": "contains"
-}
-```
+    {
+      "client_value": "{{message_text}}",
+      "type": "email",
+      "condition_value": "",
+      "operation": "contains"
+    }
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
@@ -1196,14 +1133,12 @@ ID полей можно узнать в разделе Настройки->По
 
 ##### Пример
 
-```
-{
-  "client_value": "{{message_text}}",
-  "type": "regex",
-  "condition_value": "/[0-9]+/",
-  "operation": "contains"
-}
-```
+    {
+      "client_value": "{{message_text}}",
+      "type": "regex",
+      "condition_value": "/[0-9]+/",
+      "operation": "contains"
+    }
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
@@ -1218,17 +1153,15 @@ ID полей можно узнать в разделе Настройки->По
 
 ##### Пример
 
-```
-{
-  "client_value": "{{message_text}}",
-  "type": "range_numbers",
-  "condition_value": {
-    "from": 123,
-    "to": 321
-  },
-  "operation": "contains"
-}
-```
+    {
+      "client_value": "{{message_text}}",
+      "type": "range_numbers",
+      "condition_value": {
+        "from": 123,
+        "to": 321
+      },
+      "operation": "contains"
+    }
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
@@ -1254,18 +1187,16 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример
 
-```
-{
-  "handler": "widget_request",
-  "params": {
-    "url": "https://example.com/endpoint",
-    "data": {
-      "contact": "{{contact.name}}",
-      "from": "widget"
+    {
+      "handler": "widget_request",
+      "params": {
+        "url": "https://example.com/endpoint",
+        "data": {
+          "contact": "{{contact.name}}",
+          "from": "widget"
+        }
+      }
     }
-  }
-}
-```
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
@@ -1276,16 +1207,14 @@ ID полей можно узнать в разделе Настройки->По
 
 #### Пример тела запроса
 
-```
-{
-      "token": "JWT_TOKEN",
-      "data": [
-          "contact": "Имя контакта",
-          "from": "widget"
-      ],
-      "return_url": "https://subdomain.amocrm.ru/api/v4/salesbot/321/continue/123"
-    }
-```
+    {
+          "token": "JWT_TOKEN",
+          "data": [
+              "contact": "Имя контакта",
+              "from": "widget"
+          ],
+          "return_url": "https://subdomain.amocrm.ru/api/v4/salesbot/321/continue/123"
+        }
 
 #### Поля JWT token’а
 
@@ -1308,27 +1237,25 @@ JWT Token нужен для валидации данных присланных
 
 #### Пример
 
-```
-{
-  "handler": "preset",
-  "params": {
-    "name": "contacts.validate_base_info",
-    "params": {
-      "empty_email": "Пришлите, пожалуйста, ваш e-mail",
-      "empty_phone": "Пришлите, пожалуйста, ваш номер телефона",
-      "invalid_phone": "Нам кажется, что в номере телефона ошибка",
-      "success": "Спасибо",
-      "empty_all": "Пришлите, пожалуйста, ваш номер телефона и e-mail",
-      "empty_all": "Пришлите, пожалуйста, ваш номер телефона и e-mail",
-      "check_doubles": true,
-      "phone_doubles": "Данный номер телефона уже используется. Введите другой номер ",
-      "email_doubles": "Данный email уже используется. Введите другой email ",
-      "all_doubles": "Данный номер телефона и email уже используются. Введите другие контактные данные ",
-      "use_quick_replies": true
+    {
+      "handler": "preset",
+      "params": {
+        "name": "contacts.validate_base_info",
+        "params": {
+          "empty_email": "Пришлите, пожалуйста, ваш e-mail",
+          "empty_phone": "Пришлите, пожалуйста, ваш номер телефона",
+          "invalid_phone": "Нам кажется, что в номере телефона ошибка",
+          "success": "Спасибо",
+          "empty_all": "Пришлите, пожалуйста, ваш номер телефона и e-mail",
+          "empty_all": "Пришлите, пожалуйста, ваш номер телефона и e-mail",
+          "check_doubles": true,
+          "phone_doubles": "Данный номер телефона уже используется. Введите другой номер ",
+          "email_doubles": "Данный email уже используется. Введите другой email ",
+          "all_doubles": "Данный номер телефона и email уже используются. Введите другие контактные данные ",
+          "use_quick_replies": true
+        }
+      }
     }
-  }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -1349,14 +1276,12 @@ JWT Token нужен для валидации данных присланных
 
 #### Пример
 
-```
-{
-  "handler": "preset",
-  "params": {
-    "name": "contacts.get_base_info"
-  }
-}
-```
+    {
+      "handler": "preset",
+      "params": {
+        "name": "contacts.get_base_info"
+      }
+    }
 
 #### Обработчик stop
 
@@ -1364,25 +1289,23 @@ JWT Token нужен для валидации данных присланных
 
 #### Пример
 
-```
-{
-  "finish": [
     {
-      "handler": "stop",
-      "params": {
-        "action": "talk-close"
-      }
-    },
-    {
-      "handler": "stop",
-      "params": {
-        "action": "salesbot-start",
-        "bot": 7049
-      }
+      "finish": [
+        {
+          "handler": "stop",
+          "params": {
+            "action": "talk-close"
+          }
+        },
+        {
+          "handler": "stop",
+          "params": {
+            "action": "salesbot-start",
+            "bot": 7049
+          }
+        }
+      ]
     }
-  ]
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -1395,289 +1318,269 @@ JWT Token нужен для валидации данных присланных
 
 #### Пример
 
-```
-[
-  {
-    "question": [
+    [
       {
-        "handler": "action",
-        "params": {
-          "name": "subscribe",
-          "params": {
-            "type": "group",
-            "value": 111
+        "question": [
+          {
+            "handler": "action",
+            "params": {
+              "name": "subscribe",
+              "params": {
+                "type": "group",
+                "value": 111
+              }
+            }
           }
-        }
+        ]
       }
     ]
-  }
-]
-```
 
 Перевод сделки в нужный статус.
 
 #### Пример
 
-```
-[
-  {
-    "question": [
+    [
       {
-        "handler": "action",
-        "params": {
-          "name": "change_status",
-          "params": {
-            "value": 142
+        "question": [
+          {
+            "handler": "action",
+            "params": {
+              "name": "change_status",
+              "params": {
+                "value": 142
+              }
+            }
           }
-        }
+        ]
       }
     ]
-  }
-]
-```
 
 Отправка клиенту любого текста.
 
 #### Пример
 
-```
-[
-  {
-    "question": [
+    [
       {
-        "handler": "show",
-        "params": {
-          "type": "text",
-          "value": "Здравствуйте"
-        }
+        "question": [
+          {
+            "handler": "show",
+            "params": {
+              "type": "text",
+              "value": "Здравствуйте"
+            }
+          }
+        ]
       }
     ]
-  }
-]
-```
 
 Отправка сообщения с кнопками выбора.
 
 #### Пример
 
-```
-[
-  {
-    "question": [
+    [
       {
-        "handler": "show",
-        "params": {
-          "type": "buttons",
-          "value": "Выберите, пожалуйста, тип участия: ",
-          "buttons": [
-            "Личное присутствие",
-            "Онлайн"
-          ]
-        }
-      }
-    ],
-    "answer": [
-      {
-        "handler": "buttons",
-        "params": [
+        "question": [
           {
-            "regex": "/личное/iu",
+            "handler": "show",
+            "params": {
+              "type": "buttons",
+              "value": "Выберите, пожалуйста, тип участия: ",
+              "buttons": [
+                "Личное присутствие",
+                "Онлайн"
+              ]
+            }
+          }
+        ],
+        "answer": [
+          {
+            "handler": "buttons",
             "params": [
               {
-                "handler": "action",
-                "params": {
-                  "name": "set_custom_fields",
-                  "params": {
-                    "type": 1,
-                    "value": "Личное присутствие",
-                    "custom_fields_id": 4242
+                "regex": "/личное/iu",
+                "params": [
+                  {
+                    "handler": "action",
+                    "params": {
+                      "name": "set_custom_fields",
+                      "params": {
+                        "type": 1,
+                        "value": "Личное присутствие",
+                        "custom_fields_id": 4242
+                      }
+                    }
                   }
-                }
-              }
-            ]
-          },
-          {
-            "regex": "/онлайн/iu",
-            "params": [
+                ]
+              },
               {
-                "handler": "action",
-                "params": {
-                  "name": "set_custom_fields",
-                  "params": {
-                    "type": 1,
-                    "value": "Онлайн",
-                    "custom_fields_id": 4242
+                "regex": "/онлайн/iu",
+                "params": [
+                  {
+                    "handler": "action",
+                    "params": {
+                      "name": "set_custom_fields",
+                      "params": {
+                        "type": 1,
+                        "value": "Онлайн",
+                        "custom_fields_id": 4242
+                      }
+                    }
                   }
-                }
+                ]
               }
             ]
           }
         ]
       }
     ]
-  }
-]
-```
 
 Установка тега для сделки.
 
 #### Пример
 
-```
-[
-  {
-    "question": [
+    [
       {
-        "handler": "action",
-        "params": {
-          "name": "set_tag",
-          "params": {
-            "type": 2,
-            "value": "salesbot"
+        "question": [
+          {
+            "handler": "action",
+            "params": {
+              "name": "set_tag",
+              "params": {
+                "type": 2,
+                "value": "salesbot"
+              }
+            }
           }
-        }
+        ]
       }
     ]
-  }
-]
-```
 
 Установка значения дополнительному полю.
 
 #### Пример
 
-```
-[
-  {
-    "question": [
+    [
       {
-        "handler": "action",
-        "params": {
-          "name": "set_custom_fields",
-          "params": {
-            "type": 2,
-            "custom_fields_id": 123,
-            "value": "Значение поля"
+        "question": [
+          {
+            "handler": "action",
+            "params": {
+              "name": "set_custom_fields",
+              "params": {
+                "type": 2,
+                "custom_fields_id": 123,
+                "value": "Значение поля"
+              }
+            }
           }
-        }
+        ]
       }
     ]
-  }
-]
-```
 
 Сохранение метаданных в карточку сделки.
 
 #### Пример
 
-```
-[
-  {
-    "question": [
+    [
       {
-        "handler": "meta",
-        "params": {
-          "delimiter": "-",
-          "values": [
-            "lead.tags",
-            "lead.custom_fields.123",
-            "lead.custom_fields.124",
-            "lead.tags"
-          ]
-        }
+        "question": [
+          {
+            "handler": "meta",
+            "params": {
+              "delimiter": "-",
+              "values": [
+                "lead.tags",
+                "lead.custom_fields.123",
+                "lead.custom_fields.124",
+                "lead.tags"
+              ]
+            }
+          }
+        ]
       }
     ]
-  }
-]
-```
 
 Запрос email и телефона, запись в карточку только из первого ответа.
 
 #### Пример
 
-```
-[
-  {
-    "question": [
+    [
       {
-        "handler": "show",
-        "params": {
-          "type": "text",
-          "value": "Сообщите, пожалуйста, ваш номер телефона и e-mail"
-        }
-      }
-    ],
-    "answer": [
-      {
-        "handler": "preset",
-        "params": {
-          "name": "contacts.get_base_info"
-        }
+        "question": [
+          {
+            "handler": "show",
+            "params": {
+              "type": "text",
+              "value": "Сообщите, пожалуйста, ваш номер телефона и e-mail"
+            }
+          }
+        ],
+        "answer": [
+          {
+            "handler": "preset",
+            "params": {
+              "name": "contacts.get_base_info"
+            }
+          }
+        ]
       }
     ]
-  }
-]
-```
 
 Использование оператора ‘in’ в сравнении
 
 #### Пример
 
-```
-[
-  {
-    "question": [
+    [
       {
-        "handler": "condition",
-        "params": {
-          "term1": "{{customer.groups_subscribers}}",
-          "term2": "0,12345",
-          "operation": "in",
-          "result": [
-            {
-              "handler": "show",
-              "params": {
-                "type": "text",
-                "value": "Одна из двух групп подписана на чат в покупателе"
-              }
+        "question": [
+          {
+            "handler": "condition",
+            "params": {
+              "term1": "{{customer.groups_subscribers}}",
+              "term2": "0,12345",
+              "operation": "in",
+              "result": [
+                {
+                  "handler": "show",
+                  "params": {
+                    "type": "text",
+                    "value": "Одна из двух групп подписана на чат в покупателе"
+                  }
+                }
+              ]
             }
-          ]
-        }
+          }
+        ]
       }
     ]
-  }
-]
-```
 
 Использование оператора ‘in\_range’ в сравнении
 
 #### Пример
 
-```
-[
-  {
-    "question": [
+    [
       {
-        "handler": "condition",
-        "params": {
-          "term1": "{{cf.talk.nps}}",
-          "term2": { "from": 7 },
-          "operation": "in_range",
-          "result": [
-            {
-              "handler": "show",
-              "params": {
-                "type": "text",
-                "value": "Спасибо, что так высоко оценили наш сервис!"
-              }
+        "question": [
+          {
+            "handler": "condition",
+            "params": {
+              "term1": "{{cf.talk.nps}}",
+              "term2": { "from": 7 },
+              "operation": "in_range",
+              "result": [
+                {
+                  "handler": "show",
+                  "params": {
+                    "type": "text",
+                    "value": "Спасибо, что так высоко оценили наш сервис!"
+                  }
+                }
+              ]
             }
-          ]
-        }
+          }
+        ]
       }
     ]
-  }
-]
-```
 
 #### Обработчик send\_external\_message
 
@@ -1688,36 +1591,34 @@ JWT Token нужен для валидации данных присланных
 
 #### Пример
 
-```
-{
-    "handler": "send_external_message",
-    "params": {
-        "message": {
-            "type": "external",
-            "text": "Сообщите, пожалуйста, ваш номер телефона и e-mail"
-        },
-        "recipient": {
-            "type": "main_contact",
-            "way_of_communication": "over_all"
-        },
-        "channels": [
-            {
-                "id": 23499795
-            }
-        ],
-        "metadata": {
-            "facebook_tag": "CONFIRMED_EVENT_UPDATE"
-        },
-        "on_error": {
-            "handler": "goto",
-            "params": {
-                "step": 1,
-                "type": "question"
+    {
+        "handler": "send_external_message",
+        "params": {
+            "message": {
+                "type": "external",
+                "text": "Сообщите, пожалуйста, ваш номер телефона и e-mail"
+            },
+            "recipient": {
+                "type": "main_contact",
+                "way_of_communication": "over_all"
+            },
+            "channels": [
+                {
+                    "id": 23499795
+                }
+            ],
+            "metadata": {
+                "facebook_tag": "CONFIRMED_EVENT_UPDATE"
+            },
+            "on_error": {
+                "handler": "goto",
+                "params": {
+                    "step": 1,
+                    "type": "question"
+                }
             }
         }
     }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -1736,46 +1637,44 @@ JWT Token нужен для валидации данных присланных
 
 #### Пример
 
-```
-{
-    "handler": "send_external_message",
-    "params": {
-        "message": {
-            "type": "external",
-            "text": "Выберите, пожалуйста, тип участия:",
-            "buttons": [
+    {
+        "handler": "send_external_message",
+        "params": {
+            "message": {
+                "type": "external",
+                "text": "Выберите, пожалуйста, тип участия:",
+                "buttons": [
+                    {
+                        "type": "inline",
+                        "text": "Личное присутствие"
+                    },
+                    {
+                        "type": "inline",
+                        "text": "Онлайн"
+                    }
+                ]
+            },
+            "recipient": {
+                "type": "main_contact",
+                "way_of_communication": "over_all"
+            },
+            "channels": [
                 {
-                    "type": "inline",
-                    "text": "Личное присутствие"
-                },
-                {
-                    "type": "inline",
-                    "text": "Онлайн"
+                    "id": 23499795
                 }
-            ]
-        },
-        "recipient": {
-            "type": "main_contact",
-            "way_of_communication": "over_all"
-        },
-        "channels": [
-            {
-                "id": 23499795
-            }
-        ],
-        "metadata": {
-            "facebook_tag": "CONFIRMED_EVENT_UPDATE"
-        },
-        "on_error": {
-            "handler": "goto",
-            "params": {
-                "step": 1,
-                "type": "question"
+            ],
+            "metadata": {
+                "facebook_tag": "CONFIRMED_EVENT_UPDATE"
+            },
+            "on_error": {
+                "handler": "goto",
+                "params": {
+                    "step": 1,
+                    "type": "question"
+                }
             }
         }
     }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -1797,38 +1696,36 @@ JWT Token нужен для валидации данных присланных
 
 #### Пример
 
-```
-{
-    "handler": "send_external_message",
-    "params": {
-        "message": {
-            "type": "external",
-            "text": "Кнопки со ссылками",
-            "buttons": [
-                {
-                    "type": "url",
-                    "text": "Google",
-                    "url": "https://google.com"
-                },
-                {
-                    "type": "url",
-                    "text": "Яндекс",
-                    "url": "https://ya.ru"
-                }
-            ]
-        },
-        "recipient": {
-            "type": "main_contact",
-            "way_of_communication": "over_all"
-        },
-        "channels": [],
-        "metadata": {
-            "facebook_tag": "CONFIRMED_EVENT_UPDATE"
-        },
-        "on_error": null
+    {
+        "handler": "send_external_message",
+        "params": {
+            "message": {
+                "type": "external",
+                "text": "Кнопки со ссылками",
+                "buttons": [
+                    {
+                        "type": "url",
+                        "text": "Google",
+                        "url": "https://google.com"
+                    },
+                    {
+                        "type": "url",
+                        "text": "Яндекс",
+                        "url": "https://ya.ru"
+                    }
+                ]
+            },
+            "recipient": {
+                "type": "main_contact",
+                "way_of_communication": "over_all"
+            },
+            "channels": [],
+            "metadata": {
+                "facebook_tag": "CONFIRMED_EVENT_UPDATE"
+            },
+            "on_error": null
+        }
     }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -1849,54 +1746,52 @@ JWT Token нужен для валидации данных присланных
 
 Если вы хотите отправить ссылки на социальные сети и что бы произошла автосклейка, ссылки должны быть следующего формата:
 
-* Facebook Messenger – https​://m.me/123/?ref=VisitorUid\_{{visitor\_uid}} , где 123 – id группы
-* VK – https​://vk.me/-63068509?ref=VisitorUid\_{{visitor\_uid}} , где 63068509 – id группы
-* Telegram – tg://resolve?domain=bot&start=VisitorUid\_{{visitor\_uid}} , где bot название бота
-* Viber – viber://pa?chatURI=bot&context=VisitorUid\_{{visitor\_uid}} ,  где bot название публичного аккаунта
-* WhatsApp – https​://wa.me/7895?text=ID:%20{{session\_id}} , где 7895 телефон WhatsApp, который подключен в аккаунте
+*   Facebook Messenger – https​://m.me/123/?ref=VisitorUid\_{{visitor\_uid}} , где 123 – id группы
+*   VK – https​://vk.me/-63068509?ref=VisitorUid\_{{visitor\_uid}} , где 63068509 – id группы
+*   Telegram – tg://resolve?domain=bot&start=VisitorUid\_{{visitor\_uid}} , где bot название бота
+*   Viber – viber://pa?chatURI=bot&context=VisitorUid\_{{visitor\_uid}} ,  где bot название публичного аккаунта
+*   WhatsApp – https​://wa.me/7895?text=ID:%20{{session\_id}} , где 7895 телефон WhatsApp, который подключен в аккаунте
 
 Параметры обработчика для отправки текста с фильтрацией по значению поля контакта
 
 #### Пример
 
-```
-{
-    "handler": "send_external_message",
-    "params": {
-        "message": {
-            "type": "external",
-            "text": "Сообщите, пожалуйста, ваш номер телефона и e-mail"
-        },
-        "recipient": {
-            "type": "filtered_contacts",
-            "filter": {
-                "logic": "and",
-                "result": 1,
-                "conditions": [
-                    {
-                        "term1": "{{contact.cf.1880614.is_checked}}",
-                        "term2": "{{contact.cf.1880614.1300836}}",
-                        "operation": "=",
-                        "value_type": "value"
-                    }
-                ]
+    {
+        "handler": "send_external_message",
+        "params": {
+            "message": {
+                "type": "external",
+                "text": "Сообщите, пожалуйста, ваш номер телефона и e-mail"
             },
-            "way_of_communication": "over_all"
-        },
-        "channels": [],
-            "metadata": {
-            "facebook_tag": "CONFIRMED_EVENT_UPDATE"
-        },
-        "on_error": {
-            "handler": "goto",
-            "params": {
-                "step": 1,
-                "type": "question"
+            "recipient": {
+                "type": "filtered_contacts",
+                "filter": {
+                    "logic": "and",
+                    "result": 1,
+                    "conditions": [
+                        {
+                            "term1": "{{contact.cf.1880614.is_checked}}",
+                            "term2": "{{contact.cf.1880614.1300836}}",
+                            "operation": "=",
+                            "value_type": "value"
+                        }
+                    ]
+                },
+                "way_of_communication": "over_all"
+            },
+            "channels": [],
+                "metadata": {
+                "facebook_tag": "CONFIRMED_EVENT_UPDATE"
+            },
+            "on_error": {
+                "handler": "goto",
+                "params": {
+                    "step": 1,
+                    "type": "question"
+                }
             }
         }
     }
-}
-```
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |

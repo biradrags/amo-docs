@@ -1,8 +1,8 @@
-# https://www.amocrm.ru/developers/content/crm_platform/filters-api
+<!-- https://www.amocrm.ru/developers/content/crm_platform/filters-api -->
+
+# Общая информация
 
 Фильтрация (Alpha)
-
-### Общая информация
 
 Функционал API-фильтрации доступен для подключения в разделе «Настройки» → «Счета и оплата». Информацию о ценообразовании подключения функционала, вы можете посмотреть в «Дополнительные пакеты» по [ссылке](https://www.amocrm.ru/buy#additional-pricing).
 
@@ -14,12 +14,12 @@
 
 ### Оглавление
 
-* [Общая информация](#common-info)
-* [Фильтрация списка сделок](#leads-filter)
-* [Фильтрация списка контактов](#contacts-filter)
-* [Фильтрация списка компаний](#companies-filter)
-* [Фильтрация списка покупателей](#customers-filter)
-* [Типы фильтров](#filter-types)
+*   [Общая информация](#common-info)
+*   [Фильтрация списка сделок](#leads-filter)
+*   [Фильтрация списка контактов](#contacts-filter)
+*   [Фильтрация списка компаний](#companies-filter)
+*   [Фильтрация списка покупателей](#customers-filter)
+*   [Типы фильтров](#filter-types)
 
 ### Фильтрация списка сделок
 
@@ -40,19 +40,19 @@ GET /api/v4/leads
 | Параметр | Тип данных | Описание | Множествен. | Диапазон. |
 | --- | --- | --- | --- | --- |
 | filter | object | Фильтр |  |  |
-| filter[id] | int|array | Фильтр по ID сделок | ✅ | ❌ |
-| filter[name] | string|array | Фильтр по названию сделки | ✅ | ❌ |
-| filter[price] | object | Фильтр по бюджету сделки | ❌ | ✅ |
-| filter[statuses] | array | Фильтр по статусам сделки | ❌ | ❌ |
-| filter[pipeline\_id] | int|array | Фильтр по ID воронок | ✅ | ❌ |
-| filter[created\_by] | int|array | Фильтр по ID пользователей, которые создали сущность | ✅ | ❌ |
-| filter[updated\_by] | int|array | Фильтр по ID пользователей, которые изменили сущность последними | ✅ | ❌ |
-| filter[responsible\_user\_id] | int|array | Фильтр по ID пользователей, которые являются ответственными за сущности | ✅ | ❌ |
-| filter[created\_at] | object | Фильтр по дате создания сделки | ❌ | ✅ |
-| filter[updated\_at] | object | Фильтр по дате изменения сделки | ❌ | ✅ |
-| filter[closed\_at] | object | Фильтр по дате закрытия сделки | ❌ | ✅ |
-| filter[closest\_task\_at] | object | Фильтр по дате ближайшей к выполнению задаче | ❌ | ✅ |
-| filter[custom\_fields\_values] | object | Фильтр по значениям дополнительных полей | Зависит от типа поля | Зависит от типа поля |
+| filter\[id\] | int|array | Фильтр по ID сделок | ✅ | ❌ |
+| filter\[name\] | string|array | Фильтр по названию сделки | ✅ | ❌ |
+| filter\[price\] | object | Фильтр по бюджету сделки | ❌ | ✅ |
+| filter\[statuses\] | array | Фильтр по статусам сделки | ❌ | ❌ |
+| filter\[pipeline\_id\] | int|array | Фильтр по ID воронок | ✅ | ❌ |
+| filter\[created\_by\] | int|array | Фильтр по ID пользователей, которые создали сущность | ✅ | ❌ |
+| filter\[updated\_by\] | int|array | Фильтр по ID пользователей, которые изменили сущность последними | ✅ | ❌ |
+| filter\[responsible\_user\_id\] | int|array | Фильтр по ID пользователей, которые являются ответственными за сущности | ✅ | ❌ |
+| filter\[created\_at\] | object | Фильтр по дате создания сделки | ❌ | ✅ |
+| filter\[updated\_at\] | object | Фильтр по дате изменения сделки | ❌ | ✅ |
+| filter\[closed\_at\] | object | Фильтр по дате закрытия сделки | ❌ | ✅ |
+| filter\[closest\_task\_at\] | object | Фильтр по дате ближайшей к выполнению задаче | ❌ | ✅ |
+| filter\[custom\_fields\_values\] | object | Фильтр по значениям дополнительных полей | Зависит от типа поля | Зависит от типа поля |
 | query | string | Строка, по которой будет произведен поиск. **В ближайшее время параметр будет признан устаревшим** |  |  |
 
 ### Фильтрация списка контактов
@@ -74,15 +74,15 @@ GET /api/v4/contacts
 | Параметр | Тип данных | Описание | Множествен. | Диапазон. |
 | --- | --- | --- | --- | --- |
 | filter | object | Фильтр |  |  |
-| filter[id] | int|array | Фильтр по ID контактов | ✅ | ❌ |
-| filter[name] | string|array | Фильтр по названию контакта | ✅ | ❌ |
-| filter[created\_by] | int|array | Фильтр по ID пользователей, которые создали сущность | ✅ | ❌ |
-| filter[updated\_by] | int|array | Фильтр по ID пользователей, которые изменили сущность последними | ✅ | ❌ |
-| filter[responsible\_user\_id] | int|array | Фильтр по ID пользователей, которые являются ответственными за сущности | ✅ | ❌ |
-| filter[created\_at] | object | Фильтр по дате создания контакта | ❌ | ✅ |
-| filter[updated\_at] | object | Фильтр по дате изменения контакта | ❌ | ✅ |
-| filter[closest\_task\_at] | object | Фильтр по дате ближайшей к выполнению задаче | ❌ | ✅ |
-| filter[custom\_fields\_values] | object | Фильтр по значениям дополнительных полей | Зависит от типа поля | Зависит от типа поля |
+| filter\[id\] | int|array | Фильтр по ID контактов | ✅ | ❌ |
+| filter\[name\] | string|array | Фильтр по названию контакта | ✅ | ❌ |
+| filter\[created\_by\] | int|array | Фильтр по ID пользователей, которые создали сущность | ✅ | ❌ |
+| filter\[updated\_by\] | int|array | Фильтр по ID пользователей, которые изменили сущность последними | ✅ | ❌ |
+| filter\[responsible\_user\_id\] | int|array | Фильтр по ID пользователей, которые являются ответственными за сущности | ✅ | ❌ |
+| filter\[created\_at\] | object | Фильтр по дате создания контакта | ❌ | ✅ |
+| filter\[updated\_at\] | object | Фильтр по дате изменения контакта | ❌ | ✅ |
+| filter\[closest\_task\_at\] | object | Фильтр по дате ближайшей к выполнению задаче | ❌ | ✅ |
+| filter\[custom\_fields\_values\] | object | Фильтр по значениям дополнительных полей | Зависит от типа поля | Зависит от типа поля |
 | query | string | Строка, по которой будет произведен поиск. **В ближайшее время параметр будет признан устаревшим** |  |  |
 
 ### Фильтрация списка компаний
@@ -104,15 +104,15 @@ GET /api/v4/companies
 | Параметр | Тип данных | Описание | Множествен. | Диапазон. |
 | --- | --- | --- | --- | --- |
 | filter | object | Фильтр |  |  |
-| filter[id] | int|array | Фильтр по ID компаний | ✅ | ❌ |
-| filter[name] | string|array | Фильтр по названию компании | ✅ | ❌ |
-| filter[created\_by] | int|array | Фильтр по ID пользователей, которые создали сущность | ✅ | ❌ |
-| filter[updated\_by] | int|array | Фильтр по ID пользователей, которые изменили сущность последними | ✅ | ❌ |
-| filter[responsible\_user\_id] | int|array | Фильтр по ID пользователей, которые являются ответственными за сущности | ✅ | ❌ |
-| filter[created\_at] | object | Фильтр по дате создания компании | ❌ | ✅ |
-| filter[updated\_at] | object | Фильтр по дате изменения компании | ❌ | ✅ |
-| filter[closest\_task\_at] | object | Фильтр по дате ближайшей к выполнению задаче | ❌ | ✅ |
-| filter[custom\_fields\_values] | object | Фильтр по значениям дополнительных полей | Зависит от типа поля | Зависит от типа поля |
+| filter\[id\] | int|array | Фильтр по ID компаний | ✅ | ❌ |
+| filter\[name\] | string|array | Фильтр по названию компании | ✅ | ❌ |
+| filter\[created\_by\] | int|array | Фильтр по ID пользователей, которые создали сущность | ✅ | ❌ |
+| filter\[updated\_by\] | int|array | Фильтр по ID пользователей, которые изменили сущность последними | ✅ | ❌ |
+| filter\[responsible\_user\_id\] | int|array | Фильтр по ID пользователей, которые являются ответственными за сущности | ✅ | ❌ |
+| filter\[created\_at\] | object | Фильтр по дате создания компании | ❌ | ✅ |
+| filter\[updated\_at\] | object | Фильтр по дате изменения компании | ❌ | ✅ |
+| filter\[closest\_task\_at\] | object | Фильтр по дате ближайшей к выполнению задаче | ❌ | ✅ |
+| filter\[custom\_fields\_values\] | object | Фильтр по значениям дополнительных полей | Зависит от типа поля | Зависит от типа поля |
 | query | string | Строка, по которой будет произведен поиск. **В ближайшее время параметр будет признан устаревшим** |  |  |
 
 ### Фильтрация списка покупателей
@@ -134,28 +134,28 @@ GET /api/v4/customers
 | Параметр | Тип данных | Описание | Множествен. | Диапазон. |
 | --- | --- | --- | --- | --- |
 | filter | object | Фильтр |  |  |
-| filter[id] | int|array | Фильтр по ID покупателей | ✅ | ❌ |
-| filter[name] | string|array | Фильтр по названию покупателя | ✅ | ❌ |
-| filter[next\_price] | string|array | Фильтр по ожидаемой сумме следующей покупки | ❌ | ✅ |
-| filter[next\_date] | object | Фильтр по ожидаемой дате следующей покупки | ❌ | ✅ |
-| filter[status\_id] | int|array | Фильтр по ID статуса покупателей | ✅ | ❌ |
-| filter[created\_by] | int|array | Фильтр по ID пользователей, которые создали сущность | ✅ | ❌ |
-| filter[updated\_by] | int|array | Фильтр по ID пользователей, которые изменили сущность последними | ✅ | ❌ |
-| filter[responsible\_user\_id] | int|array | Фильтр по ID пользователей, которые являются ответственными за сущности | ✅ | ❌ |
-| filter[created\_at] | object | Фильтр по дате создания компании | ❌ | ✅ |
-| filter[updated\_at] | object | Фильтр по дате изменения компании | ❌ | ✅ |
-| filter[closest\_task\_at] | object | Фильтр по дате ближайшей к выполнению задаче | ❌ | ✅ |
-| filter[custom\_fields\_values] | object | Фильтр по значениям дополнительных полей | Зависит от типа поля | Зависит от типа поля |
+| filter\[id\] | int|array | Фильтр по ID покупателей | ✅ | ❌ |
+| filter\[name\] | string|array | Фильтр по названию покупателя | ✅ | ❌ |
+| filter\[next\_price\] | string|array | Фильтр по ожидаемой сумме следующей покупки | ❌ | ✅ |
+| filter\[next\_date\] | object | Фильтр по ожидаемой дате следующей покупки | ❌ | ✅ |
+| filter\[status\_id\] | int|array | Фильтр по ID статуса покупателей | ✅ | ❌ |
+| filter\[created\_by\] | int|array | Фильтр по ID пользователей, которые создали сущность | ✅ | ❌ |
+| filter\[updated\_by\] | int|array | Фильтр по ID пользователей, которые изменили сущность последними | ✅ | ❌ |
+| filter\[responsible\_user\_id\] | int|array | Фильтр по ID пользователей, которые являются ответственными за сущности | ✅ | ❌ |
+| filter\[created\_at\] | object | Фильтр по дате создания компании | ❌ | ✅ |
+| filter\[updated\_at\] | object | Фильтр по дате изменения компании | ❌ | ✅ |
+| filter\[closest\_task\_at\] | object | Фильтр по дате ближайшей к выполнению задаче | ❌ | ✅ |
+| filter\[custom\_fields\_values\] | object | Фильтр по значениям дополнительных полей | Зависит от типа поля | Зависит от типа поля |
 
 ### Типы фильтров
 
 В данный момент доступно несколько типов фильтров.
 
-* Одиночный
-* Множественный
-* Диапазонный
-* Фильтр по статусам (только для сделок)
-* Фильтр по дополнительным полям
+*   Одиночный
+*   Множественный
+*   Диапазонный
+*   Фильтр по статусам (только для сделок)
+*   Фильтр по дополнительным полям
 
 Каждый из них рассмотрим ниже с примерами.
 
@@ -165,9 +165,9 @@ GET /api/v4/customers
 
 Пример запроса
 
-```
-/api/v4/leads?filter[name]=Сделка
-```
+    
+    /api/v4/leads?filter[name]=Сделка
+    
 
 #### Множественный
 
@@ -175,9 +175,9 @@ GET /api/v4/customers
 
 Пример запроса
 
-```
-/api/v4/leads?filter[pipeline_id][0]=15314&filter[pipeline_id][1]=21856
-```
+    
+    /api/v4/leads?filter[pipeline_id][0]=15314&filter[pipeline_id][1]=21856
+    
 
 #### Диапазонный
 
@@ -187,20 +187,20 @@ GET /api/v4/customers
 
 Фильтр доступен для следующих полей:
 
-* price
-* next\_price
-* next\_date
-* created\_at
-* updated\_at
-* closed\_at
-* closest\_task\_at
-* Поля типа date, date\_time, numeric
+*   price
+*   next\_price
+*   next\_date
+*   created\_at
+*   updated\_at
+*   closed\_at
+*   closest\_task\_at
+*   Поля типа date, date\_time, numeric
 
 Пример запроса
 
-```
-/api/v4/leads?filter[updated_at][from]=1575296400&filter[updated_at][to]=1589540009
-```
+    
+    /api/v4/leads?filter[updated_at][from]=1575296400&filter[updated_at][to]=1589540009
+    
 
 #### Фильтр по статусам
 
@@ -210,9 +210,9 @@ GET /api/v4/customers
 
 Пример запроса
 
-```
-/api/v4/leads?filter[statuses][0][pipeline_id]={pipeline_id}&filter[statuses][0][status_id]={status_id}
-```
+    
+    /api/v4/leads?filter[statuses][0][pipeline_id]={pipeline_id}&filter[statuses][0][status_id]={status_id}
+    
 
 #### Фильтр по дополнительным полям
 
@@ -220,33 +220,32 @@ GET /api/v4/customers
 
 Для разных типов полей необходимы разные значения в фильтре.
 
-* Для полей numeric, text, url, textarea, streetaddress в значение фильтра передается значение поля
-* Для полей select, multiselect, radiobutton в значение фильтра передается ID enum значения
-* Для поля checkbox в значение фильтра передается 1 или 0
+*   Для полей numeric, text, url, textarea, streetaddress в значение фильтра передается значение поля
+*   Для полей select, multiselect, radiobutton в значение фильтра передается ID enum значения
+*   Для поля checkbox в значение фильтра передается 1 или 0
 
 Для разных типов полей доступны разные подходы к фильтрации.
 
 Поля, которые поддерживают фильтр по диапазону:
 
-* date
-* date\_time
-* numeric
+*   date
+*   date\_time
+*   numeric
 
 Поля, которые поддерживают множественный выбор:
 
-* numeric
-* text
-* url
-* textarea
-* streetaddress
-* select
-* multiselect
-* radiobutton
+*   numeric
+*   text
+*   url
+*   textarea
+*   streetaddress
+*   select
+*   multiselect
+*   radiobutton
 
 Пример запроса
 
-```
-/api/v4/leads?filter[custom_fields_values][{field_id}][]={value}&filter[custom_fields_values][{field_id}][]={value2}
-/api/v4/leads?filter[custom_fields_values][{field_id}][]={enum_id}&filter[custom_fields_values][{field_id}][]={enum_id2}
-/api/v4/leads?filter[custom_fields_values][{field_id}][from]={date_from}&filter[custom_fields_values][{field_id}][to]={date_to}
-```
+    
+    /api/v4/leads?filter[custom_fields_values][{field_id}][]={value}&filter[custom_fields_values][{field_id}][]={value2}
+    /api/v4/leads?filter[custom_fields_values][{field_id}][]={enum_id}&filter[custom_fields_values][{field_id}][]={enum_id2}
+    /api/v4/leads?filter[custom_fields_values][{field_id}][from]={date_from}&filter[custom_fields_values][{field_id}][to]={date_to}

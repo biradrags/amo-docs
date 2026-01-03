@@ -1,8 +1,8 @@
-# https://www.amocrm.ru/developers/content/integrations/custom_settings
+<!-- https://www.amocrm.ru/developers/content/integrations/custom_settings -->
+
+# Расширенные настройки виджета
 
 Расширенные настройки
-
-### Расширенные настройки виджета
 
 Виджеты amoCRM поддерживают добавление на страничку настроек виджета собственной программной логики – поля произвольной структуры и внешнего вида.
 
@@ -10,8 +10,8 @@
 
 Для использования поля произвольной структуры необходимо сделать два простых шага:
 
-1. Добавить поле в manifest.json и разрешить виджету исполняться на страничке настроек
-2. Реализовать чтение и запись данных
+1.  Добавить поле в manifest.json и разрешить виджету исполняться на страничке настроек
+2.  Реализовать чтение и запись данных
 
 #### Описание поля произвольной структуры в manifest.json
 
@@ -19,29 +19,25 @@
 
 **Важно:** поле с типом “custom” может содержать json-строку либо число. Строчный тип данных на сервере сохраняться не будет.
 
-```
-"settings": {
-    "apikey": {
-      ...
-    },
-    ...,
-    "myfield": {
-      "name": "settings.apikey",
-      "type": "custom",
-      "required": false
+    "settings": {
+        "apikey": {
+          ...
+        },
+        ...,
+        "myfield": {
+          "name": "settings.apikey",
+          "type": "custom",
+          "required": false
+        }
+      }
     }
-  }
-}
-```
 
 Соберите виджет и загрузите его в аккаунт. Вам станет доступен div с ID <код вижета>\_custom\_content и hidden input с ID <код вижета>\_custom.
 
 Чтобы изменения вашего поля отражались в форме и ее кнопках, нужно создавать событие change на спрятанном системном инпуте. Вот пример того, как можно это сделать:
 
-```
-
-$( 'input[name="имя вашего поля"]' ).trigger ( 'change' ) ;
-```
+    
+    $( 'input[name="имя вашего поля"]' ).trigger ( 'change' ) ;
 
 ### Страница виджета в разделе “Настройки”
 
@@ -55,38 +51,36 @@ $( 'input[name="имя вашего поля"]' ).trigger ( 'change' ) ;
 
 Пример файла manifest.json
 
-```
-{
-  "widget": {
-    "name": "widget.name",
-    "description": "widget.description",
-    "short_description": "widget.short_description",
-    "code": "example_widget",
-    "secret_key": "e2888047a01bc97aa250118c2fa518dba57a4034ccf16dca784dca292d89324f",
-    "version": "1.9",
-    "interface_version": 2,
-    "init_once": false,
-    "locale": [
-      "ru"
-    ],
-    "installation": true
-  },
-  "locations": [
-    "everywhere",
-    "settings",
-    "advanced_settings"
-  ],
-  "settings": {
-    "login": {
-      "name": "settings.login",
-      "type": "text",
-      "required": false
+    {
+      "widget": {
+        "name": "widget.name",
+        "description": "widget.description",
+        "short_description": "widget.short_description",
+        "code": "example_widget",
+        "secret_key": "e2888047a01bc97aa250118c2fa518dba57a4034ccf16dca784dca292d89324f",
+        "version": "1.9",
+        "interface_version": 2,
+        "init_once": false,
+        "locale": [
+          "ru"
+        ],
+        "installation": true
+      },
+      "locations": [
+        "everywhere",
+        "settings",
+        "advanced_settings"
+      ],
+      "settings": {
+        "login": {
+          "name": "settings.login",
+          "type": "text",
+          "required": false
+        }
+      },
+      "advanced": {
+        "title": "advanced.title"
+      }
     }
-  },
-  "advanced": {
-    "title": "advanced.title"
-  }
-}
-```
 
 [JS SDK](/developers/content/integrations/js_sdk)

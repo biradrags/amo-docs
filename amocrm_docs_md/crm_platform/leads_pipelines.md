@@ -1,35 +1,35 @@
-# https://www.amocrm.ru/developers/content/crm_platform/leads_pipelines
+<!-- https://www.amocrm.ru/developers/content/crm_platform/leads_pipelines -->
+
+# Оглавление
 
 Воронки и этапы
 
 В данном разделе описываются доступные методы для работы с воронками и этапами сделок
 
-### Оглавление
-
-* [Общая информация](#Общая-информация)
-* [Список воронок сделок](#Список-воронок-сделок)
-* [Получение воронки сделок по ID](#Получение-воронки-сделок-по-ID)
-* [Добавление воронок](#Добавление-воронок)
-* [Редактирование воронки](#Редактирование-воронки)
-* [Удаление воронки](#Удаление-воронки)
-* [Список статусов воронки сделок](#Список-статусов-воронки-сделок)
-* [Получение статуса воронки сделок по ID](#Получение-статуса-воронки-сделок-по-ID)
-* [Добавление статусов в воронку](#Добавление-статусов-в-воронку)
-* [Редактирование статуса воронки](#Редактирование-статуса-воронки)
-* [Удаление статуса воронки](#Удаление-статуса-воронки)
-* [Доступные цвета статусов](#Доступные-цвета-статусов)
+*   [Общая информация](#Общая-информация)
+*   [Список воронок сделок](#Список-воронок-сделок)
+*   [Получение воронки сделок по ID](#Получение-воронки-сделок-по-ID)
+*   [Добавление воронок](#Добавление-воронок)
+*   [Редактирование воронки](#Редактирование-воронки)
+*   [Удаление воронки](#Удаление-воронки)
+*   [Список статусов воронки сделок](#Список-статусов-воронки-сделок)
+*   [Получение статуса воронки сделок по ID](#Получение-статуса-воронки-сделок-по-ID)
+*   [Добавление статусов в воронку](#Добавление-статусов-в-воронку)
+*   [Редактирование статуса воронки](#Редактирование-статуса-воронки)
+*   [Удаление статуса воронки](#Удаление-статуса-воронки)
+*   [Доступные цвета статусов](#Доступные-цвета-статусов)
 
 ### Общая информация
 
-* В каждой воронке есть 3 системных статуса: Неразобранное, Успешно реализовано (ID = 142), Закрыто и не реализовано (ID = 143)
-* В аккаунте может быть не более 50 воронок.
-* В одной воронке может быть не более 100 статусов, включая системные.
+*   В каждой воронке есть 3 системных статуса: Неразобранное, Успешно реализовано (ID = 142), Закрыто и не реализовано (ID = 143)
+*   В аккаунте может быть не более 50 воронок.
+*   В одной воронке может быть не более 100 статусов, включая системные.
 
 ### Список воронок сделок
 
 #### Метод
 
-*GET /api/v4/leads/pipelines*
+_GET /api/v4/leads/pipelines_
 
 #### Описание
 
@@ -41,11 +41,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -67,123 +67,121 @@
 | is\_unsorted\_on | bool | Включено ли неразобранное в воронке |
 | is\_archive | bool | Является ли воронка архивной |
 | account\_id | int | ID аккаунта, в котором находится воронка |
-| \_embedded[statuses] | array | Данные статусов, имеющихся в воронке. Подробней о статусах читайте [ниже](#Список-статусов-воронки-сделок) |
+| \_embedded\[statuses\] | array | Данные статусов, имеющихся в воронке. Подробней о статусах читайте [ниже](#Список-статусов-воронки-сделок) |
 
 #### Пример ответа
 
-```
-{
-    "_total_items": 1,
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/leads/pipelines"
-        }
-    },
-    "_embedded": {
-        "pipelines": [
-            {
-                "id": 3177727,
-                "name": "Воронка",
-                "sort": 1,
-                "is_main": true,
-                "is_unsorted_on": true,
-                "is_archive": false,
-                "account_id": 12345678,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727"
-                    }
-                },
-                "_embedded": {
-                    "statuses": [
-                        {
-                            "id": 32392156,
-                            "name": "Неразобранное",
-                            "sort": 10,
-                            "is_editable": false,
-                            "pipeline_id": 3177727,
-                            "color": "#c1c1c1",
-                            "type": 1,
-                            "account_id": 12345678,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392156"
-                                }
-                            }
-                        },
-                        {
-                            "id": 32392159,
-                            "name": "Первичный контакт",
-                            "sort": 20,
-                            "is_editable": true,
-                            "pipeline_id": 3177727,
-                            "color": "#99ccff",
-                            "type": 0,
-                            "account_id": 12345678,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392159"
-                                }
-                            }
-                        },
-                        {
-                            "id": 32392165,
-                            "name": "Принимают решение",
-                            "sort": 30,
-                            "is_editable": true,
-                            "pipeline_id": 3177727,
-                            "color": "#ffcc66",
-                            "type": 0,
-                            "account_id": 12345678,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392165"
-                                }
-                            }
-                        },
-                        {
-                            "id": 142,
-                            "name": "Успешно реализовано",
-                            "sort": 10000,
-                            "is_editable": false,
-                            "pipeline_id": 3177727,
-                            "color": "#CCFF66",
-                            "type": 0,
-                            "account_id": 12345678,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/142"
-                                }
-                            }
-                        },
-                        {
-                            "id": 143,
-                            "name": "Закрыто и не реализовано",
-                            "sort": 11000,
-                            "is_editable": false,
-                            "pipeline_id": 3177727,
-                            "color": "#D5D8DB",
-                            "type": 0,
-                            "account_id": 12345678,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/143"
-                                }
-                            }
-                        }
-                    ]
-                }
+    {
+        "_total_items": 1,
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/leads/pipelines"
             }
-        ]
+        },
+        "_embedded": {
+            "pipelines": [
+                {
+                    "id": 3177727,
+                    "name": "Воронка",
+                    "sort": 1,
+                    "is_main": true,
+                    "is_unsorted_on": true,
+                    "is_archive": false,
+                    "account_id": 12345678,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727"
+                        }
+                    },
+                    "_embedded": {
+                        "statuses": [
+                            {
+                                "id": 32392156,
+                                "name": "Неразобранное",
+                                "sort": 10,
+                                "is_editable": false,
+                                "pipeline_id": 3177727,
+                                "color": "#c1c1c1",
+                                "type": 1,
+                                "account_id": 12345678,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392156"
+                                    }
+                                }
+                            },
+                            {
+                                "id": 32392159,
+                                "name": "Первичный контакт",
+                                "sort": 20,
+                                "is_editable": true,
+                                "pipeline_id": 3177727,
+                                "color": "#99ccff",
+                                "type": 0,
+                                "account_id": 12345678,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392159"
+                                    }
+                                }
+                            },
+                            {
+                                "id": 32392165,
+                                "name": "Принимают решение",
+                                "sort": 30,
+                                "is_editable": true,
+                                "pipeline_id": 3177727,
+                                "color": "#ffcc66",
+                                "type": 0,
+                                "account_id": 12345678,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392165"
+                                    }
+                                }
+                            },
+                            {
+                                "id": 142,
+                                "name": "Успешно реализовано",
+                                "sort": 10000,
+                                "is_editable": false,
+                                "pipeline_id": 3177727,
+                                "color": "#CCFF66",
+                                "type": 0,
+                                "account_id": 12345678,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/142"
+                                    }
+                                }
+                            },
+                            {
+                                "id": 143,
+                                "name": "Закрыто и не реализовано",
+                                "sort": 11000,
+                                "is_editable": false,
+                                "pipeline_id": 3177727,
+                                "color": "#D5D8DB",
+                                "type": 0,
+                                "account_id": 12345678,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/143"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
     }
-}
-```
 
 ### Получение воронки сделок по ID
 
 #### Метод
 
-*GET /api/v4/leads/pipelines/{id}*
+_GET /api/v4/leads/pipelines/{id}_
 
 #### Описание
 
@@ -195,11 +193,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -221,111 +219,109 @@
 | is\_unsorted\_on | bool | Включено ли неразобранное в воронке |
 | is\_archive | bool | Является ли воронка архивной |
 | account\_id | int | ID аккаунта, в котором находится воронка |
-| \_embedded[statuses] | array | Данные статусов, имеющихся в воронке. Подробней о статусах читайте [ниже](#Список-статусов-воронки-сделок) |
+| \_embedded\[statuses\] | array | Данные статусов, имеющихся в воронке. Подробней о статусах читайте [ниже](#Список-статусов-воронки-сделок) |
 
 #### Пример ответа
 
-```
-{
-    "id": 3177727,
-    "name": "Воронка",
-    "sort": 1,
-    "is_main": true,
-    "is_unsorted_on": true,
-    "is_archive": false,
-    "account_id": 28847170,
-    "_links": {
-        "self": {
-            "href": "https://shard152.amocrm.ru/api/v4/leads/pipelines/3177727"
-        }
-    },
-    "_embedded": {
-        "statuses": [
-            {
-                "id": 32392156,
-                "name": "Неразобранное",
-                "sort": 10,
-                "is_editable": false,
-                "pipeline_id": 3177727,
-                "color": "#c1c1c1",
-                "type": 1,
-                "account_id": 28847170,
-                "_links": {
-                    "self": {
-                        "href": "https://shard152.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392156"
-                    }
-                }
-            },
-            {
-                "id": 32392159,
-                "name": "Первичный контакт",
-                "sort": 20,
-                "is_editable": true,
-                "pipeline_id": 3177727,
-                "color": "#99ccff",
-                "type": 0,
-                "account_id": 28847170,
-                "_links": {
-                    "self": {
-                        "href": "https://shard152.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392159"
-                    }
-                }
-            },
-            {
-                "id": 32392165,
-                "name": "Принимают решение",
-                "sort": 30,
-                "is_editable": true,
-                "pipeline_id": 3177727,
-                "color": "#ffcc66",
-                "type": 0,
-                "account_id": 28847170,
-                "_links": {
-                    "self": {
-                        "href": "https://shard152.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392165"
-                    }
-                }
-            },
-            {
-                "id": 142,
-                "name": "Успешно реализовано",
-                "sort": 10000,
-                "is_editable": false,
-                "pipeline_id": 3177727,
-                "color": "#CCFF66",
-                "type": 0,
-                "account_id": 28847170,
-                "_links": {
-                    "self": {
-                        "href": "https://shard152.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/142"
-                    }
-                }
-            },
-            {
-                "id": 143,
-                "name": "Закрыто и не реализовано",
-                "sort": 11000,
-                "is_editable": false,
-                "pipeline_id": 3177727,
-                "color": "#D5D8DB",
-                "type": 0,
-                "account_id": 28847170,
-                "_links": {
-                    "self": {
-                        "href": "https://shard152.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/143"
-                    }
-                }
+    {
+        "id": 3177727,
+        "name": "Воронка",
+        "sort": 1,
+        "is_main": true,
+        "is_unsorted_on": true,
+        "is_archive": false,
+        "account_id": 28847170,
+        "_links": {
+            "self": {
+                "href": "https://shard152.amocrm.ru/api/v4/leads/pipelines/3177727"
             }
-        ]
+        },
+        "_embedded": {
+            "statuses": [
+                {
+                    "id": 32392156,
+                    "name": "Неразобранное",
+                    "sort": 10,
+                    "is_editable": false,
+                    "pipeline_id": 3177727,
+                    "color": "#c1c1c1",
+                    "type": 1,
+                    "account_id": 28847170,
+                    "_links": {
+                        "self": {
+                            "href": "https://shard152.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392156"
+                        }
+                    }
+                },
+                {
+                    "id": 32392159,
+                    "name": "Первичный контакт",
+                    "sort": 20,
+                    "is_editable": true,
+                    "pipeline_id": 3177727,
+                    "color": "#99ccff",
+                    "type": 0,
+                    "account_id": 28847170,
+                    "_links": {
+                        "self": {
+                            "href": "https://shard152.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392159"
+                        }
+                    }
+                },
+                {
+                    "id": 32392165,
+                    "name": "Принимают решение",
+                    "sort": 30,
+                    "is_editable": true,
+                    "pipeline_id": 3177727,
+                    "color": "#ffcc66",
+                    "type": 0,
+                    "account_id": 28847170,
+                    "_links": {
+                        "self": {
+                            "href": "https://shard152.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392165"
+                        }
+                    }
+                },
+                {
+                    "id": 142,
+                    "name": "Успешно реализовано",
+                    "sort": 10000,
+                    "is_editable": false,
+                    "pipeline_id": 3177727,
+                    "color": "#CCFF66",
+                    "type": 0,
+                    "account_id": 28847170,
+                    "_links": {
+                        "self": {
+                            "href": "https://shard152.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/142"
+                        }
+                    }
+                },
+                {
+                    "id": 143,
+                    "name": "Закрыто и не реализовано",
+                    "sort": 11000,
+                    "is_editable": false,
+                    "pipeline_id": 3177727,
+                    "color": "#D5D8DB",
+                    "type": 0,
+                    "account_id": 28847170,
+                    "_links": {
+                        "self": {
+                            "href": "https://shard152.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/143"
+                        }
+                    }
+                }
+            ]
+        }
     }
-}
-```
 
 ### Добавление воронок
 
 #### Метод
 
-*POST /api/v4/leads/pipelines*
+_POST /api/v4/leads/pipelines_
 
 #### Описание
 
@@ -337,7 +333,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -347,43 +343,41 @@
 | sort | int | Сортировка воронки. Обязательный параметр |
 | is\_main | bool | Является ли воронка главной. Обязательный параметр |
 | is\_unsorted\_on | bool | Включено ли неразобранное в воронке. Обязательный параметр |
-| \_embedded[statuses] | array | Данные статусов, имеющихся в воронке. Вы можете передать названия для системных статусов 142 и 143 при создании воронки. Подробней о статусах читайте [ниже](#Список-статусов-воронки-сделок) |
+| \_embedded\[statuses\] | array | Данные статусов, имеющихся в воронке. Вы можете передать названия для системных статусов 142 и 143 при создании воронки. Подробней о статусах читайте [ниже](#Список-статусов-воронки-сделок) |
 | request\_id | string | Поле, которое вернется вам в ответе без изменений и не будет сохранено. Необязательный параметр |
 
 #### Пример запроса
 
-```
-[
-    {
-        "name": "Воронка доп продаж",
-        "is_main": false,
-        "is_unsorted_on": true,
-        "sort": 20,
-        "request_id": "123",
-        "_embedded": {
-            "statuses": [
-                {
-                    "id": 142,
-                    "name": "Мое название для успешных сделок"
-                },
-                {
-                    "name": "Первичный контакт",
-                    "sort": 10,
-                    "color": "#fffeb2"
-                }
-            ]
+    [
+        {
+            "name": "Воронка доп продаж",
+            "is_main": false,
+            "is_unsorted_on": true,
+            "sort": 20,
+            "request_id": "123",
+            "_embedded": {
+                "statuses": [
+                    {
+                        "id": 142,
+                        "name": "Мое название для успешных сделок"
+                    },
+                    {
+                        "name": "Первичный контакт",
+                        "sort": 10,
+                        "color": "#fffeb2"
+                    }
+                ]
+            }
         }
-    }
-]
-```
+    ]
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -401,104 +395,102 @@
 
 #### Пример ответа
 
-```
-{
-    "_total_items": 1,
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/leads/pipelines"
-        }
-    },
-    "_embedded": {
-        "pipelines": [
-            {
-                "id": 3270358,
-                "name": "Воронка для примера",
-                "sort": 1,
-                "is_main": true,
-                "is_unsorted_on": false,
-                "account_id": 1415131,
-                "request_id": "123",
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3270358"
-                    }
-                },
-                "_embedded": {
-                    "statuses": [
-                        {
-                            "id": 3304,
-                            "name": "Неразобранное",
-                            "sort": 10,
-                            "is_editable": false,
-                            "pipeline_id": 3270358,
-                            "color": "#c1c1c1",
-                            "type": 1,
-                            "account_id": 1415131,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3270358/statuses/3304"
-                                }
-                            }
-                        },
-                        {
-                            "id": 3303,
-                            "name": "Первичный контакт",
-                            "sort": 20,
-                            "is_editable": true,
-                            "pipeline_id": 3270358,
-                            "color": "#fffeb2",
-                            "type": 0,
-                            "account_id": 1415131,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3270358/statuses/3303"
-                                }
-                            }
-                        },
-                        {
-                            "id": 142,
-                            "name": "Мое название для успешных сделок",
-                            "sort": 10000,
-                            "is_editable": false,
-                            "pipeline_id": 3270358,
-                            "color": "#CCFF66",
-                            "type": 0,
-                            "account_id": 1415131,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3270358/statuses/142"
-                                }
-                            }
-                        },
-                        {
-                            "id": 143,
-                            "name": "Закрыто и не реализовано",
-                            "sort": 11000,
-                            "is_editable": false,
-                            "pipeline_id": 3270358,
-                            "color": "#D5D8DB",
-                            "type": 0,
-                            "account_id": 1415131,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3270358/statuses/143"
-                                }
-                            }
-                        }
-                    ]
-                }
+    {
+        "_total_items": 1,
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/leads/pipelines"
             }
-        ]
+        },
+        "_embedded": {
+            "pipelines": [
+                {
+                    "id": 3270358,
+                    "name": "Воронка для примера",
+                    "sort": 1,
+                    "is_main": true,
+                    "is_unsorted_on": false,
+                    "account_id": 1415131,
+                    "request_id": "123",
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3270358"
+                        }
+                    },
+                    "_embedded": {
+                        "statuses": [
+                            {
+                                "id": 3304,
+                                "name": "Неразобранное",
+                                "sort": 10,
+                                "is_editable": false,
+                                "pipeline_id": 3270358,
+                                "color": "#c1c1c1",
+                                "type": 1,
+                                "account_id": 1415131,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3270358/statuses/3304"
+                                    }
+                                }
+                            },
+                            {
+                                "id": 3303,
+                                "name": "Первичный контакт",
+                                "sort": 20,
+                                "is_editable": true,
+                                "pipeline_id": 3270358,
+                                "color": "#fffeb2",
+                                "type": 0,
+                                "account_id": 1415131,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3270358/statuses/3303"
+                                    }
+                                }
+                            },
+                            {
+                                "id": 142,
+                                "name": "Мое название для успешных сделок",
+                                "sort": 10000,
+                                "is_editable": false,
+                                "pipeline_id": 3270358,
+                                "color": "#CCFF66",
+                                "type": 0,
+                                "account_id": 1415131,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3270358/statuses/142"
+                                    }
+                                }
+                            },
+                            {
+                                "id": 143,
+                                "name": "Закрыто и не реализовано",
+                                "sort": 11000,
+                                "is_editable": false,
+                                "pipeline_id": 3270358,
+                                "color": "#D5D8DB",
+                                "type": 0,
+                                "account_id": 1415131,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3270358/statuses/143"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
     }
-}
-```
 
 ### Редактирование воронки
 
 #### Метод
 
-*PATCH /api/v4/leads/pipelines/{id}*
+_PATCH /api/v4/leads/pipelines/{id}_
 
 #### Описание
 
@@ -510,7 +502,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -525,22 +517,20 @@
 
 #### Пример запроса
 
-```
-{
-    "name": "Новое название для воронки",
-    "is_main": false,
-    "is_unsorted_on": false,
-    "sort": 100
-}
-```
+    {
+        "name": "Новое название для воронки",
+        "is_main": false,
+        "is_unsorted_on": false,
+        "sort": 100
+    }
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -557,93 +547,91 @@
 
 #### Пример ответа
 
-```
-{
-    "id": 3177727,
-    "name": "Новое название для воронки",
-    "sort": 1000,
-    "is_main": false,
-    "is_unsorted_on": false,
-    "is_archive": false,
-    "account_id": 12345678,
-    "request_id": "0",
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727"
-        }
-    },
-    "_embedded": {
-        "statuses": [
-            {
-                "id": 32392159,
-                "name": "Первичный контакт",
-                "sort": 20,
-                "is_editable": true,
-                "pipeline_id": 3177727,
-                "color": "#99ccff",
-                "type": 0,
-                "account_id": 12345678,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392159"
-                    }
-                }
-            },
-            {
-                "id": 32392165,
-                "name": "Принимают решение",
-                "sort": 30,
-                "is_editable": true,
-                "pipeline_id": 3177727,
-                "color": "#ffcc66",
-                "type": 0,
-                "account_id": 12345678,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392165"
-                    }
-                }
-            },
-            {
-                "id": 142,
-                "name": "Успешно реализовано",
-                "sort": 10000,
-                "is_editable": false,
-                "pipeline_id": 3177727,
-                "color": "#CCFF66",
-                "type": 0,
-                "account_id": 12345678,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/142"
-                    }
-                }
-            },
-            {
-                "id": 143,
-                "name": "Закрыто и не реализовано",
-                "sort": 11000,
-                "is_editable": false,
-                "pipeline_id": 3177727,
-                "color": "#D5D8DB",
-                "type": 0,
-                "account_id": 12345678,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/143"
-                    }
-                }
+    {
+        "id": 3177727,
+        "name": "Новое название для воронки",
+        "sort": 1000,
+        "is_main": false,
+        "is_unsorted_on": false,
+        "is_archive": false,
+        "account_id": 12345678,
+        "request_id": "0",
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727"
             }
-        ]
+        },
+        "_embedded": {
+            "statuses": [
+                {
+                    "id": 32392159,
+                    "name": "Первичный контакт",
+                    "sort": 20,
+                    "is_editable": true,
+                    "pipeline_id": 3177727,
+                    "color": "#99ccff",
+                    "type": 0,
+                    "account_id": 12345678,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392159"
+                        }
+                    }
+                },
+                {
+                    "id": 32392165,
+                    "name": "Принимают решение",
+                    "sort": 30,
+                    "is_editable": true,
+                    "pipeline_id": 3177727,
+                    "color": "#ffcc66",
+                    "type": 0,
+                    "account_id": 12345678,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392165"
+                        }
+                    }
+                },
+                {
+                    "id": 142,
+                    "name": "Успешно реализовано",
+                    "sort": 10000,
+                    "is_editable": false,
+                    "pipeline_id": 3177727,
+                    "color": "#CCFF66",
+                    "type": 0,
+                    "account_id": 12345678,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/142"
+                        }
+                    }
+                },
+                {
+                    "id": 143,
+                    "name": "Закрыто и не реализовано",
+                    "sort": 11000,
+                    "is_editable": false,
+                    "pipeline_id": 3177727,
+                    "color": "#D5D8DB",
+                    "type": 0,
+                    "account_id": 12345678,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/143"
+                        }
+                    }
+                }
+            ]
+        }
     }
-}
-```
 
 ### Удаление воронки
 
 #### Метод
 
-*DELETE /api/v4/leads/pipelines/{id}*
+_DELETE /api/v4/leads/pipelines/{id}_
 
 #### Описание
 
@@ -651,13 +639,13 @@
 
 #### Ограничения
 
-* Метод доступен только с правами администратора аккаунта
-* Нельзя удалить последнюю воронку в аккаунте
-* Нельзя удалить воронку, в которой есть сделки
+*   Метод доступен только с правами администратора аккаунта
+*   Нельзя удалить последнюю воронку в аккаунте
+*   Нельзя удалить воронку, в которой есть сделки
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -676,7 +664,7 @@
 
 #### Метод
 
-*GET /api/v4/leads/pipelines/{pipeline\_id}/statuses*
+_GET /api/v4/leads/pipelines/{pipeline\_id}/statuses_
 
 #### Описание
 
@@ -694,11 +682,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -722,152 +710,150 @@
 | type | int | Тип статуса (1 – неразобранное, 0 – обычный статус) |
 | account\_id | int | ID аккаунта, в котором находится воронка |
 | descriptions | array | **Требуется GET параметр with.** Описания статуса |
-| descriptions[0] | object | Модель описания статуса |
-| descriptions[0][id] | int | ID описания статуса |
-| descriptions[0][account\_id] | int | ID аккаунта |
-| descriptions[0][created\_at] | string | Время создания статуса в формате YYYY-MM-DD HH:MM:SS |
-| descriptions[0][updated\_at] | string | Время последнего обновления статуса в формате YYYY-MM-DD HH:MM:SS |
-| descriptions[0][created\_by] | int | ID пользователя создавшего описание, 0 – апи |
-| descriptions[0][updated\_by] | int | ID пользователя обновившего описание, 0 – апи |
-| descriptions[0][pipeline\_id] | int | ID воронки описания статуса |
-| descriptions[0][status\_id] | int | ID статуса описания статуса |
-| descriptions[0][level] | string | Уровень пользователей которым показывается описание статуса |
-| descriptions[0][description] | string | Описание статуса |
+| descriptions\[0\] | object | Модель описания статуса |
+| descriptions\[0\]\[id\] | int | ID описания статуса |
+| descriptions\[0\]\[account\_id\] | int | ID аккаунта |
+| descriptions\[0\]\[created\_at\] | string | Время создания статуса в формате YYYY-MM-DD HH:MM:SS |
+| descriptions\[0\]\[updated\_at\] | string | Время последнего обновления статуса в формате YYYY-MM-DD HH:MM:SS |
+| descriptions\[0\]\[created\_by\] | int | ID пользователя создавшего описание, 0 – апи |
+| descriptions\[0\]\[updated\_by\] | int | ID пользователя обновившего описание, 0 – апи |
+| descriptions\[0\]\[pipeline\_id\] | int | ID воронки описания статуса |
+| descriptions\[0\]\[status\_id\] | int | ID статуса описания статуса |
+| descriptions\[0\]\[level\] | string | Уровень пользователей которым показывается описание статуса |
+| descriptions\[0\]\[description\] | string | Описание статуса |
 
 #### Пример ответа
 
-```
-{
-    "_total_items": 5,
-    "_embedded": {
-        "statuses": [
-            {
-                "id": 32392156,
-                "name": "Неразобранное",
-                "sort": 10,
-                "is_editable": false,
-                "pipeline_id": 3177727,
-                "color": "#c1c1c1",
-                "type": 1,
-                "account_id": 12345678,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392156"
-                    }
-                },
-                "descriptions": []
-            },
-            {
-                "id": 32392159,
-                "name": "Первичный контакт",
-                "sort": 20,
-                "is_editable": true,
-                "pipeline_id": 3177727,
-                "color": "#99ccff",
-                "type": 0,
-                "account_id": 12345678,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392159"
-                    }
-                },
-                "descriptions": [
-                    {
-                        "account_id": 12345678,
-                        "created_at": "2023-05-05 09:38:00",
-                        "created_by": 12345,
-                        "description": "Описание статуса \"Первичный контакт\" для новичка",
-                        "id": 489,
-                        "level": "newbie",
-                        "pipeline_id": 3177727,
-                        "status_id": 32392159,
-                        "updated_at": "2023-05-05 09:38:00",
-                        "updated_by": null
+    {
+        "_total_items": 5,
+        "_embedded": {
+            "statuses": [
+                {
+                    "id": 32392156,
+                    "name": "Неразобранное",
+                    "sort": 10,
+                    "is_editable": false,
+                    "pipeline_id": 3177727,
+                    "color": "#c1c1c1",
+                    "type": 1,
+                    "account_id": 12345678,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392156"
+                        }
                     },
-                    {
-                        "account_id": 12345678,
-                        "created_at": "2023-05-05 09:38:00",
-                        "created_by": 0,
-                        "description": "Описание статуса \"Первичный контакт\" для кандидата",
-                        "id": 491,
-                        "level": "candidate",
-                        "pipeline_id": 3177727,
-                        "status_id": 32392159,
-                        "updated_at": "2023-05-05 09:38:00",
-                        "updated_by": 12345
+                    "descriptions": []
+                },
+                {
+                    "id": 32392159,
+                    "name": "Первичный контакт",
+                    "sort": 20,
+                    "is_editable": true,
+                    "pipeline_id": 3177727,
+                    "color": "#99ccff",
+                    "type": 0,
+                    "account_id": 12345678,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392159"
+                        }
                     },
-                    {
-                        "account_id": 12345678,
-                        "created_at": "2023-05-05 09:38:00",
-                        "created_by": 123456,
-                        "description": "Описание статуса \"Первичный контакт\" для мастера",
-                        "id": 493,
-                        "level": "master",
-                        "pipeline_id": 3177727,
-                        "status_id": 32392159,
-                        "updated_at": "2023-05-05 09:38:00",
-                        "updated_by": 123457
-                    }
-                ]
-            },
-            {
-                "id": 32392165,
-                "name": "Принимают решение",
-                "sort": 30,
-                "is_editable": true,
-                "pipeline_id": 3177727,
-                "color": "#ffcc66",
-                "type": 0,
-                "account_id": 12345678,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392165"
-                    }
+                    "descriptions": [
+                        {
+                            "account_id": 12345678,
+                            "created_at": "2023-05-05 09:38:00",
+                            "created_by": 12345,
+                            "description": "Описание статуса \"Первичный контакт\" для новичка",
+                            "id": 489,
+                            "level": "newbie",
+                            "pipeline_id": 3177727,
+                            "status_id": 32392159,
+                            "updated_at": "2023-05-05 09:38:00",
+                            "updated_by": null
+                        },
+                        {
+                            "account_id": 12345678,
+                            "created_at": "2023-05-05 09:38:00",
+                            "created_by": 0,
+                            "description": "Описание статуса \"Первичный контакт\" для кандидата",
+                            "id": 491,
+                            "level": "candidate",
+                            "pipeline_id": 3177727,
+                            "status_id": 32392159,
+                            "updated_at": "2023-05-05 09:38:00",
+                            "updated_by": 12345
+                        },
+                        {
+                            "account_id": 12345678,
+                            "created_at": "2023-05-05 09:38:00",
+                            "created_by": 123456,
+                            "description": "Описание статуса \"Первичный контакт\" для мастера",
+                            "id": 493,
+                            "level": "master",
+                            "pipeline_id": 3177727,
+                            "status_id": 32392159,
+                            "updated_at": "2023-05-05 09:38:00",
+                            "updated_by": 123457
+                        }
+                    ]
                 },
-                "descriptions": []
-            },
-            {
-                "id": 142,
-                "name": "Успешно реализовано",
-                "sort": 10000,
-                "is_editable": false,
-                "pipeline_id": 3177727,
-                "color": "#CCFF66",
-                "type": 0,
-                "account_id": 12345678,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/142"
-                    }
+                {
+                    "id": 32392165,
+                    "name": "Принимают решение",
+                    "sort": 30,
+                    "is_editable": true,
+                    "pipeline_id": 3177727,
+                    "color": "#ffcc66",
+                    "type": 0,
+                    "account_id": 12345678,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392165"
+                        }
+                    },
+                    "descriptions": []
                 },
-                "descriptions": []
-            },
-            {
-                "id": 143,
-                "name": "Закрыто и не реализовано",
-                "sort": 11000,
-                "is_editable": false,
-                "pipeline_id": 3177727,
-                "color": "#D5D8DB",
-                "type": 0,
-                "account_id": 12345678,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/143"
-                    }
+                {
+                    "id": 142,
+                    "name": "Успешно реализовано",
+                    "sort": 10000,
+                    "is_editable": false,
+                    "pipeline_id": 3177727,
+                    "color": "#CCFF66",
+                    "type": 0,
+                    "account_id": 12345678,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/142"
+                        }
+                    },
+                    "descriptions": []
                 },
-                "descriptions": []
-            }
-        ]
+                {
+                    "id": 143,
+                    "name": "Закрыто и не реализовано",
+                    "sort": 11000,
+                    "is_editable": false,
+                    "pipeline_id": 3177727,
+                    "color": "#D5D8DB",
+                    "type": 0,
+                    "account_id": 12345678,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/143"
+                        }
+                    },
+                    "descriptions": []
+                }
+            ]
+        }
     }
-}
-```
 
 ### Получение статуса воронки сделок по ID
 
 #### Метод
 
-*GET /api/v4/leads/pipelines/{pipeline\_id}/statuses/{id}*
+_GET /api/v4/leads/pipelines/{pipeline\_id}/statuses/{id}_
 
 #### Описание
 
@@ -885,11 +871,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -913,75 +899,73 @@
 | type | int | Тип статуса (1 – неразобранное, 0 – обычный статус) |
 | account\_id | int | ID аккаунта, в котором находится воронка |
 | descriptions | array | **Требуется GET параметр with.** Описания статуса |
-| descriptions[0] | object | Модель описания статуса |
-| descriptions[0][id] | int | ID описания статуса |
-| descriptions[0][account\_id] | int | ID аккаунта |
-| descriptions[0][created\_at] | string | Время создания статуса в формате YYYY-MM-DD HH:MM:SS |
-| descriptions[0][updated\_at] | string | Время последнего обновления статуса в формате YYYY-MM-DD HH:MM:SS |
-| descriptions[0][created\_by] | int | ID пользователя создавшего описание, 0 – апи |
-| descriptions[0][updated\_by] | int | ID пользователя обновившего описание, 0 – апи |
-| descriptions[0][pipeline\_id] | int | ID воронки описания статуса |
-| descriptions[0][status\_id] | int | ID статуса описания статуса |
-| descriptions[0][level] | string | Уровень пользователей которым показывается описание статуса |
-| descriptions[0][description] | string | Описание статуса |
+| descriptions\[0\] | object | Модель описания статуса |
+| descriptions\[0\]\[id\] | int | ID описания статуса |
+| descriptions\[0\]\[account\_id\] | int | ID аккаунта |
+| descriptions\[0\]\[created\_at\] | string | Время создания статуса в формате YYYY-MM-DD HH:MM:SS |
+| descriptions\[0\]\[updated\_at\] | string | Время последнего обновления статуса в формате YYYY-MM-DD HH:MM:SS |
+| descriptions\[0\]\[created\_by\] | int | ID пользователя создавшего описание, 0 – апи |
+| descriptions\[0\]\[updated\_by\] | int | ID пользователя обновившего описание, 0 – апи |
+| descriptions\[0\]\[pipeline\_id\] | int | ID воронки описания статуса |
+| descriptions\[0\]\[status\_id\] | int | ID статуса описания статуса |
+| descriptions\[0\]\[level\] | string | Уровень пользователей которым показывается описание статуса |
+| descriptions\[0\]\[description\] | string | Описание статуса |
 
 #### Пример ответа
 
-```
-{
-    "id": 32392159,
-    "name": "Первичный контакт",
-    "sort": 20,
-    "is_editable": true,
-    "pipeline_id": 3177727,
-    "color": "#99ccff",
-    "type": 0,
-    "account_id": 12345678,
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392159"
-        }
-    },
-    "descriptions": [
-        {
-            "account_id": 12345678,
-            "created_at": "2023-05-05 09:38:00",
-            "created_by": 12345,
-            "description": "Описание статуса \"Первичный контакт\" для новичка",
-            "id": 489,
-            "level": "newbie",
-            "pipeline_id": 3177727,
-            "status_id": 32392159,
-            "updated_at": "2023-05-05 09:38:00",
-            "updated_by": null
+    {
+        "id": 32392159,
+        "name": "Первичный контакт",
+        "sort": 20,
+        "is_editable": true,
+        "pipeline_id": 3177727,
+        "color": "#99ccff",
+        "type": 0,
+        "account_id": 12345678,
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392159"
+            }
         },
-        {
-            "account_id": 12345678,
-            "created_at": "2023-05-05 09:38:00",
-            "created_by": 12345,
-            "description": "Описание статуса \"Первичный контакт\" для кандидата",
-            "id": 491,
-            "level": "candidate",
-            "pipeline_id": 3177727,
-            "status_id": 32392159,
-            "updated_at": "2023-05-05 09:38:00",
-            "updated_by": 12345
-        },
-        {
-            "account_id": 12345678,
-            "created_at": "2023-05-05 09:38:00",
-            "created_by": 12345,
-            "description": "Описание статуса \"Первичный контакт\" для мастера",
-            "id": 493,
-            "level": "master",
-            "pipeline_id": 3177727,
-            "status_id": 32392159,
-            "updated_at": "2023-05-05 09:38:00",
-            "updated_by": 12345
-        }
-    ]
-}
-```
+        "descriptions": [
+            {
+                "account_id": 12345678,
+                "created_at": "2023-05-05 09:38:00",
+                "created_by": 12345,
+                "description": "Описание статуса \"Первичный контакт\" для новичка",
+                "id": 489,
+                "level": "newbie",
+                "pipeline_id": 3177727,
+                "status_id": 32392159,
+                "updated_at": "2023-05-05 09:38:00",
+                "updated_by": null
+            },
+            {
+                "account_id": 12345678,
+                "created_at": "2023-05-05 09:38:00",
+                "created_by": 12345,
+                "description": "Описание статуса \"Первичный контакт\" для кандидата",
+                "id": 491,
+                "level": "candidate",
+                "pipeline_id": 3177727,
+                "status_id": 32392159,
+                "updated_at": "2023-05-05 09:38:00",
+                "updated_by": 12345
+            },
+            {
+                "account_id": 12345678,
+                "created_at": "2023-05-05 09:38:00",
+                "created_by": 12345,
+                "description": "Описание статуса \"Первичный контакт\" для мастера",
+                "id": 493,
+                "level": "master",
+                "pipeline_id": 3177727,
+                "status_id": 32392159,
+                "updated_at": "2023-05-05 09:38:00",
+                "updated_by": 12345
+            }
+        ]
+    }
 
 #### Параметры для GET-параметра with
 
@@ -993,18 +977,19 @@
 
 #### Метод
 
-*POST /api/v4/leads/pipelines/{pipeline\_id}/statuses*
+_POST /api/v4/leads/pipelines/{pipeline\_id}/statuses_
 
 #### Описание
 
 Метод позволяет добавлять статусы воронки в аккаунт пакетно.  
-Можно передать описания статусов (опционально).
+Можно передать описания статусов (опционально).  
+Существуют следующие ограничения для описаний статусов:
 
-* Можно создать только 3 описания статуса для разных уровней пользователя
-* Нельзя передавать один и тот же уровень в разных описаниях
-* Максимальная длинна описания 1000 символов
-* Можно передавать эмоджи в описаниях
-* Можно передавать следующие уровни в описаниях: newbie candidate master
+*   Можно создать только 3 описания статуса для разных уровней пользователя
+*   Нельзя передавать один и тот же уровень в разных описаниях
+*   Максимальная длинна описания 1000 символов
+*   Можно передавать эмоджи в описаниях
+*   Можно передавать следующие уровни в описаниях: newbie candidate master
 
 #### Ограничения
 
@@ -1012,7 +997,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -1023,48 +1008,46 @@
 | color | string | Цвет статуса. [Доступные цвета](#Доступные-цвета-статусов). Необязательный параметр |
 | request\_id | string | Поле, которое вернется вам в ответе без изменений и не будет сохранено. Необязательный параметр |
 | descriptions | array | Описания статуса. Необязательный параметр |
-| descriptions[0] | object | Модель описания статуса |
-| descriptions[0][level] | string | Уровень пользователей для которых показывается описание статуса |
-| descriptions[0][description] | string | Описание статуса |
+| descriptions\[0\] | object | Модель описания статуса |
+| descriptions\[0\]\[level\] | string | Уровень пользователей для которых показывается описание статуса |
+| descriptions\[0\]\[description\] | string | Описание статуса |
 
 #### Пример запроса
 
-```
-[
-    {
-        "name": "Новый этап",
-        "sort": 100,
-        "color": "#fffeb2",
-        "descriptions": [
-            {
-                "level": "newbie",
-                "description": "Описание статуса \"Новый этап\" для новичка"
-            },
-            {
-                "level": "candidate",
-                "description": "Описание статуса \"Новый этап\" для кандидата"
-            },
-            {
-                "level":"master",
-                "description": "Описание статуса \"Новый этап\" для мастера"
-            }
-        ]
-    },
-    {
-        "name": "Новый этап 2",
-        "sort": 200,
-        "color": "#fffeb2"
-    }
-]
-```
+    [
+        {
+            "name": "Новый этап",
+            "sort": 100,
+            "color": "#fffeb2",
+            "descriptions": [
+                {
+                    "level": "newbie",
+                    "description": "Описание статуса \"Новый этап\" для новичка"
+                },
+                {
+                    "level": "candidate",
+                    "description": "Описание статуса \"Новый этап\" для кандидата"
+                },
+                {
+                    "level":"master",
+                    "description": "Описание статуса \"Новый этап\" для мастера"
+                }
+            ]
+        },
+        {
+            "name": "Новый этап 2",
+            "sort": 200,
+            "color": "#fffeb2"
+        }
+    ]
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -1082,92 +1065,90 @@
 
 #### Пример ответа
 
-```
-{
-    "_total_items": 2,
-    "_embedded": {
-        "statuses": [
-            {
-                "id": 33035290,
-                "name": "Новый этап",
-                "sort": 60,
-                "is_editable": true,
-                "pipeline_id": 3270355,
-                "color": "#fffeb2",
-                "type": 0,
-                "account_id": 1415131,
-                "request_id": "0",
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3270355/statuses/33035290"
-                    }
-                },
-                "descriptions": [
-                    {
-                        "account_id": 1415131,
-                        "created_at": "2023-05-05 09:38:00",
-                        "created_by": 0,
-                        "description": "Описание статуса \"Новый этап\" для новичка",
-                        "id": 495,
-                        "level": "newbie",
-                        "pipeline_id": 3270355,
-                        "status_id": 33035290,
-                        "updated_at": "2023-05-05 09:38:00",
-                        "updated_by": null
+    {
+        "_total_items": 2,
+        "_embedded": {
+            "statuses": [
+                {
+                    "id": 33035290,
+                    "name": "Новый этап",
+                    "sort": 60,
+                    "is_editable": true,
+                    "pipeline_id": 3270355,
+                    "color": "#fffeb2",
+                    "type": 0,
+                    "account_id": 1415131,
+                    "request_id": "0",
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3270355/statuses/33035290"
+                        }
                     },
-                    {
-                        "account_id": 1415131,
-                        "created_at": "2023-05-05 09:38:00",
-                        "created_by": 0,
-                        "description": "Описание статуса \"Новый этап\" для кандидата",
-                        "id": 497,
-                        "level": "candidate",
-                        "pipeline_id": 3270355,
-                        "status_id": 33035290,
-                        "updated_at": "2023-05-05 09:38:00",
-                        "updated_by": null
-                    },
-                    {
-                        "account_id": 1415131,
-                        "created_at": "2023-05-05 09:38:00",
-                        "created_by": 0,
-                        "description": "Описание статуса \"Новый этап\" для мастера",
-                        "id": 499,
-                        "level": "master",
-                        "pipeline_id": 3270355,
-                        "status_id": 33035290,
-                        "updated_at": "2023-05-05 09:38:00",
-                        "updated_by": null
-                    }
-                ]
-            },
-            {
-                "id": 33035293,
-                "name": "Новый этап 2",
-                "sort": 70,
-                "is_editable": true,
-                "pipeline_id": 3270355,
-                "color": "#fffeb2",
-                "type": 0,
-                "account_id": 1415131,
-                "request_id": "1",
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3270355/statuses/33035293"
-                    }
+                    "descriptions": [
+                        {
+                            "account_id": 1415131,
+                            "created_at": "2023-05-05 09:38:00",
+                            "created_by": 0,
+                            "description": "Описание статуса \"Новый этап\" для новичка",
+                            "id": 495,
+                            "level": "newbie",
+                            "pipeline_id": 3270355,
+                            "status_id": 33035290,
+                            "updated_at": "2023-05-05 09:38:00",
+                            "updated_by": null
+                        },
+                        {
+                            "account_id": 1415131,
+                            "created_at": "2023-05-05 09:38:00",
+                            "created_by": 0,
+                            "description": "Описание статуса \"Новый этап\" для кандидата",
+                            "id": 497,
+                            "level": "candidate",
+                            "pipeline_id": 3270355,
+                            "status_id": 33035290,
+                            "updated_at": "2023-05-05 09:38:00",
+                            "updated_by": null
+                        },
+                        {
+                            "account_id": 1415131,
+                            "created_at": "2023-05-05 09:38:00",
+                            "created_by": 0,
+                            "description": "Описание статуса \"Новый этап\" для мастера",
+                            "id": 499,
+                            "level": "master",
+                            "pipeline_id": 3270355,
+                            "status_id": 33035290,
+                            "updated_at": "2023-05-05 09:38:00",
+                            "updated_by": null
+                        }
+                    ]
                 },
-                "descriptions": []
-            }
-        ]
+                {
+                    "id": 33035293,
+                    "name": "Новый этап 2",
+                    "sort": 70,
+                    "is_editable": true,
+                    "pipeline_id": 3270355,
+                    "color": "#fffeb2",
+                    "type": 0,
+                    "account_id": 1415131,
+                    "request_id": "1",
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3270355/statuses/33035293"
+                        }
+                    },
+                    "descriptions": []
+                }
+            ]
+        }
     }
-}
-```
 
 ### Редактирование статуса воронки
 
 #### Метод
 
-*PATCH /api/v4/leads/pipelines/{pipeline\_id}/statuses/{id}*
+_PATCH /api/v4/leads/pipelines/{pipeline\_id}/statuses/{id}_
 
 #### Описание
 
@@ -1175,14 +1156,14 @@
 Можно передать описания статусов (опционально).  
 Существуют следующие ограничения для описаний статусов:
 
-* Можно создать только 3 описания статуса для разных уровней пользователя
-* Нельзя передавать один и тот же уровень в разных описаниях
-* Максимальная длинна описания 1000 символов
-* Можно передавать эмоджи в описаниях
-* Можно передавать следующие уровни в описаниях: newbie candidate master
-* Для редактирования описания надо передать id описания, уровень и новое описание
-* Для создания описания id передавать не надо
-* Для удаления описания надо передать id описания, уровень и не передавать описание
+*   Можно создать только 3 описания статуса для разных уровней пользователя
+*   Нельзя передавать один и тот же уровень в разных описаниях
+*   Максимальная длинна описания 1000 символов
+*   Можно передавать эмоджи в описаниях
+*   Можно передавать следующие уровни в описаниях: newbie candidate master
+*   Для редактирования описания надо передать id описания, уровень и новое описание
+*   Для создания описания id передавать не надо
+*   Для удаления описания надо передать id описания, уровень и не передавать описание
 
 #### Ограничения
 
@@ -1190,7 +1171,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -1202,42 +1183,40 @@
 | sort | int | Сортировка статуса |
 | color | string | Цвет статуса. [Доступные цвета](#Доступные-цвета-статусов) |
 | descriptions | array | Описания статуса. Необязательный параметр |
-| descriptions[0] | object | Модель описания статуса |
-| descriptions[0][id] | int | ID описания статуса. Необязательный параметр, если не передавать, то описание просто будет перезаписано |
-| descriptions[0][level] | string | Уровень пользователей для которых показывается описание статуса |
-| descriptions[0][description] | string | Описание статуса. Необязательный параметр |
+| descriptions\[0\] | object | Модель описания статуса |
+| descriptions\[0\]\[id\] | int | ID описания статуса. Необязательный параметр, если не передавать, то описание просто будет перезаписано |
+| descriptions\[0\]\[level\] | string | Уровень пользователей для которых показывается описание статуса |
+| descriptions\[0\]\[description\] | string | Описание статуса. Необязательный параметр |
 
 #### Пример запроса
 
-```
-{
-    "name": "Новое название для статуса",
-    "color": "#c1e0ff",
-    "descriptions": [
-        {
-            "level": "newbie",
-            "description": "Описание статуса \"Новое название для статуса\" для новичка"
-        },
-        {
-            "id": 497,
-            "level": "candidate",
-            "description": "Новое описание статуса \"Новое название для статуса\" для кандидата"
-        },
-        {
-            "id": 499,
-            "level":"master"
-        }
-    ]
-}
-```
+    {
+        "name": "Новое название для статуса",
+        "color": "#c1e0ff",
+        "descriptions": [
+            {
+                "level": "newbie",
+                "description": "Описание статуса \"Новое название для статуса\" для новичка"
+            },
+            {
+                "id": 497,
+                "level": "candidate",
+                "description": "Новое описание статуса \"Новое название для статуса\" для кандидата"
+            },
+            {
+                "id": 499,
+                "level":"master"
+            }
+        ]
+    }
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -1254,56 +1233,54 @@
 
 #### Пример ответа
 
-```
-{
-    "id": 32392165,
-    "name": "Новое название для статуса",
-    "sort": 20,
-    "is_editable": true,
-    "pipeline_id": 3177727,
-    "color": "#c1e0ff",
-    "type": 0,
-    "account_id": 12345678,
-    "request_id": "0",
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392165"
-        }
-    },
-    "descriptions": [
-        {
-            "account_id": 12345678,
-            "created_at": "2023-05-05 09:48:00",
-            "created_by": 0,
-            "description": "Описание статуса \"Новое название для статуса\" для новичка",
-            "id": 501,
-            "level": "newbie",
-            "pipeline_id": 3177727,
-            "status_id": 32392165,
-            "updated_at": "2023-05-05 09:48:00",
-            "updated_by": null
+    {
+        "id": 32392165,
+        "name": "Новое название для статуса",
+        "sort": 20,
+        "is_editable": true,
+        "pipeline_id": 3177727,
+        "color": "#c1e0ff",
+        "type": 0,
+        "account_id": 12345678,
+        "request_id": "0",
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/leads/pipelines/3177727/statuses/32392165"
+            }
         },
-        {
-            "account_id": 12345678,
-            "created_at": "2023-05-05 09:38:00",
-            "created_by": 12345,
-            "description": "Новое описание статуса \"Новое название для статуса\" для кандидата",
-            "id": 497,
-            "level": "candidate",
-            "pipeline_id": 3177727,
-            "status_id": 32392165,
-            "updated_at": "2023-05-05 09:48:00",
-            "updated_by": 0
-        }
-    ]
-}
-```
+        "descriptions": [
+            {
+                "account_id": 12345678,
+                "created_at": "2023-05-05 09:48:00",
+                "created_by": 0,
+                "description": "Описание статуса \"Новое название для статуса\" для новичка",
+                "id": 501,
+                "level": "newbie",
+                "pipeline_id": 3177727,
+                "status_id": 32392165,
+                "updated_at": "2023-05-05 09:48:00",
+                "updated_by": null
+            },
+            {
+                "account_id": 12345678,
+                "created_at": "2023-05-05 09:38:00",
+                "created_by": 12345,
+                "description": "Новое описание статуса \"Новое название для статуса\" для кандидата",
+                "id": 497,
+                "level": "candidate",
+                "pipeline_id": 3177727,
+                "status_id": 32392165,
+                "updated_at": "2023-05-05 09:48:00",
+                "updated_by": 0
+            }
+        ]
+    }
 
 ### Удаление статуса воронки
 
 #### Метод
 
-*DELETE /api/v4/leads/pipelines/{pipeline\_id}/statuses/{id}*
+_DELETE /api/v4/leads/pipelines/{pipeline\_id}/statuses/{id}_
 
 #### Описание
 
@@ -1311,12 +1288,12 @@
 
 #### Ограничения
 
-* Метод доступен только с правами администратора аккаунта
-* Сделки, который находятся в этапе – будут переведены в первый этап воронки
+*   Метод доступен только с правами администратора аккаунта
+*   Сделки, который находятся в этапе – будут переведены в первый этап воронки
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 

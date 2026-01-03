@@ -1,30 +1,31 @@
-# https://www.amocrm.ru/developers/content/oauth/exchange-api-key
+<!-- https://www.amocrm.ru/developers/content/oauth/exchange-api-key -->
+
+# Обмен API ключей на код авторизации oAuth
 
 Метод обмена API ключей
 
 В данном разделе описывается работа с методом обмена API ключа на oAuth код авторизации
 
-### Обмен API ключей на код авторизации oAuth
-
 #### Метод
 
-*POST /oauth2/exchange\_api\_key*
+_POST /oauth2/exchange\_api\_key_
 
 #### Описание
 
 Метод позволяет обменять API ключ на код авторизации oAuth.  
-Код авторизации будет отправлен на указанный в интеграции Redirect Uri с дополнительным GET-параметром from\_exchange=1.
+Код авторизации будет отправлен на указанный в интеграции Redirect Uri с дополнительным GET-параметром from\_exchange=1.  
+Подробней про обмен кода авторизации читайте [тут](/developers/content/oauth/step-by-step#get_access_token).
 
 #### Ограничения
 
-* Метод доступен всем пользователям, администраторам и не администраторам
-* Вызов данного метода для одного пользователя и одной интеграции возможен не чаще, чем раз в 5 минут. В будущем данный лимит может быть изменен
-* Для вызова данного метода, интеграция должна быть установленна в аккаунте
-* Код авторизации будет отправлен на указанный в интеграции Redirect Uri с дополнительным GET-параметром from\_exchange=1
+*   Метод доступен всем пользователям, администраторам и не администраторам
+*   Вызов данного метода для одного пользователя и одной интеграции возможен не чаще, чем раз в 5 минут. В будущем данный лимит может быть изменен
+*   Для вызова данного метода, интеграция должна быть установленна в аккаунте
+*   Код авторизации будет отправлен на указанный в интеграции Redirect Uri с дополнительным GET-параметром from\_exchange=1
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -38,14 +39,12 @@
 
 #### Пример запроса
 
-```
-{
-    "login": "example@test.com",
-    "api_key": "xxe9YYfxx0e6axx06c6xx55249xx8bXXe11ebfxx",
-    "client_uuid": "0eYY11a7-aXX3-403d-a758-XXc54e2XX6a3",
-    "client_secret": "yuyXXG0D4ufVc9ELHk1zZEk5GGfvVJXjIHrvP3auXXaHmPZC18YYte6FOLZZkuTk"
-}
-```
+    {
+        "login": "example@test.com",
+        "api_key": "xxe9YYfxx0e6axx06c6xx55249xx8bXXe11ebfxx",
+        "client_uuid": "0eYY11a7-aXX3-403d-a758-XXc54e2XX6a3",
+        "client_secret": "yuyXXG0D4ufVc9ELHk1zZEk5GGfvVJXjIHrvP3auXXaHmPZC18YYte6FOLZZkuTk"
+    }
 
 #### HTTP коды ответа
 

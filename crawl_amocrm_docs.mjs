@@ -3,8 +3,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { URL } from "node:url";
 
-import cheerio from "cheerio";
+import * as cheerio from "cheerio";
 import TurndownService from "turndown";
+import { gfm } from "turndown-plugin-gfm";
 
 const SECTIONS = [
   "https://www.amocrm.ru/developers/content/crm_platform/platform-abilities",
@@ -126,14 +127,30 @@ async function fetchHtml(url) {
 const turndown = new TurndownService({
   headingStyle: "atx"
 });
+turndown.use(gfm);
 
 function htmlToMarkdown(url, html) {
   const $ = cheerio.load(html);
   const main = extractMainContent($);
   stripLayoutElements($, main);
+  const heading = main.find("h1, h2, h3").first();
+  let title = "";
+  if (heading.length) {
+    title = heading.text().trim();
+    heading.remove();
+  }
   const innerHtml = main.html() ?? "";
-  const markdownBody = turndown.turndown(innerHtml);
-  return `# ${url}\n\n${markdownBody}`;
+  const markdownBody = turndown.turndown(innerHtml).trim();
+
+  const parts = [];
+  parts.push(`<!-- ${url} -->`);
+  if (title) {
+    parts.push("", `# ${title}`, "");
+  } else {
+    parts.push("", `# ${url}`, "");
+  }
+  parts.push(markdownBody);
+  return parts.join("\n");
 }
 
 function extractLinks(html, baseUrl, sectionRoot) {

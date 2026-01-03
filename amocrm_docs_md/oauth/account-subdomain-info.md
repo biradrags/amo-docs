@@ -1,4 +1,6 @@
-# https://www.amocrm.ru/developers/content/oauth/account-subdomain-info
+<!-- https://www.amocrm.ru/developers/content/oauth/account-subdomain-info -->
+
+# Получение информации о домене аккаунта по Refresh Token
 
 Информация о домене аккаунта
 
@@ -6,16 +8,15 @@
 
 До сентября 2024 года был доступен только метод для получения информации по Access Token, но из-за того, что срок жизни этого токена мал, мы добавили метод для получения информации по Refresh Token. Изменился адрес метода и добавилась необходимость передавать Refresh Token в заголовке X-Refresh-Token.
 
-### Получение информации о домене аккаунта по Refresh Token
-
 #### Метод
 
-*GET /oauth2/account/current/subdomain*
+_GET /oauth2/account/current/subdomain_
 
 #### Описание
 
 Метод позволяет получить информацию о домене аккаунта.  
-Метод может быть полезен в случае смены субдомена аккаунта, с которым вы работаете.
+Метод может быть полезен в случае смены субдомена аккаунта, с которым вы работаете.  
+При наличии активного Refresh Token, вы можете сделать запрос к этому методу и получить информацию о домене аккаунта.
 
 Запрос делается на домен, который зашит в Access Token, для его получения вы можете распарсить access token с помощью любой из библиотек для разбора JWT токенов и получить адрес из claim api\_domain.
 
@@ -23,24 +24,22 @@
 
 #### Ограничения
 
-* Метод доступен только с активным Refresh Token’ом интеграции
-* Метод доступен только по поддомену из claim api\_domain в Access Token.
+*   Метод доступен только с активным Refresh Token’ом интеграции
+*   Метод доступен только по поддомену из claim api\_domain в Access Token.
 
 #### Пример запроса
 
 Запрос должен уходить на host из claim api\_domain в JWT Access Token: {api\_domain}.amocrm.ru
 
-```
-curl 'https://api-a.amocrm.ru/oauth2/account/current/subdomain' -H 'X-Refresh-Token: {refresh_token}'
-```
+    curl 'https://api-a.amocrm.ru/oauth2/account/current/subdomain' -H 'X-Refresh-Token: {refresh_token}'
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -62,20 +61,18 @@ curl 'https://api-a.amocrm.ru/oauth2/account/current/subdomain' -H 'X-Refresh-To
 
 #### Пример ответа
 
-```
-{
-    "id": 123456,
-    "subdomain": "account_subdomain",
-    "domain": "account_subdomain.amocrm.ru",
-    "top_level_domain": "ru"
-}
-```
+    {
+        "id": 123456,
+        "subdomain": "account_subdomain",
+        "domain": "account_subdomain.amocrm.ru",
+        "top_level_domain": "ru"
+    }
 
 ### Получение информации о домене аккаунта по Access Token (Устарел)
 
 #### Метод
 
-*GET /oauth2/account/subdomain*
+_GET /oauth2/account/subdomain_
 
 #### Описание
 
@@ -84,24 +81,22 @@ curl 'https://api-a.amocrm.ru/oauth2/account/current/subdomain' -H 'X-Refresh-To
 
 #### Ограничения
 
-* Метод доступен только с активным Access Token’ом интеграции
-* Метод доступен только на промосайтах https://www.amocrm.ru и https://www.amocrm.com
+*   Метод доступен только с активным Access Token’ом интеграции
+*   Метод доступен только на промосайтах https://www.amocrm.ru и https://www.amocrm.com
 
 #### Пример запроса
 
 Запрос должен уходить на host: www.amocrm.ru или www.amocrm.com, в зависимости от аккаунта
 
-```
-curl 'https://www.amocrm.ru/oauth2/account/subdomain' -H 'Authorization: Bearer {access_token}'
-```
+    curl 'https://www.amocrm.ru/oauth2/account/subdomain' -H 'Authorization: Bearer {access_token}'
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -123,11 +118,9 @@ curl 'https://www.amocrm.ru/oauth2/account/subdomain' -H 'Authorization: Bearer 
 
 #### Пример ответа
 
-```
-{
-    "id": 123456,
-    "subdomain": "account_subdomain",
-    "domain": "account_subdomain.amocrm.ru",
-    "top_level_domain": "ru"
-}
-```
+    {
+        "id": 123456,
+        "subdomain": "account_subdomain",
+        "domain": "account_subdomain.amocrm.ru",
+        "top_level_domain": "ru"
+    }

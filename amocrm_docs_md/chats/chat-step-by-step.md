@@ -1,4 +1,6 @@
-# https://www.amocrm.ru/developers/content/chats/chat-step-by-step
+<!-- https://www.amocrm.ru/developers/content/chats/chat-step-by-step -->
+
+# Подключение канала к аккаунту
 
 Пример по шагам
 
@@ -10,146 +12,143 @@
 
 Любая интеграция, для корректной работы с API чатов, должна реализовать следующий функционал:
 
-* [Подключение канала к аккаунту](#Подключение-канала-к-аккаунту)
-* [Отправка сообщения из чата в amoCRM](#Отправка-сообщения-из-чата-в-amoCRM)
-* [Получение сообщения, отправленного из amoCRM, разбор вебхука](#Получение-сообщения-отправленного-из-amoCRM-разбор-вебхука)
-* [Обновление статуса отправки сообщения](#Обновление-статуса-отправки-сообщения)
-* [Отключение канала от аккаунта](#Отключение-канала-от-аккаунта)
+*   [Подключение канала к аккаунту](#Подключение-канала-к-аккаунту)
+*   [Отправка сообщения из чата в amoCRM](#Отправка-сообщения-из-чата-в-amoCRM)
+*   [Получение сообщения, отправленного из amoCRM, разбор вебхука](#Получение-сообщения-отправленного-из-amoCRM-разбор-вебхука)
+*   [Обновление статуса отправки сообщения](#Обновление-статуса-отправки-сообщения)
+*   [Отключение канала от аккаунта](#Отключение-канала-от-аккаунта)
 
 Следующие функции будут уже расширением базового функционала интеграции:
 
-* [Разработка тиражируемого решения](#Разработка-тиражируемого-решения)
-* [Поддержка и создание множественных источников](#Поддержка-и-создание-множественных-источников)
-* [Связывание нового чата с существующим контактом](#Связывание-нового-чата-с-существующим-контактом)
-* [Импорт существующей переписки](#Импорт-существующей-переписки)
-* [Написать первым](#Написать-первым)
-* [Отображение статуса печатания в карточке сделки](#Отображение-статуса-печатания-в-карточке-сделки)
-* [Хуки о печати пользователем amoCRM](#Хуки-о-печати-пользователем-amoCRM)
-* [Получение истории сообщений чата](#Получение-истории-сообщений-чата)
-* [Поддержка реакций](#Поддержка-реакций)
-* [Получение комментариев](#Получение-комментариев)
+*   [Разработка тиражируемого решения](#Разработка-тиражируемого-решения)
+*   [Поддержка и создание множественных источников](#Поддержка-и-создание-множественных-источников)
+*   [Связывание нового чата с существующим контактом](#Связывание-нового-чата-с-существующим-контактом)
+*   [Импорт существующей переписки](#Импорт-существующей-переписки)
+*   [Написать первым](#Написать-первым)
+*   [Отображение статуса печатания в карточке сделки](#Отображение-статуса-печатания-в-карточке-сделки)
+*   [Хуки о печати пользователем amoCRM](#Хуки-о-печати-пользователем-amoCRM)
+*   [Получение истории сообщений чата](#Получение-истории-сообщений-чата)
+*   [Поддержка реакций](#Поддержка-реакций)
+*   [Получение комментариев](#Получение-комментариев)
 
 В данной статье будут представлены примеры кода на PHP.  
 Все примеры можно скачать [по ссылке](https://www.amocrm.ru/uploads/2021/09/chats_api_example.zip).  
 Для уменьшения дублирования кода представим,  
 что у нас уже есть файл со вспомогательными методами helpers.php:
 
-```
-<?php
-
-/**
- * Расчитываем хэш тела запроса
- * @param string $body Тело запроса в строковом представлении (json)
- *
- * @return string
- */
-function createBodyChecksum(string $body): string
-{
-    return md5($body);
-}
-
-/**
- * Расчитываем подпись запроса
- *
- * @param string $secret Секретный ключ вашего канала
- * @param string $checkSum Рассчитанный хэш тела запроса
- * @param string $apiMethod Адрес вызываемого метода API
- * @param string $httpMethod HTTP метод запроса
- * @param string $contentType Передаваемый тип данных
- *
- * @return string
- */
-function createSignature(
-    string $secret,
-    string $checkSum,
-    string $apiMethod,
-    string $httpMethod = 'POST',
-    string $contentType = 'application/json'
-): string {
-    $str = implode("\n", [
-        strtoupper($httpMethod),
-        $checkSum,
-        $contentType,
-        date(DateTimeInterface::RFC2822),
-        $apiMethod,
-    ]);
-
-    return hash_hmac('sha1', $str, $secret);
-}
-
-/**
- * Подготавливаем заголовки для запроса
- *
- * @param string $checkSum Рассчитанный хэш тела запроса
- * @param string $signature Рассчитанная подпись запроса
- * @param string $contentType Передаваемый тип данных
- *
- * @return array
- */
-function prepareHeaderForCurl(
-    string $checkSum,
-    string $signature,
-    string $contentType = 'application/json'
-): array {
-    $headers = [
-        'Date' => date(DateTimeInterface::RFC2822),
-        'Content-Type' => $contentType,
-        'Content-MD5' => strtolower($checkSum),
-        'X-Signature' => strtolower($signature),
-        'User-Agent' => 'amoCRM-Chats-Doc-Example/1.0'
-    ];
-
-    foreach ($headers as $name => $value) {
-        $curlHeaders[] = $name . ": " . $value;
+    <?php
+    
+    /**
+     * Расчитываем хэш тела запроса
+     * @param string $body Тело запроса в строковом представлении (json)
+     *
+     * @return string
+     */
+    function createBodyChecksum(string $body): string
+    {
+        return md5($body);
     }
-
-    return $curlHeaders;
-}
-
-/**
- * Выполняем запрос к API Чатов
- *
- * @param string $apiMethod Запрашиваемый метод API
- * @param string $requestBody Тело запроса
- * @param array $requestHeaders Заголовки запроса
- * @param string $httpMethod HTTP метод запроса
- */
-function execCurl(
-    string $apiMethod,
-    string $requestBody,
-    array $requestHeaders,
-    string $httpMethod = 'POST'
-): void {
-    $curl = curl_init();
-    $curlOptions = [
-        CURLOPT_URL => 'https://amojo.amocrm.ru' . $apiMethod,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 5,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => $httpMethod,
-        CURLOPT_HTTPHEADER => $requestHeaders,
-    ];
-
-    if (!empty($requestBody)) {
-        $curlOptions[CURLOPT_POSTFIELDS] = $requestBody;
+    
+    /**
+     * Расчитываем подпись запроса
+     *
+     * @param string $secret Секретный ключ вашего канала
+     * @param string $checkSum Рассчитанный хэш тела запроса
+     * @param string $apiMethod Адрес вызываемого метода API
+     * @param string $httpMethod HTTP метод запроса
+     * @param string $contentType Передаваемый тип данных
+     *
+     * @return string
+     */
+    function createSignature(
+        string $secret,
+        string $checkSum,
+        string $apiMethod,
+        string $httpMethod = 'POST',
+        string $contentType = 'application/json'
+    ): string {
+        $str = implode("\n", [
+            strtoupper($httpMethod),
+            $checkSum,
+            $contentType,
+            date(DateTimeInterface::RFC2822),
+            $apiMethod,
+        ]);
+    
+        return hash_hmac('sha1', $str, $secret);
     }
-
-    curl_setopt_array($curl, $curlOptions);
-
-    $response = curl_exec($curl);
-    $error = curl_error($curl);
-    $info = curl_getinfo($curl);
-    curl_close($curl);
-    if ($error) {
-        echo "cURL Error #:" . $error;
-    } else {
-        echo "Status: " . $info['http_code'] . PHP_EOL;
-        echo $response . PHP_EOL;
+    
+    /**
+     * Подготавливаем заголовки для запроса
+     *
+     * @param string $checkSum Рассчитанный хэш тела запроса
+     * @param string $signature Рассчитанная подпись запроса
+     * @param string $contentType Передаваемый тип данных
+     *
+     * @return array
+     */
+    function prepareHeaderForCurl(
+        string $checkSum,
+        string $signature,
+        string $contentType = 'application/json'
+    ): array {
+        $headers = [
+            'Date' => date(DateTimeInterface::RFC2822),
+            'Content-Type' => $contentType,
+            'Content-MD5' => strtolower($checkSum),
+            'X-Signature' => strtolower($signature),
+            'User-Agent' => 'amoCRM-Chats-Doc-Example/1.0'
+        ];
+    
+        foreach ($headers as $name => $value) {
+            $curlHeaders[] = $name . ": " . $value;
+        }
+    
+        return $curlHeaders;
     }
-}
-```
-
-### Подключение канала к аккаунту
+    
+    /**
+     * Выполняем запрос к API Чатов
+     *
+     * @param string $apiMethod Запрашиваемый метод API
+     * @param string $requestBody Тело запроса
+     * @param array $requestHeaders Заголовки запроса
+     * @param string $httpMethod HTTP метод запроса
+     */
+    function execCurl(
+        string $apiMethod,
+        string $requestBody,
+        array $requestHeaders,
+        string $httpMethod = 'POST'
+    ): void {
+        $curl = curl_init();
+        $curlOptions = [
+            CURLOPT_URL => 'https://amojo.amocrm.ru' . $apiMethod,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 5,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => $httpMethod,
+            CURLOPT_HTTPHEADER => $requestHeaders,
+        ];
+    
+        if (!empty($requestBody)) {
+            $curlOptions[CURLOPT_POSTFIELDS] = $requestBody;
+        }
+    
+        curl_setopt_array($curl, $curlOptions);
+    
+        $response = curl_exec($curl);
+        $error = curl_error($curl);
+        $info = curl_getinfo($curl);
+        curl_close($curl);
+        if ($error) {
+            echo "cURL Error #:" . $error;
+        } else {
+            echo "Status: " . $info['http_code'] . PHP_EOL;
+            echo $response . PHP_EOL;
+        }
+    }
+    
 
 После создания канала, необходимо выполнить подключение канала к аккаунту.  
 Для этого необходимо воспользоваться [методом подключения канала](https://www.amocrm.ru/developers/content/chats/chat-api-reference#Подключение-канала-чата-в-аккаунте).  
@@ -159,76 +158,69 @@ function execCurl(
 
 Рассмотрим пример кода:
 
-```
-<?php
-
-include __DIR__ . '/helpers.php';
-
-// Секретный ключ канала
-$channelSecret = 'f2d7f8704eff95087ed45b23ba99c0b5aac8278e';
-// ID канала в сервисе чатов, который подключаем к каналу
-$channelId = '344a5002-f8ca-454d-af3d-396180102ac7';
-// Тело запроса
-$requestBody = [
-    'account_id' => '52e591f7-c98f-4255-8495-827210138c81',
-    'title' => 'ChatsIntegration',
-    'hook_api_version' => 'v2',
-];
-$jsonBody = json_encode($requestBody);
-$checkSum = createBodyChecksum($jsonBody);
-$apiMethod = sprintf('/v2/origin/custom/%s/connect', $channelId);
-
-// Составим подпись
-$signature = createSignature(
-    $channelSecret,
-    $checkSum,
-    $apiMethod
-);
-
-// Подготовим заголовки
-$curlHeaders = prepareHeaderForCurl($checkSum, $signature);
-
-echo 'POST ' . $apiMethod . PHP_EOL;
-foreach ($curlHeaders as $header) {
-    echo $header . PHP_EOL;
-}
-echo PHP_EOL . $jsonBody . PHP_EOL . PHP_EOL;
-
-// Выполним запрос
-execCurl($apiMethod, $jsonBody, $curlHeaders);
-```
+    <?php
+    
+    include __DIR__ . '/helpers.php';
+    
+    // Секретный ключ канала
+    $channelSecret = 'f2d7f8704eff95087ed45b23ba99c0b5aac8278e';
+    // ID канала в сервисе чатов, который подключаем к каналу
+    $channelId = '344a5002-f8ca-454d-af3d-396180102ac7';
+    // Тело запроса
+    $requestBody = [
+        'account_id' => '52e591f7-c98f-4255-8495-827210138c81',
+        'title' => 'ChatsIntegration',
+        'hook_api_version' => 'v2',
+    ];
+    $jsonBody = json_encode($requestBody);
+    $checkSum = createBodyChecksum($jsonBody);
+    $apiMethod = sprintf('/v2/origin/custom/%s/connect', $channelId);
+    
+    // Составим подпись
+    $signature = createSignature(
+        $channelSecret,
+        $checkSum,
+        $apiMethod
+    );
+    
+    // Подготовим заголовки
+    $curlHeaders = prepareHeaderForCurl($checkSum, $signature);
+    
+    echo 'POST ' . $apiMethod . PHP_EOL;
+    foreach ($curlHeaders as $header) {
+        echo $header . PHP_EOL;
+    }
+    echo PHP_EOL . $jsonBody . PHP_EOL . PHP_EOL;
+    
+    // Выполним запрос
+    execCurl($apiMethod, $jsonBody, $curlHeaders);
+    
 
 #### Запрос
 
-```
-POST https://amojo.amocrm.ru/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7/connect
-Date: Wed, 15 Dec 2021 23:12:55 +0000
-Content-Type: application/json
-Content-MD5: 2fbcb3c652b61e24e004daddfc73d0ce
-X-Signature: 81211856ce0c5095f3e1a90c0a38dc9d736cfd55
-User-Agent: amoCRM-Chats-Doc-Example/1.0
-```
+    POST https://amojo.amocrm.ru/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7/connect
+    Date: Wed, 15 Dec 2021 23:12:55 +0000
+    Content-Type: application/json
+    Content-MD5: 2fbcb3c652b61e24e004daddfc73d0ce
+    X-Signature: 81211856ce0c5095f3e1a90c0a38dc9d736cfd55
+    User-Agent: amoCRM-Chats-Doc-Example/1.0
 
 #### Тело запроса
 
-```
-{
-  "account_id": "52e591f7-c98f-4255-8495-827210138c81",
-  "title": "ChatsIntegration",
-  "hook_api_version": "v2"
-}
-```
+    {
+      "account_id": "52e591f7-c98f-4255-8495-827210138c81",
+      "title": "ChatsIntegration",
+      "hook_api_version": "v2"
+    }
 
 #### Ответ
 
-```
-{
-  "account_id": "52e591f7-c98f-4255-8495-827210138c81",
-  "scope_id": "344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81",
-  "title": "ChatsIntegration",
-  "hook_api_version": "v2"
-}
-```
+    {
+      "account_id": "52e591f7-c98f-4255-8495-827210138c81",
+      "scope_id": "344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81",
+      "title": "ChatsIntegration",
+      "hook_api_version": "v2"
+    }
 
 ### Отправка сообщения из чата в amoCRM
 
@@ -239,132 +231,125 @@ User-Agent: amoCRM-Chats-Doc-Example/1.0
 
 Данный метод позволяет как добавлять входящие сообщение, так и исходящие, в данном разделе рассмотрим кейс входящего сообщения из стороннего чата в amoCRM.
 
-Также стоит отметить, что API чатов не принимает несколько сообщений с одинаковым payload[msgid].  
-А также при передаче payload[conversation\_id], которого ранее не было в системе – будет создан новый чат.
+Также стоит отметить, что API чатов не принимает несколько сообщений с одинаковым payload\[msgid\].  
+А также при передаче payload\[conversation\_id\], которого ранее не было в системе – будет создан новый чат.
 
 Рассмотрим пример кода:
 
-```
-<?php
-
-include __DIR__ . '/helpers.php';
-
-// Секретный ключ канала
-$channelSecret = 'f2d7f8704eff95087ed45b23ba99c0b5aac8278e';
-// Scope ID, который был получен при подключении канала в аккаунт
-$scopeId = '344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81';
-// Тело запроса, отправим сообщение в amoCRM, которое написал нам клиент
-$requestBody = [
-    'event_type' => 'new_message',
-    'payload' => [
-        'timestamp' => time(),
-        'msec_timestamp' => round(microtime(true) * 1000),
-        'msgid' => 'my_int-5f2836a8ca481',
-        'conversation_id' => 'my_int-d5a421f7f218',
-        'sender' => [
-            'id' => 'my_int-1376265f-86df-4c49-a0c3-a4816df41af8',
-            'avatar' => 'https://images.pexels.com/photos/10050979/pexels-photo-10050979.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
-            'profile' => [
-                'phone' => '+79151112233',
-                'email' => 'example.client@example.com',
+    <?php
+    
+    include __DIR__ . '/helpers.php';
+    
+    // Секретный ключ канала
+    $channelSecret = 'f2d7f8704eff95087ed45b23ba99c0b5aac8278e';
+    // Scope ID, который был получен при подключении канала в аккаунт
+    $scopeId = '344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81';
+    // Тело запроса, отправим сообщение в amoCRM, которое написал нам клиент
+    $requestBody = [
+        'event_type' => 'new_message',
+        'payload' => [
+            'timestamp' => time(),
+            'msec_timestamp' => round(microtime(true) * 1000),
+            'msgid' => 'my_int-5f2836a8ca481',
+            'conversation_id' => 'my_int-d5a421f7f218',
+            'sender' => [
+                'id' => 'my_int-1376265f-86df-4c49-a0c3-a4816df41af8',
+                'avatar' => 'https://images.pexels.com/photos/10050979/pexels-photo-10050979.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
+                'profile' => [
+                    'phone' => '+79151112233',
+                    'email' => 'example.client@example.com',
+                ],
+                'profile_link' => 'https://example.com/profile/example.client',
+                'name' => 'Вася клиент',
             ],
-            'profile_link' => 'https://example.com/profile/example.client',
-            'name' => 'Вася клиент',
+            'message' => [
+                'type' => 'text',
+                'text' => 'Сообщение от клиента',
+            ],
+            'silent' => false,
         ],
-        'message' => [
-            'type' => 'text',
-            'text' => 'Сообщение от клиента',
-        ],
-        'silent' => false,
-    ],
-];
-$jsonBody = json_encode($requestBody);
-$checkSum = createBodyChecksum($jsonBody);
-$apiMethod = sprintf('/v2/origin/custom/%s', $scopeId);
-
-// Составим подпись
-$signature = createSignature(
-    $channelSecret,
-    $checkSum,
-    $apiMethod
-);
-
-// Подготовим заголовки
-$curlHeaders = prepareHeaderForCurl($checkSum, $signature);
-
-echo 'POST ' . $apiMethod . PHP_EOL;
-foreach ($curlHeaders as $header) {
-    echo $header . PHP_EOL;
-}
-echo PHP_EOL . $jsonBody . PHP_EOL . PHP_EOL;
-
-// Выполним запрос
-execCurl($apiMethod, $jsonBody, $curlHeaders);
-```
+    ];
+    $jsonBody = json_encode($requestBody);
+    $checkSum = createBodyChecksum($jsonBody);
+    $apiMethod = sprintf('/v2/origin/custom/%s', $scopeId);
+    
+    // Составим подпись
+    $signature = createSignature(
+        $channelSecret,
+        $checkSum,
+        $apiMethod
+    );
+    
+    // Подготовим заголовки
+    $curlHeaders = prepareHeaderForCurl($checkSum, $signature);
+    
+    echo 'POST ' . $apiMethod . PHP_EOL;
+    foreach ($curlHeaders as $header) {
+        echo $header . PHP_EOL;
+    }
+    echo PHP_EOL . $jsonBody . PHP_EOL . PHP_EOL;
+    
+    // Выполним запрос
+    execCurl($apiMethod, $jsonBody, $curlHeaders);
+    
 
 #### Запрос
 
-```
-POST https://amojo.amocrm.ru/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81
-Date: Thu, 16 Dec 2021 13:15:29 +0000
-Content-Type: application/json
-Content-MD5: 223ef85def871bc7cb58aa6f02f0a26e
-X-Signature: 29b49e9eaf03f13a66ecaff315f2855b31b25eee
-User-Agent: amoCRM-Chats-Doc-Example/1.0
-```
+    POST https://amojo.amocrm.ru/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81
+    Date: Thu, 16 Dec 2021 13:15:29 +0000
+    Content-Type: application/json
+    Content-MD5: 223ef85def871bc7cb58aa6f02f0a26e
+    X-Signature: 29b49e9eaf03f13a66ecaff315f2855b31b25eee
+    User-Agent: amoCRM-Chats-Doc-Example/1.0
 
 #### Тело запроса
 
 Разберем некоторые из параметров запроса, которые могут вызывать вопросы:
 
-* payload[msgid] – в данном поле передаем ID сообщения на стороне вашей интеграции
-* payload[conversation\_id] – ID чата на стороне вашей интеграции
-* payload[sender][id] – ID отправителя сообщения на стороне вашей интеграции
-* payload[sender][avatar] – ссылка на аватар пользователя, спустя небольшое время после передачи сообщения, мы сделаем GET запрос на указанный адрес, чтобы скачать изображение
-* payload[sender][profile] – объект с телефоном и email пользователя, поле опционально для передачи в запросе. При создании нового контакта, будут использованы для контроля дублей и зафиксируются в созданной карточке контакта.
-* payload[sender][profile\_link] – ссылка на профиль клиента, в данный момент нигде не выводится
+*   payload\[msgid\] – в данном поле передаем ID сообщения на стороне вашей интеграции
+*   payload\[conversation\_id\] – ID чата на стороне вашей интеграции
+*   payload\[sender\]\[id\] – ID отправителя сообщения на стороне вашей интеграции
+*   payload\[sender\]\[avatar\] – ссылка на аватар пользователя, спустя небольшое время после передачи сообщения, мы сделаем GET запрос на указанный адрес, чтобы скачать изображение
+*   payload\[sender\]\[profile\] – объект с телефоном и email пользователя, поле опционально для передачи в запросе. При создании нового контакта, будут использованы для контроля дублей и зафиксируются в созданной карточке контакта.
+*   payload\[sender\]\[profile\_link\] – ссылка на профиль клиента, в данный момент нигде не выводится
 
-Для передачи сообщений с медиа вложениями, необходимо в message[type] указать необходимый тип и передать структуру в соответствии [со спецификацией метода](https://www.amocrm.ru/developers/content/chats/chat-api-reference#Отправка-или-импорт-сообщения).
+Для передачи сообщений с медиа вложениями, необходимо в message\[type\] указать необходимый тип и передать структуру в соответствии [со спецификацией метода](https://www.amocrm.ru/developers/content/chats/chat-api-reference#Отправка-или-импорт-сообщения).
 
-```
-{
-  "event_type": "new_message",
-  "payload": {
-    "timestamp": 1639660529,
-    "msec_timestamp": 1639660529379,
-    "msgid": "my_int-5f2836a8ca481",
-    "conversation_id": "my_int-d5a421f7f218",
-    "sender": {
-      "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
-      "avatar": "https://images.pexels.com/photos/10050979/pexels-photo-10050979.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      "profile": {
-        "phone": "+79151112233",
-        "email": "example.client@example.com"
-      },
-      "profile_link": "https://example.com/profile/example.client",
-      "name": "Вася клиент"
-    },
-    "message": {
-      "type": "text",
-      "text": "Сообщение от клиента"
-    },
-    "silent": false
-  }
-}
-```
+    {
+      "event_type": "new_message",
+      "payload": {
+        "timestamp": 1639660529,
+        "msec_timestamp": 1639660529379,
+        "msgid": "my_int-5f2836a8ca481",
+        "conversation_id": "my_int-d5a421f7f218",
+        "sender": {
+          "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
+          "avatar": "https://images.pexels.com/photos/10050979/pexels-photo-10050979.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+          "profile": {
+            "phone": "+79151112233",
+            "email": "example.client@example.com"
+          },
+          "profile_link": "https://example.com/profile/example.client",
+          "name": "Вася клиент"
+        },
+        "message": {
+          "type": "text",
+          "text": "Сообщение от клиента"
+        },
+        "silent": false
+      }
+    }
 
 #### Ответ
 
-В ответе вы получите ID сообщения на стороне amoCRM (new\_message[msgid]).
+В ответе вы получите ID сообщения на стороне amoCRM (new\_message\[msgid\]).
 
-```
-{
-  "new_message": {
-    "msgid": "8e6afe4e-a08a-4801-b6cb-37963c1a6f3c",
-    "ref_id": "my_int-5f2836a8ca481"
-  }
-}
-```
+    {
+      "new_message": {
+        "msgid": "8e6afe4e-a08a-4801-b6cb-37963c1a6f3c",
+        "ref_id": "my_int-5f2836a8ca481"
+      }
+    }
 
 ### Получение сообщения, отправленного из amoCRM, разбор вебхука
 
@@ -387,186 +372,182 @@ API Чатов имеет механизмы приоритизации, есл�
 
 Рассмотрим пример кода, который обрабатывает структуру полученного хука:
 
-```
-<?php
-
-include __DIR__ . '/helpers.php';
-
-// Определим методы, которые выполняют бизнес-логику
-function saveTextMessage(
-    string $messageReceiver,
-    string $chatId,
-    string $text
-) {
-    // Сохраняем текстовое сообщение
-}
-
-function savePictureMessage(
-    string $messageReceiver,
-    string $chatId,
-    array $file,
-    string $messageText
-) {
-    // Сохраняем изображение
-}
-
-function saveFileMessage(
-    string $messageReceiver,
-    string $chatId,
-    array $file,
-    string $messageText
-) {
-    // Сохраняем файл
-}
-
-function downloadFile(string $url): array
-{
-    // сохраняем файл по ссылке на диск, возвращаем информацию о файле
-    return [];
-}
-
-function setErrorDeliveryStatus($messageId) {
-    //Обновляем статус доставки сообщения с информацией, что оно не обработано
-}
-
-// Секретный ключ канала
-$channelSecret = 'f2d7f8704eff95087ed45b23ba99c0b5aac8278e';
-
-if ($_SERVER ['REQUEST_METHOD'] !== 'POST') {
-    throw new RuntimeException('Unsupported request');
-}
-
-//Полученное тело запроса
-$str = file_get_contents('php://input');
-$body = stream_get_contents(STDIN);
-if (empty($body)) {
-    throw new RuntimeException('Empty body');
-}
-$signature = hash_hmac('sha1', $str, $channelSecret);
-
-// Проверяем подпись
-if (!isset($_SERVER['HTTP_X_SIGNATURE']) || $signature !== $_SERVER['HTTP_X_SIGNATURE']) {
-    echo 'Invalid hook';
-    die;
-}
-
-$hookBody = json_decode($body, true);
-if (!$hookBody) {
-    throw new RuntimeException('Unsupported body');
-}
-
-// ID аккаунта в API чатов
-$accountId = $hookBody['account_id'];
-
-// ID сообщения в API чатов
-$messageId = $hookBody['message']['message']['id'];
-// Тип сообщения
-$messageType = $hookBody['message']['message']['type'];
-// Тип сообщения
-$messageText = $hookBody['message']['message']['text'];
-// ID чата, в которое было отправлено сообщение на стороне интеграции
-$messageChatId = $hookBody['message']['conversation']['client_id'];
-// ID чата, в которое было отправлено сообщение на стороне amoCRM
-$messageAmoCrmChatId = $hookBody['message']['conversation']['id'];
-// Ссылка на прикрепленный к сообщению файл
-$fileLink = $hookBody['message']['message']['media'] ?? null;
-// ID получателя на стороне интеграции
-$receiverId = $hookBody['message']['receiver']['id'];
-
-switch ($hookBody['message']['message']['type']) {
-    case 'text':
-        saveTextMessage(
-            $receiverId,
-            $messageChatId,
-            $messageText
-        );
-        break;
-    case 'picture':
-        $downloadedFile = downloadFile($fileLink);
-        savePictureMessage(
-            $receiverId,
-            $messageChatId,
-            $downloadedFile,
-            $messageText
-        );
-        break;
-    case 'file':
-        $downloadedFile = downloadFile($fileLink);
-        saveFileMessage(
-            $receiverId,
-            $messageChatId,
-            $downloadedFile,
-            $messageText
-        );
-        break;
-    default:
-        setErrorDeliveryStatus($messageId);
-        throw new RuntimeException('Unsupported message type');
-        break;
-}
-```
+    <?php
+    
+    include __DIR__ . '/helpers.php';
+    
+    // Определим методы, которые выполняют бизнес-логику
+    function saveTextMessage(
+        string $messageReceiver,
+        string $chatId,
+        string $text
+    ) {
+        // Сохраняем текстовое сообщение
+    }
+    
+    function savePictureMessage(
+        string $messageReceiver,
+        string $chatId,
+        array $file,
+        string $messageText
+    ) {
+        // Сохраняем изображение
+    }
+    
+    function saveFileMessage(
+        string $messageReceiver,
+        string $chatId,
+        array $file,
+        string $messageText
+    ) {
+        // Сохраняем файл
+    }
+    
+    function downloadFile(string $url): array
+    {
+        // сохраняем файл по ссылке на диск, возвращаем информацию о файле
+        return [];
+    }
+    
+    function setErrorDeliveryStatus($messageId) {
+        //Обновляем статус доставки сообщения с информацией, что оно не обработано
+    }
+    
+    // Секретный ключ канала
+    $channelSecret = 'f2d7f8704eff95087ed45b23ba99c0b5aac8278e';
+    
+    if ($_SERVER ['REQUEST_METHOD'] !== 'POST') {
+        throw new RuntimeException('Unsupported request');
+    }
+    
+    //Полученное тело запроса
+    $str = file_get_contents('php://input');
+    $body = stream_get_contents(STDIN);
+    if (empty($body)) {
+        throw new RuntimeException('Empty body');
+    }
+    $signature = hash_hmac('sha1', $str, $channelSecret);
+    
+    // Проверяем подпись
+    if (!isset($_SERVER['HTTP_X_SIGNATURE']) || $signature !== $_SERVER['HTTP_X_SIGNATURE']) {
+        echo 'Invalid hook';
+        die;
+    }
+    
+    $hookBody = json_decode($body, true);
+    if (!$hookBody) {
+        throw new RuntimeException('Unsupported body');
+    }
+    
+    // ID аккаунта в API чатов
+    $accountId = $hookBody['account_id'];
+    
+    // ID сообщения в API чатов
+    $messageId = $hookBody['message']['message']['id'];
+    // Тип сообщения
+    $messageType = $hookBody['message']['message']['type'];
+    // Тип сообщения
+    $messageText = $hookBody['message']['message']['text'];
+    // ID чата, в которое было отправлено сообщение на стороне интеграции
+    $messageChatId = $hookBody['message']['conversation']['client_id'];
+    // ID чата, в которое было отправлено сообщение на стороне amoCRM
+    $messageAmoCrmChatId = $hookBody['message']['conversation']['id'];
+    // Ссылка на прикрепленный к сообщению файл
+    $fileLink = $hookBody['message']['message']['media'] ?? null;
+    // ID получателя на стороне интеграции
+    $receiverId = $hookBody['message']['receiver']['id'];
+    
+    switch ($hookBody['message']['message']['type']) {
+        case 'text':
+            saveTextMessage(
+                $receiverId,
+                $messageChatId,
+                $messageText
+            );
+            break;
+        case 'picture':
+            $downloadedFile = downloadFile($fileLink);
+            savePictureMessage(
+                $receiverId,
+                $messageChatId,
+                $downloadedFile,
+                $messageText
+            );
+            break;
+        case 'file':
+            $downloadedFile = downloadFile($fileLink);
+            saveFileMessage(
+                $receiverId,
+                $messageChatId,
+                $downloadedFile,
+                $messageText
+            );
+            break;
+        default:
+            setErrorDeliveryStatus($messageId);
+            throw new RuntimeException('Unsupported message type');
+            break;
+    }
 
 #### Тело запроса
 
-```
-{
-  "account_id": "52e591f7-c98f-4255-8495-827210138c81",
-  "time": 1639572261,
-  "message": {
-    "receiver": {
-      "id": "2ed64e26-70a1-4857-8382-bb066a076219",
-      "phone": "79161234567",
-      "email": "example.client@example.com",
-      "client_id":"my_int-1376265f-86df-4c49-a0c3-a4816df41af8"
-    },
-    "sender": {
-      "id": "76fc2bea-902f-425c-9a3d-dcdac4766090"
-    },
-    "conversation": {
-      "id": "8e4d4baa-9e6c-4a88-838a-5f62be227bdc",
-      "client_id":"my_int-d5a421f7f218"
-    },
-    "source":{
-      "external_id":"78001234567"
-    },
-    "timestamp": 1639572260,
-    "msec_timestamp": 1639572260980,
-    "message": {
-      "id": "0371a0ff-b78a-4c7b-8538-a7d547e10692",
-      "type": "picture",
-      "text": "Текст сообщения Сделка #15926745",
-      "markup": {
-        "mode": "inline",
-        "buttons": [
-          [
-            {
-              "text":"Принять заказ"
-            },
-            {
-              "text":"Отменить заказ"
-            }
-          ]
-        ]
-      },
-      "tag": "",
-      "media": "https://amojo.amocrm.ru/attachments/image.jpg",
-      "thumbnail": "https://amojo.amocrm.ru/attachments/image_320x200.jpg",
-      "file_name": "",
-      "file_size": 0,
-      "template": {
-        "id": 7103,
-        "content": "Текст сообщения {{lead.name}}",
-        "params": [
-          {
-            "key": "{{lead.id}}",
-            "value": "15926745"
+    {
+      "account_id": "52e591f7-c98f-4255-8495-827210138c81",
+      "time": 1639572261,
+      "message": {
+        "receiver": {
+          "id": "2ed64e26-70a1-4857-8382-bb066a076219",
+          "phone": "79161234567",
+          "email": "example.client@example.com",
+          "client_id":"my_int-1376265f-86df-4c49-a0c3-a4816df41af8"
+        },
+        "sender": {
+          "id": "76fc2bea-902f-425c-9a3d-dcdac4766090"
+        },
+        "conversation": {
+          "id": "8e4d4baa-9e6c-4a88-838a-5f62be227bdc",
+          "client_id":"my_int-d5a421f7f218"
+        },
+        "source":{
+          "external_id":"78001234567"
+        },
+        "timestamp": 1639572260,
+        "msec_timestamp": 1639572260980,
+        "message": {
+          "id": "0371a0ff-b78a-4c7b-8538-a7d547e10692",
+          "type": "picture",
+          "text": "Текст сообщения Сделка #15926745",
+          "markup": {
+            "mode": "inline",
+            "buttons": [
+              [
+                {
+                  "text":"Принять заказ"
+                },
+                {
+                  "text":"Отменить заказ"
+                }
+              ]
+            ]
+          },
+          "tag": "",
+          "media": "https://amojo.amocrm.ru/attachments/image.jpg",
+          "thumbnail": "https://amojo.amocrm.ru/attachments/image_320x200.jpg",
+          "file_name": "",
+          "file_size": 0,
+          "template": {
+            "id": 7103,
+            "content": "Текст сообщения {{lead.name}}",
+            "params": [
+              {
+                "key": "{{lead.id}}",
+                "value": "15926745"
+              }
+            ]
           }
-        ]
+        }
       }
     }
-  }
-}
-```
 
 ### Обновление статуса отправки сообщения
 
@@ -578,69 +559,63 @@ switch ($hookBody['message']['message']['type']) {
 
 Рассмотрим пример кода, в котором мы обновим сообщение 079e44fb-fc22-476b-9e8a-421b688ec53b и укажем статус "Не доставлено":
 
-```
-<?php
-
-include __DIR__ . '/helpers.php';
-
-// Секретный ключ канала
-$channelSecret = 'f2d7f8704eff95087ed45b23ba99c0b5aac8278e';
-// Scope ID, который был получен при подключении канала в аккаунт
-$scopeId = '344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81';
-// ID сообщения, которое было получено в хуке
-$messageId = '079e44fb-fc22-476b-9e8a-421b688ec53b';
-// Тело запроса, обновим сообщение с информацией об ошибке
-$requestBody = [
-    'msgid' => '079e44fb-fc22-476b-9e8a-421b688ec53b',
-    'delivery_status' => -1,
-    'error_code' => 905,
-    'error' => 'Error text'
-];
-$jsonBody = json_encode($requestBody);
-$checkSum = createBodyChecksum($jsonBody);
-$apiMethod = sprintf('/v2/origin/custom/%s/%s/delivery_status', $scopeId, $messageId);
-
-// Составим подпись
-$signature = createSignature(
-    $channelSecret,
-    $checkSum,
-    $apiMethod
-);
-
-// Подготовим заголовки
-$curlHeaders = prepareHeaderForCurl($checkSum, $signature);
-
-echo 'POST ' . $apiMethod . PHP_EOL;
-foreach ($curlHeaders as $header) {
-    echo $header . PHP_EOL;
-}
-echo PHP_EOL . $jsonBody . PHP_EOL . PHP_EOL;
-
-// Выполним запрос
-execCurl($apiMethod, $jsonBody, $curlHeaders);
-```
+    <?php
+    
+    include __DIR__ . '/helpers.php';
+    
+    // Секретный ключ канала
+    $channelSecret = 'f2d7f8704eff95087ed45b23ba99c0b5aac8278e';
+    // Scope ID, который был получен при подключении канала в аккаунт
+    $scopeId = '344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81';
+    // ID сообщения, которое было получено в хуке
+    $messageId = '079e44fb-fc22-476b-9e8a-421b688ec53b';
+    // Тело запроса, обновим сообщение с информацией об ошибке
+    $requestBody = [
+        'msgid' => '079e44fb-fc22-476b-9e8a-421b688ec53b',
+        'delivery_status' => -1,
+        'error_code' => 905,
+        'error' => 'Error text'
+    ];
+    $jsonBody = json_encode($requestBody);
+    $checkSum = createBodyChecksum($jsonBody);
+    $apiMethod = sprintf('/v2/origin/custom/%s/%s/delivery_status', $scopeId, $messageId);
+    
+    // Составим подпись
+    $signature = createSignature(
+        $channelSecret,
+        $checkSum,
+        $apiMethod
+    );
+    
+    // Подготовим заголовки
+    $curlHeaders = prepareHeaderForCurl($checkSum, $signature);
+    
+    echo 'POST ' . $apiMethod . PHP_EOL;
+    foreach ($curlHeaders as $header) {
+        echo $header . PHP_EOL;
+    }
+    echo PHP_EOL . $jsonBody . PHP_EOL . PHP_EOL;
+    
+    // Выполним запрос
+    execCurl($apiMethod, $jsonBody, $curlHeaders);
 
 #### Запрос
 
-```
-POST https://amojo.amocrm.ru/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81/079e44fb-fc22-476b-9e8a-421b688ec53b/delivery_status
-Date: Thu, 16 Dec 2021 12:58:40 +0000
-Content-Type: application/json
-Content-MD5: a0bbbac729c6341f0a521e2db7a8a236
-X-Signature: ca51f810785031385a801f41103244713c1a2352
-User-Agent: amoCRM-Chats-Doc-Example/1.0
-```
+    POST https://amojo.amocrm.ru/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81/079e44fb-fc22-476b-9e8a-421b688ec53b/delivery_status
+    Date: Thu, 16 Dec 2021 12:58:40 +0000
+    Content-Type: application/json
+    Content-MD5: a0bbbac729c6341f0a521e2db7a8a236
+    X-Signature: ca51f810785031385a801f41103244713c1a2352
+    User-Agent: amoCRM-Chats-Doc-Example/1.0
 
 #### Тело запроса
 
-```
-{
-  "msgid": "079e44fb-fc22-476b-9e8a-421b688ec53b",
-  "delivery_status": 2,
-  "error_code": 905,
-  "error": "Error text"
-}
-```
+    {
+      "msgid": "079e44fb-fc22-476b-9e8a-421b688ec53b",
+      "delivery_status": 2,
+      "error_code": 905,
+      "error": "Error text"
+    }
 
 #### Ответ
 
@@ -653,62 +628,56 @@ User-Agent: amoCRM-Chats-Doc-Example/1.0
 
 Рассмотрим пример кода:
 
-```
-<?php
-
-include __DIR__ . '/helpers.php';
-
-// Секретный ключ канала
-$channelSecret = 'f2d7f8704eff95087ed45b23ba99c0b5aac8278e';
-// ID канала в сервисе чатов, который подключаем к каналу
-$channelId = '344a5002-f8ca-454d-af3d-396180102ac7';
-// Тело запроса
-$requestBody = [
-    'account_id' => '52e591f7-c98f-4255-8495-827210138c81',
-];
-$jsonBody = json_encode($requestBody);
-$checkSum = createBodyChecksum($jsonBody);
-$apiMethod = sprintf('/v2/origin/custom/%s/disconnect', $channelId);
-
-// Составим подпись
-$signature = createSignature(
-    $channelSecret,
-    $checkSum,
-    $apiMethod,
-    'DELETE'
-);
-
-// Подготовим заголовки
-$curlHeaders = prepareHeaderForCurl($checkSum, $signature);
-
-echo 'DELETE ' . $apiMethod . PHP_EOL;
-foreach ($curlHeaders as $header) {
-    echo $header . PHP_EOL;
-}
-echo PHP_EOL . $jsonBody . PHP_EOL . PHP_EOL;
-
-// Выполним запрос
-execCurl($apiMethod, $jsonBody, $curlHeaders, 'DELETE');
-```
+    <?php
+    
+    include __DIR__ . '/helpers.php';
+    
+    // Секретный ключ канала
+    $channelSecret = 'f2d7f8704eff95087ed45b23ba99c0b5aac8278e';
+    // ID канала в сервисе чатов, который подключаем к каналу
+    $channelId = '344a5002-f8ca-454d-af3d-396180102ac7';
+    // Тело запроса
+    $requestBody = [
+        'account_id' => '52e591f7-c98f-4255-8495-827210138c81',
+    ];
+    $jsonBody = json_encode($requestBody);
+    $checkSum = createBodyChecksum($jsonBody);
+    $apiMethod = sprintf('/v2/origin/custom/%s/disconnect', $channelId);
+    
+    // Составим подпись
+    $signature = createSignature(
+        $channelSecret,
+        $checkSum,
+        $apiMethod,
+        'DELETE'
+    );
+    
+    // Подготовим заголовки
+    $curlHeaders = prepareHeaderForCurl($checkSum, $signature);
+    
+    echo 'DELETE ' . $apiMethod . PHP_EOL;
+    foreach ($curlHeaders as $header) {
+        echo $header . PHP_EOL;
+    }
+    echo PHP_EOL . $jsonBody . PHP_EOL . PHP_EOL;
+    
+    // Выполним запрос
+    execCurl($apiMethod, $jsonBody, $curlHeaders, 'DELETE');
 
 #### Запрос
 
-```
-DELETE https://amojo.amocrm.ru/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7/disconnect
-Date: Wed, 15 Dec 2021 23:59:28 +0000
-Content-Type: application/json
-Content-MD5: 271fa2e4fb0ff84a3ef9689027bd1f38
-X-Signature: e1678e3b6aa674b5127f4feb448e6200ce0bfc72
-User-Agent: amoCRM-Chats-Doc-Example/1.0
-```
+    DELETE https://amojo.amocrm.ru/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7/disconnect
+    Date: Wed, 15 Dec 2021 23:59:28 +0000
+    Content-Type: application/json
+    Content-MD5: 271fa2e4fb0ff84a3ef9689027bd1f38
+    X-Signature: e1678e3b6aa674b5127f4feb448e6200ce0bfc72
+    User-Agent: amoCRM-Chats-Doc-Example/1.0
 
 #### Тело запроса
 
-```
-{
-  "account_id": "52e591f7-c98f-4255-8495-827210138c81"
-}
-```
+    {
+      "account_id": "52e591f7-c98f-4255-8495-827210138c81"
+    }
 
 #### Ответ
 
@@ -753,7 +722,7 @@ ID аккаунта может быть получен виджетом чере
 
 Так как бизнес имеет необходимость разделять общение со своими клиентами по нескольким направлениям  
 (это может быть несколько телефонных номеров WhatsApp для разных отделов или разные страницы лендингов с онлайн-чатами),  
-то и канал общения тоже требуется разделять. Для разделения в рамках одного типа чатов используются *источники*.
+то и канал общения тоже требуется разделять. Для разделения в рамках одного типа чатов используются _источники_.
 
 Таким образом с помощью источника можно определить, что клиент обратился к бизнесу с определенного лендинга или написал сообщение на телефонный номер конкретного отдела компании.  
 И в дальнейшем уже выстроить работу с каждым источником индивидуально: распределение по воронкам и работа ботов в зависимости от источника.
@@ -799,8 +768,8 @@ ID аккаунта может быть получен виджетом чере
 
 И существуют 2 источника:
 
-* Отдел технической поддержки
-* Отдел продаж
+*   Отдел технической поддержки
+*   Отдел продаж
 
 Мы назначаем "Отдел технической поддержки" источником по-умолчанию.  
 Теперь при отправке пользователем сообщения в чат интеграции придет источник "Отдел технической поддержки"
@@ -813,16 +782,16 @@ ID аккаунта может быть получен виджетом чере
 
 #### Особенности работы интеграции с несколькими каналами чатов
 
-*Данные предостережения стоит рассматривать только в случае, если за интеграцией закреплено более 1 канала и интеграция использует возможность "Написать первым"*
+_Данные предостережения стоит рассматривать только в случае, если за интеграцией закреплено более 1 канала и интеграция использует возможность "Написать первым"_
 
 Каждая интеграция может управлять только своими источниками, и среди источников интеграции может быть только один источник "по-умолчанию".
 
 Данный момент накладывает дополнительные ограничения на интеграцию при управлении источниками:
 
-* интеграции требуется самостоятельно разрешать конфликты идентификаторов источников на своей стороне
-* источник по-умолчанию может использоваться только с одним каналом. Нужно дополнительно прорабатывать процесс миграции на множественные источники
-* для каждого чата/сообщения необходимо явно надо передавать источник, что бы все чаты имели явную привязку к источнику
-* если будет передан неизвестный для amoCRM источник, то в качестве источника будет указана сама интеграция (тот же источник, что используется при создании сделки через API)
+*   интеграции требуется самостоятельно разрешать конфликты идентификаторов источников на своей стороне
+*   источник по-умолчанию может использоваться только с одним каналом. Нужно дополнительно прорабатывать процесс миграции на множественные источники
+*   для каждого чата/сообщения необходимо явно надо передавать источник, что бы все чаты имели явную привязку к источнику
+*   если будет передан неизвестный для amoCRM источник, то в качестве источника будет указана сама интеграция (тот же источник, что используется при создании сделки через API)
 
 В данной ситуации, одним из решений может быть предоставление выбора источника "по-умолчанию" пользователю в настройках интеграции.  
 Что бы пользователь понимал, что для чатов без явного указания источника будет использоваться конкретный канал и выбранный источник.
@@ -876,9 +845,9 @@ ID аккаунта может быть получен виджетом чере
 После установки интеграции и [получения Access Token](https://www.amocrm.ru/developers/content/oauth/step-by-step), интеграция сможет создавать необходимые источники через API.  
 Рассмотрим цепочку вызовов:
 
-* Создание источника
-* Отправка сообщения с передачей информации об источнике
-* Вебхук с информацией об источнике
+*   Создание источника
+*   Отправка сообщения с передачей информации об источнике
+*   Вебхук с информацией об источнике
 
 Представим, что мы разрабатываем интеграцию с WhatsApp с поддержкой нескольких номеров.  
 Для начала, создадим пару источников для отдела Продаж (+79039876543) и Технической поддержки (+79001234567).  
@@ -890,68 +859,22 @@ ID аккаунта может быть получен виджетом чере
 
 ##### Запрос
 
-```
-POST /api/v4/sources HTTP/1.1
-Host: https://example.amocrm.ru
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG....
-```
+    POST /api/v4/sources HTTP/1.1
+    Host: https://example.amocrm.ru
+    Content-Type: application/json
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG....
 
 ##### Тело запроса
 
-```
-[
-  {
-    "name": "Support",
-    "external_id": "79001234567",
-    "services": [],
-    "default": true
-  },
-  {
-    "name": "Sales",
-    "external_id": "79039876543",
-    "services": [
+    [
       {
-        "type": "whatsapp",
-        "pages": [
-          {
-            "id": "79039876543",
-            "name": "whatsapp",
-            "link": "+79039876543"
-          }
-        ]
-      }
-    ],
-    "default": false
-  }
-]
-```
-
-##### Ответ
-
-```
-{
-  "_total_items": 2,
-  "_embedded": {
-    "sources": [
-      {
-        "id": 3108069,
         "name": "Support",
-        "pipeline_id": 20453,
         "external_id": "79001234567",
         "services": [],
-        "default": true,
-        "request_id": "0",
-        "_links": {
-          "self": {
-            "href": "https://example.amocrm.ru/api/v4/sources/3108069"
-          }
-        }
+        "default": true
       },
       {
-        "id": 3108070,
         "name": "Sales",
-        "pipeline_id": 20453,
         "external_id": "79039876543",
         "services": [
           {
@@ -965,18 +888,58 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG....
             ]
           }
         ],
-        "default": false,
-        "request_id": "1",
-        "_links": {
-          "self": {
-            "href": "https://example.amocrm.ru/api/v4/sources/3108070"
-          }
-        }
+        "default": false
       }
     ]
-  }
-}
-```
+
+##### Ответ
+
+    {
+      "_total_items": 2,
+      "_embedded": {
+        "sources": [
+          {
+            "id": 3108069,
+            "name": "Support",
+            "pipeline_id": 20453,
+            "external_id": "79001234567",
+            "services": [],
+            "default": true,
+            "request_id": "0",
+            "_links": {
+              "self": {
+                "href": "https://example.amocrm.ru/api/v4/sources/3108069"
+              }
+            }
+          },
+          {
+            "id": 3108070,
+            "name": "Sales",
+            "pipeline_id": 20453,
+            "external_id": "79039876543",
+            "services": [
+              {
+                "type": "whatsapp",
+                "pages": [
+                  {
+                    "id": "79039876543",
+                    "name": "whatsapp",
+                    "link": "+79039876543"
+                  }
+                ]
+              }
+            ],
+            "default": false,
+            "request_id": "1",
+            "_links": {
+              "self": {
+                "href": "https://example.amocrm.ru/api/v4/sources/3108070"
+              }
+            }
+          }
+        ]
+      }
+    }
 
 Интеграции необходимо хранить связь external\_id и например, номера телефона, на своей стороне.
 
@@ -986,57 +949,51 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG....
 
 ##### Запрос
 
-```
-POST https://amojo.amocrm.ru/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81
-Date: Fri, 17 Dec 2021 10:59:28 +0000
-Content-Type: application/json
-Content-MD5: 353178c993f09a8ec5f3eab4093b753e
-X-Signature: e895539b52051e1a8d3f89d454c7ad7406705234
-User-Agent: amoCRM-Chats-Doc-Example/1.0
-```
+    POST https://amojo.amocrm.ru/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81
+    Date: Fri, 17 Dec 2021 10:59:28 +0000
+    Content-Type: application/json
+    Content-MD5: 353178c993f09a8ec5f3eab4093b753e
+    X-Signature: e895539b52051e1a8d3f89d454c7ad7406705234
+    User-Agent: amoCRM-Chats-Doc-Example/1.0
 
 ##### Тело запроса
 
-```
-{
-  "event_type": "new_message",
-  "payload": {
-    "timestamp": 1639738768,
-    "msec_timestamp": 1639738768457,
-    "msgid": "my_int-5f2836a8ca481",
-    "conversation_id": "my_int-d5a421f7f218",
-    "sender": {
-      "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
-      "avatar": "https://images.pexels.com/photos/10050979/pexels-photo-10050979.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      "profile": {
-        "phone": "+79151112233",
-        "email": "example.client@example.com"
-      },
-      "profile_link": "https://example.com/profile/example.client",
-      "name": "Вася клиент"
-    },
-    "message": {
-      "type": "text",
-      "text": "Сообщение от клиента"
-    },
-    "source": {
-      "external_id": "79039876543"
-    },
-    "silent": false
-  }
-}
-```
+    {
+      "event_type": "new_message",
+      "payload": {
+        "timestamp": 1639738768,
+        "msec_timestamp": 1639738768457,
+        "msgid": "my_int-5f2836a8ca481",
+        "conversation_id": "my_int-d5a421f7f218",
+        "sender": {
+          "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
+          "avatar": "https://images.pexels.com/photos/10050979/pexels-photo-10050979.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+          "profile": {
+            "phone": "+79151112233",
+            "email": "example.client@example.com"
+          },
+          "profile_link": "https://example.com/profile/example.client",
+          "name": "Вася клиент"
+        },
+        "message": {
+          "type": "text",
+          "text": "Сообщение от клиента"
+        },
+        "source": {
+          "external_id": "79039876543"
+        },
+        "silent": false
+      }
+    }
 
 ##### Ответ
 
-```
-{
-  "new_message": {
-    "msgid": "7779c89e-bb5b-4da0-b802-5de2ab7d4114",
-    "ref_id": "my_int-5f2836a8ca481"
-  }
-}
-```
+    {
+      "new_message": {
+        "msgid": "7779c89e-bb5b-4da0-b802-5de2ab7d4114",
+        "ref_id": "my_int-5f2836a8ca481"
+      }
+    }
 
 После сообщения менеджера клиенту интеграция получит хук, также с указанием источника в поле `source[external_id]`
 
@@ -1044,42 +1001,40 @@ User-Agent: amoCRM-Chats-Doc-Example/1.0
 
 #### Тело запроса
 
-```
-{
-  "account_id": "52e591f7-c98f-4255-8495-827210138c81",
-  "time": 1639572261,
-  "message": {
-    "receiver": {
-      "id": "2ed64e26-70a1-4857-8382-bb066a076219",
-      "phone": "+79151112233",
-      "email": "example.client@example.com",
-      "client_id":"my_int-1376265f-86df-4c49-a0c3-a4816df41af8"
-    },
-    "sender": {
-      "id": "76fc2bea-902f-425c-9a3d-dcdac4766090"
-    },
-    "conversation": {
-      "id": "8e4d4baa-9e6c-4a88-838a-5f62be227bdc",
-      "client_id":"my_int-d5a421f7f218"
-    },
-    "source":{
-      "external_id": "79039876543"
-    },
-    "timestamp": 1639572260,
-    "msec_timestamp": 1639572260980,
-    "message": {
-      "id": "0371a0ff-b78a-4c7b-8538-a7d547e10692",
-      "type": "text",
-      "text": "Текст сообщения Сделка #15926745",
-      "tag": "",
-      "media": "",
-      "thumbnail": "",
-      "file_name": "",
-      "file_size": 0
+    {
+      "account_id": "52e591f7-c98f-4255-8495-827210138c81",
+      "time": 1639572261,
+      "message": {
+        "receiver": {
+          "id": "2ed64e26-70a1-4857-8382-bb066a076219",
+          "phone": "+79151112233",
+          "email": "example.client@example.com",
+          "client_id":"my_int-1376265f-86df-4c49-a0c3-a4816df41af8"
+        },
+        "sender": {
+          "id": "76fc2bea-902f-425c-9a3d-dcdac4766090"
+        },
+        "conversation": {
+          "id": "8e4d4baa-9e6c-4a88-838a-5f62be227bdc",
+          "client_id":"my_int-d5a421f7f218"
+        },
+        "source":{
+          "external_id": "79039876543"
+        },
+        "timestamp": 1639572260,
+        "msec_timestamp": 1639572260980,
+        "message": {
+          "id": "0371a0ff-b78a-4c7b-8538-a7d547e10692",
+          "type": "text",
+          "text": "Текст сообщения Сделка #15926745",
+          "tag": "",
+          "media": "",
+          "thumbnail": "",
+          "file_name": "",
+          "file_size": 0
+        }
+      }
     }
-  }
-}
-```
 
 ### Связывание нового чата с существующим контактом
 
@@ -1094,192 +1049,173 @@ API amoCRM позволяет связать существующий чат с 
 
 Для начала создадим новый чат:
 
-```
-<?php
-
-include __DIR__ . '/helpers.php';
-
-// Секретный ключ канала
-$channelSecret = 'f2d7f8704eff95087ed45b23ba99c0b5aac8278e';
-// Scope ID, который был получен при подключении канала в аккаунт
-$scopeId = '344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81';
-// Тело запроса
-$requestBody = [
-    'conversation_id' => 'my_int-8e3e7640-49af-4448-a2c6-d5a421f7f217',
-    'source' => [
-        'external_id' => '78001234567', // external_id источника в API Источников, поле не передается, если интеграция не поддерживает множественные источники
-    ],
-    'user' => [
-        'id' => 'my_int-1376265f-86df-4c49-a0c3-a4816df41af9',
-        'avatar' => 'https://example.com/users/avatar.png',
-        'name' => 'Имя клиента',
-        'profile' => [
-            'phone' => '+79151112233',
-            'email' => 'example.client@example.com',
+    <?php
+    
+    include __DIR__ . '/helpers.php';
+    
+    // Секретный ключ канала
+    $channelSecret = 'f2d7f8704eff95087ed45b23ba99c0b5aac8278e';
+    // Scope ID, который был получен при подключении канала в аккаунт
+    $scopeId = '344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81';
+    // Тело запроса
+    $requestBody = [
+        'conversation_id' => 'my_int-8e3e7640-49af-4448-a2c6-d5a421f7f217',
+        'source' => [
+            'external_id' => '78001234567', // external_id источника в API Источников, поле не передается, если интеграция не поддерживает множественные источники
         ],
-        'profile_link' => 'https://example.com/profile/example.client',
-    ]
-];
-$jsonBody = json_encode($requestBody);
-$checkSum = createBodyChecksum($jsonBody);
-$apiMethod = sprintf('/v2/origin/custom/%s/chats', $scopeId);
-
-// Составим подпись
-$signature = createSignature(
-    $channelSecret,
-    $checkSum,
-    $apiMethod
-);
-
-// Подготовим заголовки
-$curlHeaders = prepareHeaderForCurl($checkSum, $signature);
-
-echo 'POST ' . $apiMethod . PHP_EOL;
-foreach ($curlHeaders as $header) {
-    echo $header . PHP_EOL;
-}
-echo PHP_EOL . $jsonBody . PHP_EOL . PHP_EOL;
-
-// Выполним запрос
-execCurl($apiMethod, $jsonBody, $curlHeaders);
-```
+        'user' => [
+            'id' => 'my_int-1376265f-86df-4c49-a0c3-a4816df41af9',
+            'avatar' => 'https://example.com/users/avatar.png',
+            'name' => 'Имя клиента',
+            'profile' => [
+                'phone' => '+79151112233',
+                'email' => 'example.client@example.com',
+            ],
+            'profile_link' => 'https://example.com/profile/example.client',
+        ]
+    ];
+    $jsonBody = json_encode($requestBody);
+    $checkSum = createBodyChecksum($jsonBody);
+    $apiMethod = sprintf('/v2/origin/custom/%s/chats', $scopeId);
+    
+    // Составим подпись
+    $signature = createSignature(
+        $channelSecret,
+        $checkSum,
+        $apiMethod
+    );
+    
+    // Подготовим заголовки
+    $curlHeaders = prepareHeaderForCurl($checkSum, $signature);
+    
+    echo 'POST ' . $apiMethod . PHP_EOL;
+    foreach ($curlHeaders as $header) {
+        echo $header . PHP_EOL;
+    }
+    echo PHP_EOL . $jsonBody . PHP_EOL . PHP_EOL;
+    
+    // Выполним запрос
+    execCurl($apiMethod, $jsonBody, $curlHeaders);
+    
 
 #### Запрос
 
-```
-POST https://amojo.amocrm.ru/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81/chats
-Date: Thu, 16 Dec 2021 23:22:49 +0000
-Content-Type: application/json
-Content-MD5: 5139e573382c0eae38f476822abb2014
-X-Signature: a601e486d694c8e7e8a5b637660f949f8bb7efaf
-User-Agent: amoCRM-Chats-Doc-Example/1.0
-```
+    POST https://amojo.amocrm.ru/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81/chats
+    Date: Thu, 16 Dec 2021 23:22:49 +0000
+    Content-Type: application/json
+    Content-MD5: 5139e573382c0eae38f476822abb2014
+    X-Signature: a601e486d694c8e7e8a5b637660f949f8bb7efaf
+    User-Agent: amoCRM-Chats-Doc-Example/1.0
 
 #### Тело запроса
 
-```
-{
-  "conversation_id": "my_int-8e3e7640-49af-4448-a2c6-d5a421f7f217",
-  "source": {
-    "external_id": "78001234567"
-  },
-  "user": {
-    "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af9",
-    "avatar": "https://example.com/users/avatar.png",
-    "name": "Имя клиента",
-    "profile": {
-      "phone": "+79151112233",
-      "email": "example.client@example.com"
-    },
-    "profile_link": "https://example.com/profile/example.client"
-  }
-}
-```
+    {
+      "conversation_id": "my_int-8e3e7640-49af-4448-a2c6-d5a421f7f217",
+      "source": {
+        "external_id": "78001234567"
+      },
+      "user": {
+        "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af9",
+        "avatar": "https://example.com/users/avatar.png",
+        "name": "Имя клиента",
+        "profile": {
+          "phone": "+79151112233",
+          "email": "example.client@example.com"
+        },
+        "profile_link": "https://example.com/profile/example.client"
+      }
+    }
 
 #### Ответ
 
-```
-{
-  "id": "31d43a78-e09d-46ae-8994-7e93560169b8",
-  "user": {
-    "id": "7c7330cd-c0ee-45a5-bd62-643a3a8225e8",
-    "client_id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af9",
-    "name": "Имя клиента",
-    "profile": {
-      "phone": "79151112233",
-      "email": "example.client@example.com"
-    },
-    "avatar": "https://example.com/users/avatar.png"
-  }
-}
-```
+    {
+      "id": "31d43a78-e09d-46ae-8994-7e93560169b8",
+      "user": {
+        "id": "7c7330cd-c0ee-45a5-bd62-643a3a8225e8",
+        "client_id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af9",
+        "name": "Имя клиента",
+        "profile": {
+          "phone": "79151112233",
+          "email": "example.client@example.com"
+        },
+        "avatar": "https://example.com/users/avatar.png"
+      }
+    }
 
 После создания чата, в качестве примера, создадим контакт. Также вы можете использовать уже существующий контакт.
 
 #### Пример запроса
 
-```
-POST /api/v4/contacts HTTP/1.1
-Host: https://{subdomain}.amocrm.ru
-Content-Type: application/json
-Authorization: Bearer xxxx
-```
+    POST /api/v4/contacts HTTP/1.1
+    Host: https://{subdomain}.amocrm.ru
+    Content-Type: application/json
+    Authorization: Bearer xxxx
 
 #### Тело запроса
 
-```
-[
-  {
-    "first_name": "Jack200803",
-    "last_name": "Tester"
-  }
-]
-```
+    [
+      {
+        "first_name": "Jack200803",
+        "last_name": "Tester"
+      }
+    ]
 
 #### Ответ
 
-```
-    {
-        "_links": {
-            "self": {
-                "href": "https://{subdomain}.amocrm.ru/api/v4/contacts"
-            }
-        },
-        "_embedded": {
-            "contacts": [
-                {
-                    "id": 3102959,
-                    "request_id": "0",
-                    "_links": {
-                        "self": {
-                            "href": "https://{subdomain}.amocrm.ru/api/v4/contacts/3102959"
+        {
+            "_links": {
+                "self": {
+                    "href": "https://{subdomain}.amocrm.ru/api/v4/contacts"
+                }
+            },
+            "_embedded": {
+                "contacts": [
+                    {
+                        "id": 3102959,
+                        "request_id": "0",
+                        "_links": {
+                            "self": {
+                                "href": "https://{subdomain}.amocrm.ru/api/v4/contacts/3102959"
+                            }
                         }
                     }
-                }
-            ]
+                ]
+            }
         }
-    }
-```
 
 После создания контакта, теперь свяжем контакт и созданный чат.
 
 #### Пример запроса
 
-```
-POST /api/v4/contacts/chats HTTP/1.1
-Host: https://{subdomain}.amocrm.ru
-Content-Type: application/json
-Authorization: Bearer xxxx
-```
+    POST /api/v4/contacts/chats HTTP/1.1
+    Host: https://{subdomain}.amocrm.ru
+    Content-Type: application/json
+    Authorization: Bearer xxxx
 
 #### Тело запроса
 
-```
-[
-  {
-    "contact_id": 3102959,
-    "chat_id": "6cbab3d5-c4c1-46ff-b710-ad59ad10805f"
-  }
-]
-```
+    [
+      {
+        "contact_id": 3102959,
+        "chat_id": "6cbab3d5-c4c1-46ff-b710-ad59ad10805f"
+      }
+    ]
 
 #### Ответ
 
-```
-    {
-        "_total_items": 1,
-        "_embedded": {
-            "chats": [
-                {
-                    "chat_id": "6cbab3d5-c4c1-46ff-b710-ad59ad10805f",
-                    "contact_id": 3102959,
-                    "id": 26219,
-                    "request_id": "0"
-                }
-            ]
+        {
+            "_total_items": 1,
+            "_embedded": {
+                "chats": [
+                    {
+                        "chat_id": "6cbab3d5-c4c1-46ff-b710-ad59ad10805f",
+                        "contact_id": 3102959,
+                        "id": 26219,
+                        "request_id": "0"
+                    }
+                ]
+            }
         }
-    }
-```
 
 Также можно проверить привязку чата и контакта. Для этого можно воспользоваться [методом API](https://amocrm.ru/developers/content/api/contacts#contacts-chat-list).
 
@@ -1290,9 +1226,9 @@ Authorization: Bearer xxxx
 
 Импортируемые сообщения могут быть адресованы:
 
-* Входящее от клиента
-* Исходящее клиенту от пользователя amoCRM
-* Исходящее клиенту от бота интеграции
+*   Входящее от клиента
+*   Исходящее клиенту от пользователя amoCRM
+*   Исходящее клиенту от бота интеграции
 
 Метод позволяем импортировать сообщения в чат, не вызывая уведомлений для пользователей amoCRM и создания неразобранного.  
 Для этого необходимо передать в метод API поле `payload[silent]: true`.  
@@ -1314,17 +1250,17 @@ Authorization: Bearer xxxx
 
 Уникальным идентификатором для функционала является номер телефона. При создании чата, amoCRM пришлет интеграции вебхук v2.
 
-Отличительной особенностью данного хука является отсутствие поля message[conversation][client\_id],  
+Отличительной особенностью данного хука является отсутствие поля message\[conversation\]\[client\_id\],  
 в котором в обычных хуках приходит ID чата на стороне интеграции.
 
-Если ваша интеграция поддерживает множественные источники, в хуке вы получите поле message[source][external\_id],  
+Если ваша интеграция поддерживает множественные источники, в хуке вы получите поле message\[source\]\[external\_id\],  
 в котором будет находиться переданный external\_id при создании источника.
 
 Также стоит отметить, что при добавлении нового сообщения через метод [отправки сообщений](https://www.amocrm.ru/developers/content/chats/chat-api-reference#Отправка-или-импорт-сообщения),  
-вам необходимо передать payload[conversation\_id] c ID чата на стороне интеграции, а также  
-payload[conversation\_ref\_id] с ID чата на стороне API чатов. Передача этих двух параметров позволит связать чат на стороне amoCRM с идентификатором чата на стороне интеграции.  
+вам необходимо передать payload\[conversation\_id\] c ID чата на стороне интеграции, а также  
+payload\[conversation\_ref\_id\] с ID чата на стороне API чатов. Передача этих двух параметров позволит связать чат на стороне amoCRM с идентификатором чата на стороне интеграции.  
 Для связывания пользователя, которому мы пишем, с ближайшим входящим сообщением необходимо передать  
-поле payload[sender][ref\_id] с ID пользователя на стороне API Чатов и payload[sender][id] c ID пользователя на стороне интеграции.
+поле payload\[sender\]\[ref\_id\] с ID пользователя на стороне API Чатов и payload\[sender\]\[id\] c ID пользователя на стороне интеграции.
 
 ### Отображение статуса печатания в карточке сделки
 
@@ -1333,72 +1269,67 @@ payload[conversation\_ref\_id] с ID чата на стороне API чатов
 
 ![](https://www.amocrm.ru/uploads/2021/09/typing_vasiliy.png)
 
-Важно отметить, что в запросе передается ID чата на стороне интеграции (ID переданный при отправке сообщения в payload[conversation\_id]).  
+Важно отметить, что в запросе передается ID чата на стороне интеграции (ID переданный при отправке сообщения в payload\[conversation\_id\]).  
 Также передается ID пользователя на стороне интеграции, который печатает.
 
 Рассмотрим пример кода:
 
-```
-<?php
-
-include __DIR__ . '/helpers.php';
-
-// Секретный ключ канала
-$channelSecret = 'f2d7f8704eff95087ed45b23ba99c0b5aac8278e';
-// Scope ID, который был получен при подключении канала в аккаунт
-$scopeId = '344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81';
-// Тело запроса, отправим информацию, что пользователь печатает
-$requestBody = [
-    'conversation_id' => 'my_int-d5a421f7f218',
-    'sender' => [
-        'id' => 'my_int-1376265f-86df-4c49-a0c3-a4816df41af8',
-    ],
-];
-$jsonBody = json_encode($requestBody);
-$checkSum = createBodyChecksum($jsonBody);
-$apiMethod = sprintf('/v2/origin/custom/%s/typing', $scopeId);
-
-// Составим подпись
-$signature = createSignature(
-    $channelSecret,
-    $checkSum,
-    $apiMethod
-);
-
-// Подготовим заголовки
-$curlHeaders = prepareHeaderForCurl($checkSum, $signature);
-
-echo 'POST ' . $apiMethod . PHP_EOL;
-foreach ($curlHeaders as $header) {
-    echo $header . PHP_EOL;
-}
-echo PHP_EOL . $jsonBody . PHP_EOL . PHP_EOL;
-
-// Выполним запрос
-execCurl($apiMethod, $jsonBody, $curlHeaders);
-```
+    <?php
+    
+    include __DIR__ . '/helpers.php';
+    
+    // Секретный ключ канала
+    $channelSecret = 'f2d7f8704eff95087ed45b23ba99c0b5aac8278e';
+    // Scope ID, который был получен при подключении канала в аккаунт
+    $scopeId = '344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81';
+    // Тело запроса, отправим информацию, что пользователь печатает
+    $requestBody = [
+        'conversation_id' => 'my_int-d5a421f7f218',
+        'sender' => [
+            'id' => 'my_int-1376265f-86df-4c49-a0c3-a4816df41af8',
+        ],
+    ];
+    $jsonBody = json_encode($requestBody);
+    $checkSum = createBodyChecksum($jsonBody);
+    $apiMethod = sprintf('/v2/origin/custom/%s/typing', $scopeId);
+    
+    // Составим подпись
+    $signature = createSignature(
+        $channelSecret,
+        $checkSum,
+        $apiMethod
+    );
+    
+    // Подготовим заголовки
+    $curlHeaders = prepareHeaderForCurl($checkSum, $signature);
+    
+    echo 'POST ' . $apiMethod . PHP_EOL;
+    foreach ($curlHeaders as $header) {
+        echo $header . PHP_EOL;
+    }
+    echo PHP_EOL . $jsonBody . PHP_EOL . PHP_EOL;
+    
+    // Выполним запрос
+    execCurl($apiMethod, $jsonBody, $curlHeaders);
+    
 
 #### Запрос
 
-```
-POST https://amojo.amocrm.ru/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81/typing
-Date: Thu, 16 Dec 2021 16:01:21 +0000
-Content-Type: application/json
-Content-MD5: 255a22566d68be207fa36804e78a523a
-X-Signature: e8263b1daf2b20396c02db6c8c846f95cc0f9540
-User-Agent: amoCRM-Chats-Doc-Example/1.0
-```
+    POST https://amojo.amocrm.ru/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81/typing
+    Date: Thu, 16 Dec 2021 16:01:21 +0000
+    Content-Type: application/json
+    Content-MD5: 255a22566d68be207fa36804e78a523a
+    X-Signature: e8263b1daf2b20396c02db6c8c846f95cc0f9540
+    User-Agent: amoCRM-Chats-Doc-Example/1.0
 
 #### Тело запроса
 
-```
-{
-  "conversation_id": "my_int-d5a421f7f218",
-  "sender": {
-    "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8"
-  }
-}
-```
+    {
+      "conversation_id": "my_int-d5a421f7f218",
+      "sender": {
+        "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8"
+      }
+    }
 
 ### Хуки о печати пользователем amoCRM
 

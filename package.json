@@ -12,6 +12,7 @@
   "devDependencies": {
     "@vuepress/bundler-vite": "2.0.0-rc.26",
     "cheerio": "^1.0.0-rc.12",
+    "turndown-plugin-gfm": "^1.0.2",
     "sass-embedded": "^1.93.2",
     "turndown": "^7.1.2",
     "vue": "^3.5.22",

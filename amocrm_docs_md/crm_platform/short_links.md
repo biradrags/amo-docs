@@ -1,20 +1,21 @@
-# https://www.amocrm.ru/developers/content/crm_platform/short_links
+<!-- https://www.amocrm.ru/developers/content/crm_platform/short_links -->
+
+# Создание коротких ссылок
 
 Короткие ссылки
 
 Данный метод API позволяет сокращать ваши ссылки, которые отправляются контактам.  
-Когда человек перейдет по ссылке, в контакт добавиться примечание о переходе на сайт.
+Когда человек перейдет по ссылке, в контакт добавиться примечание о переходе на сайт.  
+Так же, человеку прикрепится пиксель, по которому в дальнейшем может произойти автоматическое объединение чатов.
 
 Для каждого контакта генерируется отдельная ссылка.  
 То есть, если одну и ту же ссылку нужно отправить нескольким контактам, для каждого контакта нужно сгенерировать отдельную ссылку.
 
 При этом, если вы хотите показать менеджеру, что ссылка была отправлена клиенту, например, создать об этом примечание, то менеджер должен видеть только исходную ссылку, не должен видеть или переходить по короткой, которая была отправлена клиенту.
 
-### Создание коротких ссылок
-
 #### Метод
 
-*POST /api/v4/short\_links*
+_POST /api/v4/short\_links_
 
 #### Описание
 
@@ -27,7 +28,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -35,33 +36,22 @@
 | --- | --- | --- |
 | url | string | Адрес страницы. Обязательный параметр |
 | metadata | object | Метаданные для генерации короткой ссылки. Обязательный параметр |
-| metadata[entity\_type] | string | Тип сущности, на данный момент значение может быть только contacts. Обязательный параметр |
-| metadata[entity\_id] | int | ID сущности. Обязательный параметр |
+| metadata\[entity\_type\] | string | Тип сущности, на данный момент значение может быть только contacts. Обязательный параметр |
+| metadata\[entity\_id\] | int | ID сущности. Обязательный параметр |
 
 #### Пример запроса
 
-```
-
+        `[    {       "url":"https://www.yandex.ru",       "metadata":{          "entity_type":"contacts",          "entity_id":11070881       }    } ]`
         
-[
-   {
-      "url":"https://www.yandex.ru",
-      "metadata":{
-         "entity_type":"contacts",
-         "entity_id":11070881
-      }
-   }
-]
-        
-```
+    
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -80,32 +70,9 @@
 | url | string | Сгенерированная короткая ссылка |
 | account\_id | int | ID аккаунта |
 | metadata | object | Метаданные короткой ссылки |
-| metadata[entity\_type] | string | Тип сущности |
-| metadata[entity\_id] | int | ID сущности |
+| metadata\[entity\_type\] | string | Тип сущности |
+| metadata\[entity\_id\] | int | ID сущности |
 
 #### Пример ответа
 
-```
-
-        
-{
-    "_links": {
-        "self": {
-            "href": "/api/v4/short_links"
-        }
-    },
-    "_embedded": {
-        "short_links": [
-            {
-                "url": "https://amo.sh/XXXXXXXXXXXX",
-                "account_id": 123,
-                "metadata": {
-                    "entity_type": "contacts",
-                    "entity_id": 321
-                }
-            }
-        ]
-    }
-}
-        
-```
+        `{     "_links": {         "self": {             "href": "/api/v4/short_links"         }     },     "_embedded": {         "short_links": [             {                 "url": "https://amo.sh/XXXXXXXXXXXX",                 "account_id": 123,                 "metadata": {                     "entity_type": "contacts",                     "entity_id": 321                 }             }         ]     } }`

@@ -1,3 +1,5 @@
+<!-- https://www.amocrm.ru/developers/content/web_sdk/todo_sync -->
+
 # https://www.amocrm.ru/developers/content/web_sdk/todo_sync
 
 Синхронизация задач
@@ -8,26 +10,23 @@
 
 Для этого необходимо указать локейшны задач в **manifest.json**:
 
-```
 {
   ...
 
-  "locations": [
+  "locations": \[
     "tlist",
     "tline",
     "tcalendar"
-  ],
+  \],
 
   ...
 }
-```
 
 В колбэках виджета также есть специальный колбэк “**calendarSync**”, который выполнится при открытии данного модального окна, он обязательно должен возвращать объект с определенного вида, что описан в примере ниже.
 
-```
 this.callbacks: {
   calendarSync: function() {
-    var load_promise = new Promise(function(resolve, reject) {
+    var load\_promise = new Promise(function(resolve, reject) {
       // Запрос на бэк-энд для получения статуса виджета
       setTimeout(resolve, 2000);
     }
@@ -44,8 +43,8 @@ this.callbacks: {
       // но обычно нужно сделать запрос на back-end, 
       // поэтому можно вернуть promise, где resolve(true|false)
       // задаст состояние синхронизации виджета после получения ответа,
-      // А reject([error_msg]) выведет сообщение об ошибке.
-      enabled: load_promise || false,
+      // А reject(\[error\_msg\]) выведет сообщение об ошибке.
+      enabled: load\_promise || false,
 
       // {Function} Callback на нажатие кнопки "Включить".
       // Должен вернуть Promise
@@ -81,4 +80,3 @@ this.callbacks: {
     };
   }
 }
-```

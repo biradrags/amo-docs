@@ -1,8 +1,8 @@
-# https://www.amocrm.ru/developers/content/integrations/system_sms
+<!-- https://www.amocrm.ru/developers/content/integrations/system_sms -->
+
+# Возможности и принципы работы системных SMS
 
 Отправка системных SMS
-
-### Возможности и принципы работы системных SMS
 
 Начиная с релиза “Осень 2020”, мы вводим понятие, как отправка системных SMS сообщений. Сейчас виджеты с поддержкой этой возможности могут быть использованы для отправки SMS с кодами авторизации в личном кабинете. В будущем могут появиться новые места, где необходимо будет использовать SMS.
 
@@ -14,53 +14,51 @@
 
 #### Пример manifest.json
 
-```
-{
-  "widget": {
-    "interface_version": 2,
-    "init_once": false,
-    "locale": [
-      "ru"
-    ],
-    "installation": true
-  },
-  "locations": [
-    "lcard-1",
-    "digital_pipeline",
-    "settings",
-    "sms"
-  ],
-  "settings": {
-    "login": {
-      "name": "settings.login",
-      //указывает на файл локализации, в папке i18n
-      "type": "text",
-      //тип: текстовое поле
-      "required": false
-    },
-    "password": {
-      "name": "settings.password",
-      //указывает на файл локализации, в папке i18n
-      "type": "pass",
-      //тип: пароль
-      "required": false
-    }
-  },
-  "dp": {
-    "settings": {
-      "message": {
-        "name": "settings.message",
-        "type": "text",
-        "required": true
+    {
+      "widget": {
+        "interface_version": 2,
+        "init_once": false,
+        "locale": [
+          "ru"
+        ],
+        "installation": true
+      },
+      "locations": [
+        "lcard-1",
+        "digital_pipeline",
+        "settings",
+        "sms"
+      ],
+      "settings": {
+        "login": {
+          "name": "settings.login",
+          //указывает на файл локализации, в папке i18n
+          "type": "text",
+          //тип: текстовое поле
+          "required": false
+        },
+        "password": {
+          "name": "settings.password",
+          //указывает на файл локализации, в папке i18n
+          "type": "pass",
+          //тип: пароль
+          "required": false
+        }
+      },
+      "dp": {
+        "settings": {
+          "message": {
+            "name": "settings.message",
+            "type": "text",
+            "required": true
+          }
+        },
+        "action_multiple": false
+      },
+      "sms": {
+        "endpoint": "https://example.com/sms_endpoint"
       }
-    },
-    "action_multiple": false
-  },
-  "sms": {
-    "endpoint": "https://example.com/sms_endpoint"
-  }
-}
-```
+    }
 
 #### Параметры отправляемого запроса
 
@@ -74,10 +72,8 @@
 
 #### Пример тела запроса
 
-```
-{
-  "text": "Код для входа в личный кабинет - 834622",
-  "phone": "+79123456789",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkV4YW1wbGUgYW1vQ1JNIFRPS0VOIiwiaWF0IjoxNjA4MjQxNjU4fQ.GkL8yEXAAQ4yaM1M9gpY01zVJur9FJ9Nfed63vxN_J4"
-}
-```
+    {
+      "text": "Код для входа в личный кабинет - 834622",
+      "phone": "+79123456789",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkV4YW1wbGUgYW1vQ1JNIFRPS0VOIiwiaWF0IjoxNjA4MjQxNjU4fQ.GkL8yEXAAQ4yaM1M9gpY01zVJur9FJ9Nfed63vxN_J4"
+    }

@@ -1,3 +1,5 @@
+<!-- https://www.amocrm.ru/developers/content/integrations/structure -->
+
 # https://www.amocrm.ru/developers/content/integrations/structure
 
 Структура виджета
@@ -14,7 +16,11 @@
 В папке **images/** должны быть файлы с размерами:
 
 ![](https://i.postimg.cc/SR47xr0j/logo-main.png) logo\_main.png 400px x 272px  
-![](https://i.postimg.cc/RFp4MPJL/logo-small.png) logo\_small.png 108px x 108px
+![](https://i.postimg.cc/RFp4MPJL/logo-small.png) logo\_small.png 108px x 108px  
+![](https://i.postimg.cc/fLzY4bY0/logo-1.png) logo.png 130px x 100px  
+![](https://i.postimg.cc/NM22vr5F/logo-medium.png) logo\_medium.png 240px x 84px  
+![](https://i.postimg.cc/76rwbCKf/logo-min.png) logo\_min.png 84px x 84px  
+![](https://i.postimg.cc/qBmS5h2y/logo-dp.png) logo\_dp.png 174px x 109px
 
 #### Начинаем разработку
 
@@ -73,116 +79,115 @@
 
 #### Пример manifest.json
 
-```
-{
-  "widget": {
-    "name": "widget.name",
-    "description": "widget.description",
-    "short_description": "widget.short_description",
-    "version": "1.0.0",
-    "interface_version": 2,
-    "init_once": false,
-    "locale": ["ru", "en"],
-    "installation": true,
-    "support": {
-      "link": "https://www.amocrm.com",
-      "email": "support@amocrm.com"
-    }
-  },
-  "locations": ["ccard-1", "clist-1", "digital_pipeline", "settings"],
-  "tour": {
-    "is_tour": true,
-    "tour_images": {
-      "ru": [
-        "/images/tour_1_ru.png",
-        "/images/tour_2_ru.png",
-        "/images/tour_3_ru.png"
-      ],
-      "en": [
-        "/images/tour_1_en.png",
-        "/images/tour_2_en.png",
-        "/images/tour_3_en.png"
-      ],
-      "es": [
-        "/images/tour_1_es.png",
-        "/images/tour_2_es.png",
-        "/images/tour_3_es.png"
-      ]
-    },
-    "tour_description": "widget.tour_description"
-  },
-  "settings": {
-    "login": {
-      "name": "settings.login",
-      //указывает на файл локализации, в папке i18n
-      "type": "text",
-      //тип: текстовое поле
-      "required": false
-    },
-    "password": {
-      "name": "settings.password",
-      //указывает на файл локализации, в папке i18n
-      "type": "pass",
-      //тип: пароль
-      "required": false
-    }
-  },
-  "dp": {
-    "settings": {
-      "message": {
-        "name": "settings.message",
-        "type": "text",
-        "required": true
-      }
-    },
-    "action_multiple": false
-  },
-  "advanced": {
-    "title": "advanced.title"
-  },
-  "salesbot_designer": {
-    "handler_code": {
-      "name": "salesbot.handler_name",
-      "settings": {
-        "button_title": {
-          "name": "salesbot.button_title",
-          "type": "text",
-          "default_value": "salesbot.button_title_default_value",
-          "manual": true
-        },
-        "button_caption": {
-          "name": "salesbot.button_caption",
-          "type": "text",
-          "default_value": "salesbot.button_caption_default_value",
-          "manual": true
-        },
-        "text": {
-          "name": "salesbot.text",
-          "type": "text"
-        },
-        "number": {
-          "name": "salesbot.number",
-          "type": "numeric"
-        },
-        "url": {
-          "name": "salesbot.url",
-          "type": "url"
+    {
+      "widget": {
+        "name": "widget.name",
+        "description": "widget.description",
+        "short_description": "widget.short_description",
+        "version": "1.0.0",
+        "interface_version": 2,
+        "init_once": false,
+        "locale": ["ru", "en"],
+        "installation": true,
+        "support": {
+          "link": "https://www.amocrm.com",
+          "email": "support@amocrm.com"
         }
+      },
+      "locations": ["ccard-1", "clist-1", "digital_pipeline", "settings"],
+      "tour": {
+        "is_tour": true,
+        "tour_images": {
+          "ru": [
+            "/images/tour_1_ru.png",
+            "/images/tour_2_ru.png",
+            "/images/tour_3_ru.png"
+          ],
+          "en": [
+            "/images/tour_1_en.png",
+            "/images/tour_2_en.png",
+            "/images/tour_3_en.png"
+          ],
+          "es": [
+            "/images/tour_1_es.png",
+            "/images/tour_2_es.png",
+            "/images/tour_3_es.png"
+          ]
+        },
+        "tour_description": "widget.tour_description"
+      },
+      "settings": {
+        "login": {
+          "name": "settings.login",
+          //указывает на файл локализации, в папке i18n
+          "type": "text",
+          //тип: текстовое поле
+          "required": false
+        },
+        "password": {
+          "name": "settings.password",
+          //указывает на файл локализации, в папке i18n
+          "type": "pass",
+          //тип: пароль
+          "required": false
+        }
+      },
+      "dp": {
+        "settings": {
+          "message": {
+            "name": "settings.message",
+            "type": "text",
+            "required": true
+          }
+        },
+        "action_multiple": false
+      },
+      "advanced": {
+        "title": "advanced.title"
+      },
+      "salesbot_designer": {
+        "handler_code": {
+          "name": "salesbot.handler_name",
+          "settings": {
+            "button_title": {
+              "name": "salesbot.button_title",
+              "type": "text",
+              "default_value": "salesbot.button_title_default_value",
+              "manual": true
+            },
+            "button_caption": {
+              "name": "salesbot.button_caption",
+              "type": "text",
+              "default_value": "salesbot.button_caption_default_value",
+              "manual": true
+            },
+            "text": {
+              "name": "salesbot.text",
+              "type": "text"
+            },
+            "number": {
+              "name": "salesbot.number",
+              "type": "numeric"
+            },
+            "url": {
+              "name": "salesbot.url",
+              "type": "url"
+            }
+          }
+        }
+      },
+      "amoforms_settings": {
+        "title": "amoforms_settings.title",
+        "required": false,
+        "error_text": "amoforms_settings.error_text"
       }
     }
-  },
-  "amoforms_settings": {
-    "title": "amoforms_settings.title",
-    "required": false,
-    "error_text": "amoforms_settings.error_text"
-  }
-}
-```
+    
 
 **Особенности, связанные с oAuth интеграциями:**
 
-1. В данный момент, логотип интеграции и логотип виджета это два разных файла. Логотип интеграции отображается в списке и на странице получения доступов, если у интеграции нет виджета. Если виджет есть, то он отображается только на странице получения доступов.
-2. Если виджет загружен в разделе amoМаркет => Мое приложение, то в его модальном окне будет отображаться название и описание, указанные в настройках интеграции, а не те, что указаны в manifest.json.
+1.  В данный момент, логотип интеграции и логотип виджета это два разных файла. Логотип интеграции отображается в списке и на странице получения доступов, если у интеграции нет виджета. Если виджет есть, то он отображается только на странице получения доступов.
+2.  Если виджет загружен в разделе amoМаркет => Мое приложение, то в его модальном окне будет отображаться название и описание, указанные в настройках интеграции, а не те, что указаны в manifest.json.
 
 #### i18n Файлы локализации
 
@@ -194,47 +199,43 @@
 
 #### Пример i18n/ru.json
 
-```
-{
-  "widget": {
-    "name": "Demo виджет",
-    "short_description": "Виджет для отсылки контакта во внутреннюю систему",
-    "description": "Виджет, который служит для отправки данных из карточки контакта вашего домена #SUBDOMAIN# во внутренню систему"
-  },
-  "settings": {
-    "login": "Логин",
-    "password": "Пароль"
-  },
-  "userLang": {
-    "firstWidgetText": "Кликните на кнопку, чтобы переслать данные на сторонний сервер:",
-    "textIntoTheButton": "Отправить данные",
-    "responseMessage": "Ответ сервера :",
-    "responseError": "Ошибка"
-  }
-}
-```
+    {
+      "widget": {
+        "name": "Demo виджет",
+        "short_description": "Виджет для отсылки контакта во внутреннюю систему",
+        "description": "Виджет, который служит для отправки данных из карточки контакта вашего домена #SUBDOMAIN# во внутренню систему"
+      },
+      "settings": {
+        "login": "Логин",
+        "password": "Пароль"
+      },
+      "userLang": {
+        "firstWidgetText": "Кликните на кнопку, чтобы переслать данные на сторонний сервер:",
+        "textIntoTheButton": "Отправить данные",
+        "responseMessage": "Ответ сервера :",
+        "responseError": "Ошибка"
+      }
+    }
 
 #### Пример i18n/en.json
 
-```
-{
-  "widget": {
-    "name": "Demo widget",
-    "short_description": "Widget for sending the contact to the internal system",
-    "description": "Widget that is used to send data from the contact card on your domain # SUBDOMAIN # in the internal system"
-  },
-  "settings": {
-    "login": "Login",
-    "password": "Password"
-  },
-  "userLang": {
-    "firstWidgetText": "Please, click on the button, if you want:",
-    "textIntoTheButton": "Send Data",
-    "responseMessage": "Server response:",
-    "responseError": "Failed"
-  }
-}
-```
+    {
+      "widget": {
+        "name": "Demo widget",
+        "short_description": "Widget for sending the contact to the internal system",
+        "description": "Widget that is used to send data from the contact card on your domain # SUBDOMAIN # in the internal system"
+      },
+      "settings": {
+        "login": "Login",
+        "password": "Password"
+      },
+      "userLang": {
+        "firstWidgetText": "Please, click on the button, if you want:",
+        "textIntoTheButton": "Send Data",
+        "responseMessage": "Server response:",
+        "responseError": "Failed"
+      }
+    }
 
 Для обращения к языковым сообщениям из JS кода виджета используйте метод **self.i18n(‘obj\_name’)**, где obj\_name – это один из объектов файла локализации.
 
@@ -242,10 +243,10 @@
 
 **Типовые ошибки:**
 
-* Многие файлы, в частности manifest.json имеют формат json, то лучше перед их загрузкой убеждаться в корректности синтаксиса, используя онлайн проверки json файлов. Одной из самых частых ошибок является загрузка файла с некорректным синтаксисом
-* Кодировка — все файлы должны быть в кодировке UTF-8 без BOM
-* Уже перед первой загрузкой виджета в манифесте необходимо заменить код и ключ из сказанного примера на сгенерированные вами уникальные
-* Зачастую в упакованном архиве в корне лежит папка widget, как первый уровень, а на самом деле должны уже сразу лежать файлы
-* Если изначально был загружен неверный manifest, то необходимо сгенерировать новый код и ключ, т.к. предыдущий будет дескредитирован
+*   Многие файлы, в частности manifest.json имеют формат json, то лучше перед их загрузкой убеждаться в корректности синтаксиса, используя онлайн проверки json файлов. Одной из самых частых ошибок является загрузка файла с некорректным синтаксисом
+*   Кодировка — все файлы должны быть в кодировке UTF-8 без BOM
+*   Уже перед первой загрузкой виджета в манифесте необходимо заменить код и ключ из сказанного примера на сгенерированные вами уникальные
+*   Зачастую в упакованном архиве в корне лежит папка widget, как первый уровень, а на самом деле должны уже сразу лежать файлы
+*   Если изначально был загружен неверный manifest, то необходимо сгенерировать новый код и ключ, т.к. предыдущий будет дескредитирован
 
 [Типы полей](https://www.amocrm.ru/developers/content/integrations/fields)

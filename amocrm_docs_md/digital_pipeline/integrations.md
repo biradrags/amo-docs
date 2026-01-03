@@ -1,16 +1,16 @@
-# https://www.amocrm.ru/developers/content/digital_pipeline/integrations
+<!-- https://www.amocrm.ru/developers/content/digital_pipeline/integrations -->
+
+# Виджеты в digital pipeline
 
 Разработка интеграций
 
-### Виджеты в digital pipeline
-
 Виджеты могут взаимодействовать с функционалом цифровой воронки и реагировать на какие-либо из следующих событий:
 
-1. Входящее письмо
-2. Входящий звонок
-3. Входящее сообщение из чата
-4. Переход в этап
-5. Заход на сайт (для этого события можно настроить отложенное действие)
+1.  Входящее письмо
+2.  Входящий звонок
+3.  Входящее сообщение из чата
+4.  Переход в этап
+5.  Заход на сайт (для этого события можно настроить отложенное действие)
 
 ![](https://i.postimg.cc/pLnJGqY6/select-event.png)
 
@@ -20,33 +20,31 @@
 
 #### Пример ответа
 
-```
-{
-    "event": {
-        "type": 15,
-        "type_code": "lead_appeared_in_status",
-        "data": {
-            "id": 123124, // id сделки
-            "element_type": 2, // Тип элемента (2 - сделка, 12 - покупатель)
-            "status_id": 654324, // статус сделки
-            "pipeline_id": 654324, // воронка сделки
-            "direction_of_movement": "went_to_trigger" // направление движения сделки относительно триггера
+    {
+        "event": {
+            "type": 15,
+            "type_code": "lead_appeared_in_status",
+            "data": {
+                "id": 123124, // id сделки
+                "element_type": 2, // Тип элемента (2 - сделка, 12 - покупатель)
+                "status_id": 654324, // статус сделки
+                "pipeline_id": 654324, // воронка сделки
+                "direction_of_movement": "went_to_trigger" // направление движения сделки относительно триггера
+            },
+            "time": 1491300016
         },
-        "time": 1491300016
-    },
-    "action": {
-        "settings": {
-            "widget": {
-                "settings": {
-                    //Настройки виджета dp
+        "action": {
+            "settings": {
+                "widget": {
+                    "settings": {
+                        //Настройки виджета dp
+                    }
                 }
             }
-        }
-    },
-    "subdomain": "ivanov",
-    "account_id": 30441694
-}
-```
+        },
+        "subdomain": "ivanov",
+        "account_id": 30441694
+    }
 
 #### Список возможных значений type и type\_code
 
@@ -91,56 +89,52 @@
 
 #### Пример
 
-```
-dpSettings: function() {
-    var w_code = self.get_settings().widget_code, //Код виджета, заданный в manifest.json
-        lang = self.i18n('settings'),
-        dp_modal = $(".digital-pipeline__short-task_widget-style_" + w_code) //Благодаря подстановке кода(w_code) вашего виджета, мы можем обратиться к элементу содержащему именно ваш виджет
-        .parent()
-        .parent()
-        .find('[data-action=send_widget_hook]'),
-        message_label = dp_modal.find('[title^=' + lang.message.split(" ")[0] + ']'), //Ваши пояснения к полям, описанные в ru.json
-        message_label_new = "" + lang.message + "",
-        message_input = dp_modal.find('input[name=message]'), //Обращение к введёному тексту
-        message_textarea = self.render( //Отрисовываем поле ввода текста
-            {
-                ref: '/tmpl/controls/textarea.twig'
-            }, {
-                id: 'dp_message',
-                style: {
-                    'width': '396px',
-                    'margin-top': '5px',
-                    'margin-bottom': '-3px'
-                },
-                value: message_input.val(),
-                placeholder: lang.message
-            }
-        );
-    message_label.hide().after(message_label_new);
-
-    message_input.hide().after(message_textarea);
-
-    return true;
-}
-```
+    dpSettings: function() {
+        var w_code = self.get_settings().widget_code, //Код виджета, заданный в manifest.json
+            lang = self.i18n('settings'),
+            dp_modal = $(".digital-pipeline__short-task_widget-style_" + w_code) //Благодаря подстановке кода(w_code) вашего виджета, мы можем обратиться к элементу содержащему именно ваш виджет
+            .parent()
+            .parent()
+            .find('[data-action=send_widget_hook]'),
+            message_label = dp_modal.find('[title^=' + lang.message.split(" ")[0] + ']'), //Ваши пояснения к полям, описанные в ru.json
+            message_label_new = "" + lang.message + "",
+            message_input = dp_modal.find('input[name=message]'), //Обращение к введёному тексту
+            message_textarea = self.render( //Отрисовываем поле ввода текста
+                {
+                    ref: '/tmpl/controls/textarea.twig'
+                }, {
+                    id: 'dp_message',
+                    style: {
+                        'width': '396px',
+                        'margin-top': '5px',
+                        'margin-bottom': '-3px'
+                    },
+                    value: message_input.val(),
+                    placeholder: lang.message
+                }
+            );
+        message_label.hide().after(message_label_new);
+    
+        message_input.hide().after(message_textarea);
+    
+        return true;
+    }
 
 Важно помнить, об объявлении настроек в manifest.json, подробнее о структуре виджета [здесь](/developers/content/integrations/structure#manifest)
 
-```
-"locations": [
-    "settings",
-    "digital_pipeline"
-],
-"dp": {
-    "settings": {
-        "message": {
-            "name": "settings.message",
-            "type": "text",
-            "required": true
+    "locations": [
+        "settings",
+        "digital_pipeline"
+    ],
+    "dp": {
+        "settings": {
+            "message": {
+                "name": "settings.message",
+                "type": "text",
+                "required": true
+            }
         }
     }
-}
-```
 
 ### Работа автоматического действия по событию “При заходе на сайт”
 
@@ -172,35 +166,33 @@ dpSettings: function() {
 
 ![](https://i.postimg.cc/jSV75KPM/only-main.png)
 
-```
-/* script.js, front-end часть */
-dpSettings: function() {
-    var lang = self.i18n('dp.settings');
-    var form = $('#widget_settings__fields_wrapper');
-    var field_divs = form.find('.widget_settings_block__input_field');
-    var textarea_div = field_divs.first();
-    textarea_div.html('<textarea name="message" ' +
-        'style="height:50px; width: 100%;" ' +
-        'id="message" ' +
-        'class="text-input text-input-textarea digital-pipeline__add-task-textarea textarea-autosize task-edit__textarea">' +
-        '' + textarea_div.find('input').val() +
-        '</textarea>');
-    var checkbox_template = '<label class="control-checkbox">' +
-        '<div class="control-checkbox__body">' +
-        '<input type="checkbox" id=""/>' +
-        '<span class="control-checkbox__helper"></span>' +
-        '</div>' +
-        '<div class="control-checkbox__text element__text">' +
-        '<span class="control-checkbox__note-text">' + lang.only_main.name + '</span>' +
-        '</div>' +
-        '</div>' +
-        '</label>';
-    var checkbox_div = field_divs.last();
-    checkbox_div.siblings().html('');
-    checkbox_div.html(checkbox_template);
-    return true;
-}
-```
+    /* script.js, front-end часть */
+    dpSettings: function() {
+        var lang = self.i18n('dp.settings');
+        var form = $('#widget_settings__fields_wrapper');
+        var field_divs = form.find('.widget_settings_block__input_field');
+        var textarea_div = field_divs.first();
+        textarea_div.html('<textarea name="message" ' +
+            'style="height:50px; width: 100%;" ' +
+            'id="message" ' +
+            'class="text-input text-input-textarea digital-pipeline__add-task-textarea textarea-autosize task-edit__textarea">' +
+            '' + textarea_div.find('input').val() +
+            '</textarea>');
+        var checkbox_template = '<label class="control-checkbox">' +
+            '<div class="control-checkbox__body">' +
+            '<input type="checkbox" id=""/>' +
+            '<span class="control-checkbox__helper"></span>' +
+            '</div>' +
+            '<div class="control-checkbox__text element__text">' +
+            '<span class="control-checkbox__note-text">' + lang.only_main.name + '</span>' +
+            '</div>' +
+            '</div>' +
+            '</label>';
+        var checkbox_div = field_divs.last();
+        checkbox_div.siblings().html('');
+        checkbox_div.html(checkbox_template);
+        return true;
+    }
 
 ### Логирование
 

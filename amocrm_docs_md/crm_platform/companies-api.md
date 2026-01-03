@@ -1,21 +1,25 @@
-# https://www.amocrm.ru/developers/content/crm_platform/companies-api
+<!-- https://www.amocrm.ru/developers/content/crm_platform/companies-api -->
+
+# Оглавление
 
 Компании
 
 В данном разделе описываются доступные методы для работы с сущностью компании
 
-### Оглавление
-
-* [Список компаний](#companies-list)
-* [Получение компании по ID](#company-detail)
-* [Добавление компаний](#companies-add)
-* [Редактирование компаний](#companies-edit)
+*   [Список компаний](#companies-list)
+    
+*   [Получение компании по ID](#company-detail)
+    
+*   [Добавление компаний](#companies-add)
+    
+*   [Редактирование компаний](#companies-edit)
+    
 
 ### Список компаний
 
 #### Метод
 
-*GET /api/v4/companies*
+_GET /api/v4/companies_
 
 #### Описание
 
@@ -32,17 +36,21 @@
 | with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](#with-1bcd09db-6db3-4625-94b9-0d443e753631-params) |
 | page | int | Страница выборки |
 | limit | int | Количество возвращаемых сущностей за один запрос (Максимум – 250) |
-| query | string int | Поисковый запрос (Осуществляет поиск по заполненным полям сущности) |
+| query | string  
+int | Поисковый запрос (Осуществляет поиск по заполненным полям сущности) |
 | filter | object | Фильтр. Подробней про фильтры читайте в [отдельной статье](/developers/content/crm_platform/filters-api) |
-| order | object | Сортировка результатов списка. Доступные поля для сортировки: updated\_at, id. Доступные значения для сортировки: asc, desc. Пример: /api/v4/companies?order[updated\_at]=asc |
+| order | object | Сортировка результатов списка.  
+Доступные поля для сортировки: updated\_at, id.  
+Доступные значения для сортировки: asc, desc.  
+Пример: /api/v4/companies?order\[updated\_at\]=asc |
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -67,93 +75,93 @@
 | created\_at | int | Дата создания компании, передается в Unix Timestamp |
 | updated\_at | int | Дата изменения компании, передается в Unix Timestamp |
 | closest\_task\_at | int | Дата ближайшей задачи к выполнению, передается в Unix Timestamp |
-| custom\_fields\_values | array null | Массив, содержащий информацию по значениям дополнительных полей, заданных для данной компании |
+| custom\_fields\_values | array  
+null | Массив, содержащий информацию по значениям дополнительных полей, заданных для данной компании |
 | is\_deleted | bool | Удален ли элемент |
 | account\_id | int | ID аккаунта, в котором находится компания |
 | \_embedded | object | Данные вложенных сущностей |
-| \_embedded[tags] | array | Данные тегов, привязанных к компании |
-| \_embedded[tags][0] | object | Модель тега, привязанного к компании |
-| \_embedded[tags][0][id] | int | ID тега |
-| \_embedded[tags][0][name] | string | Название тега |
-| \_embedded[tags][0][color] | null | Цвет тега, доступен только для сделок |
-| \_embedded[contacts] | array | **Требуется GET параметр with.** Данные контактов, привязанных к компании. |
-| \_embedded[contacts][0] | object | Данные контакта |
-| \_embedded[contacts][0][id] | int | ID контакта |
-| \_embedded[customers] | array | **Требуется GET параметр with.** Данные покупателей, привязанных к компании |
-| \_embedded[customers][0] | object | Данные покупателя |
-| \_embedded[customers][0][id] | int | ID покупателя |
-| \_embedded[leads] | array | **Требуется GET параметр with.** Данные сделок, привязанных к компании |
-| \_embedded[leads][0] | object | Данные сделки |
-| \_embedded[leads][0][id] | int | ID сделки |
-| \_embedded[catalog\_elements] | array | **Требуется GET параметр with.** Данные элементов списков, привязанных к компании |
-| \_embedded[catalog\_elements][0] | object | Данные элемента списка, привязанного к компании |
-| \_embedded[catalog\_elements][0][id] | int | ID элемента, привязанного к компании |
-| \_embedded[catalog\_elements][0][metadata] | object | Мета-данные элемента |
-| \_embedded[catalog\_elements][0][quantity] | int float | Количество элементов у компании |
-| \_embedded[catalog\_elements][0][catalog\_id] | int | ID списка, в котором находится элемент |
-| \_embedded[catalog\_elements][0][price\_id] | int | ID поля типа Цена, которое установлено для привязанного элемента в сущности |
+| \_embedded\[tags\] | array | Данные тегов, привязанных к компании |
+| \_embedded\[tags\]\[0\] | object | Модель тега, привязанного к компании |
+| \_embedded\[tags\]\[0\]\[id\] | int | ID тега |
+| \_embedded\[tags\]\[0\]\[name\] | string | Название тега |
+| \_embedded\[tags\]\[0\]\[color\] | null | Цвет тега, доступен только для сделок |
+| \_embedded\[contacts\] | array | **Требуется GET параметр with.** Данные контактов, привязанных к компании. |
+| \_embedded\[contacts\]\[0\] | object | Данные контакта |
+| \_embedded\[contacts\]\[0\]\[id\] | int | ID контакта |
+| \_embedded\[customers\] | array | **Требуется GET параметр with.** Данные покупателей, привязанных к компании |
+| \_embedded\[customers\]\[0\] | object | Данные покупателя |
+| \_embedded\[customers\]\[0\]\[id\] | int | ID покупателя |
+| \_embedded\[leads\] | array | **Требуется GET параметр with.** Данные сделок, привязанных к компании |
+| \_embedded\[leads\]\[0\] | object | Данные сделки |
+| \_embedded\[leads\]\[0\]\[id\] | int | ID сделки |
+| \_embedded\[catalog\_elements\] | array | **Требуется GET параметр with.** Данные элементов списков, привязанных к компании |
+| \_embedded\[catalog\_elements\]\[0\] | object | Данные элемента списка, привязанного к компании |
+| \_embedded\[catalog\_elements\]\[0\]\[id\] | int | ID элемента, привязанного к компании |
+| \_embedded\[catalog\_elements\]\[0\]\[metadata\] | object | Мета-данные элемента |
+| \_embedded\[catalog\_elements\]\[0\]\[quantity\] | int  
+float | Количество элементов у компании |
+| \_embedded\[catalog\_elements\]\[0\]\[catalog\_id\] | int | ID списка, в котором находится элемент |
+| \_embedded\[catalog\_elements\]\[0\]\[price\_id\] | int | ID поля типа Цена, которое установлено для привязанного элемента в сущности |
 
 #### Пример ответа
 
-```
-{
-    "_page": 1,
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/companies?limit=2&page=1"
-        },
-        "next": {
-            "href": "https://example.amocrm.ru/api/v4/companies?limit=2&page=2"
-        }
-    },
-    "_embedded": {
-        "companies": [
-            {
-                "id": 7767077,
-                "name": "Компания Васи",
-                "responsible_user_id": 504141,
-                "group_id": 0,
-                "created_by": 504141,
-                "updated_by": 504141,
-                "created_at": 1586359618,
-                "updated_at": 1586359618,
-                "closest_task_at": null,
-                "custom_fields_values": null,
-                "account_id": 28805383,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/companies/7767077"
-                    }
-                },
-                "_embedded": {
-                    "tags": []
-                }
+    {
+        "_page": 1,
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/companies?limit=2&page=1"
             },
-            {
-                "id": 7767457,
-                "name": "Example",
-                "responsible_user_id": 504141,
-                "group_id": 0,
-                "created_by": 504141,
-                "updated_by": 504141,
-                "created_at": 1586360394,
-                "updated_at": 1586360394,
-                "closest_task_at": null,
-                "custom_fields_values": null,
-                "account_id": 28805383,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/companies/7767457"
+            "next": {
+                "href": "https://example.amocrm.ru/api/v4/companies?limit=2&page=2"
+            }
+        },
+        "_embedded": {
+            "companies": [
+                {
+                    "id": 7767077,
+                    "name": "Компания Васи",
+                    "responsible_user_id": 504141,
+                    "group_id": 0,
+                    "created_by": 504141,
+                    "updated_by": 504141,
+                    "created_at": 1586359618,
+                    "updated_at": 1586359618,
+                    "closest_task_at": null,
+                    "custom_fields_values": null,
+                    "account_id": 28805383,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/companies/7767077"
+                        }
+                    },
+                    "_embedded": {
+                        "tags": []
                     }
                 },
-                "_embedded": {
-                    "tags": []
+                {
+                    "id": 7767457,
+                    "name": "Example",
+                    "responsible_user_id": 504141,
+                    "group_id": 0,
+                    "created_by": 504141,
+                    "updated_by": 504141,
+                    "created_at": 1586360394,
+                    "updated_at": 1586360394,
+                    "closest_task_at": null,
+                    "custom_fields_values": null,
+                    "account_id": 28805383,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/companies/7767457"
+                        }
+                    },
+                    "_embedded": {
+                        "tags": []
+                    }
                 }
-            }
-        ]
+            ]
+        }
     }
-}
-```
 
 #### Параметры для GET-параметра with
 
@@ -168,7 +176,7 @@
 
 #### Метод
 
-*GET /api/v4/companies/{id}*
+_GET /api/v4/companies/{id}_
 
 #### Описание
 
@@ -186,11 +194,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -216,70 +224,70 @@
 | updated\_at | int | Дата изменения компании, передается в Unix Timestamp |
 | closest\_task\_at | int | Дата ближайшей задачи к выполнению, передается в Unix Timestamp |
 | is\_deleted | bool | Удален ли элемент |
-| custom\_fields\_values | array null | Массив, содержащий информацию по значениям дополнительных полей, заданных для данной компании |
+| custom\_fields\_values | array  
+null | Массив, содержащий информацию по значениям дополнительных полей, заданных для данной компании |
 | account\_id | int | ID аккаунта, в котором находится компания |
 | \_embedded | object | Данные вложенных сущностей |
-| \_embedded[tags] | array | Данные тегов, привязанных к компании |
-| \_embedded[tags][0] | object | Модель тега, привязанного к компании |
-| \_embedded[tags][0][id] | int | ID тега |
-| \_embedded[tags][0][name] | string | Название тега |
-| \_embedded[tags][0][color] | null | Цвет тега, доступен только для сделок |
-| \_embedded[contacts] | array | **Требуется GET параметр with.** Данные контактов, привязанных к компании. |
-| \_embedded[contacts][0] | object | Данные контакта |
-| \_embedded[contacts][0][id] | int | ID контакта |
-| \_embedded[customers] | array | **Требуется GET параметр with.** Данные покупателей, привязанных к компании |
-| \_embedded[customers][0] | object | Данные покупателя |
-| \_embedded[customers][0][id] | int | ID покупателя |
-| \_embedded[leads] | array | **Требуется GET параметр with.** Данные сделок, привязанных к компании |
-| \_embedded[leads][0] | object | Данные сделки |
-| \_embedded[leads][0][id] | int | ID сделки |
-| \_embedded[catalog\_elements] | array | **Требуется GET параметр with.** Данные элементов списков, привязанных к компании |
-| \_embedded[catalog\_elements][0] | object | Данные элемента списка, привязанного к компании |
-| \_embedded[catalog\_elements][0][id] | int | ID элемента, привязанного к компании |
-| \_embedded[catalog\_elements][0][metadata] | object | Мета-данные элемента |
-| \_embedded[catalog\_elements][0][quantity] | int float | Количество элементов у компании |
-| \_embedded[catalog\_elements][0][catalog\_id] | int | ID списка, в котором находится элемент |
-| \_embedded[catalog\_elements][0][price\_id] | int | ID поля типа Цена, которое установлено для привязанного элемента в сущности |
+| \_embedded\[tags\] | array | Данные тегов, привязанных к компании |
+| \_embedded\[tags\]\[0\] | object | Модель тега, привязанного к компании |
+| \_embedded\[tags\]\[0\]\[id\] | int | ID тега |
+| \_embedded\[tags\]\[0\]\[name\] | string | Название тега |
+| \_embedded\[tags\]\[0\]\[color\] | null | Цвет тега, доступен только для сделок |
+| \_embedded\[contacts\] | array | **Требуется GET параметр with.** Данные контактов, привязанных к компании. |
+| \_embedded\[contacts\]\[0\] | object | Данные контакта |
+| \_embedded\[contacts\]\[0\]\[id\] | int | ID контакта |
+| \_embedded\[customers\] | array | **Требуется GET параметр with.** Данные покупателей, привязанных к компании |
+| \_embedded\[customers\]\[0\] | object | Данные покупателя |
+| \_embedded\[customers\]\[0\]\[id\] | int | ID покупателя |
+| \_embedded\[leads\] | array | **Требуется GET параметр with.** Данные сделок, привязанных к компании |
+| \_embedded\[leads\]\[0\] | object | Данные сделки |
+| \_embedded\[leads\]\[0\]\[id\] | int | ID сделки |
+| \_embedded\[catalog\_elements\] | array | **Требуется GET параметр with.** Данные элементов списков, привязанных к компании |
+| \_embedded\[catalog\_elements\]\[0\] | object | Данные элемента списка, привязанного к компании |
+| \_embedded\[catalog\_elements\]\[0\]\[id\] | int | ID элемента, привязанного к компании |
+| \_embedded\[catalog\_elements\]\[0\]\[metadata\] | object | Мета-данные элемента |
+| \_embedded\[catalog\_elements\]\[0\]\[quantity\] | int  
+float | Количество элементов у компании |
+| \_embedded\[catalog\_elements\]\[0\]\[catalog\_id\] | int | ID списка, в котором находится элемент |
+| \_embedded\[catalog\_elements\]\[0\]\[price\_id\] | int | ID поля типа Цена, которое установлено для привязанного элемента в сущности |
 
 #### Пример ответа
 
-```
-{
-    "id": 1,
-    "name": "АО Рога и копыта",
-    "responsible_user_id": 504141,
-    "group_id": 0,
-    "created_by": 504141,
-    "updated_by": 504141,
-    "created_at": 1582117331,
-    "updated_at": 1586361223,
-    "closest_task_at": null,
-    "custom_fields_values": [
-        {
-            "field_id": 3,
-            "field_name": "Телефон",
-            "field_code": "PHONE",
-            "field_type": "multitext",
-            "values": [
-                {
-                    "value": "123213",
-                    "enum_id": 1,
-                    "enum": "WORK"
-                }
-            ]
+    {
+        "id": 1,
+        "name": "АО Рога и копыта",
+        "responsible_user_id": 504141,
+        "group_id": 0,
+        "created_by": 504141,
+        "updated_by": 504141,
+        "created_at": 1582117331,
+        "updated_at": 1586361223,
+        "closest_task_at": null,
+        "custom_fields_values": [
+            {
+                "field_id": 3,
+                "field_name": "Телефон",
+                "field_code": "PHONE",
+                "field_type": "multitext",
+                "values": [
+                    {
+                        "value": "123213",
+                        "enum_id": 1,
+                        "enum": "WORK"
+                    }
+                ]
+            }
+        ],
+        "account_id": 28805383,
+        "_links": {
+            "self": {
+                "href": "https://exmaple.amocrm.ru/api/v4/companies/1"
+            }
+        },
+        "_embedded": {
+            "tags": []
         }
-    ],
-    "account_id": 28805383,
-    "_links": {
-        "self": {
-            "href": "https://exmaple.amocrm.ru/api/v4/companies/1"
-        }
-    },
-    "_embedded": {
-        "tags": []
     }
-}
-```
 
 #### Параметры для GET-параметра with
 
@@ -294,7 +302,7 @@
 
 #### Метод
 
-*POST /api/v4/companies*
+_POST /api/v4/companies_
 
 #### Описание
 
@@ -306,7 +314,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -322,44 +330,42 @@
 | updated\_at | int | Дата изменения компании, передается в Unix Timestamp |
 | custom\_fields\_values | array | Массив, содержащий информацию по значениям дополнительных полей, заданных для данной компании. [Примеры заполнения полей](/developers/content/crm_platform/custom-fields#cf-fill-examples) |
 | tags\_to\_add | array | Массив тегов для добавления. |
-| tags\_to\_add[0] | object | Модель тега для добавления. |
-| tags\_to\_add[0][id] | array | ID тега для добавления. Важно передать или id или name. |
-| tags\_to\_add[0][name] | array | Название тега для добавления. Важно передать или id или name. |
+| tags\_to\_add\[0\] | object | Модель тега для добавления. |
+| tags\_to\_add\[0\]\[id\] | array | ID тега для добавления. Важно передать или id или name. |
+| tags\_to\_add\[0\]\[name\] | array | Название тега для добавления. Важно передать или id или name. |
 | \_embedded | object | Данные вложенных сущностей |
-| \_embedded[tags] | array | Данные тегов, привязанных к компании |
-| \_embedded[tags][0] | object | Модель тега, привязанного к компании |
-| \_embedded[tags][0][id] | int | ID тега |
-| \_embedded[tags][0][name] | string | Название тега |
+| \_embedded\[tags\] | array | Данные тегов, привязанных к компании |
+| \_embedded\[tags\]\[0\] | object | Модель тега, привязанного к компании |
+| \_embedded\[tags\]\[0\]\[id\] | int | ID тега |
+| \_embedded\[tags\]\[0\]\[name\] | string | Название тега |
 | request\_id | string | Поле, которое вернется вам в ответе без изменений и не будет сохранено. Поле не является обязательным |
 
 #### Пример запроса
 
-```
-[
-    {
-        "name": "АО Рога и Копыта",
-        "custom_fields_values": [
-            {
-                "field_code": "PHONE",
-                "values": [
-                    {
-                        "value": "+7912322222",
-                        "enum_code": "WORK"
-                    }
-                ]
-            }
-        ]
-    }
-]
-```
+    [
+        {
+            "name": "АО Рога и Копыта",
+            "custom_fields_values": [
+                {
+                    "field_code": "PHONE",
+                    "values": [
+                        {
+                            "value": "+7912322222",
+                            "enum_code": "WORK"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -380,34 +386,32 @@
 
 #### Пример ответа
 
-```
-{
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/companies"
-        }
-    },
-    "_embedded": {
-        "companies": [
-            {
-                "id": 11090825,
-                "request_id": "0",
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/companies/11090825"
+    {
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/companies"
+            }
+        },
+        "_embedded": {
+            "companies": [
+                {
+                    "id": 11090825,
+                    "request_id": "0",
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/companies/11090825"
+                        }
                     }
                 }
-            }
-        ]
+            ]
+        }
     }
-}
-```
 
 ### Редактирование компаний
 
 #### Метод
 
-*PATCH /api/v4/companies*
+_PATCH /api/v4/companies_
 
 #### Описание
 
@@ -421,7 +425,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -437,48 +441,46 @@
 | updated\_at | int | Дата изменения контакта, передается в Unix Timestamp |
 | custom\_fields\_values | array | Массив, содержащий информацию по значениям дополнительных полей, заданных для данной компании. [Примеры заполнения полей](/developers/content/crm_platform/custom-fields#cf-fill-examples) |
 | tags\_to\_add | array | Массив тегов для добавления. |
-| tags\_to\_add[0] | object | Модель тега для добавления. |
-| tags\_to\_add[0][id] | array | ID тега для добавления. Важно передать или id или name. |
-| tags\_to\_add[0][name] | array | Название тега для добавления. Важно передать или id или name. |
+| tags\_to\_add\[0\] | object | Модель тега для добавления. |
+| tags\_to\_add\[0\]\[id\] | array | ID тега для добавления. Важно передать или id или name. |
+| tags\_to\_add\[0\]\[name\] | array | Название тега для добавления. Важно передать или id или name. |
 | tags\_to\_delete | array | Массив тегов для удаления. |
-| tags\_to\_delete[0] | object | Модель тега для удаления. |
-| tags\_to\_delete[0][id] | array | ID тега для удаления. Важно передать или id или name. |
-| tags\_to\_delete[0][name] | array | Название тега для удаления. Важно передать или id или name. |
+| tags\_to\_delete\[0\] | object | Модель тега для удаления. |
+| tags\_to\_delete\[0\]\[id\] | array | ID тега для удаления. Важно передать или id или name. |
+| tags\_to\_delete\[0\]\[name\] | array | Название тега для удаления. Важно передать или id или name. |
 | \_embedded | object | Данные вложенных сущностей |
-| \_embedded[tags] | array | Данные тегов, привязанных к компании |
-| \_embedded[tags][0] | object | Модель тега, привязанного к компании |
-| \_embedded[tags][0][id] | int | ID тега |
-| \_embedded[tags][0][name] | string | Название тега |
+| \_embedded\[tags\] | array | Данные тегов, привязанных к компании |
+| \_embedded\[tags\]\[0\] | object | Модель тега, привязанного к компании |
+| \_embedded\[tags\]\[0\]\[id\] | int | ID тега |
+| \_embedded\[tags\]\[0\]\[name\] | string | Название тега |
 
 #### Пример запроса
 
-```
-[
-    {
-        "id": 11090825,
-        "name": "Новое название компании",
-        "custom_fields_values": [
-            {
-                "field_code": "EMAIL",
-                "values": [
-                    {
-                        "value": "test@example.com",
-                        "enum_code": "WORK"
-                    }
-                ]
-            }
-       ]
-    }
-]
-```
+    [
+        {
+            "id": 11090825,
+            "name": "Новое название компании",
+            "custom_fields_values": [
+                {
+                    "field_code": "EMAIL",
+                    "values": [
+                        {
+                            "value": "test@example.com",
+                            "enum_code": "WORK"
+                        }
+                    ]
+                }
+           ]
+        }
+    ]
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -499,26 +501,24 @@
 
 #### Пример ответа
 
-```
-{
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/companies"
-        }
-    },
-    "_embedded": {
-        "companies": [
-            {
-                "id": 11090825,
-                "name": "Новое название компании",
-                "updated_at": 1590998669,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/companies/11090825"
+    {
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/companies"
+            }
+        },
+        "_embedded": {
+            "companies": [
+                {
+                    "id": 11090825,
+                    "name": "Новое название компании",
+                    "updated_at": 1590998669,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/companies/11090825"
+                        }
                     }
                 }
-            }
-        ]
+            ]
+        }
     }
-}
-```

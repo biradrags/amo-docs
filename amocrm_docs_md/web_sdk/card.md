@@ -1,29 +1,29 @@
-# https://www.amocrm.ru/developers/content/web_sdk/card
+<!-- https://www.amocrm.ru/developers/content/web_sdk/card -->
+
+# Оглавление
 
 Интерфейс карточки
 
-### Оглавление
-
-* [Отображение шаблона виджета в правой колонке виджетов](#Отображение-шаблона-виджета-в-правой-колонке-виджетов)
-* [Добавление нового источника](#Добавление-нового-источника)
-* [Добавление новой вкладки в карточке сделки, контакта, компании и покупателя](#Добавление-новой-вкладки-в-карточке-сделки-контакта-компании-и-покупателя)
-* [Кастомный поиск при заполнении поля типа “Юр. лицо”](#Кастомный-поиск-при-заполнении-поля-типа-юр-лицо)
-* [Click 2 Call](#Click-2-Call)
-* [Написать первым](#Написать-первым)
+*   [Отображение шаблона виджета в правой колонке виджетов](#Отображение-шаблона-виджета-в-правой-колонке-виджетов)
+*   [Добавление нового источника](#Добавление-нового-источника)
+*   [Добавление новой вкладки в карточке сделки, контакта, компании и покупателя](#Добавление-новой-вкладки-в-карточке-сделки-контакта-компании-и-покупателя)
+*   [Кастомный поиск при заполнении поля типа “Юр. лицо”](#Кастомный-поиск-при-заполнении-поля-типа-юр-лицо)
+*   [Click 2 Call](#Click-2-Call)
+*   [Написать первым](#Написать-первым)
 
 На данный момент система предусматривает 4 места в карточках (сделки, контакта, компании, покупателя), в которые может встроиться виджет:
 
-1. Отображение шаблона виджета в правой колонке виджетов.
-2. Добавление нового источника в контроле отправки в нижней части фида карточки.
-3. Добавление новой вкладки в карточке сделки, контакта, компании и покупателя.
-4. Возможность добавления своего обработчика на действие “Позвонить” в контекстное меню номера телефона у контакта в карточке сделки. Возможность добавления пункта “Написать первым” в контекстное меню номера телефона у контакта в карточке сделки.
+1.  Отображение шаблона виджета в правой колонке виджетов.
+2.  Добавление нового источника в контроле отправки в нижней части фида карточки.
+3.  Добавление новой вкладки в карточке сделки, контакта, компании и покупателя.
+4.  Возможность добавления своего обработчика на действие “Позвонить” в контекстное меню номера телефона у контакта в карточке сделки. Возможность добавления пункта “Написать первым” в контекстное меню номера телефона у контакта в карточке сделки.
 
 Для работы виджета в карточке необходимо обязательно указать все локейшны карточек, в которых виджет должен работать:
 
-* lcard (сделка)
-* ccard (контакт)
-* comcard (компания)
-* cucard (покупатель)
+*   lcard (сделка)
+*   ccard (контакт)
+*   comcard (компания)
+*   cucard (покупатель)
 
 ### Отображение шаблона виджета в правой колонке виджетов
 
@@ -31,29 +31,25 @@
 
 Если ваш виджет использует правую колонку, то для того, чтобы система правильно посчитала количество виджетов в правой колонке до рендера карточки нужно указать постфикс 1 у локейшна. Например, если виджет работает в карточке сделки и выводится в правой колонке, то в manifest.json locations должен выглядеть, примерно, так:
 
-```
-{
-  ...,
-  "locations": [
-    "lcard-1"
-  ],
-  ...
-}
-```
+    {
+      ...,
+      "locations": [
+        "lcard-1"
+      ],
+      ...
+    }
 
 Для отрисовки собственного блока в правой колонке используйте вызов метода **render\_template()** в колбэке **render** виджета. Пример вызова с необходимыми параметрами:
 
-```
-self.render_template({
-  body: '',
-  caption: {
-    class_name: 'widget-caption-unique-class-name'
-  },
-  render: '<div class="widget-body-unique-class-name">' +
-    ‘Количество сделок: {{count}}’ +
-  '</div>'
-}, { count: 10 });
-```
+    self.render_template({
+      body: '',
+      caption: {
+        class_name: 'widget-caption-unique-class-name'
+      },
+      render: '<div class="widget-body-unique-class-name">' +
+        ‘Количество сделок: {{count}}’ +
+      '</div>'
+    }, { count: 10 });
 
 Шапку с логотипом система отрисует самостоятельно, с теми изображениями, которые лежат у вас в папке images виджета, можно задать ей собственный **caption.class\_name**, чтобы поправить что-то стилями.
 
@@ -65,7 +61,7 @@ self.render_template({
 
 ![](https://i.postimg.cc/x1JKNt7Q/image5.png)
 
-Для этого необходимо вызвать метод **this.add\_source(source\_type, callback [,source\_text])** объекта **Widget**
+Для этого необходимо вызвать метод **this.add\_source(source\_type, callback \[,source\_text\])** объекта **Widget**
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
@@ -79,45 +75,41 @@ self.render_template({
 
 В этом случае callback всегда должен возвращать объект Promise.
 
-```
-// Пример реализации
-self.add_source('sms', function (params) {
-  /*
-    params - объект с необходимыми параметрами для отправки смс, который передается в callback
-    {
-      'phone': 75555555555, // Телефон получателя
-      'message': 'sms text', // Сообщение для отправки
-      'contact_id': 12345 // Идентификатор контакта, к которому привязан номер телефона
-    }
-  */
-  return new Promise(function (resolve, reject) {
-    // Место, где описывается логика для отправки смс
-
-    $.ajax({
-      url: '/widgets/' + self.system().subdomain + '/loader/' + self.get_settings().widget_code + '/send_sms',
-      method: 'POST',
-      data: params,
-      success: function () {
-        // При успешном завершении будет автоматически создано примечание типа 'sms'
-        resolve();
-      },
-      error: function () {
-        reject();
-      }
+    // Пример реализации
+    self.add_source('sms', function (params) {
+      /*
+        params - объект с необходимыми параметрами для отправки смс, который передается в callback
+        {
+          'phone': 75555555555, // Телефон получателя
+          'message': 'sms text', // Сообщение для отправки
+          'contact_id': 12345 // Идентификатор контакта, к которому привязан номер телефона
+        }
+      */
+      return new Promise(function (resolve, reject) {
+        // Место, где описывается логика для отправки смс
+    
+        $.ajax({
+          url: '/widgets/' + self.system().subdomain + '/loader/' + self.get_settings().widget_code + '/send_sms',
+          method: 'POST',
+          data: params,
+          success: function () {
+            // При успешном завершении будет автоматически создано примечание типа 'sms'
+            resolve();
+          },
+          error: function () {
+            reject();
+          }
+        });
+      });
     });
-  });
-});
-```
 
 Если тип источника иной, то в callback передается JQuery элемент контрола, который можно использовать для создания любой логики.
 
 **Пример реализации**
 
-```
-self.add_source('email', function ($el) {
-  console.log($el);
-}, 'Gmail');
-```
+    self.add_source('email', function ($el) {
+      console.log($el);
+    }, 'Gmail');
 
 ### Добавление новой вкладки в карточке сделки, контакта, компании и покупателя
 
@@ -129,19 +121,19 @@ self.add_source('email', function ($el) {
 
 Для добавления новой вкладки необходимо:
 
-1. В файле **manifest.json** указать в объекте **locations** следующие области (необходимые карточки, для примера мы приводим все возможные): “lcard-0″, “ccard-0”, “comcard-0”, “settings”, “card\_sdk”;
-2. Реализовать методы объекта **callbacks**, описанные **ниже**, для рендеринга товаров в карточке сущности.
-3. Создать новую интеграцию или обновить существующий архив интеграции в разделе **амоМаркет**;
-4. Включить виджет.
+1.  В файле **manifest.json** указать в объекте **locations** следующие области (необходимые карточки, для примера мы приводим все возможные): “lcard-0″, “ccard-0”, “comcard-0”, “settings”, “card\_sdk”;
+2.  Реализовать методы объекта **callbacks**, описанные **ниже**, для рендеринга товаров в карточке сущности.
+3.  Создать новую интеграцию или обновить существующий архив интеграции в разделе **амоМаркет**;
+4.  Включить виджет.
 
 Методы **необходимые для подключения источников данных.**
 
 В файле **script.js** виджета обязательно должны быть созданы 4 метода в объекте **callbacks:**
 
-1. loadPreloadedData
-2. loadElements
-3. linkCard
-4. searchDataInCard
+1.  loadPreloadedData
+2.  loadElements
+3.  linkCard
+4.  searchDataInCard
 
 **Описание методов**
 
@@ -151,45 +143,39 @@ self.add_source('email', function ($el) {
 
 Отвечает за отображение предлагаемых к добавлению в карточку данных при открытии поля поиска.
 
-Метод должен возвращать объект типа [Promise](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Promise), который, по выполнении вашего запроса вернет массив **[Obj1, Obj2, … ObjN]**, где **Obj** — объект, описывающий элемент в формате:
+Метод должен возвращать объект типа [Promise](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Promise), который, по выполнении вашего запроса вернет массив **\[Obj1, Obj2, … ObjN\]**, где **Obj** — объект, описывающий элемент в формате:
 
-```
-{
-  "id": 934244, // ID
-  "sku": "SNI/01/136/0500", // SKU код
-  "name": "Name", // Наименование
-  "price": "999" // Цена
-}
-```
+    {
+      "id": 934244, // ID
+      "sku": "SNI/01/136/0500", // SKU код
+      "name": "Name", // Наименование
+      "price": "999" // Цена
+    }
 
 Пример реализации:
 
-```
-loadPreloadedData: function () {
-  return new Promise(_.bind(function (resolve, reject) {
-    self.crm_post(
-      'http://my.sdk.api.com/sdk_back/',
-      {},
-      function (msg) {
-        resolve(msg);
-      },
-      'json'
-    );
-  }), this);
-}
-```
+    loadPreloadedData: function () {
+      return new Promise(_.bind(function (resolve, reject) {
+        self.crm_post(
+          'http://my.sdk.api.com/sdk_back/',
+          {},
+          function (msg) {
+            resolve(msg);
+          },
+          'json'
+        );
+      }), this);
+    }
 
 Если ваш виджет не работает с товарами, а нужно просто отрендерить какие-то данные во вкладку, то можно использовать как раз этот метод со следующим содержимым:
 
-```
-loadPreloadedData: function () {
-  var $widget_tab = $('#' + self.get_settings().widget_code);
-
-  $widget_tab.html('widget body here');
-
-  return Promise.resolve({});
-}
-```
+    loadPreloadedData: function () {
+      var $widget_tab = $('#' + self.get_settings().widget_code);
+    
+      $widget_tab.html('widget body here');
+    
+      return Promise.resolve({});
+    }
 
 Метод **loadElements(type, id)**
 
@@ -197,43 +183,39 @@ loadPreloadedData: function () {
 
 Отвечает за отображение привязанных к карточке элементов.
 
-Метод должен возвращать объект типа [Promise](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Promise), который, по выполнении вашего запроса вернет массив **[Obj1, Obj2, … ObjN]**, где **Obj** — объект, описывающий элемент в формате:
+Метод должен возвращать объект типа [Promise](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Promise), который, по выполнении вашего запроса вернет массив **\[Obj1, Obj2, … ObjN\]**, где **Obj** — объект, описывающий элемент в формате:
 
-```
-{
-  "id": 934244, // ID
-  "sku": "SNI/01/136/0500", // SKU код
-  "name": "Name", // Наименование
-  "price": "999", // Цена
-  "quantity": 2 // Количество
-}
-```
+    {
+      "id": 934244, // ID
+      "sku": "SNI/01/136/0500", // SKU код
+      "name": "Name", // Наименование
+      "price": "999", // Цена
+      "quantity": 2 // Количество
+    }
 
 **Параметры:**
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
 | type | array | Информация о сущности, из которой делается запрос |
-| type[id] | int | ID сущности (1 – контакт, 2 – сделка, 3 – компания, 12 – покупатель) |
-| type[type] | string | Текстовый идентификатор сущности |
+| type\[id\] | int | ID сущности (1 – контакт, 2 – сделка, 3 – компания, 12 – покупатель) |
+| type\[type\] | string | Текстовый идентификатор сущности |
 | id | int | ID элемента, из которого делается запрос |
 
 **Пример реализации:**
 
-```
-loadElements: function (type, id) {
-  return new Promise(_.bind(function (resolve, reject) {
-    self.crm_post(
-      'http://my.sdk.api.com/sdk_back/?products=true&type='+type.type+'&entity_id='+id,
-      {},
-      function (msg) {
-        resolve(msg);
-      },
-      'json'
-    );
-  }), this);
-}
-```
+    loadElements: function (type, id) {
+      return new Promise(_.bind(function (resolve, reject) {
+        self.crm_post(
+          'http://my.sdk.api.com/sdk_back/?products=true&type='+type.type+'&entity_id='+id,
+          {},
+          function (msg) {
+            resolve(msg);
+          },
+          'json'
+        );
+      }), this);
+    }
 
 Метод **linkCard(links)**
 
@@ -246,35 +228,33 @@ loadElements: function (type, id) {
 | Параметр | Тип | Описание |
 | --- | --- | --- |
 | links | array | Массив объектов |
-| links[link] | array | Массив элементов для привязки |
-| links[link][from] | string | Сущность, к которой осуществляется привязка |
-| links[link][from\_id] | int | ID сущности, к которой осуществляется привязка |
-| links[link][quantity] | int | Количество |
-| links[link][to\_id] | int | ID товара |
-| links[link][to\_widget\_id] | string | Код виджета |
-| links[unlink] | array | Массив элементов для отвязки |
-| links[link][from] | string | Сущность, от которой осуществляется отвязка |
-| links[link][from\_id] | int | ID сущности, от которой осуществляется отвязка |
-| links[link][quantity] | int | Количество |
-| links[link][to\_id] | int | ID товара |
-| links[link][to\_widget\_id] | string | Код виджета |
+| links\[link\] | array | Массив элементов для привязки |
+| links\[link\]\[from\] | string | Сущность, к которой осуществляется привязка |
+| links\[link\]\[from\_id\] | int | ID сущности, к которой осуществляется привязка |
+| links\[link\]\[quantity\] | int | Количество |
+| links\[link\]\[to\_id\] | int | ID товара |
+| links\[link\]\[to\_widget\_id\] | string | Код виджета |
+| links\[unlink\] | array | Массив элементов для отвязки |
+| links\[link\]\[from\] | string | Сущность, от которой осуществляется отвязка |
+| links\[link\]\[from\_id\] | int | ID сущности, от которой осуществляется отвязка |
+| links\[link\]\[quantity\] | int | Количество |
+| links\[link\]\[to\_id\] | int | ID товара |
+| links\[link\]\[to\_widget\_id\] | string | Код виджета |
 
 **Пример реализации метода:**
 
-```
-linkCard: function (links) {
-  return new Promise(_.bind(function (resolve, reject) {
-    self.crm_post(
-      'http://my.sdk.api.com/sdk_back/link.php',
-      links,
-      function () {},
-      'json'
-    );
-
-    resolve();
-  }), this);
-}
-```
+    linkCard: function (links) {
+      return new Promise(_.bind(function (resolve, reject) {
+        self.crm_post(
+          'http://my.sdk.api.com/sdk_back/link.php',
+          links,
+          function () {},
+          'json'
+        );
+    
+        resolve();
+      }), this);
+    }
 
 Метод **searchDataInCard(query, type, id)**
 
@@ -282,16 +262,14 @@ linkCard: function (links) {
 
 Отвечает за отображение найденных элементов к карточке элементов.
 
-Метод должен возвращать объект типа [Promise](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Promise), который, после выполнения вашего запроса, вернет массив **[Obj1, Obj2, … ObjN]**, где Obj — объект, описывающий элемент в формате:
+Метод должен возвращать объект типа [Promise](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Promise), который, после выполнения вашего запроса, вернет массив **\[Obj1, Obj2, … ObjN\]**, где Obj — объект, описывающий элемент в формате:
 
-```
-{
-  "id": 934244, // ID
-  "sku": "SNI/01/136/0500", // SKU код
-  "name": "Name", // Наименование
-  "price": "999" // Цена
-}
-```
+    {
+      "id": 934244, // ID
+      "sku": "SNI/01/136/0500", // SKU код
+      "name": "Name", // Наименование
+      "price": "999" // Цена
+    }
 
 **Параметры метода**
 
@@ -303,24 +281,22 @@ linkCard: function (links) {
 
 **Пример реализации метода:**
 
-```
-searchDataInCard: function (query, type, id) {
-  return new Promise(_.bind(function (resolve, reject) {
-    self.crm_post(
-      'http://my.sdk.api.com/sdk_back/search.php',
-      {
-        query: query,
-        type: type,
-        id: id
-      },
-      function (msg) {
-        resolve(msg);
-      },
-      'json'
-   );
-  }), this);
-}
-```
+    searchDataInCard: function (query, type, id) {
+      return new Promise(_.bind(function (resolve, reject) {
+        self.crm_post(
+          'http://my.sdk.api.com/sdk_back/search.php',
+          {
+            query: query,
+            type: type,
+            id: id
+          },
+          function (msg) {
+            resolve(msg);
+          },
+          'json'
+       );
+      }), this);
+    }
 
 ### Кастомный поиск при заполнении поля типа “Юр. лицо”
 
@@ -328,49 +304,45 @@ searchDataInCard: function (query, type, id) {
 
 Для реализации данной функции можно использовать предусмотренный метод. Для этого необходимо поместить в массив APP.widgets.legal\_handlers функцию, которая будет возвращать ajax. Ajax должен вернуть массив объектов следующей структуры:
 
-```
-{
-    "name": "ООО ШОКОЛАДНИЦА",
-    "inn": "5009051111",
-    "kpp": "500901001",
-    "ogrn": "1065009000187",
-    "type": "1",
-    "address": "МОСКОВСКАЯ ОБЛ., Г ДОМОДЕДОВО,КАШИРСКОЕ ШОССЕ, Д 70"
-}
-```
+    {
+        "name": "ООО ШОКОЛАДНИЦА",
+        "inn": "5009051111",
+        "kpp": "500901001",
+        "ogrn": "1065009000187",
+        "type": "1",
+        "address": "МОСКОВСКАЯ ОБЛ., Г ДОМОДЕДОВО,КАШИРСКОЕ ШОССЕ, Д 70"
+    }
 
 Пример реализации:
 
-```
-APP.widgets.legal_handlers = [function (data) {
-    var def = $.Deferred();
-
-    $.ajax({
-        type: 'POST',
-        url: 'http://www.example.com/',
-        dataType: 'json',
-        data: data
-    }).done(_.bind(function (response) {
-        var res;
-
-        res = _.map(response._embedded.items, function (item) {
-            return {
-                name: item.name,
-                inn: item.inn,
-                kpp: item.kpp,
-                ogrn: item.ogrn,
-                type: item.type,
-                address: item.address
-            };
-        });
-
-        this.def.resolve(res);
-    }, {def: def}))
-        .fail(_.bind(def.reject, def, []));
-
-    return def.promise();
-}];
-```
+    APP.widgets.legal_handlers = [function (data) {
+        var def = $.Deferred();
+    
+        $.ajax({
+            type: 'POST',
+            url: 'http://www.example.com/',
+            dataType: 'json',
+            data: data
+        }).done(_.bind(function (response) {
+            var res;
+    
+            res = _.map(response._embedded.items, function (item) {
+                return {
+                    name: item.name,
+                    inn: item.inn,
+                    kpp: item.kpp,
+                    ogrn: item.ogrn,
+                    type: item.type,
+                    address: item.address
+                };
+            });
+    
+            this.def.resolve(res);
+        }, {def: def}))
+            .fail(_.bind(def.reject, def, []));
+    
+        return def.promise();
+    }];
 
 ### Click 2 Call
 
@@ -389,61 +361,55 @@ APP.widgets.legal_handlers = [function (data) {
 
 Пример:
 
-```
-this.callbacks = {
-  init: function () {
-    self.add_action('phone', function (data) {
-      self.crm_post(
-        'http://127.0.0.1/file.php',
-        { call_to: data.value  },
-        function (msg) {
-          console.log('Данные отправлены');
-        },
-        'text',
-        function () {
-          console.log('Error');
-        }
-      );
-    });
-  }
-};
-```
+    this.callbacks = {
+      init: function () {
+        self.add_action('phone', function (data) {
+          self.crm_post(
+            'http://127.0.0.1/file.php',
+            { call_to: data.value  },
+            function (msg) {
+              console.log('Данные отправлены');
+            },
+            'text',
+            function () {
+              console.log('Error');
+            }
+          );
+        });
+      }
+    };
 
 Важно помнить, что необходимо объявить область подключения виджета в manifest.json. Для выполнения функции add\_action(), нужно задать области видимости, где есть отображённые номера телефонов или email адреса. Либо задать ограниченный спектр областей срабатывания, на ваше усмотрение, подробнее об областях подключения читайте [здесь](/developers/content/web_sdk/start). В примере заданы все области, где встречаются номера телефонов и email адреса.
 
 Пример:
 
-```
-{
-  ...
-  "locations": [
-    "ccard-1",
-    "clist-1",
-    "lcard-1",
-    "llist-1",
-    "cucard-1",
-    "culist-1 ",
-    "comcard-1"
-  ],
-  ...
-}
-```
+    {
+      ...
+      "locations": [
+        "ccard-1",
+        "clist-1",
+        "lcard-1",
+        "llist-1",
+        "cucard-1",
+        "culist-1 ",
+        "comcard-1"
+      ],
+      ...
+    }
 
 Для того, чтобы изменить надпись на кнопке, вызываемой во время нажатия на номер телефона или email адрес, необходимо в директории i18n структуры вашего виджета, внести соответствующие изменения в файле локализации \*.json, так, как указано в примере ниже. Если параметр “call\_action” не задан, по умолчанию в надпись на кнопке будет подставлено имя вашего виджета, являющееся обязательным параметром в manifest.json. Значение “call\_action” будет подставлено в кнопку автоматически, при инициализации виджета.
 
 Пример (файл ru.json):
 
-```
-{
-  "widget": {
-    "call_action": "Позвонить"
-  }
-}
-```
+    {
+      "widget": {
+        "call_action": "Позвонить"
+      }
+    }
 
 ### Написать первым
 
-Интерфейс amoCRM позволяет инициировать переписку с клиентом из карточки. Для этого достаточно создать карточку и добавить в нее контакт с номером телефона.
+Интерфейс amoCRM позволяет инициировать переписку с клиентом из карточки. Для этого достаточно создать карточку и добавить в нее контакт с номером телефона. 
 
 Если ваш канал поддерживает функцию “написать первым”, то он отобразится в выпадающем списке **Click 2 Call** (подробнее [Регистрация нового канала](/developers/content/chats/capabilities-3#chats-cap-channel-register)).
 

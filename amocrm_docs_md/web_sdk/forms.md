@@ -1,4 +1,6 @@
-# https://www.amocrm.ru/developers/content/web_sdk/forms
+<!-- https://www.amocrm.ru/developers/content/web_sdk/forms -->
+
+# Оглавление
 
 API формы
 
@@ -6,11 +8,9 @@ API формы
 
 Информация на данной странице актуальна для последней версии JS-кода для вставки формы на сайт. Если вы давно размещали форму на странице, то необходимо заново скопировать код из источника в Digital Pipeline и заменить им уже размещенный.
 
-### Оглавление
-
-* [Загрузка формы](#loaded)
-* [Принудительный ресайз формы](#resize)
-* [Подписка на отправку формы](#submit)
+*   [Загрузка формы](#loaded)
+*   [Принудительный ресайз формы](#resize)
+*   [Подписка на отправку формы](#submit)
 
 #### Загрузка формы
 
@@ -29,19 +29,17 @@ API формы
 
 **Пример использования:**
 
-```
-amo_forms_loaded(function (params) {
-  console.log(params); // { form_id: 1234 }
-
-  // после того, как убедились,
-  // что форма загрузилась можем
-  // спокойно использовать методы,
-  // описанные на этой странице
-  if (params.form_id === 1234) {
-    amo_forms_params.resizeForm('amoforms_iframe_1234');
-  }
-});
-```
+    amo_forms_loaded(function (params) {
+      console.log(params); // { form_id: 1234 }
+    
+      // после того, как убедились,
+      // что форма загрузилась можем
+      // спокойно использовать методы,
+      // описанные на этой странице
+      if (params.form_id === 1234) {
+        amo_forms_params.resizeForm('amoforms_iframe_1234');
+      }
+    });
 
 Для взаимодействия с размещенными на странице формами, существует глобальный объект amo\_forms\_params, в котором доступны следующие методы:
 
@@ -59,9 +57,7 @@ amo_forms_loaded(function (params) {
 
 **Пример использования:**
 
-```
-amo_forms_params.resizeForm('amoforms_iframe_1234');
-```
+    amo_forms_params.resizeForm('amoforms_iframe_1234');
 
 #### Подписка на отправку формы
 
@@ -80,8 +76,6 @@ amo_forms_params.resizeForm('amoforms_iframe_1234');
 
 **Пример использования:**
 
-```
-amo_forms_params.onFormSubmit(function (params) {
-  console.log(params); // { form_id: 1234, status: 'success' }
-}, 1234);
-```
+    amo_forms_params.onFormSubmit(function (params) {
+      console.log(params); // { form_id: 1234, status: 'success' }
+    }, 1234);

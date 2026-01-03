@@ -1,8 +1,8 @@
-# https://www.amocrm.ru/developers/content/integrations/mobile-widgets
+<!-- https://www.amocrm.ru/developers/content/integrations/mobile-widgets -->
+
+# Возможности и принципы работы виджетов в мобильных приложениях
 
 Виджеты на мобильных устройствах
-
-### Возможности и принципы работы виджетов в мобильных приложениях
 
 Начиная с релиза “Осень 2020”, мы добавили возможность добавлять виджеты в мобильное приложение. В данный момент виджеты на мобильных устройствах поддерживаются только в iOS приложении, начиная с версии **2.5.54** в карточках сделки и покупателя.
 
@@ -31,23 +31,9 @@
 
 #### Пример ответа
 
-```
-
+        `{     "iss": "https://subdomain.amocrm.ru",     "aud": "https://external.integration.io",     "jti": "d628f123-5123-473e-a123-ed123ef31f8f",     "iat": 1594204245,     "nbf": 1594204245,     "exp": 1594206045,     "account_id": 12345678,     "user_id": 87654321,     "subdomain": "subdomain",     "client_uuid": "0b0832f6-d123-4123-9123-e73f236833c" }`
         
-{
-    "iss": "https://subdomain.amocrm.ru",
-    "aud": "https://external.integration.io",
-    "jti": "d628f123-5123-473e-a123-ed123ef31f8f",
-    "iat": 1594204245,
-    "nbf": 1594204245,
-    "exp": 1594206045,
-    "account_id": 12345678,
-    "user_id": 87654321,
-    "subdomain": "subdomain",
-    "client_uuid": "0b0832f6-d123-4123-9123-e73f236833c"
-}
-        
-```
+    
 
 #### Пример отображения виджета
 
@@ -55,58 +41,56 @@
 
 #### Пример manifest.json
 
-```
-{
-  "widget": {
-    "interface_version": 2,
-    "init_once": false,
-    "locale": [
-      "ru"
-    ],
-    "installation": true
-  },
-  "locations": [
-    "lcard-1",
-    "digital_pipeline",
-    "settings",
-    "mobile_card"
-  ],
-  "settings": {
-    "login": {
-      "name": "settings.login",
-      //указывает на файл локализации, в папке i18n
-      "type": "text",
-      //тип: текстовое поле
-      "required": false
-    },
-    "password": {
-      "name": "settings.password",
-      //указывает на файл локализации, в папке i18n
-      "type": "pass",
-      //тип: пароль
-      "required": false
-    }
-  },
-  "dp": {
-    "settings": {
-      "message": {
-        "name": "settings.message",
-        "type": "text",
-        "required": true
+    {
+      "widget": {
+        "interface_version": 2,
+        "init_once": false,
+        "locale": [
+          "ru"
+        ],
+        "installation": true
+      },
+      "locations": [
+        "lcard-1",
+        "digital_pipeline",
+        "settings",
+        "mobile_card"
+      ],
+      "settings": {
+        "login": {
+          "name": "settings.login",
+          //указывает на файл локализации, в папке i18n
+          "type": "text",
+          //тип: текстовое поле
+          "required": false
+        },
+        "password": {
+          "name": "settings.password",
+          //указывает на файл локализации, в папке i18n
+          "type": "pass",
+          //тип: пароль
+          "required": false
+        }
+      },
+      "dp": {
+        "settings": {
+          "message": {
+            "name": "settings.message",
+            "type": "text",
+            "required": true
+          }
+        },
+        "action_multiple": false
+      },
+      "mobile": {
+        "frame_url": "https://example.com/",
+        "color": "#ffff00"
       }
-    },
-    "action_multiple": false
-  },
-  "mobile": {
-    "frame_url": "https://example.com/",
-    "color": "#ffff00"
-  }
-}
-```
+    }
 
 #### Требования и рекомендации
 
-1. Рекомендуем выбирать адекватный цвет подложки под логотипом
-2. Контент страницы должен быть адаптирован под мобильные устройства
-3. Для публичных виджетов – оформление страницы должно быть сдержанным и приближенным к дизайну мобильного приложения
-4. Для публичных виджетов – оформление страницы не должно изменяться без обновления версии и модерации, за нарушение данного требования могут быть применены ограничения к работе вашего виджета
+1.  Рекомендуем выбирать адекватный цвет подложки под логотипом
+2.  Контент страницы должен быть адаптирован под мобильные устройства
+3.  Для публичных виджетов – оформление страницы должно быть сдержанным и приближенным к дизайну мобильного приложения
+4.  Для публичных виджетов – оформление страницы не должно изменяться без обновления версии и модерации, за нарушение данного требования могут быть применены ограничения к работе вашего виджета

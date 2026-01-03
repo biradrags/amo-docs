@@ -1,3 +1,5 @@
+<!-- https://www.amocrm.ru/developers/content/crm_platform/api-php-library -->
+
 # https://www.amocrm.ru/developers/content/crm_platform/api-php-library
 
 Библиотека на PHP для работы с API
@@ -8,9 +10,7 @@
 
 Установить библиотеку можно с помощью composer:
 
-```
-  composer require amocrm/amocrm-api-library
-```
+      composer require amocrm/amocrm-api-library
 
 Подробная информация и документация доступна на странице библиотеки на [Github](https://github.com/amocrm/amocrm-api-php)
 

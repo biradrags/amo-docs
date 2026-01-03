@@ -1,20 +1,21 @@
-# https://www.amocrm.ru/developers/content/crm_platform/subscriptions-api
+<!-- https://www.amocrm.ru/developers/content/crm_platform/subscriptions-api -->
+
+# Оглавление
 
 Подписчики сущности
 
 В данном разделе описываются доступные методы для работы с подписчиками сущности
 
-### Оглавление
-
-* [Список подписчиков сущности](#subscriptions-list)
+*   [Список подписчиков сущности](#subscriptions-list)
+    
 
 ### Список подписчиков сущности
 
 #### Метод
 
-*GET /api/v4/leads/{id}/subscriptions*
+_GET /api/v4/leads/{id}/subscriptions_
 
-*GET /api/v4/customers/{id}/subscriptions*
+_GET /api/v4/customers/{id}/subscriptions_
 
 #### Описание
 
@@ -33,11 +34,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -61,27 +62,25 @@
 
 #### Пример ответа
 
-```
-{
-    "_total_items": 2,
-    "_page": 1,
-    "_page_count": 1,
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/leads/667999637/subscriptions?page=1&limit=50"
-        }
-    },
-    "_embedded": {
-        "subscriptions": [
-            {
-                "subscriber_id": 964291,
-                "type": "user"
-            },
-            {
-                "subscriber_id": 1150,
-                "type": "group"
+    {
+        "_total_items": 2,
+        "_page": 1,
+        "_page_count": 1,
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/leads/667999637/subscriptions?page=1&limit=50"
             }
-        ]
+        },
+        "_embedded": {
+            "subscriptions": [
+                {
+                    "subscriber_id": 964291,
+                    "type": "user"
+                },
+                {
+                    "subscriber_id": 1150,
+                    "type": "group"
+                }
+            ]
+        }
     }
-}
-```

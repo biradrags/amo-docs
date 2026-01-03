@@ -1,31 +1,33 @@
-# https://www.amocrm.ru/developers/content/chats/chat-api-reference
+<!-- https://www.amocrm.ru/developers/content/chats/chat-api-reference -->
+
+# Оглавление
 
 Методы API чатов
 
 В данном разделе собраны все методы для работы с API чатов.
 
-### Оглавление
-
-* [Подключение канала чата в аккаунте](#Подключение-канала-чата-в-аккаунте)
-* [Отключение канала чата в аккаунте](#Отключение-канала-чата-в-аккаунте)
-* [Создание нового чата](#Создание-нового-чата)
-* [Отправка, редактирование или импорт сообщения](#Отправка-редактирование-или-импорт-сообщения)
-* [Обновление статуса доставки сообщения](#Обновление-статуса-доставки-сообщения)
-* [Получение истории сообщений по чату](#Получение-истории-сообщений-по-чату)
-* [Передача информации о печатании](#Передача-информации-о-печатании)
-* [Отправка или снятие реакции](#Отправка-или-снятие-реакции)
-* [Отправка комментария](#Отправка-комментария)
+*   [Подключение канала чата в аккаунте](#Подключение-канала-чата-в-аккаунте)
+*   [Отключение канала чата в аккаунте](#Отключение-канала-чата-в-аккаунте)
+*   [Создание нового чата](#Создание-нового-чата)
+*   [Отправка, редактирование или импорт сообщения](#Отправка-редактирование-или-импорт-сообщения)
+*   [Обновление статуса доставки сообщения](#Обновление-статуса-доставки-сообщения)
+*   [Получение истории сообщений по чату](#Получение-истории-сообщений-по-чату)
+*   [Передача информации о печатании](#Передача-информации-о-печатании)
+*   [Отправка или снятие реакции](#Отправка-или-снятие-реакции)
+*   [Отправка комментария](#Отправка-комментария)
 
 ### Подключение канала чата в аккаунте
 
 #### Метод
 
-*POST /v2/origin/custom/{channel.id}/connect*
+_POST /v2/origin/custom/{channel.id}/connect_
 
 #### Описание
 
 Чтобы подключить аккаунт к каналу чатов, вам необходимо выполнить POST запрос, передав в теле запроса ID подключаемого аккаунта.  
-В ответ вы получите уникальный scope\_id аккаунта для этого канала, который будет использоваться в дальнейшем при отправке сообщений.
+В ответ вы получите уникальный scope\_id аккаунта для этого канала, который будет использоваться в дальнейшем при отправке сообщений.  
+Также после подключения канала к чату можно будет работать с сообщениями и получать хуки об исходящих сообщениях.  
+Подключение необходимо производить после каждой установки интеграции в аккаунте, так как при отключении интеграции канал автоматически отключается.
 
 #### Ограничения
 
@@ -33,10 +35,10 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*  
-*Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)*  
-*Content-MD5: md5 хэш от тела запроса*  
-*X-Signature: HMAC-SHA1 код с секретным ключом канала*
+_Content-Type: application/json_  
+_Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)_  
+_Content-MD5: md5 хэш от тела запроса_  
+_X-Signature: HMAC-SHA1 код с секретным ключом канала_
 
 #### Параметры запроса
 
@@ -51,22 +53,20 @@
 
 #### Пример запроса
 
-```
-{
-  "account_id": "af9945ff-1490-4cad-807d-945c15d88bec",
-  "title": "ChatIntegration",
-  "hook_api_version": "v2",
-  "is_time_window_disabled": true
-}
-```
+    {
+      "account_id": "af9945ff-1490-4cad-807d-945c15d88bec",
+      "title": "ChatIntegration",
+      "hook_api_version": "v2",
+      "is_time_window_disabled": true
+    }
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -91,93 +91,89 @@
 
 #### Пример ответа
 
-```
-{
-  "account_id": "af9945ff-1490-4cad-807d-945c15d88bec",
-  "scope_id": "f90ba33d-c9d9-44da-b76c-c349b0ecbe41_af9945ff-1490-4cad-807d-945c15d88bec",
-  "title": "ChatIntegration",
-  "hook_api_version": "v2",
-  "is_time_window_disabled": true
-}
-```
+    {
+      "account_id": "af9945ff-1490-4cad-807d-945c15d88bec",
+      "scope_id": "f90ba33d-c9d9-44da-b76c-c349b0ecbe41_af9945ff-1490-4cad-807d-945c15d88bec",
+      "title": "ChatIntegration",
+      "hook_api_version": "v2",
+      "is_time_window_disabled": true
+    }
 
 #### Пример реализации запроса
 
-```
-<?php
-
-$secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
-$method = 'POST';
-$contentType = 'application/json';
-$date = date(DateTimeInterface::RFC2822);
-$path = '/v2/origin/custom/f90ba33d-c9d9-44da-b76c-c349b0ecbe41/connect';
-
-$url = "https://amojo.amocrm.ru" . $path;
-
-$body = [
-    'account_id' => 'af9945ff-1490-4cad-807d-945c15d88bec',
-    'title' => 'ScopeTitle', //Название вашего канала, отображаемое пользователю
-    'hook_api_version' => 'v2',
-];
-$requestBody = json_encode($body);
-$checkSum = md5($requestBody);
-
-$str = implode("\n", [
-    strtoupper($method),
-    $checkSum,
-    $contentType,
-    $date,
-    $path,
-]);
-
-$signature = hash_hmac('sha1', $str, $secret);
-
-$headers = [
-    'Date' => $date,
-    'Content-Type' => $contentType,
-    'Content-MD5' => strtolower($checkSum),
-    'X-Signature' => strtolower($signature),
-];
-
-$curlHeaders = [];
-foreach ($headers as $name => $value) {
-    $curlHeaders[] = $name . ": " . $value;
-}
-
-echo $method . ' ' . $url . PHP_EOL;
-foreach ($curlHeaders as $header) {
-    echo $header . PHP_EOL;
-}
-echo PHP_EOL . $requestBody . PHP_EOL;
-
-$curl = curl_init();
-curl_setopt_array($curl, [
-    CURLOPT_URL => $url,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_TIMEOUT => 5,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => $method,
-    CURLOPT_POSTFIELDS => $requestBody,
-    CURLOPT_HTTPHEADER => $curlHeaders,
-]);
-
-$response = curl_exec($curl);
-$err = curl_error($curl);
-$info = curl_getinfo($curl);
-curl_close($curl);
-if ($err) {
-    $result = "cURL Error #:" . $err;
-} else {
-    echo "Status: " . $info['http_code'] . PHP_EOL;
-    echo $response . PHP_EOL;
-}
-```
+    <?php
+    
+    $secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
+    $method = 'POST';
+    $contentType = 'application/json';
+    $date = date(DateTimeInterface::RFC2822);
+    $path = '/v2/origin/custom/f90ba33d-c9d9-44da-b76c-c349b0ecbe41/connect';
+    
+    $url = "https://amojo.amocrm.ru" . $path;
+    
+    $body = [
+        'account_id' => 'af9945ff-1490-4cad-807d-945c15d88bec',
+        'title' => 'ScopeTitle', //Название вашего канала, отображаемое пользователю
+        'hook_api_version' => 'v2',
+    ];
+    $requestBody = json_encode($body);
+    $checkSum = md5($requestBody);
+    
+    $str = implode("\n", [
+        strtoupper($method),
+        $checkSum,
+        $contentType,
+        $date,
+        $path,
+    ]);
+    
+    $signature = hash_hmac('sha1', $str, $secret);
+    
+    $headers = [
+        'Date' => $date,
+        'Content-Type' => $contentType,
+        'Content-MD5' => strtolower($checkSum),
+        'X-Signature' => strtolower($signature),
+    ];
+    
+    $curlHeaders = [];
+    foreach ($headers as $name => $value) {
+        $curlHeaders[] = $name . ": " . $value;
+    }
+    
+    echo $method . ' ' . $url . PHP_EOL;
+    foreach ($curlHeaders as $header) {
+        echo $header . PHP_EOL;
+    }
+    echo PHP_EOL . $requestBody . PHP_EOL;
+    
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 5,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => $method,
+        CURLOPT_POSTFIELDS => $requestBody,
+        CURLOPT_HTTPHEADER => $curlHeaders,
+    ]);
+    
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    $info = curl_getinfo($curl);
+    curl_close($curl);
+    if ($err) {
+        $result = "cURL Error #:" . $err;
+    } else {
+        echo "Status: " . $info['http_code'] . PHP_EOL;
+        echo $response . PHP_EOL;
+    }
 
 ### Отключение канала чата в аккаунте
 
 #### Метод
 
-*DELETE /v2/origin/custom/{channel.id}/disconnect*
+_DELETE /v2/origin/custom/{channel.id}/disconnect_
 
 #### Описание
 
@@ -190,10 +186,10 @@ if ($err) {
 
 #### Заголовок запроса
 
-*Content-Type: application/json*  
-*Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)*  
-*Content-MD5: md5 хэш от тела запроса*  
-*X-Signature: HMAC-SHA1 код с секретным ключом канала*
+_Content-Type: application/json_  
+_Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)_  
+_Content-MD5: md5 хэш от тела запроса_  
+_X-Signature: HMAC-SHA1 код с секретным ключом канала_
 
 #### Параметры запроса
 
@@ -205,11 +201,9 @@ if ($err) {
 
 #### Пример запроса
 
-```
-{
-  "account_id": "af9945ff-1490-4cad-807d-945c15d88bec"
-}
-```
+    {
+      "account_id": "af9945ff-1490-4cad-807d-945c15d88bec"
+    }
 
 #### HTTP коды ответа
 
@@ -226,78 +220,76 @@ if ($err) {
 
 #### Пример реализации запроса
 
-```
-<?php
-
-$secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
-$method = 'POST';
-$contentType = 'application/json';
-$date = date(DateTimeInterface::RFC2822);
-$path = '/v2/origin/custom/f90ba33d-c9d9-44da-b76c-c349b0ecbe41/disconnect';
-
-$url = "https://amojo.amocrm.ru" . $path;
-
-$body = [
-    'account_id' => 'af9945ff-1490-4cad-807d-945c15d88bec',
-];
-$requestBody = json_encode($body);
-$checkSum = md5($requestBody);
-
-$str = implode("\n", [
-    strtoupper($method),
-    $checkSum,
-    $contentType,
-    $date,
-    $path,
-]);
-
-$signature = hash_hmac('sha1', $str, $secret);
-
-$headers = [
-    'Date' => $date,
-    'Content-Type' => $contentType,
-    'Content-MD5' => strtolower($checkSum),
-    'X-Signature' => strtolower($signature),
-];
-
-$curlHeaders = [];
-foreach ($headers as $name => $value) {
-    $curlHeaders[] = $name . ": " . $value;
-}
-
-echo $method . ' ' . $url . PHP_EOL;
-foreach ($curlHeaders as $header) {
-    echo $header . PHP_EOL;
-}
-echo PHP_EOL . $requestBody . PHP_EOL;
-
-$curl = curl_init();
-curl_setopt_array($curl, [
-    CURLOPT_URL => $url,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_TIMEOUT => 5,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => $method,
-    CURLOPT_POSTFIELDS => $requestBody,
-    CURLOPT_HTTPHEADER => $curlHeaders,
-]);
-
-$response = curl_exec($curl);
-$err = curl_error($curl);
-$info = curl_getinfo($curl);
-curl_close($curl);
-if ($err) {
-    $result = "cURL Error #:" . $err;
-} else {
-    echo "Status: " . $info['http_code'] . PHP_EOL;
-}
-```
+    <?php
+    
+    $secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
+    $method = 'POST';
+    $contentType = 'application/json';
+    $date = date(DateTimeInterface::RFC2822);
+    $path = '/v2/origin/custom/f90ba33d-c9d9-44da-b76c-c349b0ecbe41/disconnect';
+    
+    $url = "https://amojo.amocrm.ru" . $path;
+    
+    $body = [
+        'account_id' => 'af9945ff-1490-4cad-807d-945c15d88bec',
+    ];
+    $requestBody = json_encode($body);
+    $checkSum = md5($requestBody);
+    
+    $str = implode("\n", [
+        strtoupper($method),
+        $checkSum,
+        $contentType,
+        $date,
+        $path,
+    ]);
+    
+    $signature = hash_hmac('sha1', $str, $secret);
+    
+    $headers = [
+        'Date' => $date,
+        'Content-Type' => $contentType,
+        'Content-MD5' => strtolower($checkSum),
+        'X-Signature' => strtolower($signature),
+    ];
+    
+    $curlHeaders = [];
+    foreach ($headers as $name => $value) {
+        $curlHeaders[] = $name . ": " . $value;
+    }
+    
+    echo $method . ' ' . $url . PHP_EOL;
+    foreach ($curlHeaders as $header) {
+        echo $header . PHP_EOL;
+    }
+    echo PHP_EOL . $requestBody . PHP_EOL;
+    
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 5,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => $method,
+        CURLOPT_POSTFIELDS => $requestBody,
+        CURLOPT_HTTPHEADER => $curlHeaders,
+    ]);
+    
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    $info = curl_getinfo($curl);
+    curl_close($curl);
+    if ($err) {
+        $result = "cURL Error #:" . $err;
+    } else {
+        echo "Status: " . $info['http_code'] . PHP_EOL;
+    }
 
 ### Создание нового чата
 
 #### Метод
 
-*POST /v2/origin/custom/{scope\_id}/chats*
+_POST /v2/origin/custom/{scope\_id}/chats_
 
 #### Описание
 
@@ -312,10 +304,10 @@ if ($err) {
 
 #### Заголовок запроса
 
-*Content-Type: application/json*  
-*Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)*  
-*Content-MD5: md5 хэш от тела запроса*  
-*X-Signature: HMAC-SHA1 код с секретным ключом канала*
+_Content-Type: application/json_  
+_Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)_  
+_Content-MD5: md5 хэш от тела запроса_  
+_X-Signature: HMAC-SHA1 код с секретным ключом канала_
 
 #### Параметры запроса
 
@@ -324,42 +316,41 @@ if ($err) {
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
 | conversation\_id | string | Идентификатор чата на стороне интеграции |
-| source[external\_id] | string | Идентификатор источника чата на стороне интеграции (подробнее смотрите в разделе [Источники](/developers/content/crm_platform/sources-api). Длина поля до 40 символов, можно использовать любые печатные ascii символы и пробел.  Необязательное поле. Если указывать источник не требуется, то поле source передавать не требуется. |
-| user[id] | string | Идентификатор участника чата на стороне интеграции, обязательное поле |
-| user[name] | string | Имя участника чата, обязательное поле |
-| user[avatar] | string | Ссылка на аватар участника чата, необязательное поле. Ссылка должен быть доступна для запроса из вне и отдавать медиа файл для скачивания |
-| user[profile][phone] | string | Телефон пользователя. Необязательное поле |
-| user[profile][email] | string | Email пользователя. Необязательное поле |
-| user[profile\_link] | string | Ссылка на профиль участника чата в сторонней чат системе, необязательное поле |
+| source\[external\_id\] | string | Идентификатор источника чата на стороне интеграции (подробнее смотрите в разделе [Источники](/developers/content/crm_platform/sources-api). Длина поля до 40 символов, можно использовать любые печатные ascii символы и пробел.  
+Необязательное поле. Если указывать источник не требуется, то поле source передавать не требуется. |
+| user\[id\] | string | Идентификатор участника чата на стороне интеграции, обязательное поле |
+| user\[name\] | string | Имя участника чата, обязательное поле |
+| user\[avatar\] | string | Ссылка на аватар участника чата, необязательное поле. Ссылка должен быть доступна для запроса из вне и отдавать медиа файл для скачивания |
+| user\[profile\]\[phone\] | string | Телефон пользователя. Необязательное поле |
+| user\[profile\]\[email\] | string | Email пользователя. Необязательное поле |
+| user\[profile\_link\] | string | Ссылка на профиль участника чата в сторонней чат системе, необязательное поле |
 
 #### Пример запроса
 
-```
-{
-    "conversation_id": "skc-8e3e7640-49af-4448-a2c6-d5a421f7f217",
-    "source": {
-      "external_id":"78001234567"
-    },
-    "user": {
-        "id": "sk-1376265f-86df-4c49-a0c3-a4816df41af9",
-        "avatar": "https://example.com/users/avatar.png",
-        "name": "Example Client",
-        "profile": {
-            "phone": "79151112233",
-            "email": "example.client@example.com"
+    {
+        "conversation_id": "skc-8e3e7640-49af-4448-a2c6-d5a421f7f217",
+        "source": {
+          "external_id":"78001234567"
         },
-        "profile_link": "https://example.com/profile/example.client"
+        "user": {
+            "id": "sk-1376265f-86df-4c49-a0c3-a4816df41af9",
+            "avatar": "https://example.com/users/avatar.png",
+            "name": "Example Client",
+            "profile": {
+                "phone": "79151112233",
+                "email": "example.client@example.com"
+            },
+            "profile_link": "https://example.com/profile/example.client"
+        }
     }
-}
-```
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -376,115 +367,111 @@ if ($err) {
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
 | id | string | Идентификатор чата в API чатов |
-| user[id] | string | Идентификатор участника чата в API чатов |
-| user[client\_id] | string | Идентификатор участника чата на стороне интеграции, для пользователей из amoCRM поле отсутствует (Поле передается в запросе в ключе `user[id]`) |
-| user[name] | string | Имя участника чата |
-| user[avatar] | string | Ссылка на аватар, если была передана, или пустое поле |
-| user[phone] | string | Телефон пользователя, если был передан. Поле отсутствует, если данные не передавались |
-| user[email] | string | Email пользователя, если был передан. Поле отсутствует, если данные не передавались |
+| user\[id\] | string | Идентификатор участника чата в API чатов |
+| user\[client\_id\] | string | Идентификатор участника чата на стороне интеграции, для пользователей из amoCRM поле отсутствует (Поле передается в запросе в ключе `user[id]`) |
+| user\[name\] | string | Имя участника чата |
+| user\[avatar\] | string | Ссылка на аватар, если была передана, или пустое поле |
+| user\[phone\] | string | Телефон пользователя, если был передан. Поле отсутствует, если данные не передавались |
+| user\[email\] | string | Email пользователя, если был передан. Поле отсутствует, если данные не передавались |
 
 #### Пример ответа
 
-```
-{
-  "id": "6cbab3d5-c4c1-46ff-b710-ad59ad10805f",
-  "user": {
-    "id": "86a0caef-41ec-49ac-814b-b27da2cea267",
-    "client_id": "sk-1376265f-86df-4c49-a0c3-a4816df41af9",
-    "name": "Example Client",
-    "avatar": "https:/example.com/users/avatar.png",
-    "phone": "79151112233",
-    "email": "example.client@example.com"
-  }
-}
-```
+    {
+      "id": "6cbab3d5-c4c1-46ff-b710-ad59ad10805f",
+      "user": {
+        "id": "86a0caef-41ec-49ac-814b-b27da2cea267",
+        "client_id": "sk-1376265f-86df-4c49-a0c3-a4816df41af9",
+        "name": "Example Client",
+        "avatar": "https:/example.com/users/avatar.png",
+        "phone": "79151112233",
+        "email": "example.client@example.com"
+      }
+    }
 
 #### Пример реализации запроса
 
-```
-<?php
-$secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
-$method = 'POST';
-$contentType = 'application/json';
-$date = date(DateTimeInterface::RFC2822);
-$path = '/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81/chats';
-
-$url = "https://amojo.amocrm.ru" . $path;
-
-$body = [
-    'conversation_id' => 'my_integration-8e3e7640-49af-4448-a2c6-d5a421f7f217',
-    'user' => [
-        'id' => 'my_integration-1376265f-86df-4c49-a0c3-a4816df41af9',
-        'avatar' => 'https://example.com/users/avatar.png',
-        'name' => 'Example Client',
-        'profile' => [
-            'phone' => '79151112233',
-            'email' => 'example.client@example.com',
+    <?php
+    $secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
+    $method = 'POST';
+    $contentType = 'application/json';
+    $date = date(DateTimeInterface::RFC2822);
+    $path = '/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81/chats';
+    
+    $url = "https://amojo.amocrm.ru" . $path;
+    
+    $body = [
+        'conversation_id' => 'my_integration-8e3e7640-49af-4448-a2c6-d5a421f7f217',
+        'user' => [
+            'id' => 'my_integration-1376265f-86df-4c49-a0c3-a4816df41af9',
+            'avatar' => 'https://example.com/users/avatar.png',
+            'name' => 'Example Client',
+            'profile' => [
+                'phone' => '79151112233',
+                'email' => 'example.client@example.com',
+            ],
+            'profile_link' => 'https://example.com/profile/example.client',
         ],
-        'profile_link' => 'https://example.com/profile/example.client',
-    ],
-    'account_id' => 'af9945ff-1490-4cad-807d-945c15d88bec',
-];
-
-$requestBody = json_encode($body);
-$checkSum = md5($requestBody);
-
-$str = implode("\n", [
-    strtoupper($method),
-    $checkSum,
-    $contentType,
-    $date,
-    $path,
-]);
-
-$signature = hash_hmac('sha1', $str, $secret);
-
-$headers = [
-    'Date' => $date,
-    'Content-Type' => $contentType,
-    'Content-MD5' => strtolower($checkSum),
-    'X-Signature' => strtolower($signature),
-];
-
-$curlHeaders = [];
-foreach ($headers as $name => $value) {
-    $curlHeaders[] = $name . ": " . $value;
-}
-
-echo $method . ' ' . $url . PHP_EOL;
-foreach ($curlHeaders as $header) {
-    echo $header . PHP_EOL;
-}
-echo PHP_EOL . $requestBody . PHP_EOL;
-
-$curl = curl_init();
-curl_setopt_array($curl, [
-    CURLOPT_URL => $url,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_TIMEOUT => 5,
-    CURLOPT_CUSTOMREQUEST => $method,
-    CURLOPT_POSTFIELDS => $requestBody,
-    CURLOPT_HTTPHEADER => $curlHeaders,
-]);
-
-$response = curl_exec($curl);
-$err = curl_error($curl);
-$info = curl_getinfo($curl);
-curl_close($curl);
-if ($err) {
-    $result = "cURL Error #:" . $err;
-    echo $result;
-} else {
-    echo "Status: " . $info['http_code'] . PHP_EOL;
-    echo $response . PHP_EOL;
-}
-```
+        'account_id' => 'af9945ff-1490-4cad-807d-945c15d88bec',
+    ];
+    
+    $requestBody = json_encode($body);
+    $checkSum = md5($requestBody);
+    
+    $str = implode("\n", [
+        strtoupper($method),
+        $checkSum,
+        $contentType,
+        $date,
+        $path,
+    ]);
+    
+    $signature = hash_hmac('sha1', $str, $secret);
+    
+    $headers = [
+        'Date' => $date,
+        'Content-Type' => $contentType,
+        'Content-MD5' => strtolower($checkSum),
+        'X-Signature' => strtolower($signature),
+    ];
+    
+    $curlHeaders = [];
+    foreach ($headers as $name => $value) {
+        $curlHeaders[] = $name . ": " . $value;
+    }
+    
+    echo $method . ' ' . $url . PHP_EOL;
+    foreach ($curlHeaders as $header) {
+        echo $header . PHP_EOL;
+    }
+    echo PHP_EOL . $requestBody . PHP_EOL;
+    
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 5,
+        CURLOPT_CUSTOMREQUEST => $method,
+        CURLOPT_POSTFIELDS => $requestBody,
+        CURLOPT_HTTPHEADER => $curlHeaders,
+    ]);
+    
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    $info = curl_getinfo($curl);
+    curl_close($curl);
+    if ($err) {
+        $result = "cURL Error #:" . $err;
+        echo $result;
+    } else {
+        echo "Status: " . $info['http_code'] . PHP_EOL;
+        echo $response . PHP_EOL;
+    }
 
 ### Отправка, редактирование или импорт сообщения
 
 #### Метод
 
-*POST /v2/origin/custom/{scope\_id}*
+_POST /v2/origin/custom/{scope\_id}_
 
 #### Описание
 
@@ -514,10 +501,10 @@ if ($err) {
 
 #### Заголовок запроса
 
-*Content-Type: application/json*  
-*Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)*  
-*Content-MD5: md5 хэш от тела запроса*  
-*X-Signature: HMAC-SHA1 код с секретным ключом канала*
+_Content-Type: application/json_  
+_Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)_  
+_Content-MD5: md5 хэш от тела запроса_  
+_X-Signature: HMAC-SHA1 код с секретным ключом канала_
 
 #### Параметры запроса
 
@@ -548,7 +535,8 @@ if ($err) {
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| external\_id | string | Необязательное поле. Идентификатор источника чата на стороне интеграции (подробнее смотрите в разделе [Источники](/developers/content/crm_platform/sources-api)). Длина поля 40 символов, можно использовать любые печатные ascii символы и пробел.  Если указывать источник не требуется, то поле source передавать не требуется. |
+| external\_id | string | Необязательное поле. Идентификатор источника чата на стороне интеграции (подробнее смотрите в разделе [Источники](/developers/content/crm_platform/sources-api)). Длина поля 40 символов, можно использовать любые печатные ascii символы и пробел.  
+Если указывать источник не требуется, то поле source передавать не требуется. |
 
 ##### Описание объекта sender и receiver
 
@@ -662,126 +650,118 @@ if ($err) {
 
 ##### Пример входящего сообщения от клиента
 
-```
-{
-  "event_type": "new_message",
-  "payload": {
-    "timestamp": 1639604761,
-    "msec_timestamp": 1639604761694,
-    "msgid": "my_int-5f2836a8ca475",
-    "conversation_id": "my_int-d5a421f7f217",
-    "sender": {
-      "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
-      "avatar": "https://example.com/users/avatar.png",
-      "profile": {
-        "phone": "+79151112233",
-        "email": "example.client@example.com"
-      },
-      "profile_link": "https://example.com/profile/example.client",
-      "name": "Вася клиент"
-    },
-    "message": {
-      "type": "text",
-      "text": "Сообщение от клиента"
-    },
-    "silent": false
-  }
-}
-```
+    {
+      "event_type": "new_message",
+      "payload": {
+        "timestamp": 1639604761,
+        "msec_timestamp": 1639604761694,
+        "msgid": "my_int-5f2836a8ca475",
+        "conversation_id": "my_int-d5a421f7f217",
+        "sender": {
+          "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
+          "avatar": "https://example.com/users/avatar.png",
+          "profile": {
+            "phone": "+79151112233",
+            "email": "example.client@example.com"
+          },
+          "profile_link": "https://example.com/profile/example.client",
+          "name": "Вася клиент"
+        },
+        "message": {
+          "type": "text",
+          "text": "Сообщение от клиента"
+        },
+        "silent": false
+      }
+    }
 
 ##### Пример исходящего сообщения от менеджера, когда мы можем идентифицировать отправителя
 
-```
-{
-  "event_type": "new_message",
-  "payload": {
-    "timestamp": 1639604903,
-    "msec_timestamp": 1639604903161,
-    "msgid": "my_int-5f2836a8ca476",
-    "conversation_id": "my_int-d5a421f7f217",
-    "sender": {
-      "id": "my_int-manager1_user_id",
-      "name": "Имя менеджера",
-      "ref_id": "76fc2bea-902f-425c-9a3d-dcdac4766090"
-    },
-    "receiver": {
-      "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
-      "avatar": "https://example.com/users/avatar.png",
-      "name": "Вася клиент",
-      "profile": {
-        "phone": "+79151112233",
-        "email": "example.client@example.com"
-      },
-      "profile_link": "https://example.com/profile/example.client"
-    },
-    "message": {
-      "type": "text",
-      "text": "Сообщение от менеджера 76fc2bea-902f-425c-9a3d-dcdac4766090"
-    },
-    "silent": true
-  }
-}
-```
+    {
+      "event_type": "new_message",
+      "payload": {
+        "timestamp": 1639604903,
+        "msec_timestamp": 1639604903161,
+        "msgid": "my_int-5f2836a8ca476",
+        "conversation_id": "my_int-d5a421f7f217",
+        "sender": {
+          "id": "my_int-manager1_user_id",
+          "name": "Имя менеджера",
+          "ref_id": "76fc2bea-902f-425c-9a3d-dcdac4766090"
+        },
+        "receiver": {
+          "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
+          "avatar": "https://example.com/users/avatar.png",
+          "name": "Вася клиент",
+          "profile": {
+            "phone": "+79151112233",
+            "email": "example.client@example.com"
+          },
+          "profile_link": "https://example.com/profile/example.client"
+        },
+        "message": {
+          "type": "text",
+          "text": "Сообщение от менеджера 76fc2bea-902f-425c-9a3d-dcdac4766090"
+        },
+        "silent": true
+      }
+    }
 
 ##### Пример исходящего сообщения от менеджера, когда мы не можем идентифицировать отправителя (исходящее от имени бота канала)
 
-```
-{
-  "event_type": "new_message",
-  "payload": {
-    "timestamp": 1639605194,
-    "msec_timestamp": 1639605194102,
-    "msgid": "my_int-5f2836a8ca477",
-    "conversation_id": "my_int-d5a421f7f217",
-    "sender": {
-      "id": "my_int-bot_user_id",
-      "name": "Bot",
-      "ref_id": "f1910c7f-b1e0-4184-bd09-c7def2a9109a"
-    },
-    "receiver": {
-      "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
-      "avatar": "https://example.com/users/avatar.png",
-      "name": "Вася клиент",
-      "profile": {
-        "phone": "+79151112233",
-        "email": "example.client@example.com"
-      },
-      "profile_link": "https://example.com/profile/example.client"
-    },
-    "message": {
-      "type": "text",
-      "text": "Сообщение от бота канала f1910c7f-b1e0-4184-bd09-c7def2a9109a"
-    },
-    "silent": true
-  }
-}
-```
+    {
+      "event_type": "new_message",
+      "payload": {
+        "timestamp": 1639605194,
+        "msec_timestamp": 1639605194102,
+        "msgid": "my_int-5f2836a8ca477",
+        "conversation_id": "my_int-d5a421f7f217",
+        "sender": {
+          "id": "my_int-bot_user_id",
+          "name": "Bot",
+          "ref_id": "f1910c7f-b1e0-4184-bd09-c7def2a9109a"
+        },
+        "receiver": {
+          "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
+          "avatar": "https://example.com/users/avatar.png",
+          "name": "Вася клиент",
+          "profile": {
+            "phone": "+79151112233",
+            "email": "example.client@example.com"
+          },
+          "profile_link": "https://example.com/profile/example.client"
+        },
+        "message": {
+          "type": "text",
+          "text": "Сообщение от бота канала f1910c7f-b1e0-4184-bd09-c7def2a9109a"
+        },
+        "silent": true
+      }
+    }
 
 ##### Пример редактирования текстового сообщения
 
-```
-{
-  "event_type": "edit_message",
-  "payload": {
-    "timestamp": 1639605194,
-    "msec_timestamp": 1639605194102,
-    "msgid": "my_int-5f2836a8ca477",
-    "conversation_id": "my_int-d5a421f7f217",
-    "message": {
-      "type": "text",
-      "text": "Отредактированная версия сообщения"
+    {
+      "event_type": "edit_message",
+      "payload": {
+        "timestamp": 1639605194,
+        "msec_timestamp": 1639605194102,
+        "msgid": "my_int-5f2836a8ca477",
+        "conversation_id": "my_int-d5a421f7f217",
+        "message": {
+          "type": "text",
+          "text": "Отредактированная версия сообщения"
+        }
+      }
     }
-  }
-}
-```
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -797,122 +777,118 @@ if ($err) {
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| new\_message[conversation\_id] | string | Идентификатор диалога |
-| new\_message[sender\_id] | string | Идентификатор отправителя сообщения |
-| new\_message[receiver\_id] | string|null | Идентификатор получателя сообщения |
-| new\_message[msgid] | string | Идентификатор сообщения в API чатов |
-| new\_message[ref\_id] | string | Идентификатор сообщения на стороне интеграции |
+| new\_message\[conversation\_id\] | string | Идентификатор диалога |
+| new\_message\[sender\_id\] | string | Идентификатор отправителя сообщения |
+| new\_message\[receiver\_id\] | string|null | Идентификатор получателя сообщения |
+| new\_message\[msgid\] | string | Идентификатор сообщения в API чатов |
+| new\_message\[ref\_id\] | string | Идентификатор сообщения на стороне интеграции |
 
 #### Пример ответа
 
-```
-{
-  "new_message": {
-    "conversation_id": "my_int-d5a421f7f217",
-    "sender_id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
-    "receiver_id": "123e4567-e89b-12d3-a456-426614174000",
-    "msgid": "8f1176d7-c357-42b0-b944-a15d537a27d3",
-    "ref_id": "my_int-5f2836a8ca468",
-  }
-}
-```
+    {
+      "new_message": {
+        "conversation_id": "my_int-d5a421f7f217",
+        "sender_id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
+        "receiver_id": "123e4567-e89b-12d3-a456-426614174000",
+        "msgid": "8f1176d7-c357-42b0-b944-a15d537a27d3",
+        "ref_id": "my_int-5f2836a8ca468",
+      }
+    }
 
 #### Пример реализации запроса
 
-```
-<?php
-$secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
-$method = 'POST';
-$contentType = 'application/json';
-$date = date(DateTimeInterface::RFC2822);
-$path = '/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81';
-
-$url = "https://amojo.amocrm.ru" . $path;
-
-$body = [
-    'event_type' => 'new_message',
-    'payload' => [
-        'timestamp' => time(),
-        'msec_timestamp' => round(microtime(true) * 1000),
-        'msgid' => 'my_int-5f2836a8ca475',
-        'conversation_id' => 'my_int-d5a421f7f217',
-        'sender' => [
-            'id' => 'my_int-1376265f-86df-4c49-a0c3-a4816df41af8',
-            'avatar' => 'https://shard210new.amocrm.ru/v3/users/49c3d73a-0358-11e8-b48c-1866da4cd631/avatar/',
-            'profile' => [
-                'phone' => '+79151112233',
-                'email' => 'example.client@example.com',
+    <?php
+    $secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
+    $method = 'POST';
+    $contentType = 'application/json';
+    $date = date(DateTimeInterface::RFC2822);
+    $path = '/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81';
+    
+    $url = "https://amojo.amocrm.ru" . $path;
+    
+    $body = [
+        'event_type' => 'new_message',
+        'payload' => [
+            'timestamp' => time(),
+            'msec_timestamp' => round(microtime(true) * 1000),
+            'msgid' => 'my_int-5f2836a8ca475',
+            'conversation_id' => 'my_int-d5a421f7f217',
+            'sender' => [
+                'id' => 'my_int-1376265f-86df-4c49-a0c3-a4816df41af8',
+                'avatar' => 'https://shard210new.amocrm.ru/v3/users/49c3d73a-0358-11e8-b48c-1866da4cd631/avatar/',
+                'profile' => [
+                    'phone' => '+79151112233',
+                    'email' => 'example.client@example.com',
+                ],
+                'profile_link' => 'https://example.com/profile/example.client',
+                'name' => 'Вася клиент',
             ],
-            'profile_link' => 'https://example.com/profile/example.client',
-            'name' => 'Вася клиент',
+            'message' => [
+                'type' => 'text',
+                'text' => 'Сообщение от клиента',
+            ],
+            'silent' => false,
         ],
-        'message' => [
-            'type' => 'text',
-            'text' => 'Сообщение от клиента',
-        ],
-        'silent' => false,
-    ],
-];
-
-$requestBody = json_encode($body);
-$checkSum = md5($requestBody);
-
-$str = implode("\n", [
-    strtoupper($method),
-    $checkSum,
-    $contentType,
-    $date,
-    $path,
-]);
-
-$signature = hash_hmac('sha1', $str, $secret);
-
-$headers = [
-    'Date' => $date,
-    'Content-Type' => $contentType,
-    'Content-MD5' => strtolower($checkSum),
-    'X-Signature' => strtolower($signature),
-];
-
-$curlHeaders = [];
-foreach ($headers as $name => $value) {
-    $curlHeaders[] = $name . ": " . $value;
-}
-
-echo $method . ' ' . $url . PHP_EOL;
-foreach ($curlHeaders as $header) {
-    echo $header . PHP_EOL;
-}
-echo PHP_EOL . $requestBody . PHP_EOL;
-
-$curl = curl_init();
-curl_setopt_array($curl, [
-    CURLOPT_URL => $url,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_TIMEOUT => 5,
-    CURLOPT_CUSTOMREQUEST => $method,
-    CURLOPT_POSTFIELDS => $requestBody,
-    CURLOPT_HTTPHEADER => $curlHeaders,
-]);
-
-$response = curl_exec($curl);
-$err = curl_error($curl);
-$info = curl_getinfo($curl);
-curl_close($curl);
-if ($err) {
-    $result = "cURL Error #:" . $err;
-    echo $result;
-} else {
-    echo "Status: " . $info['http_code'] . PHP_EOL;
-    echo $response . PHP_EOL;
-}
-```
+    ];
+    
+    $requestBody = json_encode($body);
+    $checkSum = md5($requestBody);
+    
+    $str = implode("\n", [
+        strtoupper($method),
+        $checkSum,
+        $contentType,
+        $date,
+        $path,
+    ]);
+    
+    $signature = hash_hmac('sha1', $str, $secret);
+    
+    $headers = [
+        'Date' => $date,
+        'Content-Type' => $contentType,
+        'Content-MD5' => strtolower($checkSum),
+        'X-Signature' => strtolower($signature),
+    ];
+    
+    $curlHeaders = [];
+    foreach ($headers as $name => $value) {
+        $curlHeaders[] = $name . ": " . $value;
+    }
+    
+    echo $method . ' ' . $url . PHP_EOL;
+    foreach ($curlHeaders as $header) {
+        echo $header . PHP_EOL;
+    }
+    echo PHP_EOL . $requestBody . PHP_EOL;
+    
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 5,
+        CURLOPT_CUSTOMREQUEST => $method,
+        CURLOPT_POSTFIELDS => $requestBody,
+        CURLOPT_HTTPHEADER => $curlHeaders,
+    ]);
+    
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    $info = curl_getinfo($curl);
+    curl_close($curl);
+    if ($err) {
+        $result = "cURL Error #:" . $err;
+        echo $result;
+    } else {
+        echo "Status: " . $info['http_code'] . PHP_EOL;
+        echo $response . PHP_EOL;
+    }
 
 ### Обновление статуса доставки сообщения
 
 #### Метод
 
-*POST /v2/origin/custom/{scope\_id}/{msgid}/delivery\_status*
+_POST /v2/origin/custom/{scope\_id}/{msgid}/delivery\_status_
 
 #### Описание
 
@@ -924,10 +900,10 @@ if ($err) {
 
 #### Заголовок запроса
 
-*Content-Type: application/json*  
-*Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)*  
-*Content-MD5: md5 хэш от тела запроса*  
-*X-Signature: HMAC-SHA1 код с секретным ключом канала*
+_Content-Type: application/json_  
+_Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)_  
+_Content-MD5: md5 хэш от тела запроса_  
+_X-Signature: HMAC-SHA1 код с секретным ключом канала_
 
 #### Параметры запроса
 
@@ -944,7 +920,7 @@ if ($err) {
 | Отправлено | Сообщение было отправлено из amoCRM | – |
 | Доставлено | Сообщение было доставлено до адресата | 1 |
 | Прочитано | Сообщение было прочитано адресатом | 2 |
-| Ошибка | Сообщение не было доставлено | -1 |
+| Ошибка | Сообщение не было доставлено | \-1 |
 
 | Код ошибки | Когда должна быть передан код |
 | --- | --- |
@@ -956,21 +932,19 @@ if ($err) {
 
 #### Пример запроса
 
-```
-{
-  "status_code": -1,
-  "error_code": 905,
-  "error": "Error text"
-}
-```
+    {
+      "status_code": -1,
+      "error_code": 905,
+      "error": "Error text"
+    }
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -987,84 +961,82 @@ if ($err) {
 
 #### Пример реализации запроса
 
-```
-<?php
-
-$secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
-$method = 'POST';
-$contentType = 'application/json';
-$date = date(DateTimeInterface::RFC2822);
-$path = '/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81/079e44fb-fc22-476b-9e8a-421b688ec53b/delivery_status';
-
-$url = "https://amojo.amocrm.ru" . $path;
-
-$body = [
-    'msgid' => '079e44fb-fc22-476b-9e8a-421b688ec53b',
-    'delivery_status' => -1,
-    'error_code' => 905,
-    'error' => 'Error text'
-];
-
-$requestBody = json_encode($body);
-$checkSum = md5($requestBody);
-
-$str = implode("\n", [
-    strtoupper($method),
-    $checkSum,
-    $contentType,
-    $date,
-    $path,
-]);
-
-$signature = hash_hmac('sha1', $str, $secret);
-
-$headers = [
-    'Date' => $date,
-    'Content-Type' => $contentType,
-    'Content-MD5' => strtolower($checkSum),
-    'X-Signature' => strtolower($signature),
-];
-
-$curlHeaders = [];
-foreach ($headers as $name => $value) {
-    $curlHeaders[] = $name . ": " . $value;
-}
-
-echo $method . ' ' . $url . PHP_EOL;
-foreach ($curlHeaders as $header) {
-    echo $header . PHP_EOL;
-}
-echo PHP_EOL . $requestBody . PHP_EOL;
-
-$curl = curl_init();
-curl_setopt_array($curl, [
-    CURLOPT_URL => $url,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_TIMEOUT => 5,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => $method,
-    CURLOPT_POSTFIELDS => $requestBody,
-    CURLOPT_HTTPHEADER => $curlHeaders,
-]);
-
-$response = curl_exec($curl);
-$err = curl_error($curl);
-$info = curl_getinfo($curl);
-curl_close($curl);
-if ($err) {
-    $result = "cURL Error #:" . $err;
-    echo $result;
-} else {
-    echo "Status: " . $info['http_code'] . PHP_EOL;
-    echo $response . PHP_EOL;
-}
-```
+    <?php
+    
+    $secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
+    $method = 'POST';
+    $contentType = 'application/json';
+    $date = date(DateTimeInterface::RFC2822);
+    $path = '/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81/079e44fb-fc22-476b-9e8a-421b688ec53b/delivery_status';
+    
+    $url = "https://amojo.amocrm.ru" . $path;
+    
+    $body = [
+        'msgid' => '079e44fb-fc22-476b-9e8a-421b688ec53b',
+        'delivery_status' => -1,
+        'error_code' => 905,
+        'error' => 'Error text'
+    ];
+    
+    $requestBody = json_encode($body);
+    $checkSum = md5($requestBody);
+    
+    $str = implode("\n", [
+        strtoupper($method),
+        $checkSum,
+        $contentType,
+        $date,
+        $path,
+    ]);
+    
+    $signature = hash_hmac('sha1', $str, $secret);
+    
+    $headers = [
+        'Date' => $date,
+        'Content-Type' => $contentType,
+        'Content-MD5' => strtolower($checkSum),
+        'X-Signature' => strtolower($signature),
+    ];
+    
+    $curlHeaders = [];
+    foreach ($headers as $name => $value) {
+        $curlHeaders[] = $name . ": " . $value;
+    }
+    
+    echo $method . ' ' . $url . PHP_EOL;
+    foreach ($curlHeaders as $header) {
+        echo $header . PHP_EOL;
+    }
+    echo PHP_EOL . $requestBody . PHP_EOL;
+    
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 5,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => $method,
+        CURLOPT_POSTFIELDS => $requestBody,
+        CURLOPT_HTTPHEADER => $curlHeaders,
+    ]);
+    
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    $info = curl_getinfo($curl);
+    curl_close($curl);
+    if ($err) {
+        $result = "cURL Error #:" . $err;
+        echo $result;
+    } else {
+        echo "Status: " . $info['http_code'] . PHP_EOL;
+        echo $response . PHP_EOL;
+    }
 
 ### Получение истории сообщений по чату
 
 #### Метод
 
-*GET /v2/origin/custom/{scope\_id}/chats/{conversation\_id}/history*
+_GET /v2/origin/custom/{scope\_id}/chats/{conversation\_id}/history_
 
 #### Описание
 
@@ -1077,10 +1049,10 @@ conversation\_id можно получить или при создании ча
 
 #### Заголовок запроса
 
-*Content-Type: application/json*  
-*Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)*  
-*Content-MD5: md5 хэш от тела запроса, в случае GET запроса – от пустой строки*  
-*X-Signature: HMAC-SHA1 код с секретным ключом канала*
+_Content-Type: application/json_  
+_Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)_  
+_Content-MD5: md5 хэш от тела запроса, в случае GET запроса – от пустой строки_  
+_X-Signature: HMAC-SHA1 код с секретным ключом канала_
 
 #### GET параметры
 
@@ -1091,11 +1063,11 @@ conversation\_id можно получить или при создании ча
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -1118,150 +1090,146 @@ conversation\_id можно получить или при создании ча
 | --- | --- | --- |
 | timestamp | int | Временная метка отправки сообщения |
 | msec\_timestamp | int | Временная метка отправки сообщения в миллисекундах |
-| receiver[id] sender[id] | string | ID получателя/отправителя сообщения в API Чатов |
-| receiver[name] sender[name] | string | Имя получателя/отправителя сообщения в API Чатов |
-| receiver[client\_id] sender[client\_id] | string | ID получателя/отправителя сообщения на стороне инетграции |
-| receiver[avatar] sender[avatar] | string | Ссылка на аватар получателя/отправителя, если была передана при создании |
-| receiver[phone] sender[phone] | string | Телефон получателя/отправителя, если был передан при создании |
-| receiver[email] sender[email] | string | Email получателя/отправителя, если был передан при создании |
-| message[id] | string | ID сообщения в API чатов |
-| message[client\_id] | string | ID сообщения на стороне интеграции |
-| message[type] | string | Тип сообщения |
-| message[text] | string | Текст сообщения |
-| message[media] | string | Ссылка на файл в сообщении |
-| message[thumbnail] | string | Ссылка на превью медиа в сообщении |
-| message[file\_name] | string | Имя файла |
-| message[file\_size] | int | Размер файла в байтах |
-| message[media\_group\_id] | string | Идентификатор группы медиа сообщений. Если пользователь отправляет одно сообщение с несколькими вложениями, мы разобьем сообщение на несколько, но медиафайлы будут объединены в одну группу |
-| message[location] | object | Геолокация. [Подробное описание объекта](#Описание-объекта-messagelocation) |
-| message[contact] | object | Контактные данные. [Подробное описание объекта](#Описание-объекта-messagecontact) |
+| receiver\[id\] sender\[id\] | string | ID получателя/отправителя сообщения в API Чатов |
+| receiver\[name\] sender\[name\] | string | Имя получателя/отправителя сообщения в API Чатов |
+| receiver\[client\_id\] sender\[client\_id\] | string | ID получателя/отправителя сообщения на стороне инетграции |
+| receiver\[avatar\] sender\[avatar\] | string | Ссылка на аватар получателя/отправителя, если была передана при создании |
+| receiver\[phone\] sender\[phone\] | string | Телефон получателя/отправителя, если был передан при создании |
+| receiver\[email\] sender\[email\] | string | Email получателя/отправителя, если был передан при создании |
+| message\[id\] | string | ID сообщения в API чатов |
+| message\[client\_id\] | string | ID сообщения на стороне интеграции |
+| message\[type\] | string | Тип сообщения |
+| message\[text\] | string | Текст сообщения |
+| message\[media\] | string | Ссылка на файл в сообщении |
+| message\[thumbnail\] | string | Ссылка на превью медиа в сообщении |
+| message\[file\_name\] | string | Имя файла |
+| message\[file\_size\] | int | Размер файла в байтах |
+| message\[media\_group\_id\] | string | Идентификатор группы медиа сообщений. Если пользователь отправляет одно сообщение с несколькими вложениями, мы разобьем сообщение на несколько, но медиафайлы будут объединены в одну группу |
+| message\[location\] | object | Геолокация. [Подробное описание объекта](#Описание-объекта-messagelocation) |
+| message\[contact\] | object | Контактные данные. [Подробное описание объекта](#Описание-объекта-messagecontact) |
 
 #### Пример ответа
 
-```
-{
-  "messages": [
     {
-      "timestamp": 1596470953,
-      "sender": {
-        "id": "d8d9f9c4-9611-4794-a136-a253a13e1bb5",
-        "name": "Менеджер Василий"
-      },
-      "receiver": {
-        "id": "86a0caef-41ec-49ac-814b-b27da2cea267",
-        "client_id": "sk-1376265f-86df-4c49-a0c3-a4816df41af9",
-        "avatar": "https:/example.com/users/avatar.png",
-        "name": "Example Client",
-        "phone": "79151112233",
-        "email": "example.client@example.com"
-      },
-      "message": {
-        "id": "3985523d-78b3-45b7-aeaf-142405bbf1dc",
-        "client_id": "skm-5f2836a8ca468",
-        "type": "text",
-        "text": "Да, конечно. Вы можете оплатить наличными и картой курьеру при получении.",
-        "media": "",
-        "thumbnail": "",
-        "file_name": "",
-        "file_size": 0
-      }
-    },
-    {
-      "timestamp": 1596470809,
-      "sender": {
-        "id": "86a0caef-41ec-49ac-814b-b27da2cea267",
-        "client_id": "sk-1376265f-86df-4c49-a0c3-a4816df41af9",
-        "avatar": "https:/example.com/users/avatar.png",
-        "name": "Example Client",
-        "phone": "79151112233",
-        "email": "example.client@example.com"
-      },
-      "message": {
-        "id": "1bf6a765-ec6f-4680-8cd5-6f2d31f78ebc",
-        "client_id": "5f283618af2c8",
-        "type": "text",
-        "text": "Можно ли оплатить заказ при получении ?",
-        "media": "",
-        "thumbnail": "",
-        "file_name": "",
-        "file_size": 0
-      }
+      "messages": [
+        {
+          "timestamp": 1596470953,
+          "sender": {
+            "id": "d8d9f9c4-9611-4794-a136-a253a13e1bb5",
+            "name": "Менеджер Василий"
+          },
+          "receiver": {
+            "id": "86a0caef-41ec-49ac-814b-b27da2cea267",
+            "client_id": "sk-1376265f-86df-4c49-a0c3-a4816df41af9",
+            "avatar": "https:/example.com/users/avatar.png",
+            "name": "Example Client",
+            "phone": "79151112233",
+            "email": "example.client@example.com"
+          },
+          "message": {
+            "id": "3985523d-78b3-45b7-aeaf-142405bbf1dc",
+            "client_id": "skm-5f2836a8ca468",
+            "type": "text",
+            "text": "Да, конечно. Вы можете оплатить наличными и картой курьеру при получении.",
+            "media": "",
+            "thumbnail": "",
+            "file_name": "",
+            "file_size": 0
+          }
+        },
+        {
+          "timestamp": 1596470809,
+          "sender": {
+            "id": "86a0caef-41ec-49ac-814b-b27da2cea267",
+            "client_id": "sk-1376265f-86df-4c49-a0c3-a4816df41af9",
+            "avatar": "https:/example.com/users/avatar.png",
+            "name": "Example Client",
+            "phone": "79151112233",
+            "email": "example.client@example.com"
+          },
+          "message": {
+            "id": "1bf6a765-ec6f-4680-8cd5-6f2d31f78ebc",
+            "client_id": "5f283618af2c8",
+            "type": "text",
+            "text": "Можно ли оплатить заказ при получении ?",
+            "media": "",
+            "thumbnail": "",
+            "file_name": "",
+            "file_size": 0
+          }
+        }
+      ]
     }
-  ]
-}
-```
 
 #### Пример реализации запроса
 
-```
-<?php
-
-$secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
-$method = 'GET';
-$contentType = 'application/json';
-$date = date(DateTimeInterface::RFC2822);
-$path = '/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81/chats/8b1a1828-fc4a-4874-9469-15e0d847570f/history';
-$getParams = '?limit=50&offset=0';
-
-$url = "https://amojo.amocrm.ru" . $path;
-
-$checkSum = md5('');
-
-$str = implode("\n", [
-    strtoupper($method),
-    $checkSum,
-    $contentType,
-    $date,
-    $path,
-]);
-
-$signature = hash_hmac('sha1', $str, $secret);
-
-$headers = [
-    'Date' => $date,
-    'Content-Type' => $contentType,
-    'Content-MD5' => strtolower($checkSum),
-    'X-Signature' => strtolower($signature),
-];
-
-$curlHeaders = [];
-foreach ($headers as $name => $value) {
-    $curlHeaders[] = $name . ": " . $value;
-}
-
-echo $method . ' ' . $url . $getParams . PHP_EOL;
-foreach ($curlHeaders as $header) {
-    echo $header . PHP_EOL;
-}
-
-$curl = curl_init();
-curl_setopt_array($curl, [
-    CURLOPT_URL => $url . $getParams,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_TIMEOUT => 5,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => $method,
-    CURLOPT_HTTPHEADER => $curlHeaders,
-]);
-
-$response = curl_exec($curl);
-$err = curl_error($curl);
-$info = curl_getinfo($curl);
-curl_close($curl);
-if ($err) {
-    $result = "cURL Error #:" . $err;
-    echo $result;
-} else {
-    echo "Status: " . $info['http_code'] . PHP_EOL;
-    echo $response . PHP_EOL;
-}
-```
+    <?php
+    
+    $secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
+    $method = 'GET';
+    $contentType = 'application/json';
+    $date = date(DateTimeInterface::RFC2822);
+    $path = '/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81/chats/8b1a1828-fc4a-4874-9469-15e0d847570f/history';
+    $getParams = '?limit=50&offset=0';
+    
+    $url = "https://amojo.amocrm.ru" . $path;
+    
+    $checkSum = md5('');
+    
+    $str = implode("\n", [
+        strtoupper($method),
+        $checkSum,
+        $contentType,
+        $date,
+        $path,
+    ]);
+    
+    $signature = hash_hmac('sha1', $str, $secret);
+    
+    $headers = [
+        'Date' => $date,
+        'Content-Type' => $contentType,
+        'Content-MD5' => strtolower($checkSum),
+        'X-Signature' => strtolower($signature),
+    ];
+    
+    $curlHeaders = [];
+    foreach ($headers as $name => $value) {
+        $curlHeaders[] = $name . ": " . $value;
+    }
+    
+    echo $method . ' ' . $url . $getParams . PHP_EOL;
+    foreach ($curlHeaders as $header) {
+        echo $header . PHP_EOL;
+    }
+    
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $url . $getParams,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 5,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => $method,
+        CURLOPT_HTTPHEADER => $curlHeaders,
+    ]);
+    
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    $info = curl_getinfo($curl);
+    curl_close($curl);
+    if ($err) {
+        $result = "cURL Error #:" . $err;
+        echo $result;
+    } else {
+        echo "Status: " . $info['http_code'] . PHP_EOL;
+        echo $response . PHP_EOL;
+    }
 
 ### Передача информации о печатании
 
 #### Метод
 
-*POST /v2/origin/custom/{scope\_id}/typing*
+_POST /v2/origin/custom/{scope\_id}/typing_
 
 #### Описание
 
@@ -1273,10 +1241,10 @@ if ($err) {
 
 #### Заголовок запроса
 
-*Content-Type: application/json*  
-*Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)*  
-*Content-MD5: md5 хэш от тела запроса*  
-*X-Signature: HMAC-SHA1 код с секретным ключом канала*
+_Content-Type: application/json_  
+_Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)_  
+_Content-MD5: md5 хэш от тела запроса_  
+_X-Signature: HMAC-SHA1 код с секретным ключом канала_
 
 #### Параметры запроса
 
@@ -1284,26 +1252,24 @@ if ($err) {
 | --- | --- | --- |
 | conversation\_id | string | ID чата на стороне интеграции |
 | duration\_ms | int | Необязательный параметр. Длительность печати в миллисекундах. По умолчанию 5000 мс. |
-| sender[id] | string | ID пользователя на стороне интеграции |
+| sender\[id\] | string | ID пользователя на стороне интеграции |
 
 #### Пример запроса
 
-```
-{
-  "conversation_id": "my_int-d5a421f7f218",
-  "sender": {
-    "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8"
-  }
-}
-```
+    {
+      "conversation_id": "my_int-d5a421f7f218",
+      "sender": {
+        "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8"
+      }
+    }
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -1319,82 +1285,80 @@ if ($err) {
 
 #### Пример реализации запроса
 
-```
-<?php
-
-$secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
-$method = 'POST';
-$contentType = 'application/json';
-$date = date(DateTimeInterface::RFC2822);
-$path = '/v2/origin/custom/f90ba33d-c9d9-44da-b76c-c349b0ecbe41/connect';
-
-$url = "https://amojo.amocrm.ru" . $path;
-
-$body = [
-    'conversation_id' => 'my_int-d5a421f7f218',
-    'sender' => [
-        'id' => 'my_int-1376265f-86df-4c49-a0c3-a4816df41af8',
-    ],
-];
-$requestBody = json_encode($body);
-$checkSum = md5($requestBody);
-
-$str = implode("\n", [
-    strtoupper($method),
-    $checkSum,
-    $contentType,
-    $date,
-    $path,
-]);
-
-$signature = hash_hmac('sha1', $str, $secret);
-
-$headers = [
-    'Date' => $date,
-    'Content-Type' => $contentType,
-    'Content-MD5' => strtolower($checkSum),
-    'X-Signature' => strtolower($signature),
-];
-
-$curlHeaders = [];
-foreach ($headers as $name => $value) {
-    $curlHeaders[] = $name . ": " . $value;
-}
-
-echo $method . ' ' . $url . PHP_EOL;
-foreach ($curlHeaders as $header) {
-    echo $header . PHP_EOL;
-}
-echo PHP_EOL . $requestBody . PHP_EOL;
-
-$curl = curl_init();
-curl_setopt_array($curl, [
-    CURLOPT_URL => $url,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_TIMEOUT => 5,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => $method,
-    CURLOPT_POSTFIELDS => $requestBody,
-    CURLOPT_HTTPHEADER => $curlHeaders,
-]);
-
-$response = curl_exec($curl);
-$err = curl_error($curl);
-$info = curl_getinfo($curl);
-curl_close($curl);
-if ($err) {
-    $result = "cURL Error #:" . $err;
-} else {
-    echo "Status: " . $info['http_code'] . PHP_EOL;
-    echo $response . PHP_EOL;
-}
-```
+    <?php
+    
+    $secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
+    $method = 'POST';
+    $contentType = 'application/json';
+    $date = date(DateTimeInterface::RFC2822);
+    $path = '/v2/origin/custom/f90ba33d-c9d9-44da-b76c-c349b0ecbe41/connect';
+    
+    $url = "https://amojo.amocrm.ru" . $path;
+    
+    $body = [
+        'conversation_id' => 'my_int-d5a421f7f218',
+        'sender' => [
+            'id' => 'my_int-1376265f-86df-4c49-a0c3-a4816df41af8',
+        ],
+    ];
+    $requestBody = json_encode($body);
+    $checkSum = md5($requestBody);
+    
+    $str = implode("\n", [
+        strtoupper($method),
+        $checkSum,
+        $contentType,
+        $date,
+        $path,
+    ]);
+    
+    $signature = hash_hmac('sha1', $str, $secret);
+    
+    $headers = [
+        'Date' => $date,
+        'Content-Type' => $contentType,
+        'Content-MD5' => strtolower($checkSum),
+        'X-Signature' => strtolower($signature),
+    ];
+    
+    $curlHeaders = [];
+    foreach ($headers as $name => $value) {
+        $curlHeaders[] = $name . ": " . $value;
+    }
+    
+    echo $method . ' ' . $url . PHP_EOL;
+    foreach ($curlHeaders as $header) {
+        echo $header . PHP_EOL;
+    }
+    echo PHP_EOL . $requestBody . PHP_EOL;
+    
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 5,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => $method,
+        CURLOPT_POSTFIELDS => $requestBody,
+        CURLOPT_HTTPHEADER => $curlHeaders,
+    ]);
+    
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    $info = curl_getinfo($curl);
+    curl_close($curl);
+    if ($err) {
+        $result = "cURL Error #:" . $err;
+    } else {
+        echo "Status: " . $info['http_code'] . PHP_EOL;
+        echo $response . PHP_EOL;
+    }
 
 ### Отправка или снятие реакции
 
 #### Метод
 
-*POST /v2/origin/custom/{scope\_id}/react*
+_POST /v2/origin/custom/{scope\_id}/react_
 
 #### Описание
 
@@ -1406,10 +1370,10 @@ if ($err) {
 
 #### Заголовок запроса
 
-*Content-Type: application/json*  
-*Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)*  
-*Content-MD5: md5 хэш от тела запроса*  
-*X-Signature: HMAC-SHA1 код с секретным ключом канала*
+_Content-Type: application/json_  
+_Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)_  
+_Content-MD5: md5 хэш от тела запроса_  
+_X-Signature: HMAC-SHA1 код с секретным ключом канала_
 
 #### Параметры запроса
 
@@ -1419,32 +1383,30 @@ if ($err) {
 | conversation\_ref\_id | string | Идентификатор чата на стороне amoCRM. Необязательно, если передан conversation\_id. |
 | id | string | Идентификатор сообщения на стороне amoCRM. Необязательное поле, если передан msgid |
 | msgid | string | Идентификатор сообщения на стороне интеграции. Необязательно поле, если передан id |
-| user[id] | string | Идентификатор пользователя, пославшего/снявшего реакцию на стороне интеграции |
-| user[ref\_id] | string | Идентификатор пользователя, пославшего/снявшего реакцию на стороне amoCRM. Обязательное поле при проставлении реакции от имени менеджера |
+| user\[id\] | string | Идентификатор пользователя, пославшего/снявшего реакцию на стороне интеграции |
+| user\[ref\_id\] | string | Идентификатор пользователя, пославшего/снявшего реакцию на стороне amoCRM. Обязательное поле при проставлении реакции от имени менеджера |
 | type | string | Тип действия: react, unreact |
 | emoji | string | Реакция пользователя. Необязательное поле |
 
 #### Пример запроса
 
-```
-{
-  "conversation_id": "my_integration-8e3e7640-49af-4448-a2c6-d5a421f7f217",
-  "msgid": "fbd27636-0c4b-11ea-8d71-362b9e155667",
-  "user": {
-    "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8"
-  },
-  "type": "react",
-  "emoji": "😍"
-}
-```
+    {
+      "conversation_id": "my_integration-8e3e7640-49af-4448-a2c6-d5a421f7f217",
+      "msgid": "fbd27636-0c4b-11ea-8d71-362b9e155667",
+      "user": {
+        "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8"
+      },
+      "type": "react",
+      "emoji": "😍"
+    }
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -1461,86 +1423,84 @@ if ($err) {
 
 #### Пример реализации запроса
 
-```
-<?php
-
-$secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
-$method = 'POST';
-$contentType = 'application/json';
-$date = date(DateTimeInterface::RFC2822);
-$path = '/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81/079e44fb-fc22-476b-9e8a-421b688ec53b/react';
-
-$url = "https://amojo.amocrm.ru" . $path;
-
-$body = [
-    'msgid' => '079e44fb-fc22-476b-9e8a-421b688ec53b',
-    'user' => [
-      'id' => 'my_int-1376265f-86df-4c49-a0c3-a4816df41af8',
-    ],
-    'type' => 'react',
-    'emoji' => '😍'
-];
-
-$requestBody = json_encode($body);
-$checkSum = md5($requestBody);
-
-$str = implode("\n", [
-    strtoupper($method),
-    $checkSum,
-    $contentType,
-    $date,
-    $path,
-]);
-
-$signature = hash_hmac('sha1', $str, $secret);
-
-$headers = [
-    'Date' => $date,
-    'Content-Type' => $contentType,
-    'Content-MD5' => strtolower($checkSum),
-    'X-Signature' => strtolower($signature),
-];
-
-$curlHeaders = [];
-foreach ($headers as $name => $value) {
-    $curlHeaders[] = $name . ": " . $value;
-}
-
-echo $method . ' ' . $url . PHP_EOL;
-foreach ($curlHeaders as $header) {
-    echo $header . PHP_EOL;
-}
-echo PHP_EOL . $requestBody . PHP_EOL;
-
-$curl = curl_init();
-curl_setopt_array($curl, [
-    CURLOPT_URL => $url,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_TIMEOUT => 5,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => $method,
-    CURLOPT_POSTFIELDS => $requestBody,
-    CURLOPT_HTTPHEADER => $curlHeaders,
-]);
-
-$response = curl_exec($curl);
-$err = curl_error($curl);
-$info = curl_getinfo($curl);
-curl_close($curl);
-if ($err) {
-    $result = "cURL Error #:" . $err;
-    echo $result;
-} else {
-    echo "Status: " . $info['http_code'] . PHP_EOL;
-    echo $response . PHP_EOL;
-}
-```
+    <?php
+    
+    $secret = '5a44c5dff55f3c15a4cce8d7c4cc27e207c7e189';
+    $method = 'POST';
+    $contentType = 'application/json';
+    $date = date(DateTimeInterface::RFC2822);
+    $path = '/v2/origin/custom/344a5002-f8ca-454d-af3d-396180102ac7_52e591f7-c98f-4255-8495-827210138c81/079e44fb-fc22-476b-9e8a-421b688ec53b/react';
+    
+    $url = "https://amojo.amocrm.ru" . $path;
+    
+    $body = [
+        'msgid' => '079e44fb-fc22-476b-9e8a-421b688ec53b',
+        'user' => [
+          'id' => 'my_int-1376265f-86df-4c49-a0c3-a4816df41af8',
+        ],
+        'type' => 'react',
+        'emoji' => '😍'
+    ];
+    
+    $requestBody = json_encode($body);
+    $checkSum = md5($requestBody);
+    
+    $str = implode("\n", [
+        strtoupper($method),
+        $checkSum,
+        $contentType,
+        $date,
+        $path,
+    ]);
+    
+    $signature = hash_hmac('sha1', $str, $secret);
+    
+    $headers = [
+        'Date' => $date,
+        'Content-Type' => $contentType,
+        'Content-MD5' => strtolower($checkSum),
+        'X-Signature' => strtolower($signature),
+    ];
+    
+    $curlHeaders = [];
+    foreach ($headers as $name => $value) {
+        $curlHeaders[] = $name . ": " . $value;
+    }
+    
+    echo $method . ' ' . $url . PHP_EOL;
+    foreach ($curlHeaders as $header) {
+        echo $header . PHP_EOL;
+    }
+    echo PHP_EOL . $requestBody . PHP_EOL;
+    
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 5,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => $method,
+        CURLOPT_POSTFIELDS => $requestBody,
+        CURLOPT_HTTPHEADER => $curlHeaders,
+    ]);
+    
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    $info = curl_getinfo($curl);
+    curl_close($curl);
+    if ($err) {
+        $result = "cURL Error #:" . $err;
+        echo $result;
+    } else {
+        echo "Status: " . $info['http_code'] . PHP_EOL;
+        echo $response . PHP_EOL;
+    }
 
 ### Отправка комментария
 
 #### Метод
 
-*POST /v2/origin/custom/{scope\_id}*
+_POST /v2/origin/custom/{scope\_id}_
 
 #### Описание
 
@@ -1567,10 +1527,10 @@ if ($err) {
 
 #### Заголовок запроса
 
-*Content-Type: application/json*  
-*Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)*  
-*Content-MD5: md5 хэш от тела запроса*  
-*X-Signature: HMAC-SHA1 код с секретным ключом канала*
+_Content-Type: application/json_  
+_Date: текущее время в формате RFC 2822 (например: Mon, 03 Oct 2020 15:11:21 +0000)_  
+_Content-MD5: md5 хэш от тела запроса_  
+_X-Signature: HMAC-SHA1 код с секретным ключом канала_
 
 #### Параметры запроса
 
@@ -1623,90 +1583,86 @@ if ($err) {
 
 ##### Пример входящего комметария от клиента
 
-```
-{
-  "event_type": "new_message",
-  "payload": {
-    "timestamp": 1639604761,
-    "msec_timestamp": 1639604761694,
-    "msgid": "my_int-5f2836a8ca475",
-    "conversation_id": "my_int-d5a421f7f217",
-    "sender": {
-      "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
-      "avatar": "https://example.com/users/avatar.png",
-      "profile": {
-        "phone": "+79151112233",
-        "email": "example.client@example.com"
-      },
-      "profile_link": "https://example.com/profile/example.client",
-      "name": "Вася клиент"
-    },
-    "message": {
-      "type": "text",
-      "text": "Сообщение от клиента",
-      "post": {
-        "id": "my-int-376265",
-        "url": "https://www.example.com/@example/video/7490",
-        "preview_url": "https://example/1/preview.png",
-        "preview_permalink": "https://example/2/preview.png",
-        "username": "post creator",
-        "caption": "описание поста"
+    {
+      "event_type": "new_message",
+      "payload": {
+        "timestamp": 1639604761,
+        "msec_timestamp": 1639604761694,
+        "msgid": "my_int-5f2836a8ca475",
+        "conversation_id": "my_int-d5a421f7f217",
+        "sender": {
+          "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
+          "avatar": "https://example.com/users/avatar.png",
+          "profile": {
+            "phone": "+79151112233",
+            "email": "example.client@example.com"
+          },
+          "profile_link": "https://example.com/profile/example.client",
+          "name": "Вася клиент"
+        },
+        "message": {
+          "type": "text",
+          "text": "Сообщение от клиента",
+          "post": {
+            "id": "my-int-376265",
+            "url": "https://www.example.com/@example/video/7490",
+            "preview_url": "https://example/1/preview.png",
+            "preview_permalink": "https://example/2/preview.png",
+            "username": "post creator",
+            "caption": "описание поста"
+          }
+        },
+        "silent": false
       }
-    },
-    "silent": false
-  }
-}
-```
+    }
 
 ##### Пример ответа на комментарий от менеджера
 
-```
-{
-  "event_type": "new_message",
-  "payload": {
-    "timestamp": 1639604903,
-    "msec_timestamp": 1639604903161,
-    "msgid": "my_int-5f2836a8ca476",
-    "conversation_id": "my_int-d5a421f7f217",
-    "sender": {
-      "id": "my_int-manager1_user_id",
-      "name": "Имя менеджера",
-      "ref_id": "76fc2bea-902f-425c-9a3d-dcdac4766090"
-    },
-    "receiver": {
-      "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
-      "avatar": "https://example.com/users/avatar.png",
-      "name": "Вася клиент",
-      "profile": {
-        "phone": "+79151112233",
-        "email": "example.client@example.com"
-      },
-      "profile_link": "https://example.com/profile/example.client"
-    },
-    "message": {
-      "type": "text",
-      "text": "комментарий от менеджера 76fc2bea-902f-425c-9a3d-dcdac4766090",
-      "post": {
-        "id": "my-int-376265",
-        "url": "https://www.example.com/@example/video/7490",
-        "preview_url": "https://example/1/preview.png",
-        "preview_permalink": "https://example/2/preview.png",
-        "username": "post creator",
-        "caption": "описание поста"
+    {
+      "event_type": "new_message",
+      "payload": {
+        "timestamp": 1639604903,
+        "msec_timestamp": 1639604903161,
+        "msgid": "my_int-5f2836a8ca476",
+        "conversation_id": "my_int-d5a421f7f217",
+        "sender": {
+          "id": "my_int-manager1_user_id",
+          "name": "Имя менеджера",
+          "ref_id": "76fc2bea-902f-425c-9a3d-dcdac4766090"
+        },
+        "receiver": {
+          "id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
+          "avatar": "https://example.com/users/avatar.png",
+          "name": "Вася клиент",
+          "profile": {
+            "phone": "+79151112233",
+            "email": "example.client@example.com"
+          },
+          "profile_link": "https://example.com/profile/example.client"
+        },
+        "message": {
+          "type": "text",
+          "text": "комментарий от менеджера 76fc2bea-902f-425c-9a3d-dcdac4766090",
+          "post": {
+            "id": "my-int-376265",
+            "url": "https://www.example.com/@example/video/7490",
+            "preview_url": "https://example/1/preview.png",
+            "preview_permalink": "https://example/2/preview.png",
+            "username": "post creator",
+            "caption": "описание поста"
+          }
+        },
+        "silent": true
       }
-    },
-    "silent": true
-  }
-}
-```
+    }
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -1722,22 +1678,20 @@ if ($err) {
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| new\_message[conversation\_id] | string | Идентификатор диалога |
-| new\_message[sender\_id] | string | Идентификатор отправителя сообщения |
-| new\_message[receiver\_id] | string|null | Идентификатор получателя сообщения |
-| new\_message[msgid] | string | Идентификатор сообщения в API чатов |
-| new\_message[ref\_id] | string | Идентификатор сообщения на стороне интеграции |
+| new\_message\[conversation\_id\] | string | Идентификатор диалога |
+| new\_message\[sender\_id\] | string | Идентификатор отправителя сообщения |
+| new\_message\[receiver\_id\] | string|null | Идентификатор получателя сообщения |
+| new\_message\[msgid\] | string | Идентификатор сообщения в API чатов |
+| new\_message\[ref\_id\] | string | Идентификатор сообщения на стороне интеграции |
 
 #### Пример ответа
 
-```
-{
-  "new_message": {
-    "conversation_id": "my_int-d5a421f7f217",
-    "sender_id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
-    "receiver_id": "123e4567-e89b-12d3-a456-426614174000",
-    "msgid": "8f1176d7-c357-42b0-b944-a15d537a27d3",
-    "ref_id": "my_int-5f2836a8ca468",
-  }
-}
-```
+    {
+      "new_message": {
+        "conversation_id": "my_int-d5a421f7f217",
+        "sender_id": "my_int-1376265f-86df-4c49-a0c3-a4816df41af8",
+        "receiver_id": "123e4567-e89b-12d3-a456-426614174000",
+        "msgid": "8f1176d7-c357-42b0-b944-a15d537a27d3",
+        "ref_id": "my_int-5f2836a8ca468",
+      }
+    }

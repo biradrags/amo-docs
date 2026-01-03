@@ -1,4 +1,6 @@
-# https://www.amocrm.ru/developers/content/catalogs/products
+<!-- https://www.amocrm.ru/developers/content/catalogs/products -->
+
+# Включение функционала
 
 Товары
 
@@ -7,27 +9,27 @@
 
 Элементы каталога товаров содержат предустановленный набор полей:
 
-* SKU (code: SKU)
-* Описание (code: description)
-* Цена (code: PRICE)
-* Группа (code: GROUP)
-* External ID (скрытое поле, code: EXTERNAL\_ID)
-
-### Включение функционала
+*   SKU (code: SKU)
+*   Описание (code: description)
+*   Цена (code: PRICE)
+*   Группа (code: GROUP)
+*   External ID (скрытое поле, code: EXTERNAL\_ID)
 
 Данный метод позволяет включить функционал “Товаров” и при необходимости создаёт специальный каталог.
 
-##### URL метода
+##### URL метода  
 
-*POST /api/v2/products\_settings/*
+_  
+POST /api/v2/products\_settings/  
+_
 
-#### Параметры
+#### Параметры  
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
 | enable | boolean | Активность функционала |
 
-#### Параметры ответа
+#### Параметры ответа  
 
 | Параметр | Описание |
 | --- | --- |
@@ -40,43 +42,41 @@
 
 Response Headeres содержит следующие заголовки:
 
-* Content-Type:application/hal+json
-* Runtime-Timestamp:1508320306
+*   Content-Type:application/hal+json
+*   Runtime-Timestamp:1508320306
 
-#### Пример запроса
+#### Пример запроса  
 
-```
+    
+    {
+            "enabled" : true
+            }
 
-{
-        "enabled" : true
+#### Пример ответа  
+
+    
+    {
+      "is_enabled" : true ,
+      "catalog_id" : 9999 ,
+      "_links" : {
+        "self" : {
+          "href" : "/api/v2/products_settings" ,
+            "method" : "post"
         }
-```
-
-#### Пример ответа
-
-```
-
-{
-  "is_enabled" : true ,
-  "catalog_id" : 9999 ,
-  "_links" : {
-    "self" : {
-      "href" : "/api/v2/products_settings" ,
-        "method" : "post"
+      }
     }
-  }
-}
-```
 
-### Статус активности функционала
+### Статус активности функционала  
 
 Метод для получения информации о текущем статусе функционала товаров
 
-##### URL метода
+##### URL метода  
 
-*GET /api/v2/products\_settings*
+_  
+GET /api/v2/products\_settings  
+_
 
-#### Параметры ответа
+#### Параметры ответа  
 
 | Параметр | Описание |
 | --- | --- |

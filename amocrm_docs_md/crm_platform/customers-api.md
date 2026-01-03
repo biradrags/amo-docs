@@ -1,27 +1,37 @@
-# https://www.amocrm.ru/developers/content/crm_platform/customers-api
+<!-- https://www.amocrm.ru/developers/content/crm_platform/customers-api -->
+
+# Оглавление
 
 Покупатели
 
 В данном разделе описываются доступные методы для работы с сущностью покупателя
 
-### Оглавление
-
-* [Включение покупателей и смена их режима](#customers-mode)
-* [Список покупателей](#customers-list)
-* [Получение покупателя по ID](#customer-detail)
-* [Добавление покупателей](#customers-add)
-* [Редактирование покупателей](#customers-edit)
-* [Список транзакций](#transactions-list)
-* [Получение транзакции по ID](#transaction-detail)
-* [Добавление транзакций к покупателю](#transactions-add)
-* [Удаление транзакции](#transaction-delete)
-* [Списание/начисление бонусных баллов покупателю](#customer–bonus-points-update)
+*   [Включение покупателей и смена их режима](#customers-mode)
+    
+*   [Список покупателей](#customers-list)
+    
+*   [Получение покупателя по ID](#customer-detail)
+    
+*   [Добавление покупателей](#customers-add)
+    
+*   [Редактирование покупателей](#customers-edit)
+    
+*   [Список транзакций](#transactions-list)
+    
+*   [Получение транзакции по ID](#transaction-detail)
+    
+*   [Добавление транзакций к покупателю](#transactions-add)
+    
+*   [Удаление транзакции](#transaction-delete)
+    
+*   [Списание/начисление бонусных баллов покупателю](#customer–bonus-points-update)
+    
 
 ### Включение покупателей и смена их режима
 
 #### Метод
 
-*PATCH /api/v4/customers/mode*
+_PATCH /api/v4/customers/mode_
 
 #### Описание
 
@@ -33,7 +43,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -46,20 +56,18 @@
 
 #### Пример запроса
 
-```
-{
-    "mode": "segments",
-    "is_enabled": true
-}
-```
+    {
+        "mode": "segments",
+        "is_enabled": true
+    }
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -76,18 +84,16 @@
 
 #### Пример ответа
 
-```
-{
-    "mode": "segments",
-    "is_enabled": true
-}
-```
+    {
+        "mode": "segments",
+        "is_enabled": true
+    }
 
 ### Список покупателей
 
 #### Метод
 
-*GET /api/v4/customers*
+_GET /api/v4/customers_
 
 #### Описание
 
@@ -104,16 +110,17 @@
 | with | string | Данный параметр принимает строку, в том числе из нескольких значений, указанных через запятую. [Данный метод поддерживает следующие параметры.](#with-d9811dfd-a713-4799-8609-d4f2a895ad18-params) |
 | page | int | Страница выборки |
 | limit | int | Количество возвращаемых сущностей за один запрос (Максимум – 250) |
-| query | string int | Поисковый запрос (Осуществляет поиск по заполненным полям сущности) |
+| query | string  
+int | Поисковый запрос (Осуществляет поиск по заполненным полям сущности) |
 | filter | object | Фильтр. Подробней про фильтры читайте в [отдельной статье](/developers/content/crm_platform/filters-api) |
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -141,176 +148,176 @@
 | updated\_at | int | Дата изменения покупателя, передается в Unix Timestamp |
 | closest\_task\_at | int | Дата ближайшей задачи к выполнению, передается в Unix Timestamp |
 | is\_deleted | bool | Удален ли покупатель |
-| custom\_fields\_values | array null | Массив, содержащий информацию по значениям дополнительных полей, заданных для данного покупателя |
+| custom\_fields\_values | array  
+null | Массив, содержащий информацию по значениям дополнительных полей, заданных для данного покупателя |
 | ltv | int | Сумма покупок |
 | purchases\_count | int | Количество |
 | average\_check | int | Средний размер покупки |
 | account\_id | int | ID аккаунта, в котором находится покупатель |
 | \_embedded | object | Данные вложенных сущностей |
-| \_embedded[segments] | array | Сегменты, в котором состоит покупатель |
-| \_embedded[segments][0] | object | Модель сегмента |
-| \_embedded[segments][0][id] | int | ID сегмента |
-| \_embedded[tags] | array | Данные тегов, привязанных к покупателю |
-| \_embedded[tags][0] | object | Модель тега, привязанного к покупателю |
-| \_embedded[tags][0][id] | int | ID тега |
-| \_embedded[tags][0][name] | string | Название тега |
-| \_embedded[tags][0][color] | null | Цвет тега, доступен только для сделок |
-| \_embedded[contacts] | array | **Требуется GET параметр with.** Данные контактов, привязанных к покупателю |
-| \_embedded[contacts][0] | object | Данные контакта, привязанного к покупателю |
-| \_embedded[contacts][0][id] | int | ID контакта, привязанного к покупателю |
-| \_embedded[contacts][0][is\_main] | bool | Является ли контакт главным для покупателю |
-| \_embedded[companies] | array | **Требуется GET параметр with.** Данные компании, привязанной к покупателю, в данном массиве всегда 1 элемент, так как у покупателя может быть только 1 компания |
-| \_embedded[companies][0] | object | Данные компании, привязанного к покупателю |
-| \_embedded[companies][0][id] | int | ID компании, привязанного к покупателю |
-| \_embedded[catalog\_elements] | array | **Требуется GET параметр with.** Данные элементов списков, привязанных к покупателю |
-| \_embedded[catalog\_elements][0] | object | Данные элемента списка, привязанного к покупателю |
-| \_embedded[catalog\_elements][0][id] | int | ID элемента, привязанного к покупателю |
-| \_embedded[catalog\_elements][0][metadata] | object | Мета-данные элемента |
-| \_embedded[catalog\_elements][0][quantity] | int float | Количество элементов у покупателю |
-| \_embedded[catalog\_elements][0][catalog\_id] | int | ID списка, в котором находится элемент |
-| \_embedded[catalog\_elements][0][price\_id] | int | ID поля типа Цена, которое установлено для привязанного элемента в сущности |
+| \_embedded\[segments\] | array | Сегменты, в котором состоит покупатель |
+| \_embedded\[segments\]\[0\] | object | Модель сегмента |
+| \_embedded\[segments\]\[0\]\[id\] | int | ID сегмента |
+| \_embedded\[tags\] | array | Данные тегов, привязанных к покупателю |
+| \_embedded\[tags\]\[0\] | object | Модель тега, привязанного к покупателю |
+| \_embedded\[tags\]\[0\]\[id\] | int | ID тега |
+| \_embedded\[tags\]\[0\]\[name\] | string | Название тега |
+| \_embedded\[tags\]\[0\]\[color\] | null | Цвет тега, доступен только для сделок |
+| \_embedded\[contacts\] | array | **Требуется GET параметр with.** Данные контактов, привязанных к покупателю |
+| \_embedded\[contacts\]\[0\] | object | Данные контакта, привязанного к покупателю |
+| \_embedded\[contacts\]\[0\]\[id\] | int | ID контакта, привязанного к покупателю |
+| \_embedded\[contacts\]\[0\]\[is\_main\] | bool | Является ли контакт главным для покупателю |
+| \_embedded\[companies\] | array | **Требуется GET параметр with.** Данные компании, привязанной к покупателю, в данном массиве всегда 1 элемент, так как у покупателя может быть только 1 компания |
+| \_embedded\[companies\]\[0\] | object | Данные компании, привязанного к покупателю |
+| \_embedded\[companies\]\[0\]\[id\] | int | ID компании, привязанного к покупателю |
+| \_embedded\[catalog\_elements\] | array | **Требуется GET параметр with.** Данные элементов списков, привязанных к покупателю |
+| \_embedded\[catalog\_elements\]\[0\] | object | Данные элемента списка, привязанного к покупателю |
+| \_embedded\[catalog\_elements\]\[0\]\[id\] | int | ID элемента, привязанного к покупателю |
+| \_embedded\[catalog\_elements\]\[0\]\[metadata\] | object | Мета-данные элемента |
+| \_embedded\[catalog\_elements\]\[0\]\[quantity\] | int  
+float | Количество элементов у покупателю |
+| \_embedded\[catalog\_elements\]\[0\]\[catalog\_id\] | int | ID списка, в котором находится элемент |
+| \_embedded\[catalog\_elements\]\[0\]\[price\_id\] | int | ID поля типа Цена, которое установлено для привязанного элемента в сущности |
 
 #### Пример ответа
 
-```
-{
-    "_page": 1,
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/customers?limit=2&with=contacts&page=1"
-        },
-        "next": {
-            "href": "https://example.amocrm.ru/api/v4/customers?limit=2&with=contacts&page=2"
-        }
-    },
-    "_embedded": {
-        "customers": [
-            {
-                "id": 1,
-                "name": "1",
-                "next_price": 214,
-                "next_date": 1589058000,
-                "responsible_user_id": 504141,
-                "status_id": 4740028,
-                "periodicity": 0,
-                "created_by": 504141,
-                "updated_by": 504141,
-                "created_at": 1582117365,
-                "updated_at": 1589651187,
-                "closest_task_at": null,
-                "is_deleted": false,
-                "custom_fields_values": null,
-                "ltv": 1231454,
-                "purchases_count": 11,
-                "average_check": 111950,
-                "account_id": 28805383,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/1"
-                    }
-                },
-                "_embedded": {
-                    "segments": [
-                        {
-                            "id": 43,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/customers/segments/43"
-                                }
-                            }
-                        },
-                        {
-                            "id": 45,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/customers/segments/45"
-                                }
-                            }
-                        },
-                        {
-                            "id": 47,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/customers/segments/47"
-                                }
-                            }
-                        },
-                        {
-                            "id": 51,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/customers/segments/51"
-                                }
-                            }
-                        }
-                    ],
-                    "tags": [],
-                    "contacts": [
-                        {
-                            "id": 7143559,
-                            "is_main": false,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/contacts/7143559"
-                                }
-                            }
-                        },
-                        {
-                            "id": 9820781,
-                            "is_main": true,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/contacts/9820781"
-                                }
-                            }
-                        }
-                    ]
-                }
+    {
+        "_page": 1,
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/customers?limit=2&with=contacts&page=1"
             },
-            {
-                "id": 134923,
-                "name": "12412",
-                "next_price": 0,
-                "next_date": 1589403600,
-                "responsible_user_id": 504141,
-                "status_id": 4740028,
-                "periodicity": 0,
-                "created_by": 504141,
-                "updated_by": 504141,
-                "created_at": 1590943901,
-                "updated_at": 1590943901,
-                "closest_task_at": null,
-                "is_deleted": false,
-                "custom_fields_values": null,
-                "ltv": 0,
-                "purchases_count": 0,
-                "average_check": 0,
-                "account_id": 28805383,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/134923"
-                    }
-                },
-                "_embedded": {
-                    "segments": [],
-                    "tags": [],
-                    "contacts": [
-                        {
-                            "id": 3,
-                            "is_main": true,
-                            "_links": {
-                                "self": {
-                                    "href": "https://example.amocrm.ru/api/v4/contacts/3"
+            "next": {
+                "href": "https://example.amocrm.ru/api/v4/customers?limit=2&with=contacts&page=2"
+            }
+        },
+        "_embedded": {
+            "customers": [
+                {
+                    "id": 1,
+                    "name": "1",
+                    "next_price": 214,
+                    "next_date": 1589058000,
+                    "responsible_user_id": 504141,
+                    "status_id": 4740028,
+                    "periodicity": 0,
+                    "created_by": 504141,
+                    "updated_by": 504141,
+                    "created_at": 1582117365,
+                    "updated_at": 1589651187,
+                    "closest_task_at": null,
+                    "is_deleted": false,
+                    "custom_fields_values": null,
+                    "ltv": 1231454,
+                    "purchases_count": 11,
+                    "average_check": 111950,
+                    "account_id": 28805383,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/customers/1"
+                        }
+                    },
+                    "_embedded": {
+                        "segments": [
+                            {
+                                "id": 43,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/customers/segments/43"
+                                    }
+                                }
+                            },
+                            {
+                                "id": 45,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/customers/segments/45"
+                                    }
+                                }
+                            },
+                            {
+                                "id": 47,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/customers/segments/47"
+                                    }
+                                }
+                            },
+                            {
+                                "id": 51,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/customers/segments/51"
+                                    }
                                 }
                             }
+                        ],
+                        "tags": [],
+                        "contacts": [
+                            {
+                                "id": 7143559,
+                                "is_main": false,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/contacts/7143559"
+                                    }
+                                }
+                            },
+                            {
+                                "id": 9820781,
+                                "is_main": true,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/contacts/9820781"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": 134923,
+                    "name": "12412",
+                    "next_price": 0,
+                    "next_date": 1589403600,
+                    "responsible_user_id": 504141,
+                    "status_id": 4740028,
+                    "periodicity": 0,
+                    "created_by": 504141,
+                    "updated_by": 504141,
+                    "created_at": 1590943901,
+                    "updated_at": 1590943901,
+                    "closest_task_at": null,
+                    "is_deleted": false,
+                    "custom_fields_values": null,
+                    "ltv": 0,
+                    "purchases_count": 0,
+                    "average_check": 0,
+                    "account_id": 28805383,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/customers/134923"
                         }
-                    ]
+                    },
+                    "_embedded": {
+                        "segments": [],
+                        "tags": [],
+                        "contacts": [
+                            {
+                                "id": 3,
+                                "is_main": true,
+                                "_links": {
+                                    "self": {
+                                        "href": "https://example.amocrm.ru/api/v4/contacts/3"
+                                    }
+                                }
+                            }
+                        ]
+                    }
                 }
-            }
-        ]
+            ]
+        }
     }
-}
-```
 
 #### Параметры для GET-параметра with
 
@@ -324,7 +331,7 @@
 
 #### Метод
 
-*GET /api/v4/customers/{id}*
+_GET /api/v4/customers/{id}_
 
 #### Описание
 
@@ -342,11 +349,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -375,101 +382,101 @@
 | updated\_at | int | Дата изменения покупателя, передается в Unix Timestamp |
 | closest\_task\_at | int | Дата ближайшей задачи к выполнению, передается в Unix Timestamp |
 | is\_deleted | bool | Удален ли покупатель |
-| custom\_fields\_values | array null | Массив, содержащий информацию по значениям дополнительных полей, заданных для данного покупателя |
+| custom\_fields\_values | array  
+null | Массив, содержащий информацию по значениям дополнительных полей, заданных для данного покупателя |
 | ltv | int | Сумма покупок |
 | purchases\_count | int | Количество |
 | average\_check | int | Средний размер покупки |
 | account\_id | int | ID аккаунта, в котором находится покупатель |
 | \_embedded | object | Данные вложенных сущностей |
-| \_embedded[segments] | array | Сегменты, в котором состоит покупатель |
-| \_embedded[segments][0] | object | Модель сегмента |
-| \_embedded[segments][0][id] | int | ID сегмента |
-| \_embedded[tags] | array | Данные тегов, привязанных к покупателю |
-| \_embedded[tags][0] | object | Модель тега, привязанного к покупателю |
-| \_embedded[tags][0][id] | int | ID тега |
-| \_embedded[tags][0][name] | string | Название тега |
-| \_embedded[tags][0][color] | null | Цвет тега, доступен только для сделок |
-| \_embedded[contacts] | array | **Требуется GET параметр with.** Данные контактов, привязанных к покупателю |
-| \_embedded[contacts][0] | object | Данные контакта, привязанного к покупателю |
-| \_embedded[contacts][0][id] | int | ID контакта, привязанного к покупателю |
-| \_embedded[contacts][0][is\_main] | bool | Является ли контакт главным для покупателю |
-| \_embedded[companies] | array | **Требуется GET параметр with.** Данные компании, привязанной к покупателю, в данном массиве всегда 1 элемент, так как у покупателя может быть только 1 компания |
-| \_embedded[companies][0] | object | Данные компании, привязанного к покупателю |
-| \_embedded[companies][0][id] | int | ID компании, привязанного к покупателю |
-| \_embedded[catalog\_elements] | array | **Требуется GET параметр with.** Данные элементов списков, привязанных к покупателю |
-| \_embedded[catalog\_elements][0] | object | Данные элемента списка, привязанного к покупателю |
-| \_embedded[catalog\_elements][0][id] | int | ID элемента, привязанного к покупателю |
-| \_embedded[catalog\_elements][0][metadata] | object | Мета-данные элемента |
-| \_embedded[catalog\_elements][0][quantity] | int float | Количество элементов у покупателю |
-| \_embedded[catalog\_elements][0][catalog\_id] | int | ID списка, в котором находится элемент |
-| \_embedded[catalog\_elements][0][price\_id] | int | ID поля типа Цена, которое установлено для привязанного элемента в контексте сущности |
+| \_embedded\[segments\] | array | Сегменты, в котором состоит покупатель |
+| \_embedded\[segments\]\[0\] | object | Модель сегмента |
+| \_embedded\[segments\]\[0\]\[id\] | int | ID сегмента |
+| \_embedded\[tags\] | array | Данные тегов, привязанных к покупателю |
+| \_embedded\[tags\]\[0\] | object | Модель тега, привязанного к покупателю |
+| \_embedded\[tags\]\[0\]\[id\] | int | ID тега |
+| \_embedded\[tags\]\[0\]\[name\] | string | Название тега |
+| \_embedded\[tags\]\[0\]\[color\] | null | Цвет тега, доступен только для сделок |
+| \_embedded\[contacts\] | array | **Требуется GET параметр with.** Данные контактов, привязанных к покупателю |
+| \_embedded\[contacts\]\[0\] | object | Данные контакта, привязанного к покупателю |
+| \_embedded\[contacts\]\[0\]\[id\] | int | ID контакта, привязанного к покупателю |
+| \_embedded\[contacts\]\[0\]\[is\_main\] | bool | Является ли контакт главным для покупателю |
+| \_embedded\[companies\] | array | **Требуется GET параметр with.** Данные компании, привязанной к покупателю, в данном массиве всегда 1 элемент, так как у покупателя может быть только 1 компания |
+| \_embedded\[companies\]\[0\] | object | Данные компании, привязанного к покупателю |
+| \_embedded\[companies\]\[0\]\[id\] | int | ID компании, привязанного к покупателю |
+| \_embedded\[catalog\_elements\] | array | **Требуется GET параметр with.** Данные элементов списков, привязанных к покупателю |
+| \_embedded\[catalog\_elements\]\[0\] | object | Данные элемента списка, привязанного к покупателю |
+| \_embedded\[catalog\_elements\]\[0\]\[id\] | int | ID элемента, привязанного к покупателю |
+| \_embedded\[catalog\_elements\]\[0\]\[metadata\] | object | Мета-данные элемента |
+| \_embedded\[catalog\_elements\]\[0\]\[quantity\] | int  
+float | Количество элементов у покупателю |
+| \_embedded\[catalog\_elements\]\[0\]\[catalog\_id\] | int | ID списка, в котором находится элемент |
+| \_embedded\[catalog\_elements\]\[0\]\[price\_id\] | int | ID поля типа Цена, которое установлено для привязанного элемента в контексте сущности |
 
 #### Пример ответа
 
-```
-{
-    "id": 1,
-    "name": "покупатель",
-    "next_price": 214,
-    "next_date": 1589058000,
-    "responsible_user_id": 504141,
-    "status_id": 4740028,
-    "periodicity": 0,
-    "created_by": 504141,
-    "updated_by": 504141,
-    "created_at": 1582117365,
-    "updated_at": 1589651187,
-    "closest_task_at": null,
-    "is_deleted": false,
-    "custom_fields_values": null,
-    "ltv": 1231454,
-    "purchases_count": 11,
-    "average_check": 111950,
-    "account_id": 28805383,
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/customers/1"
-        }
-    },
-    "_embedded": {
-        "segments": [
-            {
-                "id": 43,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/segments/43"
-                    }
-                }
-            },
-            {
-                "id": 45,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/segments/45"
-                    }
-                }
-            },
-            {
-                "id": 47,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/segments/47"
-                    }
-                }
-            },
-            {
-                "id": 51,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/segments/51"
-                    }
-                }
+    {
+        "id": 1,
+        "name": "покупатель",
+        "next_price": 214,
+        "next_date": 1589058000,
+        "responsible_user_id": 504141,
+        "status_id": 4740028,
+        "periodicity": 0,
+        "created_by": 504141,
+        "updated_by": 504141,
+        "created_at": 1582117365,
+        "updated_at": 1589651187,
+        "closest_task_at": null,
+        "is_deleted": false,
+        "custom_fields_values": null,
+        "ltv": 1231454,
+        "purchases_count": 11,
+        "average_check": 111950,
+        "account_id": 28805383,
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/customers/1"
             }
-        ],
-        "tags": []
+        },
+        "_embedded": {
+            "segments": [
+                {
+                    "id": 43,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/customers/segments/43"
+                        }
+                    }
+                },
+                {
+                    "id": 45,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/customers/segments/45"
+                        }
+                    }
+                },
+                {
+                    "id": 47,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/customers/segments/47"
+                        }
+                    }
+                },
+                {
+                    "id": 51,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/customers/segments/51"
+                        }
+                    }
+                }
+            ],
+            "tags": []
+        }
     }
-}
-```
 
 #### Параметры для GET-параметра with
 
@@ -483,7 +490,7 @@
 
 #### Метод
 
-*POST /api/v4/customers*
+_POST /api/v4/customers_
 
 #### Описание
 
@@ -495,7 +502,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -513,16 +520,17 @@
 | updated\_by | int | ID пользователя, изменивший покупателя |
 | created\_at | int | Дата создания покупателя, передается в Unix Timestamp |
 | updated\_at | int | Дата изменения покупателя, передается в Unix Timestamp |
-| custom\_fields\_values | array null | Массив, содержащий информацию по значениям дополнительных полей, заданных для данного покупателя. [Примеры заполнения полей](/developers/content/crm_platform/custom-fields#cf-fill-examples) |
+| custom\_fields\_values | array  
+null | Массив, содержащий информацию по значениям дополнительных полей, заданных для данного покупателя. [Примеры заполнения полей](/developers/content/crm_platform/custom-fields#cf-fill-examples) |
 | tags\_to\_add | array | Массив тегов для добавления. |
-| tags\_to\_add[0] | object | Модель тега для добавления. |
-| tags\_to\_add[0][id] | array | ID тега для добавления. Важно передать или id или name. |
-| tags\_to\_add[0][name] | array | Название тега для добавления. Важно передать или id или name. |
+| tags\_to\_add\[0\] | object | Модель тега для добавления. |
+| tags\_to\_add\[0\]\[id\] | array | ID тега для добавления. Важно передать или id или name. |
+| tags\_to\_add\[0\]\[name\] | array | Название тега для добавления. Важно передать или id или name. |
 | \_embedded | object | Данные вложенных сущностей |
-| \_embedded[tags] | array | Данные тегов, привязанных к покупателю |
-| \_embedded[tags][0] | object | Модель тега, привязанного к покупателю |
-| \_embedded[tags][0][id] | int | ID тега |
-| \_embedded[tags][0][name] | string | Название тега |
+| \_embedded\[tags\] | array | Данные тегов, привязанных к покупателю |
+| \_embedded\[tags\]\[0\] | object | Модель тега, привязанного к покупателю |
+| \_embedded\[tags\]\[0\]\[id\] | int | ID тега |
+| \_embedded\[tags\]\[0\]\[name\] | string | Название тега |
 | request\_id | string | Поле, которое вернется вам в ответе без изменений и не будет сохранено. Поле не является обязательным |
 
 #### Пример запроса
@@ -531,52 +539,50 @@
 Для первого мы зададим название, создателя – робота, тег, а также значение текстового поля.  
 Для второго мы зададим название, добавим тег и добавим в сегмент.
 
-```
-[
-    {
-        "name": "Покупатель для примера 1",
-        "created_by": 0,
-        "custom_fields_values": [
-            {
-                "field_id": 294479,
-                "values": [
+    [
+        {
+            "name": "Покупатель для примера 1",
+            "created_by": 0,
+            "custom_fields_values": [
+                {
+                    "field_id": 294479,
+                    "values": [
+                        {
+                            "value": "Наш первый покупатель"
+                        }
+                    ]
+                }
+            ],
+            "tags_to_add": [
+                {
+                    "id": 107721
+                }
+            ]
+        },
+        {
+            "name": "Покупатель для примера 2",
+            "_embedded": {
+                "tags": [
                     {
-                        "value": "Наш первый покупатель"
+                        "name": "Важный покупатель"
+                    }
+                ],
+                "segments": [
+                    {
+                        "id": 81
                     }
                 ]
             }
-        ],
-        "tags_to_add": [
-            {
-                "id": 107721
-            }
-        ]
-    },
-    {
-        "name": "Покупатель для примера 2",
-        "_embedded": {
-            "tags": [
-                {
-                    "name": "Важный покупатель"
-                }
-            ],
-            "segments": [
-                {
-                    "id": 81
-                }
-            ]
         }
-    }
-]
-```
+    ]
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -597,43 +603,41 @@
 
 #### Пример ответа
 
-```
-{
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/customers"
-        }
-    },
-    "_embedded": {
-        "customers": [
-            {
-                "id": 134957,
-                "request_id": "0"
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/134957"
-                    }
-                }
-            },
-            {
-                "id": 134959,
-                "request_id": "1",
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/134959"
-                    }
-                }
+    {
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/customers"
             }
-        ]
+        },
+        "_embedded": {
+            "customers": [
+                {
+                    "id": 134957,
+                    "request_id": "0"
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/customers/134957"
+                        }
+                    }
+                },
+                {
+                    "id": 134959,
+                    "request_id": "1",
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/customers/134959"
+                        }
+                    }
+                }
+            ]
+        }
     }
-}
-```
 
 ### Редактирование покупателей
 
 #### Метод
 
-*PATCH /api/v4/customers*
+_PATCH /api/v4/customers_
 
 #### Описание
 
@@ -647,7 +651,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -665,47 +669,46 @@
 | updated\_by | int | ID пользователя, изменивший покупателя |
 | created\_at | int | Дата создания покупателя, передается в Unix Timestamp |
 | updated\_at | int | Дата изменения покупателя, передается в Unix Timestamp |
-| custom\_fields\_values | array null | Массив, содержащий информацию по значениям дополнительных полей, заданных для данного покупателя. [Примеры заполнения полей](/developers/content/crm_platform/custom-fields#cf-fill-examples) |
+| custom\_fields\_values | array  
+null | Массив, содержащий информацию по значениям дополнительных полей, заданных для данного покупателя. [Примеры заполнения полей](/developers/content/crm_platform/custom-fields#cf-fill-examples) |
 | tags\_to\_add | array | Массив тегов для добавления. |
-| tags\_to\_add[0] | object | Модель тега для добавления. |
-| tags\_to\_add[0][id] | array | ID тега для добавления. Важно передать или id или name. |
-| tags\_to\_add[0][name] | array | Название тега для добавления. Важно передать или id или name. |
+| tags\_to\_add\[0\] | object | Модель тега для добавления. |
+| tags\_to\_add\[0\]\[id\] | array | ID тега для добавления. Важно передать или id или name. |
+| tags\_to\_add\[0\]\[name\] | array | Название тега для добавления. Важно передать или id или name. |
 | tags\_to\_delete | array | Массив тегов для удаления. |
-| tags\_to\_delete[0] | object | Модель тега для удаления. |
-| tags\_to\_delete[0][id] | array | ID тега для удаления. Важно передать или id или name. |
-| tags\_to\_delete[0][name] | array | Название тега для удаления. Важно передать или id или name. |
+| tags\_to\_delete\[0\] | object | Модель тега для удаления. |
+| tags\_to\_delete\[0\]\[id\] | array | ID тега для удаления. Важно передать или id или name. |
+| tags\_to\_delete\[0\]\[name\] | array | Название тега для удаления. Важно передать или id или name. |
 | \_embedded | object | Данные вложенных сущностей |
-| \_embedded[tags] | array | Данные тегов, привязанных к покупателю |
-| \_embedded[tags][0] | object | Модель тега, привязанного к покупателю |
-| \_embedded[tags][0][id] | int | ID тега |
-| \_embedded[tags][0][name] | string | Название тега |
+| \_embedded\[tags\] | array | Данные тегов, привязанных к покупателю |
+| \_embedded\[tags\]\[0\] | object | Модель тега, привязанного к покупателю |
+| \_embedded\[tags\]\[0\]\[id\] | int | ID тега |
+| \_embedded\[tags\]\[0\]\[name\] | string | Название тега |
 | request\_id | string | Поле, которое вернется вам в ответе без изменений и не будет сохранено. Поле не является обязательным |
 
 #### Пример запроса
 
-```
-[
-    {
-        "id": 1299433,
-        "name": "Новое название покупателя",
-        "_embedded": {
-            "tags": [
-                {
-                    "name": "Тег 125"
-                }
-            ]
+    [
+        {
+            "id": 1299433,
+            "name": "Новое название покупателя",
+            "_embedded": {
+                "tags": [
+                    {
+                        "name": "Тег 125"
+                    }
+                ]
+            }
         }
-    }
-]
-```
+    ]
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -727,35 +730,33 @@
 
 #### Пример ответа
 
-```
-{
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/customers"
-        }
-    },
-    "_embedded": {
-        "leads": [
-            {
-                "id": 1299433,
-                "updated_at": 1589556420,
-                "request_id": "0",
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/1299433"
+    {
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/customers"
+            }
+        },
+        "_embedded": {
+            "leads": [
+                {
+                    "id": 1299433,
+                    "updated_at": 1589556420,
+                    "request_id": "0",
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/customers/1299433"
+                        }
                     }
                 }
-            }
-        ]
+            ]
+        }
     }
-}
-```
 
 ### Список транзакций
 
 #### Метод
 
-*GET /api/v4/customers/transactions*
+_GET /api/v4/customers/transactions_
 
 #### Описание
 
@@ -773,15 +774,16 @@
 | page | int | Страница выборки |
 | limit | int | Количество возвращаемых сущностей за один запрос (Максимум – 250) |
 | filter | object | Фильтр |
-| filter[id] | int array | Фильтр по ID транзакций |
+| filter\[id\] | int  
+array | Фильтр по ID транзакций |
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -808,77 +810,75 @@
 | is\_deleted | bool | Удалена ли транзакция |
 | account\_id | int | ID аккаунта, в котором находится транзакция |
 | \_embedded | object | Данные вложенных сущностей |
-| \_embedded[customer] | object | Покупатель, в котором находится транзакция |
-| \_embedded[customer][id] | int | ID покупателя |
-| \_embedded[catalog\_elements] | array | Данные элементов списков, привязанных к транзакции |
-| \_embedded[catalog\_elements][0] | object | Данные элемента списка, привязанного к транзакции |
-| \_embedded[catalog\_elements][0][id] | int | ID элемента, привязанного к транзакции |
-| \_embedded[catalog\_elements][0][metadata] | object | Мета-данные элемента |
-| \_embedded[catalog\_elements][0][quantity] | int | Количество элементов у транзакции |
-| \_embedded[catalog\_elements][0][catalog\_id] | int | ID списка, в котором находится элемент |
+| \_embedded\[customer\] | object | Покупатель, в котором находится транзакция |
+| \_embedded\[customer\]\[id\] | int | ID покупателя |
+| \_embedded\[catalog\_elements\] | array | Данные элементов списков, привязанных к транзакции |
+| \_embedded\[catalog\_elements\]\[0\] | object | Данные элемента списка, привязанного к транзакции |
+| \_embedded\[catalog\_elements\]\[0\]\[id\] | int | ID элемента, привязанного к транзакции |
+| \_embedded\[catalog\_elements\]\[0\]\[metadata\] | object | Мета-данные элемента |
+| \_embedded\[catalog\_elements\]\[0\]\[quantity\] | int | Количество элементов у транзакции |
+| \_embedded\[catalog\_elements\]\[0\]\[catalog\_id\] | int | ID списка, в котором находится элемент |
 
 #### Пример ответа
 
-```
-{
-    "_page": 1,
-    "_links": {
-        "self": {
-            "href": "http://example.amocrm.ru/api/v4/customers/transactions?filter%5Bid%5D%5B0%5D=134643&page=1&limit=50"
+    {
+        "_page": 1,
+        "_links": {
+            "self": {
+                "href": "http://example.amocrm.ru/api/v4/customers/transactions?filter%5Bid%5D%5B0%5D=134643&page=1&limit=50"
+            },
+            "next": {
+                "href": "http://example.amocrm.ru/api/v4/customers/transactions?filter%5Bid%5D%5B0%5D=134643&page=2&limit=50"
+            }
         },
-        "next": {
-            "href": "http://example.amocrm.ru/api/v4/customers/transactions?filter%5Bid%5D%5B0%5D=134643&page=2&limit=50"
-        }
-    },
-    "_embedded": {
-        "transactions": [
-            {
-                "id": 134643,
-                "price": 123,
-                "comment": null,
-                "completed_at": 1591005900,
-                "customer_id": 1000000158,
-                "created_by": 939801,
-                "updated_by": 939801,
-                "created_at": 1591005900,
-                "updated_at": 1591005900,
-                "is_deleted": false,
-                "account_id": 17079858,
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/1000000158/transactions/134643"
-                    }
-                },
-                "_embedded": {
-                    "customer": {
-                        "id": 1000000158,
-                        "_links": {
-                            "self": {
-                                "href": "https://example.amocrm.ru/api/v4/customers/1000000158"
-                            }
+        "_embedded": {
+            "transactions": [
+                {
+                    "id": 134643,
+                    "price": 123,
+                    "comment": null,
+                    "completed_at": 1591005900,
+                    "customer_id": 1000000158,
+                    "created_by": 939801,
+                    "updated_by": 939801,
+                    "created_at": 1591005900,
+                    "updated_at": 1591005900,
+                    "is_deleted": false,
+                    "account_id": 17079858,
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/customers/1000000158/transactions/134643"
                         }
                     },
-                    "catalog_elements": [
-                        {
-                            "id": 1677,
-                            "metadata": {
-                                "catalog_id": 1079,
-                                "quantity": 10
+                    "_embedded": {
+                        "customer": {
+                            "id": 1000000158,
+                            "_links": {
+                                "self": {
+                                    "href": "https://example.amocrm.ru/api/v4/customers/1000000158"
+                                }
                             }
-                        }
-                    ]
+                        },
+                        "catalog_elements": [
+                            {
+                                "id": 1677,
+                                "metadata": {
+                                    "catalog_id": 1079,
+                                    "quantity": 10
+                                }
+                            }
+                        ]
+                    }
                 }
-            }
-        ]
+            ]
+        }
     }
-}
-```
 
 ### Получение транзакции по ID
 
 #### Метод
 
-*GET /api/v4/customers/transactions/{id}*
+_GET /api/v4/customers/transactions/{id}_
 
 #### Описание
 
@@ -891,11 +891,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -922,53 +922,51 @@
 | is\_deleted | bool | Удалена ли транзакция |
 | account\_id | int | ID аккаунта, в котором находится транзакция |
 | \_embedded | object | Данные вложенных сущностей |
-| \_embedded[customer] | object | Покупатель, в котором находится транзакция |
-| \_embedded[customer][id] | int | ID покупателя |
-| \_embedded[catalog\_elements] | array | Данные элементов списков, привязанных к транзакции |
-| \_embedded[catalog\_elements][0] | object | Данные элемента списка, привязанного к транзакции |
-| \_embedded[catalog\_elements][0][id] | int | ID элемента, привязанного к транзакции |
-| \_embedded[catalog\_elements][0][metadata] | object | Мета-данные элемента |
-| \_embedded[catalog\_elements][0][quantity] | int | Количество элементов у транзакции |
-| \_embedded[catalog\_elements][0][catalog\_id] | int | ID списка, в котором находится элемент |
+| \_embedded\[customer\] | object | Покупатель, в котором находится транзакция |
+| \_embedded\[customer\]\[id\] | int | ID покупателя |
+| \_embedded\[catalog\_elements\] | array | Данные элементов списков, привязанных к транзакции |
+| \_embedded\[catalog\_elements\]\[0\] | object | Данные элемента списка, привязанного к транзакции |
+| \_embedded\[catalog\_elements\]\[0\]\[id\] | int | ID элемента, привязанного к транзакции |
+| \_embedded\[catalog\_elements\]\[0\]\[metadata\] | object | Мета-данные элемента |
+| \_embedded\[catalog\_elements\]\[0\]\[quantity\] | int | Количество элементов у транзакции |
+| \_embedded\[catalog\_elements\]\[0\]\[catalog\_id\] | int | ID списка, в котором находится элемент |
 
 #### Пример ответа
 
-```
-{
-    "id": 14755,
-    "price": 123124,
-    "comment": "Транзакция",
-    "completed_at": 1589025179,
-    "customer_id": 1,
-    "created_by": 504141,
-    "updated_by": 504141,
-    "created_at": 1589025179,
-    "updated_at": 1589025179,
-    "is_deleted": false,
-    "account_id": 28805383,
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/customers/1/transactions/14755"
-        }
-    },
-    "_embedded": {
-        "customer": {
-            "id": 1,
-            "_links": {
-                "self": {
-                    "href": "https://example.amocrm.ru/api/v4/customers/1"
+    {
+        "id": 14755,
+        "price": 123124,
+        "comment": "Транзакция",
+        "completed_at": 1589025179,
+        "customer_id": 1,
+        "created_by": 504141,
+        "updated_by": 504141,
+        "created_at": 1589025179,
+        "updated_at": 1589025179,
+        "is_deleted": false,
+        "account_id": 28805383,
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/customers/1/transactions/14755"
+            }
+        },
+        "_embedded": {
+            "customer": {
+                "id": 1,
+                "_links": {
+                    "self": {
+                        "href": "https://example.amocrm.ru/api/v4/customers/1"
+                    }
                 }
             }
         }
     }
-}
-```
 
 ### Добавление транзакций к покупателю
 
 #### Метод
 
-*POST /api/v4/customers/{customer\_id}/transactions*
+_POST /api/v4/customers/{customer\_id}/transactions_
 
 #### Описание
 
@@ -980,7 +978,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -994,44 +992,42 @@
 | next\_price | int | Ожидаемая сумма следующей покупки у покупателя |
 | next\_date | int | Ожидаемая дата следующей покупки у покупателя. Данные в Unix Timestamp |
 | created\_by | int | ID пользователя, создавший транзакцию |
-| \_embedded[catalog\_elements] | array | Данные элементов списков, привязанных к транзакции |
-| \_embedded[catalog\_elements][0] | object | Данные элемента списка, привязанного к транзакции |
-| \_embedded[catalog\_elements][0][id] | int | ID элемента, привязанного к транзакции |
-| \_embedded[catalog\_elements][0][metadata] | object | Мета-данные элемента |
-| \_embedded[catalog\_elements][0][quantity] | int | Количество элементов у транзакции |
-| \_embedded[catalog\_elements][0][catalog\_id] | int | ID списка, в котором находится элемент |
+| \_embedded\[catalog\_elements\] | array | Данные элементов списков, привязанных к транзакции |
+| \_embedded\[catalog\_elements\]\[0\] | object | Данные элемента списка, привязанного к транзакции |
+| \_embedded\[catalog\_elements\]\[0\]\[id\] | int | ID элемента, привязанного к транзакции |
+| \_embedded\[catalog\_elements\]\[0\]\[metadata\] | object | Мета-данные элемента |
+| \_embedded\[catalog\_elements\]\[0\]\[quantity\] | int | Количество элементов у транзакции |
+| \_embedded\[catalog\_elements\]\[0\]\[catalog\_id\] | int | ID списка, в котором находится элемент |
 | request\_id | string | Поле, которое вернется вам в ответе без изменений и не будет сохранено. Поле не является обязательным |
 
 #### Пример запроса
 
-```
-[
-   {
-      "price":123,
-      "created_by":0,
-      "comment":"Комментарий",
-      "_embedded":{
-         "catalog_elements":[
-            {
-               "id":1677,
-               "metadata":{
-                  "catalog_id":1079,
-                  "quantity":10
-               }
-            }
-         ]
-      }
-   }
-]
-```
+    [
+       {
+          "price":123,
+          "created_by":0,
+          "comment":"Комментарий",
+          "_embedded":{
+             "catalog_elements":[
+                {
+                   "id":1677,
+                   "metadata":{
+                      "catalog_id":1079,
+                      "quantity":10
+                   }
+                }
+             ]
+          }
+       }
+    ]
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -1053,43 +1049,41 @@
 
 #### Пример ответа
 
-```
-{
-    "_links": {
-        "self": {
-            "href": "https://example.amocrm.ru/api/v4/customers"
-        }
-    },
-    "_embedded": {
-        "customers": [
-            {
-                "id": 134957,
-                "request_id": "0",
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/134957"
-                    }
-                }
-            },
-            {
-                "id": 134959,
-                "request_id": "1",
-                "_links": {
-                    "self": {
-                        "href": "https://example.amocrm.ru/api/v4/customers/134959"
-                    }
-                }
+    {
+        "_links": {
+            "self": {
+                "href": "https://example.amocrm.ru/api/v4/customers"
             }
-        ]
+        },
+        "_embedded": {
+            "customers": [
+                {
+                    "id": 134957,
+                    "request_id": "0",
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/customers/134957"
+                        }
+                    }
+                },
+                {
+                    "id": 134959,
+                    "request_id": "1",
+                    "_links": {
+                        "self": {
+                            "href": "https://example.amocrm.ru/api/v4/customers/134959"
+                        }
+                    }
+                }
+            ]
+        }
     }
-}
-```
 
 ### Удаление транзакции
 
 #### Метод
 
-*DELETE /api/v4/customers/transactions/{id}*
+_DELETE /api/v4/customers/transactions/{id}_
 
 #### Описание
 
@@ -1102,7 +1096,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -1120,7 +1114,7 @@
 
 #### Метод
 
-*POST /api/v4/customers/{id}/bonus\_points*
+_POST /api/v4/customers/{id}/bonus\_points_
 
 #### Описание
 
@@ -1132,7 +1126,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -1147,19 +1141,17 @@
 
 В данном примере мы начислим покупателю 500 бонусных баллов.
 
-```
-{
-    "earn": 500
-}
-```
+    {
+        "earn": 500
+    }
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -1179,8 +1171,6 @@
 
 #### Пример ответа
 
-```
-{
-    "bonus_points": 534
-}
-```
+    {
+        "bonus_points": 534
+    }

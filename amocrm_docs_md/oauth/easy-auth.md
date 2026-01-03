@@ -1,3 +1,5 @@
+<!-- https://www.amocrm.ru/developers/content/oauth/easy-auth -->
+
 # https://www.amocrm.ru/developers/content/oauth/easy-auth
 
 Упрощенная авторизация

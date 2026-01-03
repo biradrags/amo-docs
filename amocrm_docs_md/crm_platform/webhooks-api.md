@@ -1,28 +1,33 @@
-# https://www.amocrm.ru/developers/content/crm_platform/webhooks-api
+<!-- https://www.amocrm.ru/developers/content/crm_platform/webhooks-api -->
+
+# Оглавление
 
 Вебхуки
 
 В данном разделе описывается работа с вебхуками через API.  
 Информация про формат получаемых хуков доступна [тут](/developers/content/crm_platform/webhooks-format)
 
-### Оглавление
-
-* [Общая информация](#common-info)
-* [Список установленных вебхуков в аккаунте](#webhooks-list)
-* [Подписка на вебхук](#webhook-subscribe)
-* [Отписка от событий](#webhooks-delete)
-* [Возможные события](#webhooks-available-actions)
+*   [Общая информация](#common-info)
+    
+*   [Список установленных вебхуков в аккаунте](#webhooks-list)
+    
+*   [Подписка на вебхук](#webhook-subscribe)
+    
+*   [Отписка от событий](#webhooks-delete)
+    
+*   [Возможные события](#webhooks-available-actions)
+    
 
 ### Общая информация
 
-* В одном аккаунте может быть не более 100 хуков
-* Один вебхук может быть подписан на несколько событий
+*   В одном аккаунте может быть не более 100 хуков
+*   Один вебхук может быть подписан на несколько событий
 
 ### Список установленных вебхуков в аккаунте
 
 #### Метод
 
-*GET /api/v4/webhooks*
+_GET /api/v4/webhooks_
 
 #### Описание
 
@@ -37,15 +42,15 @@
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
 | filter | object | Фильтр |
-| filter[destination] | string | Фильтр по точному адресу вебхука |
+| filter\[destination\] | string | Фильтр по точному адресу вебхука |
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -71,47 +76,45 @@
 
 #### Пример ответа
 
-```
-{
-    "_total_items": 2,
-    "_embedded": {
-        "webhooks": [
-            {
-                "id": 839656,
-                "destination": "https://webhook-uri.com",
-                "created_at": 1575539157,
-                "updated_at": 1575539157,
-                "account_id": 321321,
-                "created_by": 123123,
-                "sort": 1,
-                "disabled": false,
-                "settings": [
-                    "add_task"
-                ]
-            },
-            {
-                "id": 849193,
-                "destination": "https://api.test.ru/amoWebHook",
-                "created_at": 1576157524,
-                "updated_at": 1585816857,
-                "account_id": 321321,
-                "created_by": 123123,
-                "sort": 2,
-                "disabled": true,
-                "settings": [
-                    "update_lead"
-                ]
-            }
-        ]
+    {
+        "_total_items": 2,
+        "_embedded": {
+            "webhooks": [
+                {
+                    "id": 839656,
+                    "destination": "https://webhook-uri.com",
+                    "created_at": 1575539157,
+                    "updated_at": 1575539157,
+                    "account_id": 321321,
+                    "created_by": 123123,
+                    "sort": 1,
+                    "disabled": false,
+                    "settings": [
+                        "add_task"
+                    ]
+                },
+                {
+                    "id": 849193,
+                    "destination": "https://api.test.ru/amoWebHook",
+                    "created_at": 1576157524,
+                    "updated_at": 1585816857,
+                    "account_id": 321321,
+                    "created_by": 123123,
+                    "sort": 2,
+                    "disabled": true,
+                    "settings": [
+                        "update_lead"
+                    ]
+                }
+            ]
+        }
     }
-}
-```
 
 ### Подписка на вебхук
 
 #### Метод
 
-*POST /api/v4/webhooks*
+_POST /api/v4/webhooks_
 
 #### Описание
 
@@ -123,7 +126,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -136,23 +139,21 @@
 
 #### Пример запроса
 
-```
-{
-    "destination": "https://example.test",
-    "settings": [
-        "add_lead"
-    ],
-    "sort": 10
-}
-```
+    {
+        "destination": "https://example.test",
+        "settings": [
+            "add_lead"
+        ],
+        "sort": 10
+    }
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -169,27 +170,25 @@
 
 #### Пример ответа
 
-```
-{
-    "id": 1056949,
-    "destination": "https://example.test",
-    "created_at": 1589012268,
-    "updated_at": 1589012268,
-    "account_id": 321321,
-    "created_by": 3944275,
-    "sort": 1,
-    "disabled": false,
-    "settings": [
-        "add_lead"
-    ]
-}
-```
+    {
+        "id": 1056949,
+        "destination": "https://example.test",
+        "created_at": 1589012268,
+        "updated_at": 1589012268,
+        "account_id": 321321,
+        "created_by": 3944275,
+        "sort": 1,
+        "disabled": false,
+        "settings": [
+            "add_lead"
+        ]
+    }
 
 ### Отписка от событий
 
 #### Метод
 
-*DELETE /api/v4/webhooks*
+_DELETE /api/v4/webhooks_
 
 #### Описание
 
@@ -201,7 +200,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -213,11 +212,9 @@
 
 #### Пример запроса
 
-```
-{
-    "destination": "https://example.test"
-}
-```
+    {
+        "destination": "https://example.test"
+    }
 
 #### HTTP коды ответа
 

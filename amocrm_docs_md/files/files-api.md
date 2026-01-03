@@ -1,4 +1,6 @@
-# https://www.amocrm.ru/developers/content/files/files-api
+<!-- https://www.amocrm.ru/developers/content/files/files-api -->
+
+# Оглавление
 
 Методы API
 
@@ -13,21 +15,19 @@
 **Важно учесть, что при добавлении файла по общему адресу, некоторые функции, например поиск этого файла, могут быть доступны с задержкой.  
 Для получения адреса сервиса, который обслуживает текущий аккаунт, можно запросить [свойства аккаунта](https://www.amocrm.ru/developers/content/crm_platform/account-info) с флагом `with=drive_url`.**
 
-### Оглавление
-
-* [Требования к работе с API файлов](#Требования-к-работе-с-API-файлов)
-* [Создание сессии загрузки файла](#Создание-сессии-загрузки-файла)
-* [Загрузка части файла](#Загрузка-части-файла)
-* [Получение файлов](#Получение-файлов)
-* [Получение файла по UUID](#Получение-файла-по-UUID)
-* [Редактирование файла](#Редактирование-файла)
-* [Удаление файлов](#Удаление-файлов)
-* [Восстановление файлов](#Восстановление-файлов)
-* [Получение версий файла](#Получение-версий-файла)
-* [Получение файлов связанных с сущностью](#Получение-файлов-связанных-с-сущностью)
-* [Привязка файлов к сущности](#Привязка-файлов-к-сущности)
-* [Отвязка файлов от сущности](#Отвязка-файлов-от-сущности)
-* [Получение сущностей связанных с файлом](#Получение-сущностей-связанных-с-файлом)
+*   [Требования к работе с API файлов](#Требования-к-работе-с-API-файлов)
+*   [Создание сессии загрузки файла](#Создание-сессии-загрузки-файла)
+*   [Загрузка части файла](#Загрузка-части-файла)
+*   [Получение файлов](#Получение-файлов)
+*   [Получение файла по UUID](#Получение-файла-по-UUID)
+*   [Редактирование файла](#Редактирование-файла)
+*   [Удаление файлов](#Удаление-файлов)
+*   [Восстановление файлов](#Восстановление-файлов)
+*   [Получение версий файла](#Получение-версий-файла)
+*   [Получение файлов связанных с сущностью](#Получение-файлов-связанных-с-сущностью)
+*   [Привязка файлов к сущности](#Привязка-файлов-к-сущности)
+*   [Отвязка файлов от сущности](#Отвязка-файлов-от-сущности)
+*   [Получение сущностей связанных с файлом](#Получение-сущностей-связанных-с-файлом)
 
 ### Требования к работе с API файлов
 
@@ -37,7 +37,7 @@
 
 #### Метод
 
-*POST /v1.0/sessions*
+_POST /v1.0/sessions_
 
 #### Описание
 
@@ -49,7 +49,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -65,22 +65,20 @@
 
 #### Пример запроса
 
-```
-{
-  "file_name": "aaa",
-  "file_size": 3435,
-  "content_type": "image/jpeg",
-  "file_uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
-}
-```
+    {
+      "file_name": "aaa",
+      "file_size": 3435,
+      "content_type": "image/jpeg",
+      "file_uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
+    }
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -104,20 +102,18 @@
 
 #### Пример ответа
 
-```
-{
-  "max_file_size": 314572800,
-  "max_part_size": 524288,
-  "session_id": 26136001,
-  "upload_url": "https://drive-b.amocrm.ru/v1.0/sessions/upload/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjc0MTg3MzYwMCwiaWF0Ijo3NDE4NzM2MDAsIm5iZiI6NzQxODczNjAwLCJhY2NvdW50X2lkIjo3Nzc3Nzc3Nywic2Vzc2lvbl9pZCI6Nzc3Nzc3NzcsInVzZXJfaWQiOjc3Nzc3NzcsInVzZXJfdHlwZSI6ImludGVybmFsIiwicGFydF9udW0iOjF9.8sdJVTZJ_MjuHhMGDkU7_eSi2q1u1EG-au_TZhmmXK8"
-}
-```
+    {
+      "max_file_size": 314572800,
+      "max_part_size": 524288,
+      "session_id": 26136001,
+      "upload_url": "https://drive-b.amocrm.ru/v1.0/sessions/upload/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjc0MTg3MzYwMCwiaWF0Ijo3NDE4NzM2MDAsIm5iZiI6NzQxODczNjAwLCJhY2NvdW50X2lkIjo3Nzc3Nzc3Nywic2Vzc2lvbl9pZCI6Nzc3Nzc3NzcsInVzZXJfaWQiOjc3Nzc3NzcsInVzZXJfdHlwZSI6ImludGVybmFsIiwicGFydF9udW0iOjF9.8sdJVTZJ_MjuHhMGDkU7_eSi2q1u1EG-au_TZhmmXK8"
+    }
 
 ### Загрузка части файла
 
 #### Метод
 
-*POST /v1.0/sessions/upload/{session\_token}*
+_POST /v1.0/sessions/upload/{session\_token}_
 
 #### Описание
 
@@ -126,11 +122,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -150,12 +146,10 @@
 
 #### Пример ответа
 
-```
-{
-  "next_url": "https://drive-b.amocrm.ru/v1.0/sessions/upload/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjc0MTg3MzYwMCwiaWF0Ijo3NDE4NzM2MDAsIm5iZiI6NzQxODczNjAwLCJhY2NvdW50X2lkIjo3Nzc3Nzc3Nywic2Vzc2lvbl9pZCI6Nzc3Nzc3NzcsInVzZXJfaWQiOjc3Nzc3NzcsInVzZXJfdHlwZSI6ImludGVybmFsIiwicGFydF9udW0iOjF9.8sdJVTZJ_MjuHhMGDkU7_eSi2q1u1EG-au_TZhmmXK8",
-  "session_id": 26434413
-}
-```
+    {
+      "next_url": "https://drive-b.amocrm.ru/v1.0/sessions/upload/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjc0MTg3MzYwMCwiaWF0Ijo3NDE4NzM2MDAsIm5iZiI6NzQxODczNjAwLCJhY2NvdW50X2lkIjo3Nzc3Nzc3Nywic2Vzc2lvbl9pZCI6Nzc3Nzc3NzcsInVzZXJfaWQiOjc3Nzc3NzcsInVzZXJfdHlwZSI6ImludGVybmFsIiwicGFydF9udW0iOjF9.8sdJVTZJ_MjuHhMGDkU7_eSi2q1u1EG-au_TZhmmXK8",
+      "session_id": 26434413
+    }
 
 #### Параметры ответа при загрузке последней части файла
 
@@ -174,62 +168,60 @@
 | has\_multiple\_versions | bool | Имеет ли файл множество версий |
 | created\_at | int | Время создания файла Unix Timestamp |
 | created\_by | object | Пользователь создавший файл |
-| created\_by[id] | int | ID пользователя создавшего файла |
-| created\_by[type] | string | Тип пользователя создавшего файла |
+| created\_by\[id\] | int | ID пользователя создавшего файла |
+| created\_by\[type\] | string | Тип пользователя создавшего файла |
 | updated\_at | int | Время последнего обновления файла Unix Timestamp |
 | updated\_by | object | Пользователь обновивший файл |
 | deleted\_at | int|null | Время удаления файла Unix Timestamp |
 | deleted\_by | object|null | Пользователь удаливший файл |
 | metadata | object|null | Метаданные файла |
-| metadata[extension] | string | Расширение файла |
-| metadata[mime\_type] | string | MIME-тип файла |
+| metadata\[extension\] | string | Расширение файла |
+| metadata\[mime\_type\] | string | MIME-тип файла |
 | previews | array|null | Массив превью для файла |
-| previews[0] | object | Превью файла |
-| previews[0][download\_link] | string | URL для загрузки превью |
-| previews[0][width] | int | Ширина превью |
-| previews[0][height] | int | Высота превью |
+| previews\[0\] | object | Превью файла |
+| previews\[0\]\[download\_link\] | string | URL для загрузки превью |
+| previews\[0\]\[width\] | int | Ширина превью |
+| previews\[0\]\[height\] | int | Высота превью |
 
 #### Пример ответа при загрузке последней части файла
 
-```
-{
-  "_links": {
-    "download": {
-      "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/picture.png"
-    },
-    "download_version": {
-      "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/43de3be7-307b-4766-a23e-5e88211b9a8d/picture.png"
-    },
-    "self": {
-      "href": "https://drive-b.amocrm.ru/v1.0/files/367b9f38-5f01-4cea-947e-dfab47aea522"
+    {
+      "_links": {
+        "download": {
+          "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/picture.png"
+        },
+        "download_version": {
+          "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/43de3be7-307b-4766-a23e-5e88211b9a8d/picture.png"
+        },
+        "self": {
+          "href": "https://drive-b.amocrm.ru/v1.0/files/367b9f38-5f01-4cea-947e-dfab47aea522"
+        }
+      },
+      "created_at": 1671687247,
+      "created_by": { "type": "internal", "id": 7758337 },
+      "deleted_at": null,
+      "deleted_by": null,
+      "has_multiple_versions": false,
+      "is_trashed": false,
+      "metadata": { "extension": "png", "mime_type": "image/png" },
+      "name": "product",
+      "previews": null,
+      "sanitized_name": "product",
+      "session_id": 26136001,
+      "size": 7526,
+      "source_id": null,
+      "type": "file",
+      "updated_at": 1671687247,
+      "updated_by": { "type": "internal", "id": 7758337 },
+      "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522",
+      "version_uuid": "43de3be7-307b-4766-a23e-5e88211b9a8d"
     }
-  },
-  "created_at": 1671687247,
-  "created_by": { "type": "internal", "id": 7758337 },
-  "deleted_at": null,
-  "deleted_by": null,
-  "has_multiple_versions": false,
-  "is_trashed": false,
-  "metadata": { "extension": "png", "mime_type": "image/png" },
-  "name": "product",
-  "previews": null,
-  "sanitized_name": "product",
-  "session_id": 26136001,
-  "size": 7526,
-  "source_id": null,
-  "type": "file",
-  "updated_at": 1671687247,
-  "updated_by": { "type": "internal", "id": 7758337 },
-  "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522",
-  "version_uuid": "43de3be7-307b-4766-a23e-5e88211b9a8d"
-}
-```
 
 ### Получение файлов
 
 #### Метод
 
-*GET /v1.0/files*
+_GET /v1.0/files_
 
 #### Описание
 
@@ -243,29 +235,29 @@
 
 | Параметр | Тип данных | Описание |
 | --- | --- | --- |
-| filter[uuid] | string | Массив UUID’ов файлов, перечисленных через запятую |
-| filter[name] | string | Имя файла |
-| filter[extensions][] | string | Расширение файла |
-| filter[term] | string | Подстрока содержащаяся в имение файла или имени какой-то из связанных сущностей |
-| filter[source\_id] | int | Идентификатор источника из которого был получен файл |
-| filter[deleted] | null | Если параметр передан, то будут выведены удалённые файлы |
-| filter[size][unit] | int | Количество байт в единице размера файла (по умолчанию 1 байт) |
-| filter[size][from] | int | Минимальный размер файла |
-| filter[size][to] | int | Максимальный размер файла |
-| filter[date][type] | string | Тип события по которому производится фильтрация. Возможные значения – created\_at, updated\_at |
-| filter[date][date\_preset] | string | Пресет для задания временного диапазона. Возможные значения – day, tomorrow, yesterday, week, previous\_week, next\_week, month, next\_month, previous\_month, quarter, previous\_quarter, next\_quarter, last\_3\_days, next\_3\_days, last\_6\_month, year |
-| filter[date][from] | int | Время после которого произошло событие Unix Timestamp |
-| filter[date][to] | int | Время до которого произошло событие Unix Timestamp |
-| filter[created\_by][] | int | Создатель файла. Возможные значения: -1 – клиент, 0 – робот, {id} – внутренний пользователь |
-| filter[updated\_by][] | int | Пользователь последний обновивший файл. Возможные значения: -1 – клиент, 0 – робот, {id} – внутренний пользователь |
+| filter\[uuid\] | string | Массив UUID’ов файлов, перечисленных через запятую |
+| filter\[name\] | string | Имя файла |
+| filter\[extensions\]\[\] | string | Расширение файла |
+| filter\[term\] | string | Подстрока содержащаяся в имение файла или имени какой-то из связанных сущностей |
+| filter\[source\_id\] | int | Идентификатор источника из которого был получен файл |
+| filter\[deleted\] | null | Если параметр передан, то будут выведены удалённые файлы |
+| filter\[size\]\[unit\] | int | Количество байт в единице размера файла (по умолчанию 1 байт) |
+| filter\[size\]\[from\] | int | Минимальный размер файла |
+| filter\[size\]\[to\] | int | Максимальный размер файла |
+| filter\[date\]\[type\] | string | Тип события по которому производится фильтрация. Возможные значения – created\_at, updated\_at |
+| filter\[date\]\[date\_preset\] | string | Пресет для задания временного диапазона. Возможные значения – day, tomorrow, yesterday, week, previous\_week, next\_week, month, next\_month, previous\_month, quarter, previous\_quarter, next\_quarter, last\_3\_days, next\_3\_days, last\_6\_month, year |
+| filter\[date\]\[from\] | int | Время после которого произошло событие Unix Timestamp |
+| filter\[date\]\[to\] | int | Время до которого произошло событие Unix Timestamp |
+| filter\[created\_by\]\[\] | int | Создатель файла. Возможные значения: -1 – клиент, 0 – робот, {id} – внутренний пользователь |
+| filter\[updated\_by\]\[\] | int | Пользователь последний обновивший файл. Возможные значения: -1 – клиент, 0 – робот, {id} – внутренний пользователь |
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -283,90 +275,88 @@
 
 #### Пример ответа
 
-```
-{
-  "_count": 25,
-  "_embedded": {
-    "files": [
-      {
-        "_links": {
-          "download": {
-            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
+    {
+      "_count": 25,
+      "_embedded": {
+        "files": [
+          {
+            "_links": {
+              "download": {
+                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
+              },
+              "download_version": {
+                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/0244c437-1637-4cdf-887a-e574f55eb114/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
+              },
+              "self": {
+                "href": "https://drive-b.amocrm.ru/v1.0/files/26ec7266-d953-433b-8bc5-737eb70da87a"
+              }
+            },
+            "created_at": 1671871033,
+            "created_by": { "type": "internal", "id": 7758337 },
+            "deleted_at": null,
+            "deleted_by": null,
+            "has_multiple_versions": false,
+            "is_trashed": false,
+            "metadata": { "extension": "jpg", "mime_type": "image/jpeg" },
+            "name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
+            "previews": null,
+            "sanitized_name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
+            "size": 38635,
+            "source_id": null,
+            "type": "image",
+            "updated_at": 1671871033,
+            "updated_by": { "type": "internal", "id": 7758337 },
+            "uuid": "26ec7266-d953-433b-8bc5-737eb70da87a",
+            "version_uuid": "0244c437-1637-4cdf-887a-e574f55eb114"
           },
-          "download_version": {
-            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/0244c437-1637-4cdf-887a-e574f55eb114/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
+          {
+            "_links": {
+              "download": {
+                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/-96.png"
+              },
+              "download_version": {
+                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/2a93e2a2-7c09-4f0d-b8ee-f0228e890307/-96.png"
+              },
+              "self": {
+                "href": "https://drive-b.amocrm.ru/v1.0/files/9403badc-5690-4c7d-a999-be09f8c57566"
+              }
+            },
+            "created_at": 1671814907,
+            "created_by": { "type": "internal", "id": 2647957 },
+            "deleted_at": null,
+            "deleted_by": null,
+            "has_multiple_versions": false,
+            "is_trashed": false,
+            "metadata": { "extension": "png", "mime_type": "image/png" },
+            "name": "_96",
+            "previews": null,
+            "sanitized_name": "-96",
+            "size": 5230,
+            "source_id": null,
+            "type": "image",
+            "updated_at": 1671814907,
+            "updated_by": { "type": "internal", "id": 2647957 },
+            "uuid": "9403badc-5690-4c7d-a999-be09f8c57566",
+            "version_uuid": "2a93e2a2-7c09-4f0d-b8ee-f0228e890307"
           },
-          "self": {
-            "href": "https://drive-b.amocrm.ru/v1.0/files/26ec7266-d953-433b-8bc5-737eb70da87a"
-          }
-        },
-        "created_at": 1671871033,
-        "created_by": { "type": "internal", "id": 7758337 },
-        "deleted_at": null,
-        "deleted_by": null,
-        "has_multiple_versions": false,
-        "is_trashed": false,
-        "metadata": { "extension": "jpg", "mime_type": "image/jpeg" },
-        "name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
-        "previews": null,
-        "sanitized_name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
-        "size": 38635,
-        "source_id": null,
-        "type": "image",
-        "updated_at": 1671871033,
-        "updated_by": { "type": "internal", "id": 7758337 },
-        "uuid": "26ec7266-d953-433b-8bc5-737eb70da87a",
-        "version_uuid": "0244c437-1637-4cdf-887a-e574f55eb114"
+          ...
+        ]
       },
-      {
-        "_links": {
-          "download": {
-            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/-96.png"
-          },
-          "download_version": {
-            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/2a93e2a2-7c09-4f0d-b8ee-f0228e890307/-96.png"
-          },
-          "self": {
-            "href": "https://drive-b.amocrm.ru/v1.0/files/9403badc-5690-4c7d-a999-be09f8c57566"
-          }
+      "_links": {
+        "next": {
+          "href": "https://drive-b.amocrm.ru/v1.0/files?filter%5Bextensions%5D%5B%5D=bmp&filter%5Bextensions%5D%5B%5D=jpeg&filter%5Bextensions%5D%5B%5D=jpg&filter%5Bextensions%5D%5B%5D=png&filter%5Bis_filter%5D=true&filter%5Bsize%5D%5Bunit%5D=1000000&limit=25&page=2"
         },
-        "created_at": 1671814907,
-        "created_by": { "type": "internal", "id": 2647957 },
-        "deleted_at": null,
-        "deleted_by": null,
-        "has_multiple_versions": false,
-        "is_trashed": false,
-        "metadata": { "extension": "png", "mime_type": "image/png" },
-        "name": "_96",
-        "previews": null,
-        "sanitized_name": "-96",
-        "size": 5230,
-        "source_id": null,
-        "type": "image",
-        "updated_at": 1671814907,
-        "updated_by": { "type": "internal", "id": 2647957 },
-        "uuid": "9403badc-5690-4c7d-a999-be09f8c57566",
-        "version_uuid": "2a93e2a2-7c09-4f0d-b8ee-f0228e890307"
-      },
-      ...
-    ]
-  },
-  "_links": {
-    "next": {
-      "href": "https://drive-b.amocrm.ru/v1.0/files?filter%5Bextensions%5D%5B%5D=bmp&filter%5Bextensions%5D%5B%5D=jpeg&filter%5Bextensions%5D%5B%5D=jpg&filter%5Bextensions%5D%5B%5D=png&filter%5Bis_filter%5D=true&filter%5Bsize%5D%5Bunit%5D=1000000&limit=25&page=2"
-    },
-    "self": {
-      "href": "https://drive-b.amocrm.ru/v1.0/files?filter%5Bextensions%5D%5B%5D=bmp&filter%5Bextensions%5D%5B%5D=jpeg&filter%5Bextensions%5D%5B%5D=jpg&filter%5Bextensions%5D%5B%5D=png&filter%5Bis_filter%5D=true&filter%5Bsize%5D%5Bunit%5D=1000000&limit=25&page=1"
+        "self": {
+          "href": "https://drive-b.amocrm.ru/v1.0/files?filter%5Bextensions%5D%5B%5D=bmp&filter%5Bextensions%5D%5B%5D=jpeg&filter%5Bextensions%5D%5B%5D=jpg&filter%5Bextensions%5D%5B%5D=png&filter%5Bis_filter%5D=true&filter%5Bsize%5D%5Bunit%5D=1000000&limit=25&page=1"
+        }
+      }
     }
-  }
-}
-```
 
 ### Получение файла по UUID
 
 #### Метод
 
-*GET /v1.0/files/{file\_uuid}*
+_GET /v1.0/files/{file\_uuid}_
 
 #### Описание
 
@@ -378,11 +368,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -399,45 +389,43 @@
 
 #### Пример ответа
 
-```
-{
-  "_links": {
-    "download": {
-      "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/picture.png"
-    },
-    "download_version": {
-      "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/43de3be7-307b-4766-a23e-5e88211b9a8d/picture.png"
-    },
-    "self": {
-      "href": "https://drive-b.amocrm.ru/v1.0/files/367b9f38-5f01-4cea-947e-dfab47aea522"
+    {
+      "_links": {
+        "download": {
+          "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/picture.png"
+        },
+        "download_version": {
+          "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/43de3be7-307b-4766-a23e-5e88211b9a8d/picture.png"
+        },
+        "self": {
+          "href": "https://drive-b.amocrm.ru/v1.0/files/367b9f38-5f01-4cea-947e-dfab47aea522"
+        }
+      },
+      "created_at": 1671687247,
+      "created_by": { "type": "internal", "id": 7758337 },
+      "deleted_at": null,
+      "deleted_by": null,
+      "has_multiple_versions": false,
+      "is_trashed": false,
+      "metadata": { "extension": "png", "mime_type": "image/png" },
+      "name": "product",
+      "previews": null,
+      "sanitized_name": "product",
+      "session_id": 26136001,
+      "size": 7526,
+      "source_id": null,
+      "type": "file",
+      "updated_at": 1671687247,
+      "updated_by": { "type": "internal", "id": 7758337 },
+      "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522",
+      "version_uuid": "43de3be7-307b-4766-a23e-5e88211b9a8d"
     }
-  },
-  "created_at": 1671687247,
-  "created_by": { "type": "internal", "id": 7758337 },
-  "deleted_at": null,
-  "deleted_by": null,
-  "has_multiple_versions": false,
-  "is_trashed": false,
-  "metadata": { "extension": "png", "mime_type": "image/png" },
-  "name": "product",
-  "previews": null,
-  "sanitized_name": "product",
-  "session_id": 26136001,
-  "size": 7526,
-  "source_id": null,
-  "type": "file",
-  "updated_at": 1671687247,
-  "updated_by": { "type": "internal", "id": 7758337 },
-  "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522",
-  "version_uuid": "43de3be7-307b-4766-a23e-5e88211b9a8d"
-}
-```
 
 ### Редактирование файла
 
 #### Метод
 
-*PATCH /v1.0/files/{file\_uuid}*
+_PATCH /v1.0/files/{file\_uuid}_
 
 #### Описание
 
@@ -449,7 +437,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -462,23 +450,21 @@
 
 #### Пример запроса
 
-```
-{
-  "name": "Новое имя файла"
-}
-
-{
-  "version_uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
-}
-```
+    {
+      "name": "Новое имя файла"
+    }
+    
+    {
+      "version_uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
+    }
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -496,45 +482,43 @@
 
 #### Пример ответа
 
-```
-{
-  "_links": {
-    "download": {
-      "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/picture.png"
-    },
-    "download_version": {
-      "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/43de3be7-307b-4766-a23e-5e88211b9a8d/picture.png"
-    },
-    "self": {
-      "href": "https://drive-b.amocrm.ru/v1.0/files/367b9f38-5f01-4cea-947e-dfab47aea522"
+    {
+      "_links": {
+        "download": {
+          "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/picture.png"
+        },
+        "download_version": {
+          "href": "https://drive-b.amocrm.ru/download/aff5603a-28b1-4c17-8e98-16e473b323b3/367b9f38-5f01-4cea-947e-dfab47aea522/43de3be7-307b-4766-a23e-5e88211b9a8d/picture.png"
+        },
+        "self": {
+          "href": "https://drive-b.amocrm.ru/v1.0/files/367b9f38-5f01-4cea-947e-dfab47aea522"
+        }
+      },
+      "created_at": 1671687247,
+      "created_by": { "type": "internal", "id": 7758337 },
+      "deleted_at": null,
+      "deleted_by": null,
+      "has_multiple_versions": false,
+      "is_trashed": false,
+      "metadata": { "extension": "png", "mime_type": "image/png" },
+      "name": "product",
+      "previews": null,
+      "sanitized_name": "product",
+      "session_id": 26136001,
+      "size": 7526,
+      "source_id": null,
+      "type": "file",
+      "updated_at": 1671687247,
+      "updated_by": { "type": "internal", "id": 7758337 },
+      "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522",
+      "version_uuid": "43de3be7-307b-4766-a23e-5e88211b9a8d"
     }
-  },
-  "created_at": 1671687247,
-  "created_by": { "type": "internal", "id": 7758337 },
-  "deleted_at": null,
-  "deleted_by": null,
-  "has_multiple_versions": false,
-  "is_trashed": false,
-  "metadata": { "extension": "png", "mime_type": "image/png" },
-  "name": "product",
-  "previews": null,
-  "sanitized_name": "product",
-  "session_id": 26136001,
-  "size": 7526,
-  "source_id": null,
-  "type": "file",
-  "updated_at": 1671687247,
-  "updated_by": { "type": "internal", "id": 7758337 },
-  "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522",
-  "version_uuid": "43de3be7-307b-4766-a23e-5e88211b9a8d"
-}
-```
 
 ### Удаление файлов
 
 #### Метод
 
-*DELETE /v1.0/files*
+_DELETE /v1.0/files_
 
 #### Описание
 
@@ -546,7 +530,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -558,24 +542,22 @@
 
 #### Пример запроса
 
-```
-[
-  {
-    "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
-  },
-  {
-    "uuid": "bf1097fb-58fe-42c1-b385-ac443228ddd0"
-  }
-]
-```
+    [
+      {
+        "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
+      },
+      {
+        "uuid": "bf1097fb-58fe-42c1-b385-ac443228ddd0"
+      }
+    ]
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -594,7 +576,7 @@
 
 #### Метод
 
-*POST /v1.0/files/restore*
+_POST /v1.0/files/restore_
 
 #### Описание
 
@@ -606,7 +588,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -618,24 +600,22 @@
 
 #### Пример запроса
 
-```
-[
-  {
-    "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
-  },
-  {
-    "uuid": "bf1097fb-58fe-42c1-b385-ac443228ddd0"
-  }
-]
-```
+    [
+      {
+        "uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
+      },
+      {
+        "uuid": "bf1097fb-58fe-42c1-b385-ac443228ddd0"
+      }
+    ]
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -652,81 +632,79 @@
 
 #### Пример ответа
 
-```
-{
-  "_count": 2,
-  "_embedded": {
-    "files": [
-      {
-        "_links": {
-          "download": {
-            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
+    {
+      "_count": 2,
+      "_embedded": {
+        "files": [
+          {
+            "_links": {
+              "download": {
+                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
+              },
+              "download_version": {
+                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/0244c437-1637-4cdf-887a-e574f55eb114/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
+              },
+              "self": {
+                "href": "https://drive-b.amocrm.ru/v1.0/files/26ec7266-d953-433b-8bc5-737eb70da87a"
+              }
+            },
+            "created_at": 1671871033,
+            "created_by": { "type": "internal", "id": 7758337 },
+            "deleted_at": null,
+            "deleted_by": null,
+            "has_multiple_versions": false,
+            "is_trashed": false,
+            "metadata": { "extension": "jpg", "mime_type": "image/jpeg" },
+            "name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
+            "previews": null,
+            "sanitized_name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
+            "size": 38635,
+            "source_id": null,
+            "type": "image",
+            "updated_at": 1671871033,
+            "updated_by": { "type": "internal", "id": 7758337 },
+            "uuid": "26ec7266-d953-433b-8bc5-737eb70da87a",
+            "version_uuid": "0244c437-1637-4cdf-887a-e574f55eb114"
           },
-          "download_version": {
-            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/26ec7266-d953-433b-8bc5-737eb70da87a/0244c437-1637-4cdf-887a-e574f55eb114/8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX.jpg"
-          },
-          "self": {
-            "href": "https://drive-b.amocrm.ru/v1.0/files/26ec7266-d953-433b-8bc5-737eb70da87a"
+          {
+            "_links": {
+              "download": {
+                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/-96.png"
+              },
+              "download_version": {
+                "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/2a93e2a2-7c09-4f0d-b8ee-f0228e890307/-96.png"
+              },
+              "self": {
+                "href": "https://drive-b.amocrm.ru/v1.0/files/9403badc-5690-4c7d-a999-be09f8c57566"
+              }
+            },
+            "created_at": 1671814907,
+            "created_by": { "type": "internal", "id": 2647957 },
+            "deleted_at": null,
+            "deleted_by": null,
+            "has_multiple_versions": false,
+            "is_trashed": false,
+            "metadata": { "extension": "png", "mime_type": "image/png" },
+            "name": "_96",
+            "previews": null,
+            "sanitized_name": "-96",
+            "size": 5230,
+            "source_id": null,
+            "type": "image",
+            "updated_at": 1671814907,
+            "updated_by": { "type": "internal", "id": 2647957 },
+            "uuid": "9403badc-5690-4c7d-a999-be09f8c57566",
+            "version_uuid": "2a93e2a2-7c09-4f0d-b8ee-f0228e890307"
           }
-        },
-        "created_at": 1671871033,
-        "created_by": { "type": "internal", "id": 7758337 },
-        "deleted_at": null,
-        "deleted_by": null,
-        "has_multiple_versions": false,
-        "is_trashed": false,
-        "metadata": { "extension": "jpg", "mime_type": "image/jpeg" },
-        "name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
-        "previews": null,
-        "sanitized_name": "8Z5PQ3D7wbS6Doz-svQ0zYdWXeTq8HqfSQzjM-aDY2cI5uM3wcRZ0dD8nLV8TUcX",
-        "size": 38635,
-        "source_id": null,
-        "type": "image",
-        "updated_at": 1671871033,
-        "updated_by": { "type": "internal", "id": 7758337 },
-        "uuid": "26ec7266-d953-433b-8bc5-737eb70da87a",
-        "version_uuid": "0244c437-1637-4cdf-887a-e574f55eb114"
-      },
-      {
-        "_links": {
-          "download": {
-            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/-96.png"
-          },
-          "download_version": {
-            "href": "https://drive-b.amocrm.ru/download/367b9f38-5f01-4cea-947e-dfab47aea522/9403badc-5690-4c7d-a999-be09f8c57566/2a93e2a2-7c09-4f0d-b8ee-f0228e890307/-96.png"
-          },
-          "self": {
-            "href": "https://drive-b.amocrm.ru/v1.0/files/9403badc-5690-4c7d-a999-be09f8c57566"
-          }
-        },
-        "created_at": 1671814907,
-        "created_by": { "type": "internal", "id": 2647957 },
-        "deleted_at": null,
-        "deleted_by": null,
-        "has_multiple_versions": false,
-        "is_trashed": false,
-        "metadata": { "extension": "png", "mime_type": "image/png" },
-        "name": "_96",
-        "previews": null,
-        "sanitized_name": "-96",
-        "size": 5230,
-        "source_id": null,
-        "type": "image",
-        "updated_at": 1671814907,
-        "updated_by": { "type": "internal", "id": 2647957 },
-        "uuid": "9403badc-5690-4c7d-a999-be09f8c57566",
-        "version_uuid": "2a93e2a2-7c09-4f0d-b8ee-f0228e890307"
+        ]
       }
-    ]
-  }
-}
-```
+    }
 
 ### Получение версий файла
 
 #### Метод
 
-*GET /v1.0/files/{file\_uuid}/versions*
+_GET /v1.0/files/{file\_uuid}/versions_
 
 #### Описание
 
@@ -738,11 +716,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### HTTP коды ответа
 
@@ -770,95 +748,93 @@
 | source\_id | int|null | Идентификатор источника из которого пришла версия файла |
 | created\_at | int | Время создания версии файла Unix Timestamp |
 | created\_by | object | Пользователь создавший версию файла |
-| created\_by[id] | int | ID пользователя создавшего версию файла |
-| created\_by[type] | string | Тип пользователя создавшего версию файла |
+| created\_by\[id\] | int | ID пользователя создавшего версию файла |
+| created\_by\[type\] | string | Тип пользователя создавшего версию файла |
 | updated\_at | int | Время последнего обновления версии файла Unix Timestamp |
 | updated\_by | object | Пользователь обновивший версию файла |
 | metadata | object|null | Метаданные файла |
-| metadata[extension] | string | Расширение файла |
-| metadata[mime\_type] | string | MIME-тип файла |
+| metadata\[extension\] | string | Расширение файла |
+| metadata\[mime\_type\] | string | MIME-тип файла |
 | previews | array|null | Массив превью для файла |
-| previews[0] | object | Превью файла |
-| previews[0][download\_link] | string | URL для загрузки превью |
-| previews[0][width] | int | Ширина превью |
-| previews[0][height] | int | Высота превью |
+| previews\[0\] | object | Превью файла |
+| previews\[0\]\[download\_link\] | string | URL для загрузки превью |
+| previews\[0\]\[width\] | int | Ширина превью |
+| previews\[0\]\[height\] | int | Высота превью |
 
 #### Пример ответа
 
-```
-{
-  "_count": 2,
-  "_embedded": {
-    "versions": [
-      {
-        "_links": {
-          "download": {
-            "href": "https://drive-b.amocrm.ru/download/21c0e773-0b10-57ac-96d1-c0b97ba6a3f7/89a61e7b-ba30-476f-b2f6-705a964e85c6/fd8401e1-c1db-4033-851c-1df68d40f579/source.jpeg"
+    {
+      "_count": 2,
+      "_embedded": {
+        "versions": [
+          {
+            "_links": {
+              "download": {
+                "href": "https://drive-b.amocrm.ru/download/21c0e773-0b10-57ac-96d1-c0b97ba6a3f7/89a61e7b-ba30-476f-b2f6-705a964e85c6/fd8401e1-c1db-4033-851c-1df68d40f579/source.jpeg"
+              },
+              "self": {
+                "href": "https://drive-b.amocrm.ru/v1.0/files/89a61e7b-ba30-476f-b2f6-705a964e85c6/versions/fd8401e1-c1db-4033-851c-1df68d40f579"
+              }
+            },
+            "created_at": 1671995440,
+            "created_by": { "type": "internal", "id": 7758337 },
+            "file_uuid": "89a61e7b-ba30-476f-b2f6-705a964e85c6",
+            "is_main": true,
+            "metadata": { "extension": "jpeg", "mime_type": "image/jpeg" },
+            "name": "source",
+            "previews": null,
+            "sanitized_name": "source",
+            "size": 93425,
+            "source_id": null,
+            "type": "image",
+            "updated_at": 1671995440,
+            "updated_by": { "type": "internal", "id": 7758337 },
+            "uuid": "fd8401e1-c1db-4033-851c-1df68d40f579"
           },
-          "self": {
-            "href": "https://drive-b.amocrm.ru/v1.0/files/89a61e7b-ba30-476f-b2f6-705a964e85c6/versions/fd8401e1-c1db-4033-851c-1df68d40f579"
+          {
+            "_links": {
+              "download": {
+                "href": "https://drive-b.amocrm.ru/download/21c0e773-0b10-57ac-96d1-c0b97ba6a3f7/89a61e7b-ba30-476f-b2f6-705a964e85c6/17006a5b-aa43-4b2f-a380-e851786b9a57/consoleText.txt"
+              },
+              "self": {
+                "href": "https://drive-b.amocrm.ru/v1.0/files/89a61e7b-ba30-476f-b2f6-705a964e85c6/versions/17006a5b-aa43-4b2f-a380-e851786b9a57"
+              }
+            },
+            "created_at": 1663233556,
+            "created_by": { "type": "internal", "id": 7758337 },
+            "file_uuid": "89a61e7b-ba30-476f-b2f6-705a964e85c6",
+            "is_main": false,
+            "metadata": { "extension": "txt", "mime_type": "" },
+            "name": "consoleText",
+            "previews": null,
+            "sanitized_name": "consoleText",
+            "size": 7347,
+            "source_id": null,
+            "type": "file",
+            "updated_at": 1670599185,
+            "updated_by": { "type": "internal", "id": 7758337 },
+            "uuid": "17006a5b-aa43-4b2f-a380-e851786b9a57"
           }
-        },
-        "created_at": 1671995440,
-        "created_by": { "type": "internal", "id": 7758337 },
-        "file_uuid": "89a61e7b-ba30-476f-b2f6-705a964e85c6",
-        "is_main": true,
-        "metadata": { "extension": "jpeg", "mime_type": "image/jpeg" },
-        "name": "source",
-        "previews": null,
-        "sanitized_name": "source",
-        "size": 93425,
-        "source_id": null,
-        "type": "image",
-        "updated_at": 1671995440,
-        "updated_by": { "type": "internal", "id": 7758337 },
-        "uuid": "fd8401e1-c1db-4033-851c-1df68d40f579"
+        ]
       },
-      {
-        "_links": {
-          "download": {
-            "href": "https://drive-b.amocrm.ru/download/21c0e773-0b10-57ac-96d1-c0b97ba6a3f7/89a61e7b-ba30-476f-b2f6-705a964e85c6/17006a5b-aa43-4b2f-a380-e851786b9a57/consoleText.txt"
-          },
-          "self": {
-            "href": "https://drive-b.amocrm.ru/v1.0/files/89a61e7b-ba30-476f-b2f6-705a964e85c6/versions/17006a5b-aa43-4b2f-a380-e851786b9a57"
-          }
-        },
-        "created_at": 1663233556,
-        "created_by": { "type": "internal", "id": 7758337 },
-        "file_uuid": "89a61e7b-ba30-476f-b2f6-705a964e85c6",
-        "is_main": false,
-        "metadata": { "extension": "txt", "mime_type": "" },
-        "name": "consoleText",
-        "previews": null,
-        "sanitized_name": "consoleText",
-        "size": 7347,
-        "source_id": null,
-        "type": "file",
-        "updated_at": 1670599185,
-        "updated_by": { "type": "internal", "id": 7758337 },
-        "uuid": "17006a5b-aa43-4b2f-a380-e851786b9a57"
+      "_links": {
+        "self": {
+          "href": "https://drive-b.amocrm.ru/v1.0/files/89a61e7b-ba30-476f-b2f6-705a964e85c6/versions"
+        }
       }
-    ]
-  },
-  "_links": {
-    "self": {
-      "href": "https://drive-b.amocrm.ru/v1.0/files/89a61e7b-ba30-476f-b2f6-705a964e85c6/versions"
     }
-  }
-}
-```
 
 ### Получение файлов связанных с сущностью
 
 #### Метод
 
-*GET /api/v4/leads/{entity\_id}/files*
+_GET /api/v4/leads/{entity\_id}/files_
 
-*GET /api/v4/contacts/{entity\_id}/files*
+_GET /api/v4/contacts/{entity\_id}/files_
 
-*GET /api/v4/companies/{entity\_id}/files*
+_GET /api/v4/companies/{entity\_id}/files_
 
-*GET /api/v4/customers/{entity\_id}/files*
+_GET /api/v4/customers/{entity\_id}/files_
 
 #### Описание
 
@@ -879,11 +855,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -907,33 +883,31 @@
 
 #### Пример ответа
 
-```
-{
-  "_links": {
-    "self": {
-      "href": "https://wombat.amocrm.ru/ajax/v4/leads/18437733/files?limit=50"
+    {
+      "_links": {
+        "self": {
+          "href": "https://wombat.amocrm.ru/ajax/v4/leads/18437733/files?limit=50"
+        }
+      },
+      "_embedded": {
+        "files": [
+          { "file_uuid": "50ca4b6b-0b88-4ece-9f89-d48961579ae0", "id": 2140857 },
+          { "file_uuid": "5ef222cd-bce4-4df8-8466-3dee7d16e70d", "id": 2128681 }
+        ]
+      }
     }
-  },
-  "_embedded": {
-    "files": [
-      { "file_uuid": "50ca4b6b-0b88-4ece-9f89-d48961579ae0", "id": 2140857 },
-      { "file_uuid": "5ef222cd-bce4-4df8-8466-3dee7d16e70d", "id": 2128681 }
-    ]
-  }
-}
-```
 
 ### Привязка файлов к сущности
 
 #### Метод
 
-*PUT /api/v4/leads/{entity\_id}/files*
+_PUT /api/v4/leads/{entity\_id}/files_
 
-*PUT /api/v4/contacts/{entity\_id}/files*
+_PUT /api/v4/contacts/{entity\_id}/files_
 
-*PUT /api/v4/companies/{entity\_id}/files*
+_PUT /api/v4/companies/{entity\_id}/files_
 
-*PUT /api/v4/customers/{entity\_id}/files*
+_PUT /api/v4/customers/{entity\_id}/files_
 
 #### Описание
 
@@ -945,7 +919,7 @@
 
 #### Заголовок запроса
 
-*Content-Type: application/json*
+_Content-Type: application/json_
 
 #### Параметры запроса
 
@@ -957,24 +931,22 @@
 
 #### Пример запроса
 
-```
-[
-  {
-    "file_uuid": "50ca4b6b-0b88-4ece-9f89-d48961579ae0"
-  },
-  {
-    "file_uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
-  }
-]
-```
+    [
+      {
+        "file_uuid": "50ca4b6b-0b88-4ece-9f89-d48961579ae0"
+      },
+      {
+        "file_uuid": "367b9f38-5f01-4cea-947e-dfab47aea522"
+      }
+    ]
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -994,13 +966,13 @@
 
 #### Метод
 
-*DELETE /api/v4/leads/{entity\_id}/files*
+_DELETE /api/v4/leads/{entity\_id}/files_
 
-*DELETE /api/v4/contacts/{entity\_id}/files*
+_DELETE /api/v4/contacts/{entity\_id}/files_
 
-*DELETE /api/v4/companies/{entity\_id}/files*
+_DELETE /api/v4/companies/{entity\_id}/files_
 
-*DELETE /api/v4/customers/{entity\_id}/files*
+_DELETE /api/v4/customers/{entity\_id}/files_
 
 #### Описание
 
@@ -1020,11 +992,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -1044,7 +1016,7 @@
 
 #### Метод
 
-*GET /api/v4/files/{file\_uuid}/links*
+_GET /api/v4/files/{file\_uuid}/links_
 
 #### Описание
 
@@ -1056,11 +1028,11 @@
 
 #### Заголовок типа данных при успешном результате
 
-*Content-Type: application/hal+json*
+_Content-Type: application/hal+json_
 
 #### Заголовок типа данных при ошибке
 
-*Content-Type: application/problem+json*
+_Content-Type: application/problem+json_
 
 #### HTTP коды ответа
 
@@ -1079,42 +1051,40 @@
 | --- | --- | --- |
 | file\_uuid | string | UUID файла |
 | entities | array | Массив связанных с файлом сущностей |
-| entities[0] | object | Связанная с файлом сущность |
+| entities\[0\] | object | Связанная с файлом сущность |
 
 #### Пример ответа
 
-```
-{
-  "file_uuid": "5ef222cd-bce4-4df8-8466-3dee7d16e70d",
-  "entities": [
     {
-      "id": 22859207,
-      "name": "Сделка #22859207",
-      "created_by": 0,
-      "main_user_id": 7758337,
-      "date_create": 1669372247,
-      "price": 20,
-      "pipeline_id": 3858604,
-      "date_update": 1672060100,
-      "updated_by": 7758337,
-      "entity_type": "leads",
-      "status_id": 37066879,
-      "closest_task_at": null
-    },
-    {
-      "id": 19229439,
-      "name": "Сделка #19229439",
-      "created_by": 0,
-      "main_user_id": 7758337,
-      "date_create": 1651773549,
-      "price": 20,
-      "pipeline_id": 3858604,
-      "date_update": 1662404148,
-      "updated_by": null,
-      "entity_type": "leads",
-      "status_id": 37066876,
-      "closest_task_at": null
+      "file_uuid": "5ef222cd-bce4-4df8-8466-3dee7d16e70d",
+      "entities": [
+        {
+          "id": 22859207,
+          "name": "Сделка #22859207",
+          "created_by": 0,
+          "main_user_id": 7758337,
+          "date_create": 1669372247,
+          "price": 20,
+          "pipeline_id": 3858604,
+          "date_update": 1672060100,
+          "updated_by": 7758337,
+          "entity_type": "leads",
+          "status_id": 37066879,
+          "closest_task_at": null
+        },
+        {
+          "id": 19229439,
+          "name": "Сделка #19229439",
+          "created_by": 0,
+          "main_user_id": 7758337,
+          "date_create": 1651773549,
+          "price": 20,
+          "pipeline_id": 3858604,
+          "date_update": 1662404148,
+          "updated_by": null,
+          "entity_type": "leads",
+          "status_id": 37066876,
+          "closest_task_at": null
+        }
+      ]
     }
-  ]
-}
-```
