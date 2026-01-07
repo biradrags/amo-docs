@@ -38,8 +38,8 @@
 
 В настройках отображаются все доступные поставщики уведомлений.
 
-![](/uploads/2019/06/activate_notifications.jpg)
+![](https://www.amocrm.ru/uploads/2019/06/activate_notifications.jpg)
 
 Для настройки каналов доставки, необходимо выбрать нужные, установить режим получения уведомлений, если активен канал **Email** и нажать кнопку **Сохранить**.
 
-![](/uploads/2019/06/save_profile_settings.jpg)
+![](https://www.amocrm.ru/uploads/2019/06/save_profile_settings.jpg)

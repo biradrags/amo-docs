@@ -555,10 +555,10 @@ switch ($hookBody['message']['message']['type']) {
       "file_size": 0,
       "template": {
         "id": 7103,
-        "content": "Текст сообщения {{lead.name}}",
+        "content": "Текст сообщения \{\{lead.name\}\}",
         "params": [
           {
-            "key": "{{lead.id}}",
+            "key": "\{\{lead.id\}\}",
             "value": "15926745"
           }
         ]

@@ -50,7 +50,7 @@ self.render_template({
     class_name: 'widget-caption-unique-class-name'
   },
   render: '<div class="widget-body-unique-class-name">' +
-    ‘Количество сделок: {{count}}’ +
+    ‘Количество сделок: \{\{count\}\}’ +
   '</div>'
 }, { count: 10 });
 ```

@@ -48,7 +48,7 @@
 
 #### Пример отображения виджета
 
-![](/uploads/2021/01/amocrm_ios_widget-473x1024.jpeg)
+![](https://www.amocrm.ru/uploads/2021/01/amocrm_ios_widget-473x1024.jpeg)
 
 #### Пример manifest.json
 

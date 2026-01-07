@@ -92,7 +92,7 @@ _Content-Type: application/problem+json_
 | waba\_footer | string | Футер шаблона WhatsApp |
 | waba\_category | string | Категоря шаблона WhatsApp. Доступны следующие категории: UTILITY AUTHENTICATION MARKETING |
 | waba\_language | string | Язык шаблона WhatsApp |
-| waba\_examples | object | Примеры замены маркеров шаблона WhatsApp. Пример "waba\_examples":{"{{lead.name}}":"qwerty"} |
+| waba\_examples | object | Примеры замены маркеров шаблона WhatsApp. Пример "waba\_examples":{"\_\_\_DOUBLE\_OPEN\_BRACE\_\_\_lead.name\_\_\_DOUBLE\_CLOSE\_BRACE\_\_\_":"qwerty"} |
 | waba\_header | string|null | Хедер шаблона WhatsApp с лимитом до 60 символов. Необязательный параметр |
 | waba\_header\_type | string | Тип хедера шаблона WhatsApp. Доступные варианты: `text` (WhatsApp шаблон с хедером), `media` (WhatsApp шаблон с медиа хедером, должно быть вложение под ключом attachment). Необязательный параметр |
 | \_embedded | object | Объект содержащий информацию прилегающую к запросу |
@@ -121,7 +121,7 @@ _Content-Type: application/problem+json_
         "id": 7349,
         "account_id": 29420107,
         "name": "Test template",
-        "content": "New content. Contact name - {{contact.name}}",
+        "content": "New content. Contact name - \{\{contact.name\}\}",
         "created_at": 1640360627,
         "updated_at": 1640360627,
         "buttons": [
@@ -142,7 +142,7 @@ _Content-Type: application/problem+json_
         "waba_category": "UTILITY",
         "waba_language": "en",
         "waba_examples": {
-          "{{contact.name}}": "My contact"
+          "\{\{contact.name\}\}": "My contact"
         },
         "waba_header": "Header example",
         "waba_header_type": "text",
@@ -234,7 +234,7 @@ _Content-Type: application/problem+json_
 | waba\_footer | string | Футер шаблона WhatsApp |
 | waba\_category | string | Категоря шаблона WhatsApp. Доступны следующие категории: UTILITY AUTHENTICATION MARKETING |
 | waba\_language | string | Язык шаблона WhatsApp |
-| waba\_examples | object | Примеры замены маркеров шаблона WhatsApp. Пример "waba\_examples":{"{{lead.name}}":"qwerty"} |
+| waba\_examples | object | Примеры замены маркеров шаблона WhatsApp. Пример "waba\_examples":{"\_\_\_DOUBLE\_OPEN\_BRACE\_\_\_lead.name\_\_\_DOUBLE\_CLOSE\_BRACE\_\_\_":"qwerty"} |
 | waba\_header | string|null | Хедер шаблона WhatsApp с лимитом до 60 символов. Необязательный параметр |
 | waba\_header\_type | string | Тип хедера шаблона WhatsApp. Доступные варианты: `text` (WhatsApp шаблон с хедером), `media` (WhatsApp шаблон с медиа хедером, должно быть вложение под ключом attachment). Необязательный параметр |
 | \_embedded | object | Объект содержащий информацию прилегающую к запросу |
@@ -251,7 +251,7 @@ _Content-Type: application/problem+json_
   "id": 7349,
   "account_id": 29420107,
   "name": "Test template",
-  "content": "New content. Contact name - {{contact.name}}",
+  "content": "New content. Contact name - \{\{contact.name\}\}",
   "created_at": 1640360627,
   "updated_at": 1640360627,
   "buttons": [
@@ -277,7 +277,7 @@ _Content-Type: application/problem+json_
   "waba_category": "UTILITY",
   "waba_language": "en",
   "waba_examples": {
-    "{{contact.name}}": "My contact"
+    "\{\{contact.name\}\}": "My contact"
   },
   "waba_header": null,
   "waba_header_type": "media",
@@ -342,7 +342,7 @@ _Content-Type: application/json_
 | waba\_footer | string | Футер шаблона WhatsApp |
 | waba\_category | string | Категоря шаблона WhatsApp. Доступны следующие категории: UTILITY AUTHENTICATION MARKETING |
 | waba\_language | string | Язык шаблона WhatsApp |
-| waba\_examples | object | Примеры замены маркеров шаблона WhatsApp. Пример "waba\_examples":{"{{lead.name}}":"qwerty"} |
+| waba\_examples | object | Примеры замены маркеров шаблона WhatsApp. Пример "waba\_examples":{"\_\_\_DOUBLE\_OPEN\_BRACE\_\_\_lead.name\_\_\_DOUBLE\_CLOSE\_BRACE\_\_\_":"qwerty"} |
 | waba\_header | string|null | Хедер шаблона WhatsApp с лимитом до 60 символов. Необязательный параметр |
 | waba\_header\_type | string | Тип хедера шаблона WhatsApp. Доступные варианты: `text` (WhatsApp шаблон с хедером), `media` (WhatsApp шаблон с медиа хедером, должно быть вложение под ключом attachment). Необязательный параметр |
 
@@ -352,7 +352,7 @@ _Content-Type: application/json_
 [
   {
     "name": "Hello template",
-    "content": "Hello {{contact.name}}",
+    "content": "Hello \{\{contact.name\}\}",
     "external_id": "my_external_id_for_hello",
     "buttons": [
       {
@@ -374,7 +374,7 @@ _Content-Type: application/json_
     "waba_category": "UTILITY",
     "waba_language": "en",
     "waba_examples": {
-      "{{contact.name}}": "My contact"
+      "\{\{contact.name\}\}": "My contact"
     },
     "waba_header": null,
     "waba_header_type": "media"
@@ -427,7 +427,7 @@ _Content-Type: application/problem+json_
 | waba\_footer | string | Футер шаблона WhatsApp |
 | waba\_category | string | Категоря шаблона WhatsApp. Доступны следующие категории: UTILITY AUTHENTICATION MARKETING |
 | waba\_language | string | Язык шаблона WhatsApp |
-| waba\_examples | object | Примеры замены маркеров шаблона WhatsApp. Пример "waba\_examples":{"{{lead.name}}":"qwerty"} |
+| waba\_examples | object | Примеры замены маркеров шаблона WhatsApp. Пример "waba\_examples":{"\_\_\_DOUBLE\_OPEN\_BRACE\_\_\_lead.name\_\_\_DOUBLE\_CLOSE\_BRACE\_\_\_":"qwerty"} |
 | waba\_header | string|null | Хедер шаблона WhatsApp с лимитом до 60 символов. Необязательный параметр |
 | waba\_header\_type | string | Тип хедера шаблона WhatsApp. Доступные варианты: `text` (WhatsApp шаблон с хедером), `media` (WhatsApp шаблон с медиа хедером, должно быть вложение под ключом attachment). Необязательный параметр |
 
@@ -442,7 +442,7 @@ _Content-Type: application/problem+json_
         "id": 7351,
         "account_id": 29420107,
         "name": "Hello template",
-        "content": "Hello {{contact.name}}",
+        "content": "Hello \{\{contact.name\}\}",
         "created_at": 1640362536,
         "updated_at": 1640362536,
         "buttons": [
@@ -465,7 +465,7 @@ _Content-Type: application/problem+json_
         "waba_category": "UTILITY",
         "waba_language": "en",
         "waba_examples": {
-          "{{contact.name}}": "My contact"
+          "\{\{contact.name\}\}": "My contact"
         },
         "waba_header": null,
         "waba_header_type": "media",
@@ -529,7 +529,7 @@ _Content-Type: application/json_
 | waba\_footer | string | Футер шаблона WhatsApp |
 | waba\_category | string | Категоря шаблона WhatsApp. Доступны следующие категории: UTILITY AUTHENTICATION MARKETING |
 | waba\_language | string | Язык шаблона WhatsApp |
-| waba\_examples | object | Примеры замены маркеров шаблона WhatsApp. Пример "waba\_examples":{"{{lead.name}}":"qwerty"} |
+| waba\_examples | object | Примеры замены маркеров шаблона WhatsApp. Пример "waba\_examples":{"\_\_\_DOUBLE\_OPEN\_BRACE\_\_\_lead.name\_\_\_DOUBLE\_CLOSE\_BRACE\_\_\_":"qwerty"} |
 | waba\_header | string|null | Хедер шаблона WhatsApp с лимитом до 60 символов. Необязательный параметр |
 | waba\_header\_type | string | Тип хедера шаблона WhatsApp. Доступные варианты: `text` (WhatsApp шаблон с хедером), `media` (WhatsApp шаблон с медиа хедером, должно быть вложение под ключом attachment). Необязательный параметр |
 

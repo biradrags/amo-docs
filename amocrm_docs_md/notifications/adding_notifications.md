@@ -35,7 +35,7 @@ APP.notifications.show_message(message_params);
 
 #### Результат
 
-![](/uploads/2019/06/show_info_notification.png)
+![](https://www.amocrm.ru/uploads/2019/06/show_info_notification.png)
 
 #### Уведомление об ошибке
 
@@ -66,7 +66,7 @@ APP.notifications.show_message_error(error_params);
 
 #### Результат
 
-![](/uploads/2019/06/show_error_notofication.png)
+![](https://www.amocrm.ru/uploads/2019/06/show_error_notofication.png)
 
 #### Уведомление о входящем звонке
 
@@ -101,7 +101,7 @@ APP.notifications.show_notification(notification);
 
 #### Результат
 
-![](/uploads/2019/06/show_call_notification.png)
+![](https://www.amocrm.ru/uploads/2019/06/show_call_notification.png)
 
 #### Пример
 
@@ -118,7 +118,7 @@ APP.notifications.show_notification(notification);
 
 #### Результат
 
-![](/uploads/2019/06/show_error_call_notification.png)
+![](https://www.amocrm.ru/uploads/2019/06/show_error_call_notification.png)
 
 #### Добавление уведомления об ошибке
 
@@ -151,15 +151,15 @@ APP.notifications.add_error(error_params);
 
 #### Результат
 
-![](/uploads/2019/06/add_error_notification.png)
+![](https://www.amocrm.ru/uploads/2019/06/add_error_notification.png)
 
 #### Письмо по событию, пришедшее на email.
 
-![](/uploads/2019/06/Screenshot_6_1.png)
+![](https://www.amocrm.ru/uploads/2019/06/Screenshot_6_1.png)
 
 #### Уведомление, пришедшее в мобильное приложение.
 
-![](/uploads/2019/06/Screenshot_7.png) ![](/uploads/2019/06/Screenshot_7_1.png)
+![](https://www.amocrm.ru/uploads/2019/06/Screenshot_7.png) ![](https://www.amocrm.ru/uploads/2019/06/Screenshot_7_1.png)
 
 #### Уведомление о входящем вызове
 
@@ -215,8 +215,8 @@ APP.notifications.add_call(call_params);
 
 #### Результат
 
-![](/uploads/2019/06/Screenshot_10_1-1.png)
+![](https://www.amocrm.ru/uploads/2019/06/Screenshot_10_1-1.png)
 
 #### Уведомление о звонке в центре нотификаций и в мобильном приложении.
 
-![](/uploads/2019/06/Screenshot_10.png) ![](/uploads/2019/06/Screenshot_10_2.png)
+![](https://www.amocrm.ru/uploads/2019/06/Screenshot_10.png) ![](https://www.amocrm.ru/uploads/2019/06/Screenshot_10_2.png)

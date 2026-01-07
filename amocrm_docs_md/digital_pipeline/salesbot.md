@@ -199,31 +199,31 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 | Маркер | Описание |
 | --- | --- |
-| `{{contact.name}}`, `{{name}}` | имя контакта |
-| `{{lead.id}}` | id сделки |
-| `{{contact.id}}` | id контакта |
-| `{{customer.id}}` | id покупателя |
-| `{{origin}}` | источник сделки (telegram, vk, viber, facebook) |
-| `{{lead.source_id}}` | id источника сделки |
-| `{{message_text}}` | полученное сообщение клиента в логическом блоке ответа |
-| `{{lead.cf.#custom_field_id#}}`, `{{customer.cf.#custom_field_id#}}`, `{{contact.cf.#custom_field_id#}}`, `{{company.cf.#custom_field_id#}}` | значение кастомного поля сущности, вместо #custom\_field\_id# подставьте id дополнительного поля |
-| `{{rand}}` | случайная строка |
-| `{{short_rand}}` | короткая случайная строка |
-| `{{short_rand_num}}` | случайное число из диапазона 1111 – 9999 |
-| `{{message_text.email}}` | email, если он есть в сообщении клиента |
-| `{{message_text.phone}}` | телефон, если он есть в сообщении клиента |
-| `{{regexp./([1-9]+) вещей/}}` | значение по регулярному выражению из ответа пользователя. Подставитcя значение из круглых скобок. Может быть использовано в блоке answer |
-| `{{lead.price}}` | бюджет сделки |
-| `{{current_date}}` | текущая дата |
-| `{{lead.status_id}}` | id статуса сделки |
-| `{{customer.groups_subscribers}}` | id групп подписанных на чат покупателя, к которому привязан контакт |
-| `{{lead.groups_subscribers}}` | id групп подписанных на чат сделки, к которой привязан контакт |
-| `{{customer.users_subscribers}}` | id пользователей подписанных на чат покупателя, к которому привязан контакт |
-| `{{lead.users_subscribers}}` | id пользователей подписанных на чат сделки, к которой привязан контакт |
-| `{{cf.talk.nps}}` | оценка диалога |
-| `{{lead.responsible.id}}`, `{{customer.responsible.id}}`, `{{contact.responsible.id}}`, `{{company.responsible.id}}` | id ответственного за сущность пользователя |
-| `{{lead.responsible.name}}`, `{{customer.responsible.name}}`, `{{contact.responsible.name}}`, `{{company.responsible.name}}` | имя ответственного за сущность пользователя |
-| `{{lead.responsible.email}}`, `{{customer.responsible.email}}`, `{{contact.responsible.email}}`, `{{company.responsible.email}}` | email ответственного за сущность пользователя |
+| `\{\{contact.name\}\}`, `\{\{name\}\}` | имя контакта |
+| `\{\{lead.id\}\}` | id сделки |
+| `\{\{contact.id\}\}` | id контакта |
+| `\{\{customer.id\}\}` | id покупателя |
+| `\{\{origin\}\}` | источник сделки (telegram, vk, viber, facebook) |
+| `\{\{lead.source_id\}\}` | id источника сделки |
+| `\{\{message_text\}\}` | полученное сообщение клиента в логическом блоке ответа |
+| `\{\{lead.cf.#custom_field_id#\}\}`, `\{\{customer.cf.#custom_field_id#\}\}`, `\{\{contact.cf.#custom_field_id#\}\}`, `\{\{company.cf.#custom_field_id#\}\}` | значение кастомного поля сущности, вместо #custom\_field\_id# подставьте id дополнительного поля |
+| `\{\{rand\}\}` | случайная строка |
+| `\{\{short_rand\}\}` | короткая случайная строка |
+| `\{\{short_rand_num\}\}` | случайное число из диапазона 1111 – 9999 |
+| `\{\{message_text.email\}\}` | email, если он есть в сообщении клиента |
+| `\{\{message_text.phone\}\}` | телефон, если он есть в сообщении клиента |
+| `\{\{regexp./([1-9]+) вещей/\}\}` | значение по регулярному выражению из ответа пользователя. Подставитcя значение из круглых скобок. Может быть использовано в блоке answer |
+| `\{\{lead.price\}\}` | бюджет сделки |
+| `\{\{current_date\}\}` | текущая дата |
+| `\{\{lead.status_id\}\}` | id статуса сделки |
+| `\{\{customer.groups_subscribers\}\}` | id групп подписанных на чат покупателя, к которому привязан контакт |
+| `\{\{lead.groups_subscribers\}\}` | id групп подписанных на чат сделки, к которой привязан контакт |
+| `\{\{customer.users_subscribers\}\}` | id пользователей подписанных на чат покупателя, к которому привязан контакт |
+| `\{\{lead.users_subscribers\}\}` | id пользователей подписанных на чат сделки, к которой привязан контакт |
+| `\{\{cf.talk.nps\}\}` | оценка диалога |
+| `\{\{lead.responsible.id\}\}`, `\{\{customer.responsible.id\}\}`, `\{\{contact.responsible.id\}\}`, `\{\{company.responsible.id\}\}` | id ответственного за сущность пользователя |
+| `\{\{lead.responsible.name\}\}`, `\{\{customer.responsible.name\}\}`, `\{\{contact.responsible.name\}\}`, `\{\{company.responsible.name\}\}` | имя ответственного за сущность пользователя |
+| `\{\{lead.responsible.email\}\}`, `\{\{customer.responsible.email\}\}`, `\{\{contact.responsible.email\}\}`, `\{\{company.responsible.email\}\}` | email ответственного за сущность пользователя |
 
 Для маркеров contact используется либо основной контакт сделки/покупателя, либо контакт с чатом, в котором ведется общение с клиентом.
 
@@ -308,11 +308,11 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 Если вы хотите отправить ссылки на социальные сети и что бы произошла автосклейка, ссылки должны быть следующего формата:
 
-*   Facebook Messenger – https​://m.me/123/?ref=VisitorUid\_{{visitor\_uid}} , где 123 – id группы
-*   VK – https​://vk.me/-63068509?ref=VisitorUid\_{{visitor\_uid}} , где 63068509 – id группы
-*   Telegram – tg://resolve?domain=bot&start=VisitorUid\_{{visitor\_uid}} , где bot название бота
-*   Viber – viber://pa?chatURI=bot&context=VisitorUid\_{{visitor\_uid}} ,  где bot название публичного аккаунта
-*   WhatsApp – https​://wa.me/7895?text=ID:%20{{session\_id}} , где 7895 телефон WhatsApp, который подключен в аккаунте
+*   Facebook Messenger – https​://m.me/123/?ref=VisitorUid\_\_\_\_DOUBLE\_OPEN\_BRACE\_\_\_visitor\_uid\_\_\_DOUBLE\_CLOSE\_BRACE\_\_\_ , где 123 – id группы
+*   VK – https​://vk.me/-63068509?ref=VisitorUid\_\_\_\_DOUBLE\_OPEN\_BRACE\_\_\_visitor\_uid\_\_\_DOUBLE\_CLOSE\_BRACE\_\_\_ , где 63068509 – id группы
+*   Telegram – tg://resolve?domain=bot&start=VisitorUid\_\_\_\_DOUBLE\_OPEN\_BRACE\_\_\_visitor\_uid\_\_\_DOUBLE\_CLOSE\_BRACE\_\_\_ , где bot название бота
+*   Viber – viber://pa?chatURI=bot&context=VisitorUid\_\_\_\_DOUBLE\_OPEN\_BRACE\_\_\_visitor\_uid\_\_\_DOUBLE\_CLOSE\_BRACE\_\_\_ ,  где bot название публичного аккаунта
+*   WhatsApp – https​://wa.me/7895?text=ID:%20\_\_\_DOUBLE\_OPEN\_BRACE\_\_\_session\_id\_\_\_DOUBLE\_CLOSE\_BRACE\_\_\_ , где 7895 телефон WhatsApp, который подключен в аккаунте
 
 #### Обработчик buttons
 
@@ -397,8 +397,8 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 #### Обработчик find
 
 Обработчик find позволяет найти сущность и использовать ее данные. Если найден элемент, можно использовать маркеры:  
-`{{founded_id}}` – ID первого найденного элемента каталога  
-`{{contact_double.*}}` – если найден дубль контакта, можно обратиться к его полям по аналогии с маркерами `{{contact.*}}` из [SHOW](/digital_pipeline/salesbot#salesbot-markers.html)
+`\{\{founded_id\}\}` – ID первого найденного элемента каталога  
+`\{\{contact_double.*\}\}` – если найден дубль контакта, можно обратиться к его полям по аналогии с маркерами `\{\{contact.*\}\}` из [SHOW](/digital_pipeline/salesbot#salesbot-markers.html)
 
 #### Пример
 
@@ -414,7 +414,7 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
           "handler": "show",
           "params": {
             "type": "buttons",
-            "value": "Это ваш номер {{contact_double.cf.3574}}?",
+            "value": "Это ваш номер \{\{contact_double.cf.3574\}\}?",
             "buttons": [
               "Да",
               "Нет"
@@ -438,7 +438,7 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
           "handler": "show",
           "params": {
             "type": "buttons",
-            "value": "Найден элемент с ID - {{founded_id}}",
+            "value": "Найден элемент с ID - \{\{founded_id\}\}",
             "buttons": [
                 "Да",
                 "Нет"
@@ -469,7 +469,7 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
   "handler": "filter",
   "params": {
     "type": 2,
-    "value": "{{lead.cf.111}}",
+    "value": "\{\{lead.cf.111\}\}",
     "custom_fields_id": 222,
     "actions": [
       {
@@ -478,7 +478,7 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
           "name": "set_custom_fields",
           "params": {
             "type": 1,
-            "value": "{{external_contact.cf.333}}",
+            "value": "\{\{external_contact.cf.333\}\}",
             "custom_fields_id": 444,
             "enum": "WORK"
           }
@@ -507,7 +507,7 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 {
   "handler": "send_internal",
   "params": {
-    "entity_id": "{{customer.id}}",
+    "entity_id": "\{\{customer.id\}\}",
     "entity_type": 12,
     "message": "Всем привет"
   }
@@ -516,7 +516,7 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
-| entity\_id | int | Id сущности, в которую будет отправлено сообщение. Могут быть использованы маркеры `{{customer.id}}`, `{{lead.id}}` |
+| entity\_id | int | Id сущности, в которую будет отправлено сообщение. Могут быть использованы маркеры `\{\{customer.id\}\}`, `\{\{lead.id\}\}` |
 | entity\_type | int | Тип сущности, в которую будет отправлено сообщение: 2 – сделка, 12 – покупатель |
 | message | string | Строка с сообщением |
 | group\_id | int | Необязательный параметр, идентификатор группы пользователей, в которую необходимо отправить сообщение |
@@ -598,7 +598,7 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 #### Действие set\_tag
 
-Действие set\_tag установит сделке или контакту тег, имеет поддержку разметки `{{origin}}`, которая проставит источник сделки
+Действие set\_tag установит сделке или контакту тег, имеет поддержку разметки `\{\{origin\}\}`, которая проставит источник сделки
 
 #### Пример
 
@@ -619,7 +619,7 @@ echo json_encode($salesbot, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     "name": "set_tag",
     "params": {
       "type": 2,
-      "value": "{{origin}}"
+      "value": "\{\{origin\}\}"
     }
   }
 }
@@ -682,7 +682,7 @@ ID полей можно узнать в разделе Настройки->По
     "name": "set_custom_fields",
     "params": {
       "type": 2,
-      "value": "{{message_text}}",
+      "value": "\{\{message_text\}\}",
       "custom_fields_id": 987
     }
   }
@@ -693,8 +693,8 @@ ID полей можно узнать в разделе Настройки->По
     "name": "set_custom_fields",
     "params": {
       "type": "lead",
-      "value": "{{last_validation_result}}",
-      "custom_field": "{{cf.talk.nps}}"
+      "value": "\{\{last_validation_result\}\}",
+      "custom_field": "\{\{cf.talk.nps\}\}"
     }
   }
 }
@@ -703,10 +703,10 @@ ID полей можно узнать в разделе Настройки->По
 | Параметр | Тип | Описание |
 | --- | --- | --- |
 | type | int | Тип сущности, которой будут заданы кастомные поля (1 – контакт, 2 – сделка) |
-| value | string | Значение поля, которое будет установлено, могут быть использованы маркеры из блока [SHOW](/digital_pipeline/salesbot#salesbot-markers.html). После хэндлера [validations](/digital_pipeline/salesbot#%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-validations.html) допустимо использовать маркер `{{last_validation_result}}`, тогда в качестве значения будут использованны распознанные данные из последнего истинного условия. Например, если было использовано условие "содержит email", то найденный email будет подставлен в качестве значения. |
+| value | string | Значение поля, которое будет установлено, могут быть использованы маркеры из блока [SHOW](/digital_pipeline/salesbot#salesbot-markers.html). После хэндлера [validations](/digital_pipeline/salesbot#%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-validations.html) допустимо использовать маркер `\{\{last_validation_result\}\}`, тогда в качестве значения будут использованны распознанные данные из последнего истинного условия. Например, если было использовано условие "содержит email", то найденный email будет подставлен в качестве значения. |
 | custom\_fields\_id | int | id поля, в которое будет установлено значение |
-| custom\_field | string | Идентификатор изменяемого поля, могут быть использованы: `{{lead.price}}` – бюджет сделки, `{{lead.name}}` – название сделки, `{{contact.name}}` – имя контакта, `{{customer.next_price}}` – сумма следующей покупки покупателя, `{{cf.talk.nps}}` – оценка текущего диалога |
-| calculated | bool | Нужно ли попытаться посчитать значение этого кастомного поля по формуле, например `{{lead.cf.123}}*{{lead.cf.456}}` |
+| custom\_field | string | Идентификатор изменяемого поля, могут быть использованы: `\{\{lead.price\}\}` – бюджет сделки, `\{\{lead.name\}\}` – название сделки, `\{\{contact.name\}\}` – имя контакта, `\{\{customer.next_price\}\}` – сумма следующей покупки покупателя, `\{\{cf.talk.nps\}\}` – оценка текущего диалога |
+| calculated | bool | Нужно ли попытаться посчитать значение этого кастомного поля по формуле, например `\{\{lead.cf.123\}\}*\{\{lead.cf.456\}\}` |
 | option | string | Опция – "add" позволяет добавить значение к полю (типы поддерживаемых полей: телефон, email, мультисписок) |
 
 #### Действие subscribe
@@ -722,7 +722,7 @@ ID полей можно узнать в разделе Настройки->По
     "name": "subscribe",
     "params": {
       "type": "user",
-      "value": "{{lead.responsible_user_id}}"
+      "value": "\{\{lead.responsible_user_id\}\}"
     }
   }
 }
@@ -747,7 +747,7 @@ ID полей можно узнать в разделе Настройки->По
     "name": "unsubscribe",
     "params": {
       "type": "user",
-      "value": "{{lead.responsible_user_id}}"
+      "value": "\{\{lead.responsible_user_id\}\}"
     }
   }
 }
@@ -783,7 +783,7 @@ ID полей можно узнать в разделе Настройки->По
             "id": 77744111,
             "values": [
               {
-                "value": "{{contact.name}}"
+                "value": "\{\{contact.name\}\}"
               }
             ]
           },
@@ -791,7 +791,7 @@ ID полей можно узнать в разделе Настройки->По
             "id": 77744222,
             "values": [
               {
-                "value": "{{lead.cf.77744222}}"
+                "value": "\{\{lead.cf.77744222\}\}"
               }
             ]
           }
@@ -806,7 +806,7 @@ ID полей можно узнать в разделе Настройки->По
             "id": 77744333,
             "values": [
               {
-                "value": "{{rand}}"
+                "value": "\{\{rand\}\}"
               }
             ]
           },
@@ -814,7 +814,7 @@ ID полей можно узнать в разделе Настройки->По
             "id": 77744444,
             "values": [
               {
-                "value": "{{message_text.email}}",
+                "value": "\{\{message_text.email\}\}",
                 "enum": "WORK"
               }
             ]
@@ -823,7 +823,7 @@ ID полей можно узнать в разделе Настройки->По
             "id": 77744555,
             "values": [
               {
-                "value": "{{message_text.phone}}",
+                "value": "\{\{message_text.phone\}\}",
                 "enum": "WORK"
               }
             ]
@@ -853,7 +853,7 @@ ID полей можно узнать в разделе Настройки->По
   "params": {
     "name": "set_budget",
     "params": {
-      "value": "{{lead.cf.555123}}*{{lead.cf.555321}}"
+      "value": "\{\{lead.cf.555123\}\}*\{\{lead.cf.555321\}\}"
     }
   }
 }
@@ -861,7 +861,7 @@ ID полей можно узнать в разделе Настройки->По
 
 | Параметр | Тип | Описание |
 | --- | --- | --- |
-| value | string | Число, которое будет записано в бюджет сделки. Так же поле может быть вычисляемым, в выражения можно подставлять любые маркеры из блока [SHOW](/digital_pipeline/salesbot#salesbot-markers.html). Доступные операции: +, -, \*, /, так же можно использовать скобки например: `({{lead.cf.555123}} + 1) * {{lead.cf.555321}}` |
+| value | string | Число, которое будет записано в бюджет сделки. Так же поле может быть вычисляемым, в выражения можно подставлять любые маркеры из блока [SHOW](/digital_pipeline/salesbot#salesbot-markers.html). Доступные операции: +, -, \*, /, так же можно использовать скобки например: `(\{\{lead.cf.555123\}\} + 1) * \{\{lead.cf.555321\}\}` |
 
 #### Действие add\_linked\_company
 
@@ -875,7 +875,7 @@ ID полей можно узнать в разделе Настройки->По
   "params": {
     "name": "add_linked_company",
     "params": {
-      "name": "{{message_text}}"
+      "name": "\{\{message_text\}\}"
     }
   }
 }
@@ -925,7 +925,7 @@ ID полей можно узнать в разделе Настройки->По
     "params": {
       "from": 2,
       "to": 11,
-      "to_id": "{{founded_id}}",
+      "to_id": "\{\{founded_id\}\}",
       "to_catalog_id": 123
     }
   }
@@ -987,8 +987,8 @@ ID полей можно узнать в разделе Настройки->По
 | Параметр | Тип | Описание |
 | --- | --- | --- |
 | entity\_type | int | Тип сущности: 2 – сделка, 12 – покупатель |
-| entity\_id | string | Id сущности к которой должен привязаться контакт. Можно использовать маркеры, например, если использовался обработчик filter, `{{external_lead.id}}`, `{{external_customer.id}}` |
-| contact\_id | string | Не обязательный параметр. Id контакта к которому должен привязаться чат. Контакт должен находиться в указанной сделке. Можно использовать маркеры, например, если использовался обработчик filter, `{{external_contact.id}}` |
+| entity\_id | string | Id сущности к которой должен привязаться контакт. Можно использовать маркеры, например, если использовался обработчик filter, `\{\{external_lead.id\}\}`, `\{\{external_customer.id\}\}` |
+| contact\_id | string | Не обязательный параметр. Id контакта к которому должен привязаться чат. Контакт должен находиться в указанной сделке. Можно использовать маркеры, например, если использовался обработчик filter, `\{\{external_contact.id\}\}` |
 
 #### Обработчик meta
 
@@ -1052,7 +1052,7 @@ ID полей можно узнать в разделе Настройки->По
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
-| term1 | string | Условие 1 может быть `lead.tags` – который возвращает список тегов, `chat.origin` – который возвращает источник откуда пришла заявка(vk, facebook, telegram, viber) любой обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}` |
+| term1 | string | Условие 1 может быть `lead.tags` – который возвращает список тегов, `chat.origin` – который возвращает источник откуда пришла заявка(vk, facebook, telegram, viber) любой обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `\{\{contact.name\}\}` |
 | term2 | string, object | Условие 2, для оператора range необходимо передать объект с параметрами, в ином случае строку либо маркеры из блока [SHOW](/digital_pipeline/salesbot#salesbot-markers.html) |
 | term2.from | int | Значение диапазона "от" |
 | term2.to | int | Значение диапазона "до" |
@@ -1078,19 +1078,19 @@ ID полей можно узнать в разделе Настройки->По
     "logic": "and",
     "conditions": [
       {
-        "client_value": "{{message_text}}",
+        "client_value": "\{\{message_text\}\}",
         "type": "regex",
         "condition_value": "/[0-9]+/",
         "operation": "contains"
       },
       {
-        "client_value": "{{message_text}}",
+        "client_value": "\{\{message_text\}\}",
         "type": "simple",
         "condition_value": "654",
         "operation": "equal"
       },
       {
-        "client_value": "{{message_text}}",
+        "client_value": "\{\{message_text\}\}",
         "type": "range_numbers",
         "condition_value": {
           "from": 123,
@@ -1099,7 +1099,7 @@ ID полей можно узнать в разделе Настройки->По
         "operation": "contains"
       },
       {
-        "client_value": "{{message_text}}",
+        "client_value": "\{\{message_text\}\}",
         "type": "email",
         "condition_value": "",
         "operation": "contains"
@@ -1132,7 +1132,7 @@ ID полей можно узнать в разделе Настройки->По
 
 ```javascript
 {
-  "client_value": "{{message_text}}",
+  "client_value": "\{\{message_text\}\}",
   "type": "simple",
   "condition_value": "654",
   "operation": "equal"
@@ -1141,9 +1141,9 @@ ID полей можно узнать в разделе Настройки->По
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
-| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}`. |
+| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `\{\{contact.name\}\}`. |
 | type | `"simple"` | Тип условия, всегда "simple" |
-| condition\_value | string | Текстом условия может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}`, либо собственное значение |
+| condition\_value | string | Текстом условия может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `\{\{contact.name\}\}`, либо собственное значение |
 | operation | `"equal"`, `"not_equal"` | Если выбран оператор "equal", то условие будет истинным, если client\_value равно condition\_value. Если выбран оператор "not\_equal", то условие будет истинным, если client\_value не равно condition\_value |
 
 ##### Условие length
@@ -1154,7 +1154,7 @@ ID полей можно узнать в разделе Настройки->По
 
 ```javascript
 {
-  "client_value": "{{message_text}}",
+  "client_value": "\{\{message_text\}\}",
   "type": "simple",
   "condition_value": "321",
   "operation": "length"
@@ -1163,9 +1163,9 @@ ID полей можно узнать в разделе Настройки->По
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
-| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}`. |
+| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `\{\{contact.name\}\}`. |
 | type | `"simple"` | Тип условия, всегда "simple" |
-| condition\_value | string | Текстом условия может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}`, либо собственное значение |
+| condition\_value | string | Текстом условия может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `\{\{contact.name\}\}`, либо собственное значение |
 | operation | `"length"` | Условие будет истинным, если длина строки client\_value будет равна condition\_value |
 
 ##### Условие номер телефона или email
@@ -1176,7 +1176,7 @@ ID полей можно узнать в разделе Настройки->По
 
 ```javascript
 {
-  "client_value": "{{message_text}}",
+  "client_value": "\{\{message_text\}\}",
   "type": "email",
   "condition_value": "",
   "operation": "contains"
@@ -1185,7 +1185,7 @@ ID полей можно узнать в разделе Настройки->По
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
-| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}` |
+| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `\{\{contact.name\}\}` |
 | type | `"email"`, `"phone"` | Тип условия, может быть "email" для поиска email-а или "phone" для поиска номера телефона |
 | condition\_value | `""` | Текст условия оставляем пустым |
 | operation | `"contains"`, `"not_contains"` | Если выбран оператор "contains", условие будет истинным, если client\_value содержит email или телефон. Если выбран оператор "not\_contains", условие будет истинным, если client\_value не содержит email или телефон |
@@ -1198,7 +1198,7 @@ ID полей можно узнать в разделе Настройки->По
 
 ```javascript
 {
-  "client_value": "{{message_text}}",
+  "client_value": "\{\{message_text\}\}",
   "type": "regex",
   "condition_value": "/[0-9]+/",
   "operation": "contains"
@@ -1207,7 +1207,7 @@ ID полей можно узнать в разделе Настройки->По
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
-| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}` |
+| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `\{\{contact.name\}\}` |
 | type | `"regex"` | Тип условия, всегда "regex" |
 | condition\_value | string | Текст условия |
 | operation | `"contains"`, `"not_contains"` | Если выбран оператор "contains", условие будет истинным, если client\_value содержит указанное регулярное выражение. Если выбран оператор "not\_contains", условие будет истинным, если client\_value не содержит указанное регулярное выражение |
@@ -1220,7 +1220,7 @@ ID полей можно узнать в разделе Настройки->По
 
 ```javascript
 {
-  "client_value": "{{message_text}}",
+  "client_value": "\{\{message_text\}\}",
   "type": "range_numbers",
   "condition_value": {
     "from": 123,
@@ -1232,11 +1232,11 @@ ID полей можно узнать в разделе Настройки->По
 
 | Параметры | Тип | Описание |
 | --- | --- | --- |
-| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}` |
+| client\_value | string | Проверяемым значением может быть обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `\{\{contact.name\}\}` |
 | type | `"range_numbers"` | Тип условия, всегда "range\_numbers" |
 | condition\_value | object | Диапазон, на который проверяем все числа в client\_value |
-| condition\_value.from | string, number | значение диапазона "от", можно указать обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{lead.price}}`, либо собственное значение |
-| condition\_value.to | string, number | значение диапазона "до", можно указать обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{lead.price}}`, либо собственное значение |
+| condition\_value.from | string, number | значение диапазона "от", можно указать обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `\{\{lead.price\}\}`, либо собственное значение |
+| condition\_value.to | string, number | значение диапазона "до", можно указать обработчик из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `\{\{lead.price\}\}`, либо собственное значение |
 | operation | `"contains"`, `"not_contains"` | Если выбран оператор "contains", условие будет истинным, если client\_value содержит число в указанном диапазоне. Если выбран оператор "not\_contains", условие будет истинным, если client\_value не содержит число в указанном диапазоне |
 
 #### Обработчик preset
@@ -1260,7 +1260,7 @@ ID полей можно узнать в разделе Настройки->По
   "params": {
     "url": "https://example.com/endpoint",
     "data": {
-      "contact": "{{contact.name}}",
+      "contact": "\{\{contact.name\}\}",
       "from": "widget"
     }
   }
@@ -1270,7 +1270,7 @@ ID полей можно узнать в разделе Настройки->По
 | Параметры | Тип | Описание |
 | --- | --- | --- |
 | url | string | URL эндпоинта внешнего сервера |
-| data | array | Массив любых данных, содержащих строки и/или обработчики из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `{{contact.name}}` |
+| data | array | Массив любых данных, содержащих строки и/или обработчики из блока описанного в разделе [SHOW](/digital_pipeline/salesbot#salesbot-markers.html), например `\{\{contact.name\}\}` |
 
 На эндпоинт придёт POST запрос, для отметки, что хук принят, вам необходимо ответить на него в течении 2 секунд с HTTP-кодом ответа 200.
 
@@ -1630,7 +1630,7 @@ JWT Token нужен для валидации данных присланных
       {
         "handler": "condition",
         "params": {
-          "term1": "{{customer.groups_subscribers}}",
+          "term1": "\{\{customer.groups_subscribers\}\}",
           "term2": "0,12345",
           "operation": "in",
           "result": [
@@ -1660,7 +1660,7 @@ JWT Token нужен для валидации данных присланных
       {
         "handler": "condition",
         "params": {
-          "term1": "{{cf.talk.nps}}",
+          "term1": "\{\{cf.talk.nps\}\}",
           "term2": { "from": 7 },
           "operation": "in_range",
           "result": [
@@ -1849,11 +1849,11 @@ JWT Token нужен для валидации данных присланных
 
 Если вы хотите отправить ссылки на социальные сети и что бы произошла автосклейка, ссылки должны быть следующего формата:
 
-*   Facebook Messenger – https​://m.me/123/?ref=VisitorUid\_{{visitor\_uid}} , где 123 – id группы
-*   VK – https​://vk.me/-63068509?ref=VisitorUid\_{{visitor\_uid}} , где 63068509 – id группы
-*   Telegram – tg://resolve?domain=bot&start=VisitorUid\_{{visitor\_uid}} , где bot название бота
-*   Viber – viber://pa?chatURI=bot&context=VisitorUid\_{{visitor\_uid}} ,  где bot название публичного аккаунта
-*   WhatsApp – https​://wa.me/7895?text=ID:%20{{session\_id}} , где 7895 телефон WhatsApp, который подключен в аккаунте
+*   Facebook Messenger – https​://m.me/123/?ref=VisitorUid\_\_\_\_DOUBLE\_OPEN\_BRACE\_\_\_visitor\_uid\_\_\_DOUBLE\_CLOSE\_BRACE\_\_\_ , где 123 – id группы
+*   VK – https​://vk.me/-63068509?ref=VisitorUid\_\_\_\_DOUBLE\_OPEN\_BRACE\_\_\_visitor\_uid\_\_\_DOUBLE\_CLOSE\_BRACE\_\_\_ , где 63068509 – id группы
+*   Telegram – tg://resolve?domain=bot&start=VisitorUid\_\_\_\_DOUBLE\_OPEN\_BRACE\_\_\_visitor\_uid\_\_\_DOUBLE\_CLOSE\_BRACE\_\_\_ , где bot название бота
+*   Viber – viber://pa?chatURI=bot&context=VisitorUid\_\_\_\_DOUBLE\_OPEN\_BRACE\_\_\_visitor\_uid\_\_\_DOUBLE\_CLOSE\_BRACE\_\_\_ ,  где bot название публичного аккаунта
+*   WhatsApp – https​://wa.me/7895?text=ID:%20\_\_\_DOUBLE\_OPEN\_BRACE\_\_\_session\_id\_\_\_DOUBLE\_CLOSE\_BRACE\_\_\_ , где 7895 телефон WhatsApp, который подключен в аккаунте
 
 Параметры обработчика для отправки текста с фильтрацией по значению поля контакта
 
@@ -1874,8 +1874,8 @@ JWT Token нужен для валидации данных присланных
                 "result": 1,
                 "conditions": [
                     {
-                        "term1": "{{contact.cf.1880614.is_checked}}",
-                        "term2": "{{contact.cf.1880614.1300836}}",
+                        "term1": "\{\{contact.cf.1880614.is_checked\}\}",
+                        "term2": "\{\{contact.cf.1880614.1300836\}\}",
                         "operation": "=",
                         "value_type": "value"
                     }

@@ -146,6 +146,64 @@ function convertInternalLinks($, baseUrl) {
   });
 }
 
+function convertImages($, baseUrl) {
+  $("img").each((_, img) => {
+    const $img = $(img);
+    const src = $img.attr("src");
+    if (!src) return;
+    
+    if (src.startsWith("/")) {
+      const parsed = new URL(baseUrl);
+      $img.attr("src", `${parsed.origin}${src}`);
+    } else if (src.startsWith("http://") || src.startsWith("https://")) {
+      return;
+    } else {
+      try {
+        const absUrl = new URL(src, baseUrl).toString();
+        $img.attr("src", absUrl);
+      } catch {
+        return;
+      }
+    }
+  });
+}
+
+function protectVueInterpolationInHtml($) {
+  // Рекурсивная функция для обработки всех текстовых узлов
+  function processTextNodes($element) {
+    $element.contents().each((_, node) => {
+      if (node.type === "text") {
+        const text = $(node).text();
+        if (text.includes("{{") && text.includes("}}")) {
+          const newText = text
+            .replace(/\{\{/g, "___DOUBLE_OPEN_BRACE___")
+            .replace(/\}\}/g, "___DOUBLE_CLOSE_BRACE___");
+          $(node).replaceWith(newText);
+        }
+      } else if (node.type === "tag" && node.name !== "code" && node.name !== "pre") {
+        // Рекурсивно обрабатываем дочерние элементы (кроме code и pre)
+        processTextNodes($(node));
+      }
+    });
+  }
+  
+  // Сначала обрабатываем все <code> теги
+  $("code").each((_, code) => {
+    const $code = $(code);
+    const text = $code.text();
+    
+    if (text.includes("{{") && text.includes("}}")) {
+      const withPlaceholder = text
+        .replace(/\{\{/g, "___DOUBLE_OPEN_BRACE___")
+        .replace(/\}\}/g, "___DOUBLE_CLOSE_BRACE___");
+      $code.text(withPlaceholder);
+    }
+  });
+  
+  // Затем обрабатываем все текстовые узлы вне code/pre
+  processTextNodes($.root());
+}
+
 async function fetchHtml(url) {
   const resp = await axios.get(url, {
     headers: {
@@ -216,11 +274,43 @@ function cleanMarkdown(markdown) {
     }
     
     line = escapeProblematicHtml(line);
+    line = escapeVueInterpolationOutsideCode(line);
     
     result.push(line);
   }
   
   return result.join("\n");
+}
+
+function escapeVueInterpolationOutsideCode(line) {
+  // Проверяем есть ли в строке уже экранированные {{ }} или placeholders
+  if (line.includes("\\{\\{") || line.includes("___DOUBLE_OPEN_BRACE___")) {
+    // Уже обработано
+    return line;
+  }
+  
+  const parts = [];
+  let inCode = false;
+  let current = '';
+  
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+    
+    if (char === '`') {
+      inCode = !inCode;
+      current += char;
+    } else if (!inCode && char === '{' && line[i + 1] === '{') {
+      current += '\\{\\{';
+      i++;
+    } else if (!inCode && char === '}' && line[i + 1] === '}') {
+      current += '\\}\\}';
+      i++;
+    } else {
+      current += char;
+    }
+  }
+  
+  return current;
 }
 
 function escapeProblematicHtml(line) {
@@ -263,10 +353,17 @@ function htmlToMarkdown(url, html) {
   const main = extractMainContent($);
   stripLayoutElements($, main);
   convertInternalLinks($, url);
+  convertImages($, url);
+  protectVueInterpolationInHtml($);
 
   const turndown = setupTurndown();
   const innerHtml = main.html() ?? "";
   let markdownBody = turndown.turndown(innerHtml).trim();
+  
+  // Возвращаем placeholders обратно в экранированные {{ }}
+  markdownBody = markdownBody
+    .replace(/___DOUBLE_OPEN_BRACE___/g, "\\{\\{")
+    .replace(/___DOUBLE_CLOSE_BRACE___/g, "\\}\\}");
   
   markdownBody = cleanMarkdown(markdownBody);
 

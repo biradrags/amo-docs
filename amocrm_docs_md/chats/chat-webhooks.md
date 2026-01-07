@@ -253,10 +253,10 @@ if (isset($_SERVER['HTTP_X_SIGNATURE']) && $signature === $_SERVER['HTTP_X_SIGNA
       "template": {
         "id": 7103,
         "external_id": "my_external_id",
-        "content": "Текст сообщения {{lead.name}}",
+        "content": "Текст сообщения \{\{lead.name\}\}",
         "params": [
           {
-            "key": "{{lead.id}}",
+            "key": "\{\{lead.id\}\}",
             "value": "15926745"
           }
         ]

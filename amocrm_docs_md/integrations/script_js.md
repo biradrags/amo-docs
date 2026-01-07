@@ -297,7 +297,7 @@ var params = [
 ]; //массив данных, передаваемых для шаблона
 
 var template = '<div><ul>' + '{% for person in names %}' +
-    '<li>Name : {{ person.name }}, id: {{ person.id }}</li>' +
+    '<li>Name : \{\{ person.name \}\}, id: \{\{ person.id \}\}</li>' +
 '{% endfor %}' + '</ul></div>';
 
 console.log(self.render({data: template}, // передаем шаблон
@@ -458,13 +458,13 @@ var html_data = '<div id="w_logo" class="nw_form">' + '<div id="js-sub-subs-cont
 /*Здесь в качестве параметров передается шаблон и данные для шаблона.*/
 var render_data = '<div class="nw_form">' +
     '<div id="w_logo">' +
-    '<img src="/widgets/{{w_code}}/images/logo.png" id="firstwidget_image"></img>' +
+    '<img src="/widgets/\{\{w_code\}\}/images/logo.png" id="firstwidget_image"></img>' +
     '</div>' +
     '<div id="js-sub-lists-container">' +
     '</div>' +
     '<div id="js-sub-subs-container">' +
     '</div>' +
-    '<div class="nw-form-button">{{b_name}}</div></div>' +
+    '<div class="nw-form-button">\{\{b_name\}\}</div></div>' +
     '<div class="already-subs"></div>';
 
 self.render_template(

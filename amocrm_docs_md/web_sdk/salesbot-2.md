@@ -105,13 +105,13 @@ this.callbacks = {
 onSalesbotDesignerSave: function (handler_code, params) {
   var request_data = {
     message: params.message,
-    amouser: '{{admin.login}}'
+    amouser: '\{\{admin.login\}\}'
   };
 
   if (APP.getBaseEntity() === 'customers') {
-    request_data.customer = '{{customer.id}}';
+    request_data.customer = '\{\{customer.id\}\}';
   } else {
-    request_data.lead = '{{lead.id}}';
+    request_data.lead = '\{\{lead.id\}\}';
   }
 
   return JSON.stringify([
@@ -143,7 +143,7 @@ onSalesbotDesignerSave: function (handler_code, params) {
             logic: 'and',
             conditions: [
               {
-                term1: '{{json.status}}',
+                term1: '\{\{json.status\}\}',
                 term2: 'success',
                 operation: '='
               }

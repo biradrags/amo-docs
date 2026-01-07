@@ -154,7 +154,7 @@ self.get_settings();
 
 ```javascript
 self.render({
-  data: 'The {{ baked_good }} is a lie.'
+  data: 'The \{\{ baked_good \}\} is a lie.'
 }, {
   baked_good: 'cupcake'
 });
@@ -278,12 +278,12 @@ define(['./templates.js'], function(createTemplatesRenderer) {
 Пример с рендерингом шаблона input:
 
 ```twig
-{{ include_control('input', {
+\{\{ include_control('input', {
   class_name: 'widget_custom_class_name',
   name: 'widget_input',
   placeholder: 'Поле для заполнения',
   value: 'Сохраненное значение'
-}) }}
+}) \}\}
 ```
 
 Первый параметр (строка) – код шаблона контрола #TEMPLATE\_NAME#.
