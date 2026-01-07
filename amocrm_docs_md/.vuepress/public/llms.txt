@@ -1,0 +1,83 @@
+# amoCRM Docs
+
+Локальное зеркало документации amoCRM
+
+## Основное содержание
+- [Перейти к основному содержанию](https://amo-docs.fly.dev/#main-content): Основная страница документации amoCRM, содержащая ссылки на все разделы и материалы.
+
+## Общая информация
+- [amoCRM Docs](https://amo-docs.fly.dev/): Полный доступ к документации amoCRM, включая все доступные функции и API.
+
+## Возможности
+- [Возможности](https://amo-docs.fly.dev/catalogs/capabilities.html): Обзор функциональных возможностей платформы amoCRM, включая управление клиентами и автоматизацию процессов.
+- [Возможности](https://amo-docs.fly.dev/files/files-capabilities.html): Дополнительные возможности и функции, доступные в amoCRM.
+
+## Каталоги и товары
+- [Catalogs](https://amo-docs.fly.dev/catalogs/): Информация о каталогах, используемых в amoCRM для управления продуктами и услугами.
+- [Товары](https://amo-docs.fly.dev/catalogs/products.html): Подробности о товарах, включая их добавление и управление.
+- [Товары](https://amo-docs.fly.dev/crm_platform/products-api.html): Дополнительные сведения о товарах и их характеристиках.
+
+## Чаты и API
+- [Chats](https://amo-docs.fly.dev/chats/): Описание функционала чатов в amoCRM.
+- [API Чатов](https://amo-docs.fly.dev/chats/chat-capabilities.html): Документация по API для работы с чатами.
+- [Методы API чатов](https://amo-docs.fly.dev/chats/chat-api-reference.html): Подробное описание методов API, доступных для работы с чатами.
+- [Форматы вебхуков чатов](https://amo-docs.fly.dev/chats/chat-webhooks.html): Информация о форматах вебхуков, используемых для интеграции с чатами.
+
+## CRM Платформа
+- [Crm Platform](https://amo-docs.fly.dev/crm_platform/): Обзор платформы CRM и ее основных компонентов.
+- [API Reference](https://amo-docs.fly.dev/crm_platform/api-reference.html): Полная справка по API, доступному в amoCRM.
+- [Webhooks](https://amo-docs.fly.dev/crm_platform/webhooks-format.html): Информация о вебхуках и их использовании в amoCRM.
+
+## Задачи и события
+- [Задачи](https://amo-docs.fly.dev/crm_platform/tasks-api.html): Описание функционала задач в amoCRM.
+- [События и Примечания](https://amo-docs.fly.dev/crm_platform/events-and-notes.html): Информация о событиях и примечаниях, связанных с клиентами и сделками.
+
+## Интеграции
+- [Разработка интеграций](https://amo-docs.fly.dev/digital_pipeline/integrations.html): Рекомендации по разработке интеграций с amoCRM.
+- [Интеграции с эквайрингами и платежными системами](https://amo-docs.fly.dev/integrations/banks-and-acquiring.html): Информация о возможностях интеграции с платежными системами.
+- [Интеграция виджета в Salesbot](https://amo-docs.fly.dev/integrations/salesbot_widget.html): Подробности о том, как интегрировать виджеты в Salesbot.
+
+## Авторизация и безопасность
+- [Oauth](https://amo-docs.fly.dev/oauth/): Описание механизма авторизации через Oauth.
+- [oAuth 2.0](https://amo-docs.fly.dev/oauth/oauth.html): Подробности о стандарте Oauth 2.0 для авторизации.
+- [Авторизация в публичных интеграциях](https://amo-docs.fly.dev/oauth/auth-public-integrations.html): Информация о процессе авторизации для публичных интеграций.
+
+## Виджеты
+- [Виджеты](https://amo-docs.fly.dev/crm_platform/widgets-api.html): Обзор виджетов, доступных в amoCRM.
+- [JS SDK](https://amo-docs.fly.dev/integrations/js_sdk.html): Документация по JavaScript SDK для работы с виджетами.
+- [Загрузка виджета](https://amo-docs.fly.dev/integrations/upload.html): Инструкции по загрузке и настройке виджетов.
+
+## Уведомления
+- [Notifications](https://amo-docs.fly.dev/notifications/): Описание системы уведомлений в amoCRM.
+- [Добавление нотификаций](https://amo-docs.fly.dev/notifications/adding_notifications.html): Инструкции по добавлению уведомлений в систему.
+- [Подписка на уведомления](https://amo-docs.fly.dev/notifications/js-subscribe.html): Как подписаться на уведомления в amoCRM.
+
+## Телефония
+- [Telephony](https://amo-docs.fly.dev/telephony/): Описание возможностей телефонии в amoCRM.
+- [Пример интеграции](https://amo-docs.fly.dev/telephony/integration.html): Пример интеграции телефонии с amoCRM.
+- [Уведомление о звонке](https://amo-docs.fly.dev/telephony/call_event.html): Информация о том, как обрабатывать уведомления о звонках.
+
+## Дополнительные ресурсы
+- [Кнопка обратной связи](https://amo-docs.fly.dev/digital_pipeline/feedback_button.html): Информация о кнопке обратной связи и ее настройке.
+- [Кнопка на сайт](https://amo-docs.fly.dev/oauth/button.html): Как добавить кнопку на сайт для взаимодействия с amoCRM.
+- [Работа виджета в разделе интеграций](https://amo-docs.fly.dev/web_sdk/settings.html): Описание работы виджетов в разделе интеграций.
+
+## Структура и механика
+- [Структура виджета](https://amo-docs.fly.dev/integrations/structure.html): Описание структуры виджета и его компонентов.
+- [Механика работы](https://amo-docs.fly.dev/web_sdk/mechanics.html): Подробности о механике работы системы и ее компонентов.
+
+## Ошибки и отладка
+- [Коды ошибок](https://amo-docs.fly.dev/crm_platform/error-codes.html): Список кодов ошибок, которые могут возникнуть при работе с amoCRM.
+- [Разрешения и права](https://amo-docs.fly.dev/oauth/scopes.html): Информация о разрешениях и правах доступа в системе.
+
+## Интерфейсы
+- [Интерфейс карточки](https://amo-docs.fly.dev/web_sdk/card.html): Описание интерфейса карточки клиента.
+- [Интерфейс списков](https://amo-docs.fly.dev/web_sdk/list.html): Подробности о интерфейсе списков в amoCRM.
+
+## Темы и настройки
+- [Темная тема](https://amo-docs.fly.dev/web_sdk/dark_theme.html): Информация о темной теме интерфейса amoCRM.
+- [Расширенные настройки](https://amo-docs.fly.dev/integrations/custom_settings.html): Описание расширенных настроек системы.
+
+## Заключение
+- [Пример по шагам](https://amo-docs.fly.dev/chats/chat-step-by-step.html): Пошаговый пример работы с amoCRM.
+- [Начало работы](https://amo-docs.fly.dev/chats/chat-start.html): Рекомендации по началу работы с платформой amoCRM.
